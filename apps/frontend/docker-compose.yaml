@@ -10,15 +10,10 @@ services:
         NEXT_PUBLIC_URL: ${NEXT_PUBLIC_URL:-https://superagent-native.flashlabs.ai}
         NEXT_PUBLIC_ENV_MODE: ${NEXT_PUBLIC_ENV_MODE:-LOCAL}
     restart: unless-stopped
+    ports:
+      - "3000:3000"
     networks:
-      - default
       - suna-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`superagent-native.flashlabs.ai`)"
-      - "traefik.http.routers.frontend.entrypoints=web"
-      - "traefik.http.routers.frontend.priority=10"
-      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000"]
       interval: 30s
