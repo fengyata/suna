@@ -247,7 +247,7 @@ def convert_buffer_to_complete_tool_calls(tool_calls_buffer: Dict[int, Dict[str,
                             continue
                     except (json.JSONDecodeError, TypeError):
                         pass
-                logger.warning(f"Tool call {tc_buf.get('id')} has invalid JSON arguments (repair failed), skipping: {str(e)[:100]}")
+                logger.warning(f"Tool call {tc_buf.get('id')} has invalid JSON arguments (repair failed), skipping: {str(e)[:100]}\n[FINAL_BUFFER] Raw arguments ({len(arguments_str)} chars):\n{arguments_str}")
                 continue
     
     return complete_tool_calls

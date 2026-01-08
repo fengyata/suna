@@ -946,7 +946,10 @@ class ResponseProcessor:
                             if hasattr(tool_call_chunk.function, 'name') and tool_call_chunk.function.name:
                                 tool_calls_buffer[idx]['function']['name'] = tool_call_chunk.function.name
                             if hasattr(tool_call_chunk.function, 'arguments') and tool_call_chunk.function.arguments:
-                                tool_calls_buffer[idx]['function']['arguments'] += tool_call_chunk.function.arguments
+                                chunk_args = tool_call_chunk.function.arguments
+                                logger.debug(f"[TOOL_CHUNK] idx={idx} id={tool_calls_buffer[idx].get('id')} chunk_len={len(chunk_args)} chunk={repr(chunk_args[:100])}")
+                                tool_calls_buffer[idx]['function']['arguments'] += chunk_args
+                                logger.debug(f"[TOOL_BUFFER] idx={idx} total_len={len(tool_calls_buffer[idx]['function']['arguments'])}")
                             
                             native_tool_calls_updated = True
                             
