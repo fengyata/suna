@@ -7,13 +7,6 @@ services:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    networks:
-      - suna-network
-    depends_on:
-      - frontend
-      - backend
-
-networks:
-  suna-network:
-    external: true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
