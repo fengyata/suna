@@ -21,7 +21,7 @@ services:
       - suna-network
     environment:
       - LOG_LEVEL=DEBUG
-      - WORKERS=${WORKERS:-16}
+      - WORKERS=${WORKERS:-4}
     logging:
       driver: "json-file"
       options:
