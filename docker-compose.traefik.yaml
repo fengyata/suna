@@ -16,6 +16,7 @@ services:
   traefik:
     image: traefik:v2.11
     container_name: traefik
+    user: root
     restart: unless-stopped
     command:
       # API and Dashboard
