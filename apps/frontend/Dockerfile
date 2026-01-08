@@ -26,9 +26,7 @@ ENV NEXT_OUTPUT=standalone
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 WORKDIR /app/apps/frontend
-# 缓存 Next.js 构建缓存
-RUN --mount=type=cache,target=/app/apps/frontend/.next/cache \
-    pnpm run build
+RUN pnpm run build
 
 
 # ---- Runner Stage ----

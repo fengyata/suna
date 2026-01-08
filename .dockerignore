@@ -1,0 +1,27 @@
+.git
+.github
+.cursor
+**/.DS_Store
+
+# Build artifacts / caches
+**/node_modules
+**/.next
+**/.turbo
+**/.cache
+**/dist
+**/build
+**/*.log
+
+# Large unrelated parts of monorepo (frontend build doesn't need these)
+backend
+sdk
+docs
+apps/mobile
+apps/desktop
+
+# Keep needed directories (safety if patterns above get broader later)
+!apps/frontend
+!apps/frontend/**
+!packages
+!packages/**
+
