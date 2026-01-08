@@ -1,0 +1,42 @@
+# ============================================================================
+# TRAEFIK REVERSE PROXY
+# ============================================================================
+# Traefik configuration for HTTP reverse proxy
+#
+# Usage:
+#   docker compose -f docker-compose.traefik.yaml up -d
+#
+# Access:
+#   - Frontend: http://superagent-native.flashlabs.ai
+#   - Backend API: http://superagent-native-api.flashlabs.ai
+#   - Traefik Dashboard: http://localhost:8080
+# ============================================================================
+
+services:
+  traefik:
+    image: traefik:v2.11
+    container_name: traefik
+    restart: unless-stopped
+    command:
+      # API and Dashboard
+      - "--api.insecure=true"
+      - "--api.dashboard=true"
+      # Docker provider
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=suna-network"
+      # Entrypoints
+      - "--entrypoints.web.address=:80"
+      # Logging
+      - "--log.level=INFO"
+    ports:
+      - "80:80"
+      - "8080:8080"  # Traefik Dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - suna-network
+
+networks:
+  suna-network:
+    external: true
