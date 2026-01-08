@@ -11,14 +11,14 @@ services:
         NEXT_PUBLIC_ENV_MODE: ${NEXT_PUBLIC_ENV_MODE:-LOCAL}
     restart: unless-stopped
     networks:
+      - default
       - suna-network
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=suna-network"
-      - "traefik.http.routers.suna-frontend.priority=10"
-      - "traefik.http.routers.suna-frontend.rule=Host(`superagent-native.flashlabs.ai`)"
-      - "traefik.http.routers.suna-frontend.entrypoints=web"
-      - "traefik.http.services.suna-frontend.loadbalancer.server.port=3000"
+      - "traefik.http.routers.frontend.rule=Host(`superagent-native.flashlabs.ai`)"
+      - "traefik.http.routers.frontend.entrypoints=web"
+      - "traefik.http.routers.frontend.priority=10"
+      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000"]
       interval: 30s
