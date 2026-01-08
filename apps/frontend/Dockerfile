@@ -1,79 +1,64 @@
-# syntax=docker.io/docker/dockerfile:1
-# ---- Base Stage ----
-FROM node:22-slim AS base
+FROM suna-frontend-base:latest AS base
 
-# Install dependencies only when needed
 FROM base AS deps
-
 WORKDIR /app
 
-# Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
+# For pnpm workspace monorepo, copy from root context
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc* ./
+COPY apps/frontend/package.json ./apps/frontend/
+COPY packages/ ./packages/
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3 \
-    make \
-    g++ \
-    build-essential \
-    pkg-config \
-    libcairo2-dev \
-    libpango1.0-dev \
-    libjpeg-dev \
-    libgif-dev \
-    librsvg2-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+# 缓存 pnpm store，即使 --no-cache 也能复用
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store \
+    pnpm install --frozen-lockfile
 
 
 # ---- Builder Stage ----
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+COPY --from=deps /app/apps/frontend/node_modules ./apps/frontend/node_modules
+COPY --from=deps /app/packages ./packages
+COPY apps/frontend ./apps/frontend
 
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NEXT_OUTPUT=standalone
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 
-RUN \
-  if [ -f yarn.lock ]; then yarn run build; \
-  elif [ -f package-lock.json ]; then npm run build; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+WORKDIR /app/apps/frontend
+# 缓存 Next.js 构建缓存
+RUN --mount=type=cache,target=/app/apps/frontend/.next/cache \
+    pnpm run build
+
 
 # ---- Runner Stage ----
-FROM base AS runner
+FROM node:22-slim AS runner
 WORKDIR /app
 
-ENV NEXT_PUBLIC_VERCEL_ENV=production
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder /app/public ./public
+# Copy public folder
+COPY --from=builder /app/apps/frontend/public ./public
 
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# Copy standalone output - the entire standalone directory
+COPY --from=builder --chown=nextjs:nodejs /app/apps/frontend/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/apps/frontend/.next/static ./.next/static
+
+# Copy pnpm node_modules structure (needed because standalone uses symlinks)
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm ./node_modules/.pnpm
+
+# Create symlink at root level for pnpm symlinks resolution
+RUN ln -s /app/node_modules /node_modules
 
 USER nextjs
 
 EXPOSE 3000
 
 ENV PORT=3000
-
-# server.js is created by next build from the standalone output
-# https://nextjs.org/docs/pages/api-reference/config/next-config-js/output
 ENV HOSTNAME="0.0.0.0"
+
 CMD ["node", "server.js"]
