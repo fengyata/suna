@@ -48,12 +48,23 @@ function LoginContent() {
 
   const { wasLastMethod: wasEmailLastMethod, markAsUsed: markEmailAsUsed } = useAuthMethodTracking('email');
 
+  // Redirect /auth to /auth/password (unless showing expired link or already authenticated)
   useEffect(() => {
-    // Don't auto-redirect if showing expired link state
-    if (!isLoading && user && !isExpired) {
-      router.push(returnUrl || '/dashboard');
+    // Don't redirect if showing expired link state
+    if (isExpired) return;
+    
+    // Don't redirect if already authenticated (will redirect to dashboard)
+    if (!isLoading && user) {
+      window.location.href = returnUrl || '/dashboard';
+      return;
     }
-  }, [user, isLoading, router, returnUrl, isExpired]);
+    
+    // Redirect to /auth/password
+    const targetUrl = returnUrl 
+      ? `/auth/password?returnUrl=${encodeURIComponent(returnUrl)}`
+      : '/auth/password';
+    window.location.href = targetUrl;
+  }, [router, returnUrl, isExpired, isLoading, user]);
 
   const isSuccessMessage =
     message &&

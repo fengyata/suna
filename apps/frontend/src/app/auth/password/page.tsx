@@ -4,16 +4,15 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, Suspense } from 'react';
-import { AlertCircle, ArrowLeft, Lock } from 'lucide-react';
+import { AlertCircle, Lock } from 'lucide-react';
 import { KortixLoader } from '@/components/ui/kortix-loader';
 import { toast } from '@/lib/toast';
 
 import { Input } from '@/components/ui/input';
 import { SubmitButton } from '@/components/ui/submit-button';
-import { signInWithPassword, signUpWithPassword } from '../actions';
+import { signInWithPassword } from '../actions';
 import { useAuth } from '@/components/AuthProvider';
 import { KortixLogo } from '@/components/sidebar/kortix-logo';
-import { cn } from '@/lib/utils';
 
 function PasswordAuthContent() {
   const router = useRouter();
@@ -21,12 +20,11 @@ function PasswordAuthContent() {
   const returnUrl = searchParams.get('returnUrl') || searchParams.get('redirect');
   const { user, isLoading } = useAuth();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [isSignUp, setIsSignUp] = useState(false);
 
   // Redirect if already authenticated
   useEffect(() => {
     if (!isLoading && user) {
-      router.push(returnUrl || '/dashboard');
+      window.location.href = returnUrl || '/dashboard';
     }
   }, [user, isLoading, router, returnUrl]);
 
@@ -39,9 +37,7 @@ function PasswordAuthContent() {
     setErrorMessage(null);
     
     try {
-      const result = isSignUp 
-        ? await signUpWithPassword(prevState, formData)
-        : await signInWithPassword(prevState, formData);
+      const result = await signInWithPassword(prevState, formData);
 
       // If we get here, there was an error (redirect would have happened server-side)
       if (result && typeof result === 'object' && 'message' in result) {
@@ -50,14 +46,15 @@ function PasswordAuthContent() {
         return result;
       }
 
-      // If no error, redirect manually (fallback in case server redirect didn't work)
+      // If no error, redirect using window.location.href for full page reload
       const finalReturnUrl = returnUrl || '/dashboard';
-      router.push(finalReturnUrl);
-      router.refresh();
+      window.location.href = finalReturnUrl;
     } catch (error: any) {
       // Next.js redirect() throws a special error - this is expected on success
       if (error?.digest?.startsWith('NEXT_REDIRECT')) {
-        // Server-side redirect happened, client will follow
+        // Server-side redirect happened, use window.location.href for full page reload
+        const finalReturnUrl = returnUrl || '/dashboard';
+        window.location.href = finalReturnUrl;
         return;
       }
       
@@ -82,62 +79,15 @@ function PasswordAuthContent() {
                 </Link>
               </div>
 
-              <Link
-                href="/auth"
-                className="group border border-border/50 bg-background hover:bg-accent/20 rounded-full text-sm h-8 px-3 flex items-center gap-2 transition-all duration-200 shadow-sm mb-6"
-              >
-                <ArrowLeft className="h-4 w-4 text-muted-foreground" />
-                <span className="font-medium text-muted-foreground text-xs tracking-wide">
-                  Back to sign in
-                </span>
-              </Link>
-
               <div className="bg-muted/50 rounded-full p-4 mb-4">
                 <Lock className="h-8 w-8 text-muted-foreground" />
               </div>
 
-              {/* Toggle buttons */}
-              <div className="flex items-center gap-2 mb-6 bg-muted/30 rounded-full p-1 w-fit">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsSignUp(false);
-                    setErrorMessage(null);
-                  }}
-                  className={cn(
-                    "px-6 py-2 rounded-full text-sm font-medium transition-all",
-                    !isSignUp
-                      ? "bg-background text-foreground shadow-sm"
-                      : "text-muted-foreground hover:text-foreground"
-                  )}
-                >
-                  Sign in
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsSignUp(true);
-                    setErrorMessage(null);
-                  }}
-                  className={cn(
-                    "px-6 py-2 rounded-full text-sm font-medium transition-all",
-                    isSignUp
-                      ? "bg-background text-foreground shadow-sm"
-                      : "text-muted-foreground hover:text-foreground"
-                  )}
-                >
-                  Sign up
-                </button>
-              </div>
-
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-center text-balance text-primary">
-                {isSignUp ? 'Create Account' : 'Sign in'}
+                Sign in
               </h1>
               <p className="text-base md:text-lg text-center text-muted-foreground font-medium text-balance leading-relaxed tracking-tight mt-2 mb-6">
-                {isSignUp 
-                  ? 'Enter your email and password to create your account'
-                  : 'Enter your email and password to access your account'
-                }
+                Enter your email and password to access your account
               </p>
             </div>
           </div>
@@ -173,23 +123,9 @@ function PasswordAuthContent() {
                     placeholder="Password"
                     className="h-12 rounded-full bg-background border-border"
                     required
-                    autoComplete={isSignUp ? 'new-password' : 'current-password'}
+                    autoComplete="current-password"
                   />
                 </div>
-
-                {isSignUp && (
-                  <div>
-                    <Input
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      type="password"
-                      placeholder="Confirm password"
-                      className="h-12 rounded-full bg-background border-border"
-                      required
-                      autoComplete="new-password"
-                    />
-                  </div>
-                )}
 
                 {returnUrl && (
                   <input type="hidden" name="returnUrl" value={returnUrl} />
@@ -200,56 +136,20 @@ function PasswordAuthContent() {
                   <SubmitButton
                     formAction={handleAuth}
                     className="w-full h-12 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-md"
-                    pendingText={isSignUp ? 'Creating account...' : 'Signing in...'}
+                    pendingText="Signing in..."
                   >
-                    {isSignUp ? 'Create account' : 'Sign in'}
+                    Sign in
                   </SubmitButton>
                 </div>
               </form>
 
-              {!isSignUp && (
-                <div className="mt-6 text-center">
-                  <Link
-                    href="/auth/reset-password"
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </Link>
-                </div>
-              )}
-
-              <div className="mt-6 pt-6 border-t border-border">
-                <p className="text-xs text-center text-muted-foreground">
-                  {isSignUp ? (
-                    <>
-                      Already have an account?{' '}
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setIsSignUp(false);
-                          setErrorMessage(null);
-                        }}
-                        className="text-primary hover:underline underline-offset-4"
-                      >
-                        Sign in
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      Don't have an account?{' '}
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setIsSignUp(true);
-                          setErrorMessage(null);
-                        }}
-                        className="text-primary hover:underline underline-offset-4"
-                      >
-                        Sign up
-                      </button>
-                    </>
-                  )}
-                </p>
+              <div className="mt-6 text-center">
+                <Link
+                  href="/auth/reset-password"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors underline-offset-4 hover:underline"
+                >
+                  Forgot your password?
+                </Link>
               </div>
             </div>
           </div>

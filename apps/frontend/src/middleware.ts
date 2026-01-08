@@ -18,6 +18,7 @@ const MARKETING_ROUTES = [
 const PUBLIC_ROUTES = [
   '/', // Homepage should be public!
   '/auth',
+  '/auth/password',
   '/auth/callback',
   '/auth/signup',
   '/auth/forgot-password',
