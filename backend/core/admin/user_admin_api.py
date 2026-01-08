@@ -70,54 +70,64 @@ async def initialize_user(
         account_id = account_result.data['id']
         logger.info(f"[ADMIN] Found account {account_id} for user {request.user_id}")
         
-        # 2) Upsert credit_accounts
-        credit_data = {
-            'account_id': account_id,
-            'tier': request.tier,
-            'credits_balance': request.credits,
-            'credits_used': 0,
-            'daily_credits': 0,
-            'lifetime_credits_granted': request.credits,
-            'lifetime_credits_purchased': 0,
-            'lifetime_credits_used': 0,
-            'trial_status': None,
-            'updated_at': datetime.utcnow().isoformat()
-        }
+        # 2) Upsert credit_accounts using raw SQL for reliability
+        from core.services.db import execute_one, execute_mutate
         
         # Check if exists
-        existing = await client.from_('credit_accounts').select(
-            'account_id'
-        ).eq('account_id', account_id).execute()
+        existing = await execute_one(
+            "SELECT account_id FROM credit_accounts WHERE account_id = :account_id",
+            {"account_id": account_id}
+        )
         
-        if existing.data:
-            # Update
-            await client.from_('credit_accounts').update({
-                'tier': request.tier,
-                'credits_balance': request.credits,
-                'lifetime_credits_granted': request.credits,
-                'updated_at': datetime.utcnow().isoformat()
-            }).eq('account_id', account_id).execute()
+        if existing:
+            # Update existing record
+            await execute_mutate(
+                """
+                UPDATE credit_accounts 
+                SET tier = :tier,
+                    balance = :balance,
+                    lifetime_granted = :lifetime_granted,
+                    updated_at = NOW()
+                WHERE account_id = :account_id
+                """,
+                {
+                    "account_id": account_id,
+                    "tier": request.tier,
+                    "balance": request.credits,
+                    "lifetime_granted": request.credits
+                }
+            )
             logger.info(f"[ADMIN] Updated credit_accounts for {account_id}")
         else:
-            # Insert
-            credit_data['created_at'] = datetime.utcnow().isoformat()
-            await client.from_('credit_accounts').insert(credit_data).execute()
+            # Insert new record
+            await execute_mutate(
+                """
+                INSERT INTO credit_accounts (account_id, tier, balance, lifetime_granted, lifetime_purchased, lifetime_used, created_at, updated_at)
+                VALUES (:account_id, :tier, :balance, :lifetime_granted, 0, 0, NOW(), NOW())
+                """,
+                {
+                    "account_id": account_id,
+                    "tier": request.tier,
+                    "balance": request.credits,
+                    "lifetime_granted": request.credits
+                }
+            )
             logger.info(f"[ADMIN] Created credit_accounts for {account_id}")
         
-        # 3) Create default project if not exists
-        project_check = await client.from_('projects').select(
-            'project_id'
-        ).eq('account_id', account_id).eq('is_default', True).execute()
+        # 3) Create default project if no projects exist
+        project_check = await execute_one(
+            "SELECT project_id FROM projects WHERE account_id = :account_id LIMIT 1",
+            {"account_id": account_id}
+        )
         
-        if not project_check.data:
-            await client.from_('projects').insert({
-                'account_id': account_id,
-                'name': 'Default Project',
-                'description': 'Default project for organizing threads',
-                'is_default': True,
-                'created_at': datetime.utcnow().isoformat(),
-                'updated_at': datetime.utcnow().isoformat()
-            }).execute()
+        if not project_check:
+            await execute_mutate(
+                """
+                INSERT INTO projects (account_id, name, description, created_at, updated_at)
+                VALUES (:account_id, 'Default Project', 'Default project for organizing threads', NOW(), NOW())
+                """,
+                {"account_id": account_id}
+            )
             logger.info(f"[ADMIN] Created default project for {account_id}")
         
         logger.info(f"[ADMIN] ✅ User {request.user_id} initialized: tier={request.tier}, credits={request.credits}")
