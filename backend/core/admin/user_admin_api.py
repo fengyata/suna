@@ -31,6 +31,7 @@ class InitializeUserResponse(BaseModel):
     user_id: str
     tier: str
     credits: int
+    agent_id: Optional[str] = None
 
 
 @router.post("/initialize", response_model=InitializeUserResponse)
@@ -130,7 +131,20 @@ async def initialize_user(
             )
             logger.info(f"[ADMIN] Created default project for {account_id}")
         
-        logger.info(f"[ADMIN] ✅ User {request.user_id} initialized: tier={request.tier}, credits={request.credits}")
+        # 4) Install Suna agent (docs, etc.)
+        agent_id = None
+        try:
+            from core.utils.suna_default_agent_service import SunaDefaultAgentService
+            suna_service = SunaDefaultAgentService(db)
+            agent_id = await suna_service.install_suna_agent_for_user(account_id)
+            if agent_id:
+                logger.info(f"[ADMIN] Installed Suna agent {agent_id} for {account_id}")
+            else:
+                logger.warning(f"[ADMIN] Failed to install Suna agent for {account_id}")
+        except Exception as e:
+            logger.error(f"[ADMIN] Error installing Suna agent for {account_id}: {e}")
+        
+        logger.info(f"[ADMIN] ✅ User {request.user_id} initialized: tier={request.tier}, credits={request.credits}, agent={agent_id}")
         
         return InitializeUserResponse(
             success=True,
@@ -138,7 +152,8 @@ async def initialize_user(
             account_id=account_id,
             user_id=request.user_id,
             tier=request.tier,
-            credits=request.credits
+            credits=request.credits,
+            agent_id=agent_id
         )
         
     except HTTPException:
