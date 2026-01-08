@@ -24,7 +24,6 @@ services:
       # Docker provider
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--providers.docker.network=suna-network"
       # Entrypoints
       - "--entrypoints.web.address=:80"
       # Logging
