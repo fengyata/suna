@@ -48,28 +48,6 @@ function LoginContent() {
 
   const { wasLastMethod: wasEmailLastMethod, markAsUsed: markEmailAsUsed } = useAuthMethodTracking('email');
 
-  // Redirect /auth to /auth/password
-  useEffect(() => {
-    // Don't redirect if showing expired link state
-    if (isExpired) return;
-    
-    // Always redirect to /auth/password (don't auto-redirect to dashboard even if logged in)
-    // This prevents issues when session is stale or user was deleted
-    const targetUrl = returnUrl 
-      ? `/auth/password?returnUrl=${encodeURIComponent(returnUrl)}`
-      : '/auth/password';
-    router.replace(targetUrl);
-  }, [router, returnUrl, isExpired]);
-
-  // Show loading while redirecting to /auth/password (prevents flash)
-  if (!isExpired) {
-    return (
-      <main className="flex flex-col items-center justify-center min-h-screen w-full">
-        <KortixLoader size="large" />
-      </main>
-    );
-  }
-
   const isSuccessMessage =
     message &&
     (message.includes('Check your email') ||
@@ -104,6 +82,28 @@ function LoginContent() {
       }
     }
   }, [isExpired, expiredEmail]);
+
+  // Redirect /auth to /auth/password
+  useEffect(() => {
+    // Don't redirect if showing expired link state
+    if (isExpired) return;
+    
+    // Always redirect to /auth/password (don't auto-redirect to dashboard even if logged in)
+    // This prevents issues when session is stale or user was deleted
+    const targetUrl = returnUrl 
+      ? `/auth/password?returnUrl=${encodeURIComponent(returnUrl)}`
+      : '/auth/password';
+    router.replace(targetUrl);
+  }, [router, returnUrl, isExpired]);
+
+  // Show loading while redirecting to /auth/password (prevents flash)
+  if (!isExpired) {
+    return (
+      <main className="flex flex-col items-center justify-center min-h-screen w-full">
+        <KortixLoader size="large" />
+      </main>
+    );
+  }
 
   const handleAuth = async (prevState: any, formData: FormData) => {
     trackSendAuthLink();
