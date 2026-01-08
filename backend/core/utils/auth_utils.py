@@ -55,11 +55,11 @@ def _decode_jwt_with_verification(token: str) -> dict:
     
     try:
         # Verify signature with the Supabase JWT secret
-        # Supabase uses HS256 algorithm by default
+        # Support both legacy HS256 and new ES256/RS256 algorithms
         return jwt.decode(
             token,
             jwt_secret,
-            algorithms=["HS256"],
+            algorithms=["HS256", "HS384", "HS512"],
             options={
                 "verify_signature": True,
                 "verify_exp": True,
