@@ -16,7 +16,7 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=suna-network"
       - "traefik.http.routers.suna-frontend.priority=10"
-      - "traefik.http.routers.suna-frontend.rule=Host(`superagent-native.flashlabs.ai`) && !PathPrefix(`/v1`)"
+      - "traefik.http.routers.suna-frontend.rule=Host(`superagent-native.flashlabs.ai`)"
       - "traefik.http.routers.suna-frontend.entrypoints=web"
       - "traefik.http.services.suna-frontend.loadbalancer.server.port=3000"
     healthcheck:
