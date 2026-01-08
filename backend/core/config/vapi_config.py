@@ -15,7 +15,7 @@ class VoiceConfig:
 @dataclass
 class ModelConfig:
     provider: str = "openai"
-    model: str = "gpt-5-mini"
+    model: str = "gpt-4o"
     temperature: float = 0.7
     max_tokens: Optional[int] = None
     messages: list = field(default_factory=lambda: [

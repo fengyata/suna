@@ -933,7 +933,7 @@ async def translate_text(
         openai_client = await get_openai_client()
 
         response = await openai_client.chat.completions.create(
-            model="gpt-5-mini",
+            model="gpt-4o",
             messages=[
                 {
                     "role": "system",

@@ -46,7 +46,7 @@ async def generate_agent_name_and_prompt(description: str) -> dict:
         Dict with keys: name, system_prompt
     """
     try:
-        model_name = "openai/gpt-5-nano-2025-08-07"
+        model_name = "openai/gpt-4o"
         
         system_prompt = """You are an AI worker configuration expert. Generate a name and system prompt for an AI worker.
 

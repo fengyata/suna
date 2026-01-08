@@ -263,7 +263,7 @@ class FileProcessor:
             models = [
                 ("google/gemini-2.5-flash-lite", 1_000_000),  # 1M context
                 ("openrouter/google/gemini-2.5-flash-lite", 1_000_000),  # Fallback
-                ("gpt-5-mini", 400_000)  # Final fallback
+                ("gpt-4o", 128_000)  # Final fallback
             ]
             
             # Estimate tokens (rough: 1 token ≈ 4 chars)

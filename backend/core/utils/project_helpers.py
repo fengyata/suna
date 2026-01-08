@@ -35,7 +35,7 @@ async def generate_and_update_project_name(project_id: str, prompt: str):
         db_conn = DBConnection()
         client = await db_conn.client
 
-        model_name = "openai/gpt-5-nano-2025-08-07"
+        model_name = "openai/gpt-4o"
         
         relevant_icons = RELEVANT_ICONS
         system_prompt = f"""You are a helpful assistant that generates extremely concise titles (2-4 words maximum) and selects appropriate icons for chat threads.
