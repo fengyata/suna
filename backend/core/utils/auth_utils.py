@@ -1,13 +1,92 @@
 import hmac
+import time
+import httpx
 from fastapi import HTTPException, Request, Header
-from typing import Optional
+from typing import Optional, Dict, Any
 import jwt
 from jwt.exceptions import PyJWTError
+from jwt import PyJWK
 from core.utils.logger import structlog
 from core.utils.config import config
 from core.services.supabase import DBConnection
 from core.services import redis
 from core.utils.logger import logger, structlog
+
+# JWKS cache for ES256 verification
+_jwks_cache: Dict[str, Any] = {}
+_jwks_cache_time: float = 0
+_JWKS_CACHE_TTL = 3600  # 1 hour
+
+
+def _get_jwks_url() -> str:
+    """Get the JWKS URL from Supabase URL."""
+    supabase_url = config.SUPABASE_URL
+    if not supabase_url:
+        return ""
+    return f"{supabase_url}/auth/v1/.well-known/jwks.json"
+
+
+def _fetch_jwks() -> Dict[str, Any]:
+    """Fetch JWKS from Supabase, with caching."""
+    global _jwks_cache, _jwks_cache_time
+    
+    current_time = time.time()
+    if _jwks_cache and (current_time - _jwks_cache_time) < _JWKS_CACHE_TTL:
+        return _jwks_cache
+    
+    jwks_url = _get_jwks_url()
+    if not jwks_url:
+        return {}
+    
+    try:
+        with httpx.Client(timeout=10) as client:
+            response = client.get(jwks_url)
+            response.raise_for_status()
+            _jwks_cache = response.json()
+            _jwks_cache_time = current_time
+            logger.info(f"Fetched JWKS from {jwks_url}")
+            return _jwks_cache
+    except Exception as e:
+        logger.warning(f"Failed to fetch JWKS: {e}")
+        return _jwks_cache if _jwks_cache else {}
+
+
+def _get_signing_key(token: str) -> tuple[Any, str]:
+    """
+    Get the signing key for JWT verification.
+    Returns (key, algorithm) tuple.
+    For ES256: returns public key from JWKS
+    For HS256: returns the JWT secret
+    """
+    try:
+        # Decode header without verification to get algorithm and kid
+        unverified_header = jwt.get_unverified_header(token)
+        alg = unverified_header.get("alg", "HS256")
+        kid = unverified_header.get("kid")
+        
+        # If ES256/RS256, get public key from JWKS
+        if alg in ["ES256", "ES384", "ES512", "RS256", "RS384", "RS512"]:
+            jwks = _fetch_jwks()
+            if not jwks or "keys" not in jwks:
+                raise ValueError("JWKS not available")
+            
+            # Find the key with matching kid
+            for key_data in jwks["keys"]:
+                if key_data.get("kid") == kid:
+                    public_key = PyJWK.from_dict(key_data).key
+                    return public_key, alg
+            
+            raise ValueError(f"Key with kid={kid} not found in JWKS")
+        
+        # For HS256 (legacy), use JWT secret
+        jwt_secret = config.SUPABASE_JWT_SECRET
+        if not jwt_secret:
+            raise ValueError("SUPABASE_JWT_SECRET not configured")
+        return jwt_secret, alg
+        
+    except Exception as e:
+        logger.warning(f"Error getting signing key: {e}")
+        raise
 
 
 def _constant_time_compare(a: str, b: str) -> bool:
@@ -40,26 +119,21 @@ async def verify_admin_api_key(x_admin_api_key: Optional[str] = Header(None)):
 
 def _decode_jwt_with_verification(token: str) -> dict:
     """
-    Decode and verify JWT token using Supabase JWT secret.
+    Decode and verify JWT token using Supabase JWT secret or JWKS public key.
     
-    This function properly validates the JWT signature to prevent token forgery.
+    Supports both:
+    - Legacy HS256 (symmetric, using SUPABASE_JWT_SECRET)
+    - New ES256/RS256 (asymmetric, using JWKS public keys)
     """
-    jwt_secret = config.SUPABASE_JWT_SECRET
-    
-    if not jwt_secret:
-        logger.error("SUPABASE_JWT_SECRET is not configured - JWT verification disabled!")
-        raise HTTPException(
-            status_code=500,
-            detail="Server authentication configuration error"
-        )
-    
     try:
-        # Verify signature with the Supabase JWT secret
-        # Support both legacy HS256 and new ES256/RS256 algorithms
+        # Get the appropriate signing key and algorithm
+        signing_key, algorithm = _get_signing_key(token)
+        
+        # Verify and decode the token
         return jwt.decode(
             token,
-            jwt_secret,
-            algorithms=["HS256", "HS384", "HS512"],
+            signing_key,
+            algorithms=[algorithm],
             options={
                 "verify_signature": True,
                 "verify_exp": True,
@@ -79,6 +153,12 @@ def _decode_jwt_with_verification(token: str) -> dict:
             status_code=401,
             detail="Invalid token signature",
             headers={"WWW-Authenticate": "Bearer"}
+        )
+    except ValueError as e:
+        logger.error(f"JWT configuration error: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail="Server authentication configuration error"
         )
     except PyJWTError as e:
         logger.warning(f"JWT decode error: {str(e)}")
