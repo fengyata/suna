@@ -48,23 +48,27 @@ function LoginContent() {
 
   const { wasLastMethod: wasEmailLastMethod, markAsUsed: markEmailAsUsed } = useAuthMethodTracking('email');
 
-  // Redirect /auth to /auth/password (unless showing expired link or already authenticated)
+  // Redirect /auth to /auth/password
   useEffect(() => {
     // Don't redirect if showing expired link state
     if (isExpired) return;
     
-    // Don't redirect if already authenticated (will redirect to dashboard)
-    if (!isLoading && user) {
-      window.location.href = returnUrl || '/dashboard';
-      return;
-    }
-    
-    // Redirect to /auth/password
+    // Always redirect to /auth/password (don't auto-redirect to dashboard even if logged in)
+    // This prevents issues when session is stale or user was deleted
     const targetUrl = returnUrl 
       ? `/auth/password?returnUrl=${encodeURIComponent(returnUrl)}`
       : '/auth/password';
-    window.location.href = targetUrl;
-  }, [router, returnUrl, isExpired, isLoading, user]);
+    router.replace(targetUrl);
+  }, [router, returnUrl, isExpired]);
+
+  // Show loading while redirecting to /auth/password (prevents flash)
+  if (!isExpired) {
+    return (
+      <main className="flex flex-col items-center justify-center min-h-screen w-full">
+        <KortixLoader size="large" />
+      </main>
+    );
+  }
 
   const isSuccessMessage =
     message &&

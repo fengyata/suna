@@ -1,9 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
-import { useState, useEffect, Suspense } from 'react';
+import { useState, Suspense } from 'react';
 import { AlertCircle, Lock } from 'lucide-react';
 import { KortixLoader } from '@/components/ui/kortix-loader';
 import { toast } from '@/lib/toast';
@@ -11,27 +10,15 @@ import { toast } from '@/lib/toast';
 import { Input } from '@/components/ui/input';
 import { SubmitButton } from '@/components/ui/submit-button';
 import { signInWithPassword } from '../actions';
-import { useAuth } from '@/components/AuthProvider';
 import { KortixLogo } from '@/components/sidebar/kortix-logo';
 
 function PasswordAuthContent() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const returnUrl = searchParams.get('returnUrl') || searchParams.get('redirect');
-  const { user, isLoading } = useAuth();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Redirect if already authenticated
-  useEffect(() => {
-    if (!isLoading && user) {
-      window.location.href = returnUrl || '/dashboard';
-    }
-  }, [user, isLoading, router, returnUrl]);
-
-  // Don't render form if already authenticated
-  if (!isLoading && user) {
-    return null;
-  }
+  // Don't auto-redirect even if user has cookie - only redirect after successful login
+  // This prevents issues when session is stale or user was deleted
 
   const handleAuth = async (prevState: any, formData: FormData) => {
     setErrorMessage(null);
