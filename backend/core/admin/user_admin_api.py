@@ -53,13 +53,13 @@ async def initialize_user(
         client = await db.client
         
         # 1) Get account_id from user_id
-        account_result = await client.from_('accounts').select(
+        account_result = await client.schema('basejump').from_('accounts').select(
             'id'
         ).eq(
             'primary_owner_user_id', request.user_id
         ).eq(
             'personal_account', True
-        ).schema('basejump').single().execute()
+        ).single().execute()
         
         if not account_result.data:
             raise HTTPException(
@@ -159,13 +159,13 @@ async def delete_user(
         client = await db.client
         
         # Get account_id
-        account_result = await client.from_('accounts').select(
+        account_result = await client.schema('basejump').from_('accounts').select(
             'id'
         ).eq(
             'primary_owner_user_id', request.user_id
         ).eq(
             'personal_account', True
-        ).schema('basejump').single().execute()
+        ).single().execute()
         
         if not account_result.data:
             raise HTTPException(
