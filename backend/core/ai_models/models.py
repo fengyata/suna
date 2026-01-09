@@ -2,6 +2,8 @@ from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Any, Union
 from enum import Enum
 
+from core.utils.logger import logger
+
 
 class ModelProvider(Enum):
     OPENAI = "openai"

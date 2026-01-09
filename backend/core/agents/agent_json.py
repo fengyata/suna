@@ -353,7 +353,7 @@ async def export_agent(agent_id: str, user_id: str = Depends(verify_and_get_user
         from core.agents import repo as agents_repo
         from core.versioning import repo as versioning_repo
 
-        agent = await agents_repo.get_agent_by_id_and_account(agent_id, user_id)
+        agent = await agents_repo.get_agent_by_id(agent_id, account_id=user_id)
         if not agent:
             raise HTTPException(status_code=404, detail="Worker not found")
         
