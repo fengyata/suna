@@ -557,7 +557,7 @@ export function DashboardContent() {
                           hideAttachments={false}
                           selectedAgentId={selectedAgentId}
                           onAgentSelect={setSelectedAgent}
-                          enableAdvancedConfig={false}
+                          enableAdvancedConfig={true}
                           onConfigureAgent={(agentId) => {
                             setConfigAgentId(agentId);
                             setShowConfigDialog(true);

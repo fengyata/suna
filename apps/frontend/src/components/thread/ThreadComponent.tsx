@@ -1440,7 +1440,7 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
                 }
                 onStopAgent={handleStopAgent}
                 autoFocus={!isLoading && !showOptimisticUI}
-                enableAdvancedConfig={false}
+                enableAdvancedConfig={true}
                 onFileBrowse={handleOpenFileViewer}
                 sandboxId={showOptimisticUI ? undefined : (sandboxId || undefined)}
                 projectId={projectId}
@@ -1511,7 +1511,7 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
         }
         onStopAgent={handleStopAgent}
         autoFocus={!isLoading && !showOptimisticUI}
-        enableAdvancedConfig={false}
+        enableAdvancedConfig={true}
         onFileBrowse={handleOpenFileViewer}
         sandboxId={showOptimisticUI ? undefined : (sandboxId || undefined)}
         projectId={projectId}
