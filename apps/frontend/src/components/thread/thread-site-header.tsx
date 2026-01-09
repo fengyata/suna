@@ -14,6 +14,7 @@ import { useIsMobile } from "@/hooks/utils"
 import { cn } from "@/lib/utils"
 import { SharePopover } from "@/components/sidebar/share-modal"
 import { ModeIndicator } from "@/components/thread/mode-indicator"
+import { GeminiSelector } from "@/components/thread/gemini-selector"
 
 interface ThreadSiteHeaderProps {
   threadId?: string;
@@ -66,7 +67,10 @@ export function SiteHeader({
             </span>
           </div>
         ) : (
-          <ModeIndicator />
+          <div className="flex items-center gap-1">
+            <ModeIndicator />
+            <GeminiSelector />
+          </div>
         )}
       </div>
 
