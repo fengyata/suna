@@ -28,6 +28,7 @@ import { KortixLoader } from '@/components/ui/kortix-loader';
 import { Button } from '@/components/ui/button';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Card } from '@/components/ui/card';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { getPdfUrl } from '@/components/thread/tool-views/utils/presentation-utils';
 import { useTranslations } from 'next-intl';
@@ -1304,48 +1305,104 @@ export function SunaModesPanel({
 
   const displayedPrompts = randomizedPrompts;
 
+  // State for "More" modes modal
+  const [isMoreModesOpen, setIsMoreModesOpen] = useState(false);
+  
+  // Split modes into visible and hidden
+  const visibleModes = modes.slice(0, 5);
+  const hiddenModes = modes.slice(5);
+
+  // Handler for mode selection
+  const handleModeClick = (mode: Mode, isActive: boolean) => {
+    if (mode.id === 'meeting') {
+      window.open(`${process.env.NEXT_PUBLIC_FLASHREV_FRONTEND}/engage/meetings/foryou`, '_blank');
+    } else {
+      onModeSelect(isActive ? null : mode.id);
+    }
+    // Close modal if it's open
+    setIsMoreModesOpen(false);
+  };
+
+  // Render mode button component
+  const renderModeButton = (mode: Mode, isActive: boolean, modeType: string) => (
+    <motion.button
+      key={mode.id}
+      onClick={() => handleModeClick(mode, isActive)}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      className={cn(
+        // Base button styles matching Kortix design
+        "inline-flex items-center whitespace-nowrap text-sm font-medium",
+        "outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+        "relative h-10 px-3 sm:px-4 gap-2 shrink-0 rounded-2xl cursor-pointer",
+        "border-[1.5px] transition-all duration-200",
+        // Active state - clean, minimal Kortix style
+        modeType === 'visible' ? 'justify-center' : 'justify-start',
+        isActive
+          ? "bg-background text-foreground border-border font-medium dark:bg-background"
+          : "bg-background/50 border-border/40 text-muted-foreground hover:text-foreground hover:border-border hover:bg-background/80 dark:bg-card/30 dark:hover:bg-card/50"
+      )}
+    >
+      {/* Icon */}
+      <span className="transition-colors duration-200 [&>svg]:w-4 [&>svg]:h-4">
+        {mode.icon}
+      </span>
+      
+      {/* Label */}
+      <span className="transition-colors duration-200">
+        {mode.label}
+      </span>
+
+      {['meeting'].includes(mode.id) && <ExternalLink size={12} className="text-gray-400" />}
+    </motion.button>
+  );
+
   return (
     <div className="w-full space-y-4">
       {/* Mode Tabs - Kortix minimal design */}
       <div className="flex items-center justify-center animate-in fade-in-0 zoom-in-95 duration-300 px-2 sm:px-0">
         <div className="grid grid-cols-3 gap-2 sm:inline-flex sm:gap-2">
-          {modes.map((mode) => {
+          {/* Visible modes */}
+          {visibleModes.map((mode) => {
             const isActive = selectedMode === mode.id;
-            return (
-              <motion.button
-                key={mode.id}
-                onClick={() => onModeSelect(isActive ? null : mode.id)}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className={cn(
-                  // Base button styles matching Kortix design
-                  "inline-flex items-center justify-center whitespace-nowrap text-sm font-medium",
-                  "outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-                  "relative h-10 px-3 sm:px-4 gap-2 shrink-0 rounded-2xl cursor-pointer",
-                  "border-[1.5px] transition-all duration-200",
-                  // Active state - clean, minimal Kortix style
-                  isActive
-                    ? "bg-background text-foreground border-border font-medium dark:bg-background"
-                    : "bg-background/50 border-border/40 text-muted-foreground hover:text-foreground hover:border-border hover:bg-background/80 dark:bg-card/30 dark:hover:bg-card/50"
-                )}
-              >
-                {/* Icon */}
-                <span className="transition-colors duration-200 [&>svg]:w-4 [&>svg]:h-4">
-                  {mode.icon}
-                </span>
-                
-                {/* Label */}
-                <span className="transition-colors duration-200">
-                  {mode.label}
-                </span>
-
-                {['meeting'].includes(mode.id) && <ExternalLink size={12} className="text-gray-400" />}
-              </motion.button>
-            );
+            return renderModeButton(mode, isActive, 'visible');
           })}
+          
+          {/* More button with Popover */}
+          {hiddenModes.length > 0 && (
+            <Popover open={isMoreModesOpen} onOpenChange={setIsMoreModesOpen}>
+              <PopoverTrigger asChild>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  className={cn(
+                    "inline-flex items-center justify-center whitespace-nowrap text-sm font-medium",
+                    "outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+                    "relative h-10 px-3 sm:px-4 gap-2 shrink-0 rounded-2xl cursor-pointer",
+                    "border-[1.5px] transition-all duration-200",
+                    "bg-background/50 border-border/40 text-muted-foreground hover:text-foreground hover:border-border hover:bg-background/80 dark:bg-card/30 dark:hover:bg-card/50"
+                  )}
+                >
+                  <ArrowUpRight className="w-4 h-4" />
+                  <span className="transition-colors duration-200">More</span>
+                </motion.button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-2" align="start">
+                <div className="flex flex-col gap-2">
+                  {hiddenModes.map((mode) => {
+                    const isActive = selectedMode === mode.id;
+                    return renderModeButton(mode, isActive, 'hidden');
+                  })}
+                </div>
+              </PopoverContent>
+            </Popover>
+          )}
         </div>
       </div>
+
+
 
       {/* Sample Prompts - Visual Grid with Thumbnails */}
       {selectedMode && displayedPrompts && displayedPrompts.length > 0 && (
