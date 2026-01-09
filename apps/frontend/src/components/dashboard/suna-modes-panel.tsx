@@ -21,6 +21,8 @@ import {
   X,
   Eye,
   Lock,
+  Mic,
+  ExternalLink
 } from 'lucide-react';
 import { KortixLoader } from '@/components/ui/kortix-loader';
 import { Button } from '@/components/ui/button';
@@ -46,7 +48,7 @@ interface SunaModesPanelProps {
   onUpgradeClick?: () => void;
 }
 
-type ModeType = 'image' | 'slides' | 'data' | 'docs' | 'canvas' | 'video' | 'research';
+type ModeType = 'image' | 'slides' | 'data' | 'docs' | 'canvas' | 'video' | 'research' | 'meeting';
 
 interface SamplePrompt {
   text: string;
@@ -57,7 +59,7 @@ interface Mode {
   id: ModeType;
   label: string;
   icon: React.ReactNode;
-  samplePrompts: SamplePrompt[];
+  samplePrompts?: SamplePrompt[];
   isVisual?: boolean; // If true, show prompts with thumbnail grid
   options?: {
     title: string;
@@ -308,6 +310,11 @@ const modes: Mode[] = [
         { id: 'surreal', name: 'Surreal', image: '/images/image-styles/surreal_islands-min.png' },
       ],
     },
+  },
+  {
+    id: 'meeting',
+    label: 'Meeting',
+    icon: <Mic className="w-4 h-4" strokeWidth={2} />,
   },
 ];
 
@@ -1332,6 +1339,8 @@ export function SunaModesPanel({
                 <span className="transition-colors duration-200">
                   {mode.label}
                 </span>
+
+                {['meeting'].includes(mode.id) && <ExternalLink size={12} className="text-gray-400" />}
               </motion.button>
             );
           })}

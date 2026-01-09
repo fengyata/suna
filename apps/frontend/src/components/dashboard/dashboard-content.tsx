@@ -476,17 +476,17 @@ export function DashboardContent() {
 
       <div className="flex flex-col h-screen w-full overflow-hidden relative">
         {/* Left side - Mode Selector */}
-        <div className={cn(
+        {/* <div className={cn(
           "absolute left-4 transition-[top] duration-200",
           isWelcomeBannerVisible ? "top-14" : "top-4"
         )}>
           <Suspense fallback={<div className="h-9 w-32 bg-muted/30 rounded-lg animate-pulse" />}>
             <ModeIndicator />
           </Suspense>
-        </div>
+        </div> */}
 
-        {/* Right side - Notifications & Credits */}
-        <div className={cn(
+        {/* TODO: 隐藏， Right side - Notifications & Credits */}
+        {/* <div className={cn(
           "absolute flex items-center gap-2 right-4 transition-[top] duration-200",
           isWelcomeBannerVisible ? "top-14" : "top-4"
         )}>
@@ -494,7 +494,7 @@ export function DashboardContent() {
           <Suspense fallback={<div className="h-8 w-20 bg-muted/30 rounded animate-pulse" />}>
             <CreditsDisplay />
           </Suspense>
-        </div>
+        </div> */}
 
         <div className="flex-1 overflow-y-auto">
           <div className="min-h-full flex flex-col">

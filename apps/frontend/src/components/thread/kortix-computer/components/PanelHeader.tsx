@@ -182,7 +182,7 @@ export const PanelHeader = memo(function PanelHeader({
         <div className="flex items-center">
           <Image
             src="/kortix-computer-white.svg"
-            alt="Kortix Computer"
+            alt="SuperAgent Computer"
             width={140}
             height={16}
             className="hidden dark:block"
@@ -190,13 +190,13 @@ export const PanelHeader = memo(function PanelHeader({
           />
           <Image
             src="/kortix-computer-black.svg"
-            alt="Kortix Computer"
+            alt="SuperAgent Computer"
             width={140}
             height={16}
             className="block dark:hidden"
             priority
           />
-          <DrawerTitle className="sr-only">Kortix Computer</DrawerTitle>
+          <DrawerTitle className="sr-only">SuperAgent Computer</DrawerTitle>
         </div>
         <div className="flex items-center gap-2">
           <ActionLibrarySwitcher 
@@ -237,7 +237,7 @@ export const PanelHeader = memo(function PanelHeader({
       >
         <Image
           src="/kortix-computer-white.svg"
-          alt="Kortix Computer"
+          alt="SuperAgent Computer"
           width={140}
           height={16}
           className="hidden dark:block"
@@ -245,7 +245,7 @@ export const PanelHeader = memo(function PanelHeader({
         />
         <Image
           src="/kortix-computer-black.svg"
-          alt="Kortix Computer"
+          alt="SuperAgent Computer"
           width={140}
           height={16}
           className="block dark:hidden"

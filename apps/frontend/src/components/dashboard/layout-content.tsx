@@ -174,7 +174,7 @@ export default function DashboardLayoutContent({
           {/* Status overlay for deletion operations */}
           <StatusOverlay />
           {/* Floating mobile menu button */}
-          <FloatingMobileMenuButton />
+          {/* <FloatingMobileMenuButton /> */}
         </Suspense>
       }
     >
@@ -207,15 +207,15 @@ export default function DashboardLayoutContent({
           <PresentationViewerWrapper />
         </Suspense>
         {/* Kortix App announcement banners */}
-        <Suspense fallback={null}>
+        {/* <Suspense fallback={null}>
           <KortixAppBanners disableMobileAdvertising={featureFlags.disableMobileAdvertising} />
-        </Suspense>
+        </Suspense> */}
         {/* Mobile app install interstitial - shown on actual mobile devices */}
-        {!featureFlags.disableMobileAdvertising ? (
+        {/* {!featureFlags.disableMobileAdvertising ? (
           <Suspense fallback={null}>
             <MobileAppInterstitial />
           </Suspense>
-        ) : null}
+        ) : null} */}
       </div>
     </AppProviders>
     </NovuInboxProvider>

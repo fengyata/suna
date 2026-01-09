@@ -251,7 +251,7 @@ export default function AboutPage() {
 
             {/* Kortix logo */}
             <div className="text-center mt-6">
-              <Image src="/kortix-symbol.svg" alt="Kortix" width={16} height={13} className="inline-block opacity-20 dark:invert" />
+              <Image src="/logo_black.png" alt="SuperAgent" width={16} height={13} className="inline-block opacity-20 dark:invert" />
             </div>
           </div>
 
@@ -286,7 +286,7 @@ export default function AboutPage() {
 
               {/* Kortix logo */}
               <div className="text-center mt-4">
-                <Image src="/kortix-symbol.svg" alt="Kortix" width={16} height={13} className="inline-block opacity-20 dark:invert" />
+                <Image src="/logo_black.png" alt="SuperAgent" width={16} height={13} className="inline-block opacity-20 dark:invert" />
               </div>
             </div>
 
@@ -315,7 +315,7 @@ export default function AboutPage() {
 
               {/* Kortix logo */}
               <div className="text-center mt-4">
-                <Image src="/kortix-symbol.svg" alt="Kortix" width={16} height={13} className="inline-block opacity-20 dark:invert" />
+                <Image src="/logo_black.png" alt="SuperAgent" width={16} height={13} className="inline-block opacity-20 dark:invert" />
               </div>
             </div>
           </div>

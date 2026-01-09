@@ -2,9 +2,6 @@
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://kortix.com/sitemap.xml
-
 # Disallow sensitive routes
 Disallow: /api/
 Disallow: /_next/

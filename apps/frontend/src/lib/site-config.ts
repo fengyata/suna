@@ -4,7 +4,7 @@ import { pricingTiers, type PricingTier } from '@/lib/pricing-config';
 export type { PricingTier } from '@/lib/pricing-config';
 
 export const siteConfig = {
-  url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+  url: process.env.NEXT_PUBLIC_APP_URL || 'https://info.flashlabs.com/superagent',
   nav: {
     links: [
       { id: 1, name: 'Home', href: '/' },
@@ -14,12 +14,12 @@ export const siteConfig = {
   },
   hero: {
     description:
-      'Kortix – open-source platform to build, manage and train your AI Workforce.',
+      'SuperAgent – open-source platform to build, manage and train your AI Workforce.',
   },
   cloudPricingItems: pricingTiers,
   footerLinks: [
     {
-      title: 'Kortix',
+      title: 'SuperAgent',
       links: [
         { id: 1, title: 'About', url: '/about' },
         { id: 2, title: 'Careers', url: '/careers' },

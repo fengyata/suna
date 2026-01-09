@@ -665,9 +665,9 @@ const SlideContent = ({ slide }: { slide: Slide }) => {
             transition={{ delay: 0.2 }}
           >
             <Image
-              src="/Logomark.svg"
-              alt="Kortix"
-              width={140}
+              src="/logo_black.png"
+              alt="SuperAgent"
+              width={40}
               height={40}
               className="dark:invert h-10 w-auto"
             />
@@ -741,8 +741,8 @@ const SlideContent = ({ slide }: { slide: Slide }) => {
             transition={{ delay: 0.2, type: 'spring' }}
           >
             <Image
-              src="/kortix-symbol.svg"
-              alt="Kortix"
+              src="/logo_black.png"
+              alt="SuperAgent"
               width={80}
               height={80}
               className="dark:invert w-full h-full"
@@ -1122,8 +1122,8 @@ export default function Agents101Page() {
       {/* Logo */}
       <div className="fixed top-8 left-8 z-50">
         <Image
-          src="/Logomark.svg"
-          alt="Kortix"
+          src="/logo_black.png"
+          alt="SuperAgent"
           width={72}
           height={72}
           className="dark:invert"

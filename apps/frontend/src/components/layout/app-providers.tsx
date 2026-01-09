@@ -69,11 +69,11 @@ export function AppProviders({
 
   return (
     <SidebarProvider>
-      {sidebarContent || (
+      {/* {sidebarContent || (
         <Suspense fallback={<SidebarSkeleton />}>
           <SidebarLeft />
         </Suspense>
-      )}
+      )} */}
       <SidebarInset>
         {content}
       </SidebarInset>

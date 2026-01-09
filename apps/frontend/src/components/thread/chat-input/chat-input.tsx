@@ -1491,7 +1491,7 @@ export const ChatInput = memo(forwardRef<ChatInputHandles, ChatInputProps>(
             </div>
           </Card>
 
-          {enableAdvancedConfig && selectedAgentId && (
+          {/* {enableAdvancedConfig && selectedAgentId && (
             <div className="w-full max-w-4xl mx-auto -mt-12 relative z-20">
               <div className="bg-gradient-to-b from-transparent via-transparent to-muted/30 pt-8 pb-2 px-4 rounded-b-3xl border border-t-0 border-border/50 transition-all duration-300 ease-out">
                 <div className="flex items-center justify-between gap-1 overflow-x-auto scrollbar-none relative">
@@ -1504,7 +1504,6 @@ export const ChatInput = memo(forwardRef<ChatInputHandles, ChatInputProps>(
                         <>
                           {quickIntegrations.map((integration) => (
                             <div key={integration.id} className="w-4 h-4 bg-white dark:bg-muted border border-border rounded-full flex items-center justify-center shadow-sm">
-                              {/* eslint-disable-next-line @next/next/no-img-element */}
                               <img
                                 src={integrationIcons[integration.id as keyof typeof integrationIcons]}
                                 className="w-2.5 h-2.5"
@@ -1557,7 +1556,7 @@ export const ChatInput = memo(forwardRef<ChatInputHandles, ChatInputProps>(
                 </div>
               </div>
             </div>
-          )}
+          )} */}
 
           <Dialog open={registryDialogOpen} onOpenChange={(open) => {
             setRegistryDialogOpen(open);

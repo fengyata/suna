@@ -447,7 +447,7 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
                                 {isKortixAgent ? (
                                     <img
                                         src="/kortix-logomark-white.svg"
-                                        alt="Kortix"
+                                        alt="SuperAgent"
                                         className="dark:invert-0 invert flex-shrink-0 ml-1"
                                         style={{ height: '14px', width: 'auto' }}
                                     />
@@ -491,7 +491,7 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
                     {isKortixAgent ? (
                         <img
                             src="/kortix-logomark-white.svg"
-                            alt="Kortix"
+                            alt="SuperAgent"
                             className="dark:invert-0 invert flex-shrink-0 ml-1"
                             style={{ height: '12px', width: 'auto' }}
                         />
@@ -517,7 +517,7 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
     return (
         <>
             {/* Mobile: Use Sheet */}
-            {isMobile ? (
+            {/* {isMobile ? (
                 <>
                     <Tooltip>
                         <TooltipTrigger asChild>
@@ -545,7 +545,6 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
                     </Sheet>
                 </>
             ) : (
-                /* Desktop: Use Dropdown */
                 <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
                     <Tooltip>
                         <TooltipTrigger asChild>
@@ -560,7 +559,6 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
 
                     <DropdownMenuContent align="end" className="w-[320px] px-0 py-3 border-[1.5px] border-border rounded-2xl" sideOffset={6}>
                         <TooltipProvider>
-                            {/* Agents Submenu */}
                             {onAgentSelect && (
                                 <>
                                     <div className="px-3 pb-1">
@@ -573,7 +571,7 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
                                                     {isKortixAgent ? (
                                                         <img
                                                             src="/kortix-logomark-white.svg"
-                                                            alt="Kortix"
+                                                            alt="SuperAgent"
                                                             className="dark:invert-0 invert flex-shrink-0"
                                                             style={{ height: '12px', width: 'auto' }}
                                                         />
@@ -619,7 +617,7 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
                         </TooltipProvider>
                     </DropdownMenuContent>
                 </DropdownMenu>
-            )}
+            )} */}
 
             {/* Dialogs */}
             <Dialog open={integrationsOpen} onOpenChange={setIntegrationsOpen}>

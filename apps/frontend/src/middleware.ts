@@ -101,25 +101,29 @@ export async function middleware(request: NextRequest) {
   // Supabase sometimes redirects to root (/) instead of /auth/callback
   // Detect authentication parameters and redirect to proper callback handler
   if (pathname === '/' || pathname === '') {
-    const searchParams = request.nextUrl.searchParams;
-    const code = searchParams.get('code');
-    const token = searchParams.get('token');
-    const type = searchParams.get('type');
-    const error = searchParams.get('error');
+    // const searchParams = request.nextUrl.searchParams;
+    // const code = searchParams.get('code');
+    // const token = searchParams.get('token');
+    // const type = searchParams.get('type');
+    // const error = searchParams.get('error');
     
-    // If we have Supabase auth parameters, redirect to /auth/callback
-    // Note: Mobile apps use direct deep links and bypass this route
-    if (code || token || type || error) {
-      const callbackUrl = new URL('/auth/callback', request.url);
+    // // If we have Supabase auth parameters, redirect to /auth/callback
+    // // Note: Mobile apps use direct deep links and bypass this route
+    // if (code || token || type || error) {
+    //   const callbackUrl = new URL('/auth/callback', request.url);
       
-      // Preserve all query parameters
-      searchParams.forEach((value, key) => {
-        callbackUrl.searchParams.set(key, value);
-      });
+    //   // Preserve all query parameters
+    //   searchParams.forEach((value, key) => {
+    //     callbackUrl.searchParams.set(key, value);
+    //   });
       
-      console.log('🔄 Redirecting Supabase verification from root to /auth/callback');
-      return NextResponse.redirect(callbackUrl);
-    }
+    //   console.log('🔄 Redirecting Supabase verification from root to /auth/callback');
+    //   return NextResponse.redirect(callbackUrl);
+    // }
+    // TODO: 首页默认重定向到dashboard
+    const url = request.nextUrl.clone();
+    url.pathname = '/dashboard';
+    return NextResponse.redirect(url);
   }
 
   // Extract path segments

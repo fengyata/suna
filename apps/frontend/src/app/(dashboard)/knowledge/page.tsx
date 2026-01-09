@@ -29,14 +29,14 @@ export default function KnowledgeRoute() {
             </AlertDescription>
           </Alert>
 
-          <div className="flex justify-center">
+          {/* <div className="flex justify-center">
             <Button
               variant="outline"
               onClick={() => router.push('/settings?tab=knowledge-base')}
             >
               Go to Settings
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

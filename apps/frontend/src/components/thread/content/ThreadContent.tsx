@@ -63,11 +63,11 @@ interface AgentInfo {
 
 // Reusable agent header - shows Kortix logo for Kortix, avatar+name for others
 const AgentHeader = memo(function AgentHeader({ agentInfo }: { agentInfo: AgentInfo }) {
-  if (agentInfo.name === "Kortix") {
+  if (agentInfo.name === "SuperAgent") {
     return (
       <img
         src="/kortix-logomark-white.svg"
-        alt="Kortix"
+        alt="SuperAgent"
         className="dark:invert-0 invert flex-shrink-0"
         style={{ height: '12px', width: 'auto' }}
       />
@@ -825,7 +825,7 @@ export const ThreadContent: React.FC<ThreadContentProps> = memo(
     sandboxId,
     project,
     isPreviewMode = false,
-    agentName = "Kortix",
+    agentName = "SuperAgent",
     agentAvatar = <KortixLogo size={14} />,
     emptyStateComponent,
     threadMetadata,
@@ -875,7 +875,7 @@ export const ThreadContent: React.FC<ThreadContentProps> = memo(
       if (recentAssistantWithAgent?.agents?.name) {
         const rawName = recentAssistantWithAgent.agents.name;
         const name =
-          typeof rawName === "string" ? rawName : String(rawName || "Kortix");
+          typeof rawName === "string" ? rawName : String(rawName || "SuperAgent");
         return {
           name,
           avatar: (
@@ -885,9 +885,9 @@ export const ThreadContent: React.FC<ThreadContentProps> = memo(
           ),
         };
       }
-      const fallbackName = typeof agentName === "string" ? agentName : "Kortix";
+      const fallbackName = typeof agentName === "string" ? agentName : "SuperAgent";
       return {
-        name: fallbackName || "Kortix",
+        name: fallbackName || "SuperAgent",
         avatar: agentAvatar,
       };
     }, [threadMetadata, displayMessages, agentName, agentAvatar]);

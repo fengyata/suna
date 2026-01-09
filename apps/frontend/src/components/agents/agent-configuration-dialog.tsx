@@ -409,31 +409,39 @@ export function AgentConfigurationDialog({
                       className="ring-1 ring-border"
                     />
                   ) : (
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        console.log('🎯 Icon clicked in config dialog - opening editor');
-                        console.log('Current formData:', { 
-                          icon_name: formData.icon_name, 
-                          icon_color: formData.icon_color, 
-                          icon_background: formData.icon_background 
-                        });
-                        setIsIconEditorOpen(true);
-                      }}
-                      className="cursor-pointer transition-all hover:scale-105 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg"
-                      type="button"
-                      title="Click to customize agent icon"
-                    >
-                      <AgentAvatar
-                        iconName={formData.icon_name}
-                        iconColor={formData.icon_color}
-                        backgroundColor={formData.icon_background}
-                        agentName={formData.name}
-                        size={40}
-                        className="ring-1 ring-border hover:ring-foreground/20 transition-all"
-                      />
-                    </button>
+                    <AgentAvatar
+                      iconName={formData.icon_name}
+                      iconColor={formData.icon_color}
+                      backgroundColor={formData.icon_background}
+                      agentName={formData.name}
+                      size={40}
+                      className="ring-1 ring-border hover:ring-foreground/20 transition-all"
+                    />
+                    // <button
+                    //   onClick={(e) => {
+                    //     e.preventDefault();
+                    //     e.stopPropagation();
+                    //     console.log('🎯 Icon clicked in config dialog - opening editor');
+                    //     console.log('Current formData:', { 
+                    //       icon_name: formData.icon_name, 
+                    //       icon_color: formData.icon_color, 
+                    //       icon_background: formData.icon_background 
+                    //     });
+                    //     setIsIconEditorOpen(true);
+                    //   }}
+                    //   className="cursor-pointer transition-all hover:scale-105 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg"
+                    //   type="button"
+                    //   title="Click to customize agent icon"
+                    // >
+                    //   <AgentAvatar
+                    //     iconName={formData.icon_name}
+                    //     iconColor={formData.icon_color}
+                    //     backgroundColor={formData.icon_background}
+                    //     agentName={formData.name}
+                    //     size={40}
+                    //     className="ring-1 ring-border hover:ring-foreground/20 transition-all"
+                    //   />
+                    // </button>
                   )}
                 </div>
 
