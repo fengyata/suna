@@ -2,6 +2,7 @@ from typing import Dict, Type, Any, List, Optional, Callable
 from core.agentpress.tool import Tool, SchemaType
 from core.utils.logger import logger
 import json
+import os
 
 
 class ToolRegistry:
@@ -79,7 +80,24 @@ class ToolRegistry:
         return tool
 
     def get_openapi_schemas(self) -> List[Dict[str, Any]]:
+        debug_tool_schemas = os.getenv("DEBUG_TOOL_SCHEMAS") == "1"
+
         if self._cached_openapi_schemas is not None:
+            if debug_tool_schemas:
+                try:
+                    # Log cached view_tasks schema details to detect mutation across calls
+                    for i, t in enumerate(self._cached_openapi_schemas):
+                        fn = (t or {}).get("function", {}) if isinstance(t, dict) else {}
+                        if fn.get("name") == "view_tasks":
+                            params = fn.get("parameters")
+                            logger.error(
+                                f"🧩 [TOOL SCHEMA TRACE] (cached) tools[{i}] view_tasks "
+                                f"tool_id={id(t)} params_id={id(params) if isinstance(params, dict) else None} "
+                                f"parameters={json.dumps(params)[:200] if isinstance(params, dict) else str(params)[:80]}"
+                            )
+                            break
+                except Exception as e:
+                    logger.debug(f"[TOOL SCHEMA TRACE] Failed to log cached schemas: {str(e)[:80]}")
             return self._cached_openapi_schemas
 
         schemas = []
@@ -110,6 +128,22 @@ class ToolRegistry:
         
         self._cached_openapi_schemas = schemas
         logger.info(f"🎯 [HYBRID CACHE] Exposing {native_exposed} native tools, hiding {mcp_hidden} MCP tools (smart separation)")
+
+        if debug_tool_schemas:
+            try:
+                for i, t in enumerate(self._cached_openapi_schemas):
+                    fn = (t or {}).get("function", {}) if isinstance(t, dict) else {}
+                    if fn.get("name") == "view_tasks":
+                        params = fn.get("parameters")
+                        logger.error(
+                            f"🧩 [TOOL SCHEMA TRACE] (built) tools[{i}] view_tasks "
+                            f"tool_id={id(t)} params_id={id(params) if isinstance(params, dict) else None} "
+                            f"parameters={json.dumps(params)[:200] if isinstance(params, dict) else str(params)[:80]}"
+                        )
+                        break
+            except Exception as e:
+                logger.debug(f"[TOOL SCHEMA TRACE] Failed to log built schemas: {str(e)[:80]}")
+
         return schemas
     
     def get_all_schemas(self) -> List[Dict[str, Any]]:

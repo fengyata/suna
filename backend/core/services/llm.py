@@ -328,6 +328,26 @@ async def make_llm_api_call(
     if tools:
         params["tools"] = tools
         params["tool_choice"] = tool_choice
+        # Optional trace for diagnosing tool schema mutation across calls (no mutation here)
+        if os.getenv("DEBUG_TOOL_SCHEMAS") == "1":
+            try:
+                # Log only the problematic tool (view_tasks) to keep noise low
+                for i, t in enumerate(tools):
+                    if not isinstance(t, dict):
+                        continue
+                    fn = t.get("function", {})
+                    if not isinstance(fn, dict):
+                        continue
+                    if fn.get("name") == "view_tasks":
+                        p = fn.get("parameters")
+                        logger.error(
+                            f"🧩 [TOOL SCHEMA TRACE] (llm pre-send) tools[{i}] view_tasks "
+                            f"tools_list_id={id(tools)} tool_id={id(t)} params_id={id(p) if isinstance(p, dict) else None} "
+                            f"parameters={json.dumps(p)[:200] if isinstance(p, dict) else str(p)[:80]}"
+                        )
+                        break
+            except Exception as e:
+                logger.debug(f"[TOOL SCHEMA TRACE] Failed in llm pre-send: {str(e)[:80]}")
     
     # Pure diagnostic logging for Anthropic tool schema strictness (no mutation)
     actual_model_id = params.get("model", model_name)
