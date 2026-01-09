@@ -59,10 +59,19 @@ class ModelRegistry:
         self._litellm_id_to_pricing["minimax/minimax-m2.1"] = minimax_m2_pricing
         self._litellm_id_to_pricing["openrouter/minimax/minimax-m2.1"] = minimax_m2_pricing
         
-        # Kortix Basic - using Anthropic Claude Sonnet 4.5
-        basic_litellm_id = build_bedrock_profile_arn(SONNET_4_5_PROFILE_ID) if SHOULD_USE_BEDROCK else "anthropic/claude-sonnet-4-5-20250929"
+        # Kortix Basic - using Anthropic Claude Haiku 4.5
+        basic_litellm_id = build_bedrock_profile_arn(HAIKU_4_5_PROFILE_ID) if SHOULD_USE_BEDROCK else "anthropic/claude-haiku-4-5-20251001"
         
-        # Sonnet 4.5 pricing
+        # Haiku 4.5 pricing
+        haiku_pricing = ModelPricing(
+            input_cost_per_million_tokens=1.00,
+            output_cost_per_million_tokens=5.00,
+            cached_read_cost_per_million_tokens=0.10,
+            cache_write_5m_cost_per_million_tokens=1.25,
+            cache_write_1h_cost_per_million_tokens=2.00,
+        )
+        
+        # Sonnet 4.5 pricing (for Advanced mode)
         sonnet_pricing = ModelPricing(
             input_cost_per_million_tokens=3.00,
             output_cost_per_million_tokens=15.00,
@@ -75,10 +84,6 @@ class ModelRegistry:
             id="kortix/basic",
             name="Kortix Basic",
             litellm_model_id=basic_litellm_id,
-            # MiniMax vision fallback (only enable when using MiniMax as primary model):
-            # vision_litellm_model_id=HAIKU_BEDROCK_ARN,
-            # vision_context_window=200_000,
-            # vision_pricing=HAIKU_PRICING,
             provider=ModelProvider.ANTHROPIC,
             aliases=["kortix-basic", "Kortix Basic"],
             context_window=200_000,
@@ -88,7 +93,7 @@ class ModelRegistry:
                 ModelCapability.VISION,
                 ModelCapability.PROMPT_CACHING,
             ],
-            pricing=sonnet_pricing,
+            pricing=haiku_pricing,
             tier_availability=["free", "paid"],
             priority=102,
             recommended=True,
