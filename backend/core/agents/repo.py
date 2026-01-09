@@ -237,6 +237,22 @@ async def update_agent(
     return serialize_row(dict(result)) if result else None
 
 
+async def update_agent_fields(
+    agent_id: str,
+    account_id: str,
+    **fields: Any,
+) -> bool:
+    """
+    Backwards-compatible wrapper used by API handlers.
+
+    - Ignores None values (treat as "not provided") to avoid overwriting columns with NULL
+    - Returns a boolean indicating whether an update occurred / row exists
+    """
+    updates = {k: v for k, v in fields.items() if v is not None}
+    updated = await update_agent(agent_id=agent_id, account_id=account_id, updates=updates)
+    return updated is not None
+
+
 async def clear_default_agent(account_id: str, exclude_agent_id: Optional[str] = None) -> int:
     sql = """
     UPDATE agents 
