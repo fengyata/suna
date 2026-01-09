@@ -9,7 +9,7 @@ COPY apps/frontend/package.json ./apps/frontend/
 COPY packages/ ./packages/
 
 # 缓存 pnpm store，即使 --no-cache 也能复用
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 
 # ---- Builder Stage ----
