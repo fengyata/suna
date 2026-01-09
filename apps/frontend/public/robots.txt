@@ -12,4 +12,4 @@ Disallow: /admin/
 
 # Allow crawling of public pages
 Allow: /suna/
-
+Allow: /superagent/

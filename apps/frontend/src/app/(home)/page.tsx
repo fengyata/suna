@@ -38,15 +38,15 @@ export default function Home() {
   return (
     <BackgroundAALChecker>
       <NewHeroSection />
-      <Suspense fallback={<ShowCaseSkeleton />}>
+      {/* <Suspense fallback={<ShowCaseSkeleton />}>
         <ShowCaseSection />
-      </Suspense>
-      <Suspense fallback={null}>
+      </Suspense> */}
+      {/* <Suspense fallback={null}>
         <WordmarkFooter />
       </Suspense>
       <Suspense fallback={null}>
         <SimpleFooter />
-      </Suspense>
+      </Suspense> */}
     </BackgroundAALChecker>
   );
 }

@@ -117,7 +117,7 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
 
     const placeholderSunaAgent = useMemo(() => ({
         agent_id: undefined,
-        name: 'Kortix',
+        name: 'SuperAgent',
         metadata: { is_suna_default: true }
     }), []);
 
@@ -185,7 +185,7 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
 
     const renderAgentIcon = useCallback((agent: any, size: number = 32) => {
         if (!agent && (isLoading || sunaAgent)) {
-            return <AgentAvatar isSunaDefault={true} agentName="Kortix" size={size} className="flex-shrink-0 !border-0" />;
+            return <AgentAvatar isSunaDefault={true} agentName="SuperAgent" size={size} className="flex-shrink-0 !border-0" />;
         }
         return <AgentAvatar agent={agent} agentId={agent?.agent_id} size={size} className="flex-shrink-0 !border-0" />;
     }, [isLoading, sunaAgent]);
@@ -380,7 +380,7 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
     ), [onAgentSelect, selectedAgentId, displayAgent?.agent_id, handleQuickAction]);
 
     // Check if current agent is Kortix (used in multiple places)
-    const isKortixAgent = !displayAgent?.name || displayAgent?.name === 'Kortix';
+    const isKortixAgent = !displayAgent?.name || displayAgent?.name === 'SuperAgent';
 
     // Mobile Sheet Content
     const MobileSheetContent = useCallback(() => {

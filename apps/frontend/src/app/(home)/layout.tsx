@@ -9,7 +9,7 @@ export default function HomeLayout({
 }>) {
   return (
     <div className="w-full relative">
-      <Navbar />
+      {/* <Navbar /> */}
       {children}
     </div>
   );

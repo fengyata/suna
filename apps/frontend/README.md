@@ -1,4 +1,4 @@
-# Kortix Frontend
+# SuperAgent Frontend
 
 ## Quick Setup
 
