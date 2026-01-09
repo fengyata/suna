@@ -79,7 +79,7 @@ def _get_supabase_jwks() -> Optional[dict]:
     """
     try:
         supabase_url = config.SUPABASE_URL.rstrip('/')
-        jwks_url = f"{supabase_url}/.well-known/jwks.json"
+        jwks_url = f"{supabase_url}/auth/v1/.well-known/jwks.json"
         
         # Use httpx with a short timeout
         with httpx.Client(timeout=5.0) as client:
