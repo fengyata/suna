@@ -336,16 +336,20 @@ class MCPRegistry:
                     toolkit_schemas = {}
                     for discovered_tool in result.tools:
                         tool_name = discovered_tool.get('name')
+                        # Ensure inputSchema has required 'type' field for Anthropic API
+                        input_schema = discovered_tool.get('inputSchema') or {}
+                        if not input_schema or "type" not in input_schema:
+                            input_schema = {
+                                "type": "object",
+                                "properties": input_schema.get("properties", {}),
+                                "required": input_schema.get("required", [])
+                            }
                         schema = {
                             "type": "function",
                             "function": {
                                 "name": tool_name,
                                 "description": discovered_tool.get('description', f"Execute {tool_name}"),
-                                "parameters": discovered_tool.get('inputSchema', {
-                                    "type": "object",
-                                    "properties": {},
-                                    "required": []
-                                })
+                                "parameters": input_schema
                             }
                         }
                         
