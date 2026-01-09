@@ -6,7 +6,7 @@
 import React from 'react';
 import { useFileContentQuery } from './files/use-file-queries';
 import { getFileType } from '@/lib/utils/file-utils';
-import { isImageFile, isPdfExtension, isSpreadsheetExtension, isCsvExtension, isHtmlExtension, isMarkdownExtension, isJsonExtension } from '@/lib/utils/file-types';
+import { isImageFile, isPdfExtension, isSpreadsheetExtension, isCsvExtension, isHtmlExtension, isMarkdownExtension, isJsonExtension, isVideoExtension, isTextExtension } from '@/lib/utils/file-types';
 
 export interface UseFileDataOptions {
     enabled?: boolean;
@@ -14,7 +14,7 @@ export interface UseFileDataOptions {
 }
 
 export interface UseFileDataResult {
-    // For images and PDFs: blob URL
+    // For images, PDFs, and videos: blob URL
     // For text files: string content
     data: string | null;
     isLoading: boolean;
@@ -24,6 +24,7 @@ export interface UseFileDataResult {
     isImage: boolean;
     isPdf: boolean;
     isSpreadsheet: boolean;
+    isVideo: boolean;
     isText: boolean;
 }
 
@@ -46,14 +47,16 @@ export function useFileData(
     const isImage = isImageFile(filepath || '');
     const isPdf = isPdfExtension(extension);
     const isSpreadsheet = isSpreadsheetExtension(extension);
+    const isVideo = isVideoExtension(extension);
     const isCsv = isCsvExtension(extension);
     const isHtml = isHtmlExtension(extension);
     const isMarkdown = isMarkdownExtension(extension);
     const isJson = isJsonExtension(extension);
-    const isText = isHtml || isMarkdown || isJson || isCsv;
+    const isPlainText = isTextExtension(extension);
+    const isText = isHtml || isMarkdown || isJson || isCsv || isPlainText;
     
     // Determine content type for query
-    const needsBlob = isImage || isPdf || isSpreadsheet;
+    const needsBlob = isImage || isPdf || isSpreadsheet || isVideo;
     const needsText = isText;
     
     // Fetch blob data for images, PDFs, spreadsheets
@@ -66,7 +69,7 @@ export function useFileData(
         }
     );
     
-    // Fetch text data for HTML, Markdown, JSON, CSV
+    // Fetch text data for HTML, Markdown, JSON, CSV, TXT
     const textQuery = useFileContentQuery(
         needsText && showPreview ? sandboxId : undefined,
         needsText && showPreview ? filepath : undefined,
@@ -104,6 +107,7 @@ export function useFileData(
         isImage,
         isPdf,
         isSpreadsheet,
+        isVideo,
         isText,
     };
 }

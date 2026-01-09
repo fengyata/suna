@@ -74,7 +74,7 @@ import { toast } from '@/lib/toast';
 import { PresentationSlidePreview } from '../presentation-tools/PresentationSlidePreview';
 import { usePresentationViewerStore } from '@/stores/presentation-viewer-store';
 import { useKortixComputerStore } from '@/stores/kortix-computer-store';
-import { useSmoothToolField } from '@/hooks/messages/useSmoothToolArguments';
+import { useSmoothToolField } from '@/hooks/messages';
 
 const UnifiedDiffView: React.FC<{ lineDiff: LineDiff[]; fileName?: string }> = ({ lineDiff, fileName }) => (
   <div className="font-mono text-[13px] leading-relaxed">
@@ -1106,7 +1106,7 @@ export function FileOperationToolView({
                   showProgress={false}
                 />
               ) : !fileContent && isStreaming ? (
-                <StreamingLoader showBranding={true} />
+                <StreamingLoader />
               ) : operation === 'delete' ? (
                 <div className="flex flex-col items-center justify-center h-full py-12 px-6 bg-white dark:bg-zinc-900">
                   <div className={cn("w-20 h-20 rounded-full flex items-center justify-center mb-6", config.bgColor)}>
@@ -1153,7 +1153,7 @@ export function FileOperationToolView({
                     showProgress={false}
                   />
                 ) : !fileContent && isStreaming ? (
-                  <StreamingLoader showBranding={true} />
+                  <StreamingLoader />
                 ) : operation === 'delete' ? (
                   renderDeleteOperation()
                 ) : (

@@ -1,92 +1,46 @@
 import hmac
-import time
-import httpx
 from fastapi import HTTPException, Request, Header
-from typing import Optional, Dict, Any
+from typing import Optional
 import jwt
 from jwt.exceptions import PyJWTError
-from jwt import PyJWK
 from core.utils.logger import structlog
 from core.utils.config import config
 from core.services.supabase import DBConnection
 from core.services import redis
 from core.utils.logger import logger, structlog
-
-# JWKS cache for ES256 verification
-_jwks_cache: Dict[str, Any] = {}
-_jwks_cache_time: float = 0
-_JWKS_CACHE_TTL = 3600  # 1 hour
+import httpx
+import json
+from functools import lru_cache
 
 
-def _get_jwks_url() -> str:
-    """Get the JWKS URL from Supabase URL."""
-    supabase_url = config.SUPABASE_URL
-    if not supabase_url:
-        return ""
-    return f"{supabase_url}/auth/v1/.well-known/jwks.json"
-
-
-def _fetch_jwks() -> Dict[str, Any]:
-    """Fetch JWKS from Supabase, with caching."""
-    global _jwks_cache, _jwks_cache_time
-    
-    current_time = time.time()
-    if _jwks_cache and (current_time - _jwks_cache_time) < _JWKS_CACHE_TTL:
-        return _jwks_cache
-    
-    jwks_url = _get_jwks_url()
-    if not jwks_url:
-        return {}
-    
-    try:
-        with httpx.Client(timeout=10) as client:
-            response = client.get(jwks_url)
-            response.raise_for_status()
-            _jwks_cache = response.json()
-            _jwks_cache_time = current_time
-            logger.info(f"Fetched JWKS from {jwks_url}")
-            return _jwks_cache
-    except Exception as e:
-        logger.warning(f"Failed to fetch JWKS: {e}")
-        return _jwks_cache if _jwks_cache else {}
-
-
-def _get_signing_key(token: str) -> tuple[Any, str]:
+def validate_jwt_secret(jwt_secret: str, test_token: Optional[str] = None) -> tuple[bool, str]:
     """
-    Get the signing key for JWT verification.
-    Returns (key, algorithm) tuple.
-    For ES256: returns public key from JWKS
-    For HS256: returns the JWT secret
+    Validate if a JWT secret can decode tokens.
+    
+    Args:
+        jwt_secret: The JWT secret to validate
+        test_token: Optional test token to verify against
+        
+    Returns:
+        Tuple of (is_valid, error_message)
     """
-    try:
-        # Decode header without verification to get algorithm and kid
-        unverified_header = jwt.get_unverified_header(token)
-        alg = unverified_header.get("alg", "HS256")
-        kid = unverified_header.get("kid")
-        
-        # If ES256/RS256, get public key from JWKS
-        if alg in ["ES256", "ES384", "ES512", "RS256", "RS384", "RS512"]:
-            jwks = _fetch_jwks()
-            if not jwks or "keys" not in jwks:
-                raise ValueError("JWKS not available")
-            
-            # Find the key with matching kid
-            for key_data in jwks["keys"]:
-                if key_data.get("kid") == kid:
-                    public_key = PyJWK.from_dict(key_data).key
-                    return public_key, alg
-            
-            raise ValueError(f"Key with kid={kid} not found in JWKS")
-        
-        # For HS256 (legacy), use JWT secret
-        jwt_secret = config.SUPABASE_JWT_SECRET
-        if not jwt_secret:
-            raise ValueError("SUPABASE_JWT_SECRET not configured")
-        return jwt_secret, alg
-        
-    except Exception as e:
-        logger.warning(f"Error getting signing key: {e}")
-        raise
+    if not jwt_secret:
+        return False, "JWT secret is empty"
+    
+    if len(jwt_secret) < 32:
+        return False, f"JWT secret is too short ({len(jwt_secret)} chars). Minimum 32 characters required."
+    
+    # If a test token is provided, try to decode it
+    if test_token:
+        try:
+            jwt.decode(test_token, jwt_secret, algorithms=["HS256"], options={"verify_signature": True})
+            return True, "JWT secret successfully decoded test token"
+        except jwt.InvalidSignatureError:
+            return False, "JWT secret does not match test token signature"
+        except PyJWTError as e:
+            return False, f"JWT secret validation failed: {str(e)}"
+    
+    return True, "JWT secret format is valid"
 
 
 def _constant_time_compare(a: str, b: str) -> bool:
@@ -117,56 +71,268 @@ async def verify_admin_api_key(x_admin_api_key: Optional[str] = Header(None)):
     return True
 
 
-def _decode_jwt_with_verification(token: str) -> dict:
+@lru_cache(maxsize=1)
+def _get_supabase_jwks() -> Optional[dict]:
     """
-    Decode and verify JWT token using Supabase JWT secret or JWKS public key.
-    
-    Supports both:
-    - Legacy HS256 (symmetric, using SUPABASE_JWT_SECRET)
-    - New ES256/RS256 (asymmetric, using JWKS public keys)
+    Fetch Supabase JWKS (JSON Web Key Set) for ES256/RS256 token verification.
+    Cached to avoid repeated requests.
     """
     try:
-        # Get the appropriate signing key and algorithm
-        signing_key, algorithm = _get_signing_key(token)
+        supabase_url = config.SUPABASE_URL.rstrip('/')
+        jwks_url = f"{supabase_url}/.well-known/jwks.json"
         
-        # Verify and decode the token
-        return jwt.decode(
-            token,
-            signing_key,
-            algorithms=[algorithm],
-            options={
-                "verify_signature": True,
-                "verify_exp": True,
-                "verify_aud": False,  # Supabase doesn't always set audience
-                "verify_iss": False,  # Issuer varies by project
-            }
-        )
-    except jwt.ExpiredSignatureError:
-        raise HTTPException(
-            status_code=401,
-            detail="Token has expired",
-            headers={"WWW-Authenticate": "Bearer"}
-        )
-    except jwt.InvalidSignatureError:
-        logger.warning("JWT signature verification failed - possible token forgery attempt")
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid token signature",
-            headers={"WWW-Authenticate": "Bearer"}
-        )
-    except ValueError as e:
-        logger.error(f"JWT configuration error: {str(e)}")
+        # Use httpx with a short timeout
+        with httpx.Client(timeout=5.0) as client:
+            response = client.get(jwks_url)
+            if response.status_code == 200:
+                jwks_data = response.json()
+                logger.debug(f"Fetched JWKS from {jwks_url}")
+                return jwks_data
+            else:
+                logger.warning(f"Failed to fetch JWKS: HTTP {response.status_code}")
+                return None
+    except Exception as e:
+        logger.debug(f"Could not fetch JWKS (non-fatal): {str(e)}")
+        return None
+
+
+def _get_public_key_from_jwks(token: str, jwks: dict) -> Optional[str]:
+    """
+    Extract the public key from JWKS for the given token.
+    Returns the public key in PEM format or None if not found.
+    """
+    try:
+        header = jwt.get_unverified_header(token)
+        kid = header.get('kid')  # Key ID
+        
+        if not kid:
+            return None
+        
+        # Find the key in JWKS
+        for key in jwks.get('keys', []):
+            if key.get('kid') == kid:
+                # Convert JWK to public key
+                try:
+                    from cryptography.hazmat.primitives.asymmetric import ec
+                    from cryptography.hazmat.primitives import serialization
+                    import base64
+                except ImportError:
+                    logger.error("cryptography library not installed. Install it with: pip install cryptography")
+                    return None
+                
+                if key.get('kty') == 'EC' and key.get('crv') == 'P-256':
+                    # ES256 - Elliptic Curve
+                    from cryptography.hazmat.backends import default_backend
+                    
+                    x = base64.urlsafe_b64decode(key['x'] + '==')
+                    y = base64.urlsafe_b64decode(key['y'] + '==')
+                    
+                    # Reconstruct public key
+                    public_numbers = ec.EllipticCurvePublicNumbers(
+                        int.from_bytes(x, 'big'),
+                        int.from_bytes(y, 'big'),
+                        ec.SECP256R1()
+                    )
+                    public_key = public_numbers.public_key(default_backend())
+                    
+                    # Serialize to PEM
+                    pem = public_key.public_bytes(
+                        encoding=serialization.Encoding.PEM,
+                        format=serialization.PublicFormat.SubjectPublicKeyInfo
+                    )
+                    return pem.decode('utf-8')
+                elif key.get('kty') == 'RSA':
+                    # RS256 - RSA
+                    from cryptography.hazmat.primitives.asymmetric import rsa
+                    import base64
+                    from cryptography.hazmat.backends import default_backend
+                    
+                    # Decode base64url-encoded values
+                    n_bytes = base64.urlsafe_b64decode(key['n'] + '==')
+                    e_bytes = base64.urlsafe_b64decode(key['e'] + '==')
+                    
+                    # Convert to integers
+                    n_int = int.from_bytes(n_bytes, 'big')
+                    e_int = int.from_bytes(e_bytes, 'big')
+                    
+                    public_numbers = rsa.RSAPublicNumbers(e_int, n_int)
+                    public_key = public_numbers.public_key(default_backend())
+                    
+                    pem = public_key.public_bytes(
+                        encoding=serialization.Encoding.PEM,
+                        format=serialization.PublicFormat.SubjectPublicKeyInfo
+                    )
+                    return pem.decode('utf-8')
+                
+        return None
+    except Exception as e:
+        logger.debug(f"Could not extract public key from JWKS: {str(e)}")
+        return None
+
+
+def _decode_jwt_with_verification(token: str) -> dict:
+    """
+    Decode and verify JWT token using Supabase JWT secret or public key.
+    
+    Supports both HS256 (with shared secret) and ES256/RS256 (with public key from JWKS).
+    This function properly validates the JWT signature to prevent token forgery.
+    """
+    jwt_secret = config.SUPABASE_JWT_SECRET
+    
+    if not jwt_secret:
+        logger.error("SUPABASE_JWT_SECRET is not configured - JWT verification disabled!")
         raise HTTPException(
             status_code=500,
             detail="Server authentication configuration error"
         )
-    except PyJWTError as e:
-        logger.warning(f"JWT decode error: {str(e)}")
+    
+    # First, decode the token header to see what algorithm it uses
+    # This is critical - ES256 tokens MUST use public key verification, not HS256
+    try:
+        header = jwt.get_unverified_header(token)
+        token_algorithm = header.get('alg', 'unknown')
+        
+        # Log JWT secret info for debugging
+        secret_preview = jwt_secret[:10] + "..." if len(jwt_secret) > 10 else jwt_secret
+        logger.debug(f"JWT decode attempt: alg={token_algorithm}, secret_length={len(jwt_secret)}, secret_preview={secret_preview}")
+        
+        # If token explicitly uses ES256/RS256, we MUST use public key verification
+        # Do NOT try HS256 with these algorithms
+        if token_algorithm in ['ES256', 'RS256']:
+            logger.debug(f"Token uses {token_algorithm}, will use public key verification from JWKS")
+        
+    except jwt.DecodeError as e:
+        logger.warning(f"Could not decode JWT token header (malformed token): {str(e)}")
         raise HTTPException(
             status_code=401,
-            detail="Invalid token",
+            detail="Invalid token format",
             headers={"WWW-Authenticate": "Bearer"}
         )
+    except Exception as e:
+        logger.debug(f"Could not decode token header (non-fatal): {str(e)}")
+        token_algorithm = 'unknown'
+    
+    # Try HS256 first (most common for Supabase)
+    # Only try HS256 if token doesn't explicitly claim ES256/RS256
+    if token_algorithm not in ['ES256', 'RS256']:
+        try:
+            return jwt.decode(
+                token,
+                jwt_secret,
+                algorithms=["HS256"],
+                options={
+                    "verify_signature": True,
+                    "verify_exp": True,
+                    "verify_aud": False,  # Supabase doesn't always set audience
+                    "verify_iss": False,  # Issuer varies by project
+                }
+            )
+        except jwt.ExpiredSignatureError:
+            raise HTTPException(
+                status_code=401,
+                detail="Token has expired",
+                headers={"WWW-Authenticate": "Bearer"}
+            )
+        except jwt.InvalidSignatureError:
+            # If token algorithm is unknown but HS256 failed, it might actually be ES256
+            # Fall through to try ES256/RS256
+            if token_algorithm == 'unknown':
+                logger.debug("HS256 verification failed with unknown algorithm, will try ES256/RS256")
+            else:
+                logger.warning(
+                    f"JWT signature verification failed with HS256. "
+                    f"Token algorithm: {token_algorithm}, Secret length: {len(jwt_secret)}"
+                )
+                raise HTTPException(
+                    status_code=401,
+                    detail="Invalid token signature",
+                    headers={"WWW-Authenticate": "Bearer"}
+                )
+        except PyJWTError as e:
+            error_msg = str(e).lower()
+            # If it's an algorithm error, the token might be ES256/RS256
+            if "alg value is not allowed" in error_msg or "algorithm" in error_msg:
+                logger.debug(f"HS256 decode failed ({error_msg}), will try ES256/RS256 if token claims it")
+                # Re-check header in case algorithm was misread
+                try:
+                    header = jwt.get_unverified_header(token)
+                    actual_alg = header.get('alg', 'unknown')
+                    if actual_alg in ['ES256', 'RS256']:
+                        token_algorithm = actual_alg
+                        logger.debug(f"Token actually uses {actual_alg}, will try public key verification")
+                    else:
+                        raise
+                except:
+                    raise
+            else:
+                raise
+    
+    # Try ES256/RS256 with public key from JWKS
+    if token_algorithm in ['ES256', 'RS256']:
+        try:
+            jwks = _get_supabase_jwks()
+            if not jwks:
+                logger.error(
+                    f"Token uses {token_algorithm} algorithm but could not fetch JWKS from Supabase. "
+                    f"Make sure SUPABASE_URL is correct and Supabase is running."
+                )
+                raise HTTPException(
+                    status_code=401,
+                    detail=f"Token uses {token_algorithm} but JWKS unavailable",
+                    headers={"WWW-Authenticate": "Bearer"}
+                )
+            
+            public_key = _get_public_key_from_jwks(token, jwks)
+            if not public_key:
+                logger.error(f"Could not find public key in JWKS for token with algorithm {token_algorithm}")
+                raise HTTPException(
+                    status_code=401,
+                    detail="Could not verify token signature",
+                    headers={"WWW-Authenticate": "Bearer"}
+                )
+            
+            # Decode with public key
+            return jwt.decode(
+                token,
+                public_key,
+                algorithms=[token_algorithm],
+                options={
+                    "verify_signature": True,
+                    "verify_exp": True,
+                    "verify_aud": False,
+                    "verify_iss": False,
+                }
+            )
+        except HTTPException:
+            raise
+        except jwt.ExpiredSignatureError:
+            raise HTTPException(
+                status_code=401,
+                detail="Token has expired",
+                headers={"WWW-Authenticate": "Bearer"}
+            )
+        except jwt.InvalidSignatureError:
+            logger.warning(f"JWT signature verification failed with {token_algorithm}")
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid token signature",
+                headers={"WWW-Authenticate": "Bearer"}
+            )
+        except PyJWTError as e:
+            logger.warning(f"JWT decode error with {token_algorithm}: {str(e)}")
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid token",
+                headers={"WWW-Authenticate": "Bearer"}
+            )
+    
+    # If we get here, algorithm is not supported
+    logger.error(f"Unsupported JWT algorithm: {token_algorithm}. Supported: HS256, ES256, RS256")
+    raise HTTPException(
+        status_code=401,
+        detail=f"Unsupported token algorithm: {token_algorithm}",
+        headers={"WWW-Authenticate": "Bearer"}
+    )
 
 async def get_account_id_from_thread(thread_id: str, db: "DBConnection") -> str:
     """
@@ -203,8 +369,8 @@ async def _get_user_id_from_account_cached(account_id: str) -> Optional[str]:
         structlog.get_logger().warning(f"Redis cache lookup failed for account {account_id}: {e}")
     
     try:
+        # Use singleton - no need to initialize, it's already initialized at startup
         db = DBConnection()
-        await db.initialize()
         client = await db.client
         
         user_result = await client.schema('basejump').table('accounts').select(
@@ -242,8 +408,8 @@ async def verify_and_get_user_id_from_jwt(request: Request) -> str:
             public_key, secret_key = x_api_key.split(':', 1)
             
             from core.services.api_keys import APIKeyService
+            # Use singleton - no need to initialize, it's already initialized at startup
             db = DBConnection()
-            await db.initialize()
             api_key_service = APIKeyService(db)
             
             validation_result = await api_key_service.validate_api_key(public_key, secret_key)
@@ -511,7 +677,7 @@ async def get_authorized_user_for_thread(
     # First, authenticate the user
     user_id = await verify_and_get_user_id_from_jwt(request)
     
-    # Then, authorize thread access
+    # Then, authorize thread access - use singleton, already initialized
     db = DBConnection()
     client = await db.client
     await verify_and_authorize_thread_access(client, thread_id, user_id)
@@ -540,7 +706,7 @@ async def get_authorized_user_for_agent(
     # First, authenticate the user
     user_id = await verify_and_get_user_id_from_jwt(request)
     
-    # Then, authorize agent access and get agent data
+    # Then, authorize agent access and get agent data - use singleton, already initialized
     db = DBConnection()
     client = await db.client
     agent_data = await verify_and_get_agent_authorization(client, agent_id, user_id)

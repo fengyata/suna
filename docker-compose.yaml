@@ -54,6 +54,13 @@ services:
       - REDIS_PORT=6379
       - REDIS_PASSWORD=
       - REDIS_SSL=False
+    # DNS configuration to reduce DNS lookup latency for third-party services
+    # Using Google and Cloudflare DNS for reliability
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    dns_search:
+      - .
     depends_on:
       redis:
         condition: service_healthy
@@ -74,6 +81,12 @@ services:
       - REDIS_PORT=6379
       - REDIS_PASSWORD=
       - REDIS_SSL=False
+    # DNS configuration to reduce DNS lookup latency for third-party services
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    dns_search:
+      - .
     depends_on:
       redis:
         condition: service_healthy
@@ -84,9 +97,14 @@ services:
       context: ./apps/frontend
       dockerfile: Dockerfile
       args:
+        # Build args as fallback/defaults (used if .env file doesn't exist)
         NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL:-http://localhost:8000/v1}
         NEXT_PUBLIC_URL: ${NEXT_PUBLIC_URL:-http://localhost:3000}
         NEXT_PUBLIC_ENV_MODE: ${NEXT_PUBLIC_ENV_MODE:-LOCAL}
+    env_file:
+      # Use .env file for consistency with backend approach
+      # Next.js reads NEXT_PUBLIC_* variables from .env during build (standalone mode)
+      - ./apps/frontend/.env
     ports:
       - "3000:3000"
     depends_on:

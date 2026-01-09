@@ -535,6 +535,10 @@ class AgentRunner:
         generation = self.config.trace.generation(name="thread_manager.run_thread") if self.config.trace else None
         
         try:
+            # Emit status before LLM call for debugging
+            await stream_status_message("llm_call", f"Starting LLM API call (turn {self.turn_number})...")
+            llm_call_start = time.time()
+            
             response = await self.thread_manager.run_thread(
                 thread_id=self.config.thread_id,
                 system_prompt=system_message,
@@ -575,12 +579,23 @@ class AgentRunner:
         last_tool_call = None
         agent_should_terminate = False
         error_detected = False
+        first_chunk_received = False
         
         try:
             if hasattr(response, '__aiter__') and not isinstance(response, dict):
                 async for chunk in response:
                     if cancellation_event and cancellation_event.is_set():
                         break
+                    
+                    # Emit status on first chunk (TTFT)
+                    if not first_chunk_received:
+                        first_chunk_received = True
+                        # Check if this is the special llm_ttft chunk from response_processor
+                        if isinstance(chunk, dict) and chunk.get('type') == 'llm_ttft':
+                            ttft = chunk.get('ttft_seconds', 0)
+                            await stream_status_message("llm_streaming", f"First token received (TTFT: {ttft:.2f}s)")
+                        else:
+                            await stream_status_message("llm_streaming", "LLM stream started")
                     
                     should_terminate, error, tool_call = self._process_chunk(chunk)
                     
@@ -761,8 +776,20 @@ async def execute_agent_run(
         
         async for response in runner.run(cancellation_event=cancellation_event):
             if not first_response:
-                logger.info(f"⏱️ FIRST RESPONSE: {(time.time() - execution_start) * 1000:.1f}ms")
+                first_response_time_ms = (time.time() - execution_start) * 1000
+                logger.info(f"⏱️ FIRST RESPONSE: {first_response_time_ms:.1f}ms")
                 first_response = True
+                
+                # Emit timing info to Redis stream for stress testing
+                try:
+                    timing_msg = {
+                        "type": "timing",
+                        "first_response_ms": round(first_response_time_ms, 1),
+                        "timestamp": datetime.now(timezone.utc).isoformat(),
+                    }
+                    await redis.stream_add(stream_key, {"data": json.dumps(timing_msg)}, maxlen=200, approximate=True)
+                except Exception:
+                    pass  # Non-critical
             
             if stop_state['received']:
                 logger.warning(f"🛑 Agent run stopped: {stop_state['reason']}")

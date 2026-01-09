@@ -1,3 +1,9 @@
+-- Note: CONCURRENTLY is not used here because:
+-- 1. Local development databases are empty/reset, so no table locking concerns
+-- 2. CREATE INDEX CONCURRENTLY cannot execute inside transactions
+-- 3. supabase db reset runs migrations in a transaction pipeline
+-- For production, CONCURRENTLY can be added if needed for zero-downtime index creation
+
 CREATE INDEX IF NOT EXISTS idx_agent_runs_status_started_at 
 ON agent_runs(status, started_at DESC) 
 WHERE status = 'running';
