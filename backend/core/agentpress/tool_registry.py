@@ -3,6 +3,7 @@ from core.agentpress.tool import Tool, SchemaType
 from core.utils.logger import logger
 import json
 import os
+import copy
 
 
 class ToolRegistry:
@@ -98,7 +99,9 @@ class ToolRegistry:
                             break
                 except Exception as e:
                     logger.debug(f"[TOOL SCHEMA TRACE] Failed to log cached schemas: {str(e)[:80]}")
-            return self._cached_openapi_schemas
+            # IMPORTANT: Return a deep copy so downstream libraries (e.g., LiteLLM/provider adapters)
+            # can't mutate our cached schema objects in-place across requests.
+            return copy.deepcopy(self._cached_openapi_schemas)
 
         schemas = []
         native_exposed = 0
@@ -120,7 +123,8 @@ class ToolRegistry:
                 is_mcp_tool = is_mcp_by_instance or is_mcp_by_registry
                 
                 if not is_mcp_tool:
-                    schemas.append(tool_info['schema'].schema)
+                    # IMPORTANT: store a copy so mutations in downstream calls don't corrupt the source schema
+                    schemas.append(copy.deepcopy(tool_info['schema'].schema))
                     native_exposed += 1
                 else:
                     mcp_hidden += 1
