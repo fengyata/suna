@@ -151,6 +151,64 @@ class ModelRegistry:
             )
         ))
         
+        # Google Gemini Flash - latest version with thinking capability
+        gemini_flash_pricing = ModelPricing(
+            input_cost_per_million_tokens=0.10,  # $0.10 per 1M input tokens
+            output_cost_per_million_tokens=0.40,  # $0.40 per 1M output tokens
+        )
+        
+        self.register(Model(
+            id="google/gemini-flash",
+            name="Gemini Flash",
+            litellm_model_id="gemini/gemini-flash-latest",
+            provider=ModelProvider.GOOGLE,
+            aliases=["gemini-flash", "Gemini Flash"],
+            context_window=1_000_000,
+            capabilities=[
+                ModelCapability.CHAT,
+                ModelCapability.FUNCTION_CALLING,
+                ModelCapability.VISION,
+                ModelCapability.THINKING,
+            ],
+            pricing=gemini_flash_pricing,
+            tier_availability=["free", "paid"],
+            priority=90,
+            recommended=False,
+            enabled=True,
+            config=ModelConfig(
+                reasoning_effort="medium",
+            )
+        ))
+        
+        # Google Gemini 3 Pro Preview - advanced reasoning model
+        gemini_pro_pricing = ModelPricing(
+            input_cost_per_million_tokens=1.25,  # $1.25 per 1M input tokens
+            output_cost_per_million_tokens=10.00,  # $10.00 per 1M output tokens
+        )
+        
+        self.register(Model(
+            id="google/gemini-pro",
+            name="Gemini 3 Pro",
+            litellm_model_id="gemini/gemini-3-pro-preview",
+            provider=ModelProvider.GOOGLE,
+            aliases=["gemini-pro", "gemini-3-pro", "Gemini 3 Pro"],
+            context_window=1_000_000,
+            capabilities=[
+                ModelCapability.CHAT,
+                ModelCapability.FUNCTION_CALLING,
+                ModelCapability.VISION,
+                ModelCapability.THINKING,
+            ],
+            pricing=gemini_pro_pricing,
+            tier_availability=["free", "paid"],
+            priority=89,
+            recommended=False,
+            enabled=True,
+            config=ModelConfig(
+                reasoning_effort="medium",
+            )
+        ))
+        
         # Kortix Test - uses MiniMax M2.1 via direct API (only in LOCAL and STAGING, not PRODUCTION)
         if config.ENV_MODE != EnvMode.PRODUCTION:
             # MiniMax direct API - requires MINIMAX_API_KEY env var

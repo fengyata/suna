@@ -75,6 +75,9 @@ class ModelConfig:
     
     # === Bedrock-Specific Configuration ===
     performanceConfig: Optional[Dict[str, str]] = None  # e.g., {"latency": "optimized"}
+    
+    # === Thinking/Reasoning Configuration ===
+    reasoning_effort: Optional[str] = None  # "low", "medium", "high" - for models with thinking capability
 
 
 @dataclass
@@ -190,6 +193,8 @@ class Model:
                 params["extra_headers"] = self.config.extra_headers.copy()
             if self.config.performanceConfig:
                 params["performanceConfig"] = self.config.performanceConfig.copy()
+            if self.config.reasoning_effort:
+                params["reasoning_effort"] = self.config.reasoning_effort
         
         # Apply any runtime overrides
         for key, value in override_params.items():
