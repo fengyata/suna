@@ -78,6 +78,9 @@ class ModelConfig:
     
     # === Thinking/Reasoning Configuration ===
     reasoning_effort: Optional[str] = None  # "low", "medium", "high" - for models with thinking capability
+    
+    # === Model Parameters ===
+    temperature: Optional[float] = None  # Some models (e.g., Gemini 3) require specific temperature
 
 
 @dataclass
@@ -195,6 +198,8 @@ class Model:
                 params["performanceConfig"] = self.config.performanceConfig.copy()
             if self.config.reasoning_effort:
                 params["reasoning_effort"] = self.config.reasoning_effort
+            if self.config.temperature is not None:
+                params["temperature"] = self.config.temperature
         
         # Apply any runtime overrides
         for key, value in override_params.items():
@@ -212,6 +217,11 @@ class Model:
                         params[key] = value
                 else:
                     params[key] = value
+        
+        # Re-apply model-required temperature after overrides
+        # Some models (e.g., Gemini 3) REQUIRE specific temperature to work correctly
+        if self.config and self.config.temperature is not None:
+            params["temperature"] = self.config.temperature
         
         return params
 

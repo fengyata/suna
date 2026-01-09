@@ -211,6 +211,7 @@ class ModelRegistry:
             enabled=True,
             config=ModelConfig(
                 reasoning_effort="medium",
+                temperature=1.0,  # Gemini 3 models require temperature=1.0 to avoid infinite loops
             )
         ))
         

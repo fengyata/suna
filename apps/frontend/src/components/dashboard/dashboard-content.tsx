@@ -54,9 +54,6 @@ const CreditsDisplay = lazy(() =>
 const ModeIndicator = lazy(() => 
   import('@/components/thread/mode-indicator').then(mod => ({ default: mod.ModeIndicator }))
 );
-const GeminiSelector = lazy(() => 
-  import('@/components/thread/gemini-selector').then(mod => ({ default: mod.GeminiSelector }))
-);
 
 const PENDING_PROMPT_KEY = 'pendingAgentPrompt';
 
@@ -480,14 +477,11 @@ export function DashboardContent() {
       <div className="flex flex-col h-screen w-full overflow-hidden relative">
         {/* Left side - Mode Selector */}
         <div className={cn(
-          "absolute flex items-center gap-1 left-4 transition-[top] duration-200",
+          "absolute left-4 transition-[top] duration-200",
           isWelcomeBannerVisible ? "top-14" : "top-4"
         )}>
           <Suspense fallback={<div className="h-9 w-32 bg-muted/30 rounded-lg animate-pulse" />}>
             <ModeIndicator />
-          </Suspense>
-          <Suspense fallback={<div className="h-9 w-24 bg-muted/30 rounded-lg animate-pulse" />}>
-            <GeminiSelector />
           </Suspense>
         </div>
 
