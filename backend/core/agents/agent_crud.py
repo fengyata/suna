@@ -327,7 +327,7 @@ async def update_agent(
                     print(f"[DEBUG] update_agent DB UPDATE ERROR: {str(e)}")
                 raise HTTPException(status_code=500, detail=f"Failed to update agent: {str(e)}")
         
-        updated_agent = await agents_repo.get_agent_by_id_and_account(agent_id, user_id)
+        updated_agent = await agents_repo.get_agent_by_id(agent_id, account_id=user_id)
         
         if not updated_agent:
             raise HTTPException(status_code=500, detail="Failed to fetch updated agent")
