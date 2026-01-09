@@ -147,6 +147,16 @@ class MCPRegistry:
             if cached_data:
                 import json
                 schemas = json.loads(cached_data)
+                # Normalize cached schemas to ensure 'type' field exists (for Anthropic API)
+                for tool_name, schema in schemas.items():
+                    params = schema.get("function", {}).get("parameters", {})
+                    if params and "type" not in params:
+                        schema["function"]["parameters"] = {
+                            "type": "object",
+                            "properties": params.get("properties", {}),
+                            "required": params.get("required", [])
+                        }
+                        logger.debug(f"⚡ [MCP SCHEMA CACHE] Normalized cached schema for {tool_name}")
                 logger.info(f"⚡ [MCP SCHEMA CACHE] HIT for {toolkit_slug} ({len(schemas)} schemas)")
                 return schemas
         except Exception as e:
@@ -415,16 +425,20 @@ class MCPRegistry:
                         tools = tools_result.tools if hasattr(tools_result, 'tools') else tools_result
                         
                         for tool in tools:
+                            # Ensure inputSchema has required 'type' field for Anthropic API
+                            input_schema = tool.inputSchema if hasattr(tool, 'inputSchema') else {}
+                            if not input_schema or "type" not in input_schema:
+                                input_schema = {
+                                    "type": "object",
+                                    "properties": input_schema.get("properties", {}) if input_schema else {},
+                                    "required": input_schema.get("required", []) if input_schema else []
+                                }
                             schema = {
                                 "type": "function",
                                 "function": {
                                     "name": tool.name,
                                     "description": tool.description or f"Execute {tool.name}",
-                                    "parameters": tool.inputSchema if hasattr(tool, 'inputSchema') else {
-                                        "type": "object",
-                                        "properties": {},
-                                        "required": []
-                                    }
+                                    "parameters": input_schema
                                 }
                             }
                             schemas[tool.name] = schema
@@ -439,16 +453,20 @@ class MCPRegistry:
                             tools = tools_result.tools if hasattr(tools_result, 'tools') else tools_result
                             
                             for tool in tools:
+                                # Ensure inputSchema has required 'type' field for Anthropic API
+                                input_schema = tool.inputSchema if hasattr(tool, 'inputSchema') else {}
+                                if not input_schema or "type" not in input_schema:
+                                    input_schema = {
+                                        "type": "object",
+                                        "properties": input_schema.get("properties", {}) if input_schema else {},
+                                        "required": input_schema.get("required", []) if input_schema else []
+                                    }
                                 schema = {
                                     "type": "function",
                                     "function": {
                                         "name": tool.name,
                                         "description": tool.description or f"Execute {tool.name}",
-                                        "parameters": tool.inputSchema if hasattr(tool, 'inputSchema') else {
-                                            "type": "object",
-                                            "properties": {},
-                                            "required": []
-                                        }
+                                        "parameters": input_schema
                                     }
                                 }
                                 schemas[tool.name] = schema
@@ -481,16 +499,20 @@ class MCPRegistry:
                     tools = tools_result.tools if hasattr(tools_result, 'tools') else tools_result
                     
                     for tool in tools:
+                        # Ensure inputSchema has required 'type' field for Anthropic API
+                        input_schema = tool.inputSchema if hasattr(tool, 'inputSchema') else {}
+                        if not input_schema or "type" not in input_schema:
+                            input_schema = {
+                                "type": "object",
+                                "properties": input_schema.get("properties", {}) if input_schema else {},
+                                "required": input_schema.get("required", []) if input_schema else []
+                            }
                         schema = {
                             "type": "function",
                             "function": {
                                 "name": tool.name,
                                 "description": tool.description or f"Execute {tool.name}",
-                                "parameters": tool.inputSchema if hasattr(tool, 'inputSchema') else {
-                                    "type": "object",
-                                    "properties": {},
-                                    "required": []
-                                }
+                                "parameters": input_schema
                             }
                         }
                         schemas[tool.name] = schema
@@ -527,16 +549,20 @@ class MCPRegistry:
                     tools = tools_result.tools if hasattr(tools_result, 'tools') else tools_result
                     
                     for tool in tools:
+                        # Ensure inputSchema has required 'type' field for Anthropic API
+                        input_schema = tool.inputSchema if hasattr(tool, 'inputSchema') else {}
+                        if not input_schema or "type" not in input_schema:
+                            input_schema = {
+                                "type": "object",
+                                "properties": input_schema.get("properties", {}) if input_schema else {},
+                                "required": input_schema.get("required", []) if input_schema else []
+                            }
                         schema = {
                             "type": "function",
                             "function": {
                                 "name": tool.name,
                                 "description": tool.description or f"Execute {tool.name}",
-                                "parameters": tool.inputSchema if hasattr(tool, 'inputSchema') else {
-                                    "type": "object",
-                                    "properties": {},
-                                    "required": []
-                                }
+                                "parameters": input_schema
                             }
                         }
                         schemas[tool.name] = schema
