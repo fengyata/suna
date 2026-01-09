@@ -2,6 +2,8 @@ from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Any, Union
 from enum import Enum
 
+from core.utils.logger import logger
+
 
 class ModelProvider(Enum):
     OPENAI = "openai"
@@ -78,6 +80,9 @@ class ModelConfig:
     
     # === Thinking/Reasoning Configuration ===
     reasoning_effort: Optional[str] = None  # "low", "medium", "high" - for models with thinking capability
+    
+    # === Model Parameters ===
+    temperature: Optional[float] = None  # Override default temperature for specific models (e.g., Gemini 3 requires 1.0)
 
 
 @dataclass
@@ -212,6 +217,17 @@ class Model:
                         params[key] = value
                 else:
                     params[key] = value
+        
+        # Apply model-specific temperature only if:
+        # 1. Model has temperature configured
+        # 2. Current temperature is 0 (default value, not explicitly set by user)
+        if self.config and self.config.temperature is not None:
+            current_temp = params.get("temperature", 0)
+            if current_temp == 0:
+                logger.debug(f"[Model] {self.id}: Overriding temperature from {current_temp} to {self.config.temperature}")
+                params["temperature"] = self.config.temperature
+            else:
+                logger.debug(f"[Model] {self.id}: Keeping user-specified temperature={current_temp} (model default={self.config.temperature})")
         
         return params
 

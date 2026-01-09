@@ -812,14 +812,6 @@ class ThreadManager:
             schema_start = time.time()
             openapi_tool_schemas = self.tool_registry.get_openapi_schemas() if config.native_tool_calling else None
             logger.debug(f"⏱️ [TIMING] Get tool schemas: {(time.time() - schema_start) * 1000:.1f}ms")
-            
-            # Debug: Check for tools with missing 'type' in input_schema (causes Anthropic API errors)
-            if openapi_tool_schemas:
-                for i, tool in enumerate(openapi_tool_schemas):
-                    func = tool.get("function", {})
-                    params = func.get("parameters", {})
-                    if not params or "type" not in params:
-                        logger.error(f"🚨 [TOOL SCHEMA ERROR] Tool {i} '{func.get('name', 'unknown')}' missing 'type' in parameters: {params}")
 
             # Update generation tracking
             if generation:
