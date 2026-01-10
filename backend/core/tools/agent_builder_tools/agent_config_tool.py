@@ -100,7 +100,7 @@ class AgentConfigTool(AgentBuilderBaseTool):
             metadata = current_agent.get('metadata', {})
             is_suna_default = metadata.get('is_suna_default', False)
             
-            # Enforce Suna restrictions (simplified)
+            # Enforce SuperAgent restrictions (simplified, is_suna_default flag)
             if is_suna_default:
                 restricted_fields = []
                 if name is not None:

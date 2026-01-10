@@ -36,7 +36,7 @@ async def initialize() -> str:
         from core.cache.runtime_cache import warm_up_suna_config_cache
         await warm_up_suna_config_cache()
     except Exception as e:
-        logger.warning(f"Failed to pre-cache Suna configs (non-fatal): {e}")
+        logger.warning(f"Failed to pre-cache SuperAgent configs (non-fatal): {e}")
 
     _initialized = True
     logger.info(f"✅ Background task resources initialized (instance: {_instance_id})")

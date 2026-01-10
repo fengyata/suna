@@ -4,7 +4,7 @@ import os
 
 
 def extract_agent_config(agent_data: Dict[str, Any], version_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-    """Extract agent configuration with simplified logic for Suna vs custom agents."""
+    """Extract agent configuration with simplified logic for SuperAgent vs custom agents."""
     agent_id = agent_data.get('agent_id', 'Unknown')
     metadata = agent_data.get('metadata', {})
     is_suna_default = metadata.get('is_suna_default', False)
@@ -14,7 +14,7 @@ def extract_agent_config(agent_data: Dict[str, Any], version_data: Optional[Dict
         print(f"[DEBUG] extract_agent_config: Called for agent {agent_id}, is_suna_default={is_suna_default}")
         print(f"[DEBUG] extract_agent_config: Input agent_data has icon_name={agent_data.get('icon_name')}, icon_color={agent_data.get('icon_color')}, icon_background={agent_data.get('icon_background')}")
     
-    # Handle Suna agents with special logic
+    # Handle SuperAgent default agent with special logic (is_suna_default flag)
     if is_suna_default:
         return _extract_suna_agent_config(agent_data, version_data)
     
@@ -23,7 +23,7 @@ def extract_agent_config(agent_data: Dict[str, Any], version_data: Optional[Dict
 
 
 def _extract_suna_agent_config(agent_data: Dict[str, Any], version_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-    """Extract config for Suna agents - always use central config with user customizations.
+    """Extract config for SuperAgent default agents - always use central config with user customizations.
     
     Uses cached static config from runtime_cache instead of reading SUNA_CONFIG directly.
     Always overrides name from SUNA_CONFIG regardless of what's in the database.
@@ -32,7 +32,7 @@ def _extract_suna_agent_config(agent_data: Dict[str, Any], version_data: Optiona
     from core.config.suna_config import SUNA_CONFIG
     
     agent_id = agent_data.get('agent_id', 'Unknown')
-    logger.debug(f"Using Suna central config for agent {agent_id}")
+    logger.debug(f"Using SuperAgent central config for agent {agent_id}")
     
     # Get cached static config (or load it if not cached)
     static_config = get_static_suna_config()

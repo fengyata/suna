@@ -99,14 +99,14 @@ async def initialize_user_account(account_id: str, email: Optional[str] = None, 
                     'error': error_msg
                 }
         
-        logger.info(f"[SETUP] Installing Suna agent for {account_id}")
+        logger.info(f"[SETUP] Installing SuperAgent agent for {account_id}")
         try:
             suna_service = SunaDefaultAgentService(db)
             agent_id = await suna_service.install_suna_agent_for_user(account_id)
             if not agent_id:
-                logger.warning(f"[SETUP] Failed to install Suna agent for {account_id}")
+                logger.warning(f"[SETUP] Failed to install SuperAgent agent for {account_id}")
         except Exception as e:
-            logger.error(f"[SETUP] Error installing Suna agent for {account_id}: {e}")
+            logger.error(f"[SETUP] Error installing SuperAgent agent for {account_id}: {e}")
             agent_id = None
         
         if user_record:
@@ -236,7 +236,7 @@ async def handle_user_created_webhook(
     request to this endpoint using pg_net.
     
     This webhook automatically:
-    1. Initializes account (free tier subscription + Suna agent)
+    1. Initializes account (free tier subscription + SuperAgent agent)
     2. Sends welcome email
     
     All initialization happens automatically on the backend, eliminating
