@@ -8,39 +8,6 @@ from core.utils.config import config
 from core.services.supabase import DBConnection
 from core.services import redis
 from core.utils.logger import logger, structlog
-import httpx
-import json
-from functools import lru_cache
-
-
-def validate_jwt_secret(jwt_secret: str, test_token: Optional[str] = None) -> tuple[bool, str]:
-    """
-    Validate if a JWT secret can decode tokens.
-    
-    Args:
-        jwt_secret: The JWT secret to validate
-        test_token: Optional test token to verify against
-        
-    Returns:
-        Tuple of (is_valid, error_message)
-    """
-    if not jwt_secret:
-        return False, "JWT secret is empty"
-    
-    if len(jwt_secret) < 32:
-        return False, f"JWT secret is too short ({len(jwt_secret)} chars). Minimum 32 characters required."
-    
-    # If a test token is provided, try to decode it
-    if test_token:
-        try:
-            jwt.decode(test_token, jwt_secret, algorithms=["HS256"], options={"verify_signature": True})
-            return True, "JWT secret successfully decoded test token"
-        except jwt.InvalidSignatureError:
-            return False, "JWT secret does not match test token signature"
-        except PyJWTError as e:
-            return False, f"JWT secret validation failed: {str(e)}"
-    
-    return True, "JWT secret format is valid"
 
 
 def _constant_time_compare(a: str, b: str) -> bool:
@@ -71,110 +38,10 @@ async def verify_admin_api_key(x_admin_api_key: Optional[str] = Header(None)):
     return True
 
 
-@lru_cache(maxsize=1)
-def _get_supabase_jwks() -> Optional[dict]:
-    """
-    Fetch Supabase JWKS (JSON Web Key Set) for ES256/RS256 token verification.
-    Cached to avoid repeated requests.
-    """
-    try:
-        supabase_url = config.SUPABASE_URL.rstrip('/')
-        jwks_url = f"{supabase_url}/auth/v1/.well-known/jwks.json"
-        
-        # Use httpx with a short timeout
-        with httpx.Client(timeout=5.0) as client:
-            response = client.get(jwks_url)
-            if response.status_code == 200:
-                jwks_data = response.json()
-                logger.debug(f"Fetched JWKS from {jwks_url}")
-                return jwks_data
-            else:
-                logger.warning(f"Failed to fetch JWKS: HTTP {response.status_code}")
-                return None
-    except Exception as e:
-        logger.debug(f"Could not fetch JWKS (non-fatal): {str(e)}")
-        return None
-
-
-def _get_public_key_from_jwks(token: str, jwks: dict) -> Optional[str]:
-    """
-    Extract the public key from JWKS for the given token.
-    Returns the public key in PEM format or None if not found.
-    """
-    try:
-        header = jwt.get_unverified_header(token)
-        kid = header.get('kid')  # Key ID
-        
-        if not kid:
-            return None
-        
-        # Find the key in JWKS
-        for key in jwks.get('keys', []):
-            if key.get('kid') == kid:
-                # Convert JWK to public key
-                try:
-                    from cryptography.hazmat.primitives.asymmetric import ec
-                    from cryptography.hazmat.primitives import serialization
-                    import base64
-                except ImportError:
-                    logger.error("cryptography library not installed. Install it with: pip install cryptography")
-                    return None
-                
-                if key.get('kty') == 'EC' and key.get('crv') == 'P-256':
-                    # ES256 - Elliptic Curve
-                    from cryptography.hazmat.backends import default_backend
-                    
-                    x = base64.urlsafe_b64decode(key['x'] + '==')
-                    y = base64.urlsafe_b64decode(key['y'] + '==')
-                    
-                    # Reconstruct public key
-                    public_numbers = ec.EllipticCurvePublicNumbers(
-                        int.from_bytes(x, 'big'),
-                        int.from_bytes(y, 'big'),
-                        ec.SECP256R1()
-                    )
-                    public_key = public_numbers.public_key(default_backend())
-                    
-                    # Serialize to PEM
-                    pem = public_key.public_bytes(
-                        encoding=serialization.Encoding.PEM,
-                        format=serialization.PublicFormat.SubjectPublicKeyInfo
-                    )
-                    return pem.decode('utf-8')
-                elif key.get('kty') == 'RSA':
-                    # RS256 - RSA
-                    from cryptography.hazmat.primitives.asymmetric import rsa
-                    import base64
-                    from cryptography.hazmat.backends import default_backend
-                    
-                    # Decode base64url-encoded values
-                    n_bytes = base64.urlsafe_b64decode(key['n'] + '==')
-                    e_bytes = base64.urlsafe_b64decode(key['e'] + '==')
-                    
-                    # Convert to integers
-                    n_int = int.from_bytes(n_bytes, 'big')
-                    e_int = int.from_bytes(e_bytes, 'big')
-                    
-                    public_numbers = rsa.RSAPublicNumbers(e_int, n_int)
-                    public_key = public_numbers.public_key(default_backend())
-                    
-                    pem = public_key.public_bytes(
-                        encoding=serialization.Encoding.PEM,
-                        format=serialization.PublicFormat.SubjectPublicKeyInfo
-                    )
-                    return pem.decode('utf-8')
-                
-        return None
-    except Exception as e:
-        logger.debug(f"Could not extract public key from JWKS: {str(e)}")
-        return None
-
-
 def _decode_jwt_with_verification(token: str) -> dict:
     """
-    Decode and verify JWT token using Supabase JWT secret or public key.
+    Decode and verify JWT token using Supabase JWT secret.
     
-    Supports both HS256 (with shared secret) and ES256/RS256 (with public key from JWKS).
     This function properly validates the JWT signature to prevent token forgery.
     """
     jwt_secret = config.SUPABASE_JWT_SECRET
@@ -186,153 +53,40 @@ def _decode_jwt_with_verification(token: str) -> dict:
             detail="Server authentication configuration error"
         )
     
-    # First, decode the token header to see what algorithm it uses
-    # This is critical - ES256 tokens MUST use public key verification, not HS256
     try:
-        header = jwt.get_unverified_header(token)
-        token_algorithm = header.get('alg', 'unknown')
-        
-        # Log JWT secret info for debugging
-        secret_preview = jwt_secret[:10] + "..." if len(jwt_secret) > 10 else jwt_secret
-        logger.debug(f"JWT decode attempt: alg={token_algorithm}, secret_length={len(jwt_secret)}, secret_preview={secret_preview}")
-        
-        # If token explicitly uses ES256/RS256, we MUST use public key verification
-        # Do NOT try HS256 with these algorithms
-        if token_algorithm in ['ES256', 'RS256']:
-            logger.debug(f"Token uses {token_algorithm}, will use public key verification from JWKS")
-        
-    except jwt.DecodeError as e:
-        logger.warning(f"Could not decode JWT token header (malformed token): {str(e)}")
+        # Verify signature with the Supabase JWT secret
+        # Supabase uses HS256 algorithm by default
+        return jwt.decode(
+            token,
+            jwt_secret,
+            algorithms=["HS256"],
+            options={
+                "verify_signature": True,
+                "verify_exp": True,
+                "verify_aud": False,  # Supabase doesn't always set audience
+                "verify_iss": False,  # Issuer varies by project
+            }
+        )
+    except jwt.ExpiredSignatureError:
         raise HTTPException(
             status_code=401,
-            detail="Invalid token format",
+            detail="Token has expired",
             headers={"WWW-Authenticate": "Bearer"}
         )
-    except Exception as e:
-        logger.debug(f"Could not decode token header (non-fatal): {str(e)}")
-        token_algorithm = 'unknown'
-    
-    # Try HS256 first (most common for Supabase)
-    # Only try HS256 if token doesn't explicitly claim ES256/RS256
-    if token_algorithm not in ['ES256', 'RS256']:
-        try:
-            return jwt.decode(
-                token,
-                jwt_secret,
-                algorithms=["HS256"],
-                options={
-                    "verify_signature": True,
-                    "verify_exp": True,
-                    "verify_aud": False,  # Supabase doesn't always set audience
-                    "verify_iss": False,  # Issuer varies by project
-                }
-            )
-        except jwt.ExpiredSignatureError:
-            raise HTTPException(
-                status_code=401,
-                detail="Token has expired",
-                headers={"WWW-Authenticate": "Bearer"}
-            )
-        except jwt.InvalidSignatureError:
-            # If token algorithm is unknown but HS256 failed, it might actually be ES256
-            # Fall through to try ES256/RS256
-            if token_algorithm == 'unknown':
-                logger.debug("HS256 verification failed with unknown algorithm, will try ES256/RS256")
-            else:
-                logger.warning(
-                    f"JWT signature verification failed with HS256. "
-                    f"Token algorithm: {token_algorithm}, Secret length: {len(jwt_secret)}"
-                )
-                raise HTTPException(
-                    status_code=401,
-                    detail="Invalid token signature",
-                    headers={"WWW-Authenticate": "Bearer"}
-                )
-        except PyJWTError as e:
-            error_msg = str(e).lower()
-            # If it's an algorithm error, the token might be ES256/RS256
-            if "alg value is not allowed" in error_msg or "algorithm" in error_msg:
-                logger.debug(f"HS256 decode failed ({error_msg}), will try ES256/RS256 if token claims it")
-                # Re-check header in case algorithm was misread
-                try:
-                    header = jwt.get_unverified_header(token)
-                    actual_alg = header.get('alg', 'unknown')
-                    if actual_alg in ['ES256', 'RS256']:
-                        token_algorithm = actual_alg
-                        logger.debug(f"Token actually uses {actual_alg}, will try public key verification")
-                    else:
-                        raise
-                except:
-                    raise
-            else:
-                raise
-    
-    # Try ES256/RS256 with public key from JWKS
-    if token_algorithm in ['ES256', 'RS256']:
-        try:
-            jwks = _get_supabase_jwks()
-            if not jwks:
-                logger.error(
-                    f"Token uses {token_algorithm} algorithm but could not fetch JWKS from Supabase. "
-                    f"Make sure SUPABASE_URL is correct and Supabase is running."
-                )
-                raise HTTPException(
-                    status_code=401,
-                    detail=f"Token uses {token_algorithm} but JWKS unavailable",
-                    headers={"WWW-Authenticate": "Bearer"}
-                )
-            
-            public_key = _get_public_key_from_jwks(token, jwks)
-            if not public_key:
-                logger.error(f"Could not find public key in JWKS for token with algorithm {token_algorithm}")
-                raise HTTPException(
-                    status_code=401,
-                    detail="Could not verify token signature",
-                    headers={"WWW-Authenticate": "Bearer"}
-                )
-            
-            # Decode with public key
-            return jwt.decode(
-                token,
-                public_key,
-                algorithms=[token_algorithm],
-                options={
-                    "verify_signature": True,
-                    "verify_exp": True,
-                    "verify_aud": False,
-                    "verify_iss": False,
-                }
-            )
-        except HTTPException:
-            raise
-        except jwt.ExpiredSignatureError:
-            raise HTTPException(
-                status_code=401,
-                detail="Token has expired",
-                headers={"WWW-Authenticate": "Bearer"}
-            )
-        except jwt.InvalidSignatureError:
-            logger.warning(f"JWT signature verification failed with {token_algorithm}")
-            raise HTTPException(
-                status_code=401,
-                detail="Invalid token signature",
-                headers={"WWW-Authenticate": "Bearer"}
-            )
-        except PyJWTError as e:
-            logger.warning(f"JWT decode error with {token_algorithm}: {str(e)}")
-            raise HTTPException(
-                status_code=401,
-                detail="Invalid token",
-                headers={"WWW-Authenticate": "Bearer"}
-            )
-    
-    # If we get here, algorithm is not supported
-    logger.error(f"Unsupported JWT algorithm: {token_algorithm}. Supported: HS256, ES256, RS256")
-    raise HTTPException(
-        status_code=401,
-        detail=f"Unsupported token algorithm: {token_algorithm}",
-        headers={"WWW-Authenticate": "Bearer"}
-    )
+    except jwt.InvalidSignatureError:
+        logger.warning("JWT signature verification failed - possible token forgery attempt")
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid token signature",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
+    except PyJWTError as e:
+        logger.warning(f"JWT decode error: {str(e)}")
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid token",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
 
 async def get_account_id_from_thread(thread_id: str, db: "DBConnection") -> str:
     """
@@ -597,46 +351,51 @@ async def verify_and_authorize_thread_access(client, thread_id: str, user_id: Op
         thread_id: Thread ID to check
         user_id: User ID (can be None for anonymous users accessing public threads)
     """
+    from core.services.db import execute_one
+    
     try:
-        # Get thread data first
-        thread_result = await client.table('threads').select('*').eq('thread_id', thread_id).execute()
-
-        if not thread_result.data or len(thread_result.data) == 0:
+        # Single optimized query that fetches thread + project + access info in one round-trip
+        # This replaces 3-4 sequential Supabase API calls with a single SQL query
+        sql = """
+        SELECT 
+            t.thread_id,
+            t.account_id,
+            p.is_public as project_is_public,
+            COALESCE(ur.role::text, '') as user_role,
+            CASE WHEN au.user_id IS NOT NULL THEN true ELSE false END as is_team_member
+        FROM threads t
+        LEFT JOIN projects p ON t.project_id = p.project_id
+        LEFT JOIN user_roles ur ON ur.user_id = :user_id
+        LEFT JOIN basejump.account_user au ON au.account_id = t.account_id AND au.user_id = :user_id
+        WHERE t.thread_id = :thread_id
+        """
+        result = await execute_one(sql, {"thread_id": thread_id, "user_id": user_id or ''})
+        
+        if not result:
             raise HTTPException(status_code=404, detail="Thread not found")
         
-        thread_data = thread_result.data[0]
-        
-        # Check if thread's project is public - allow anonymous access
-        project_id = thread_data.get('project_id')
-        if project_id:
-            project_result = await client.table('projects').select('is_public').eq('project_id', project_id).execute()
-            if project_result.data and len(project_result.data) > 0:
-                if project_result.data[0].get('is_public'):
-                    structlog.get_logger().debug(f"Public thread access granted: {thread_id}")
-                    return True
+        # Check if project is public - allow anonymous access
+        if result.get('project_is_public'):
+            structlog.get_logger().debug(f"Public thread access granted: {thread_id}")
+            return True
         
         # If not public, user must be authenticated
         if not user_id:
             raise HTTPException(status_code=403, detail="Authentication required for private threads")
         
         # Check if user is an admin (admins have access to all threads)
-        admin_result = await client.table('user_roles').select('role').eq('user_id', user_id).execute()
-        if admin_result.data and len(admin_result.data) > 0:
-            role = admin_result.data[0].get('role')
-            if role in ('admin', 'super_admin'):
-                structlog.get_logger().debug(f"Admin access granted for thread {thread_id}", user_role=role)
-                return True
+        user_role = result.get('user_role', '')
+        if user_role in ('admin', 'super_admin'):
+            structlog.get_logger().debug(f"Admin access granted for thread {thread_id}", user_role=user_role)
+            return True
         
         # Check if user owns the thread
-        if thread_data['account_id'] == user_id:
+        if result.get('account_id') == user_id:
             return True
         
         # Check if user is a team member of the account
-        account_id = thread_data.get('account_id')
-        if account_id:
-            account_user_result = await client.schema('basejump').from_('account_user').select('account_role').eq('user_id', user_id).eq('account_id', account_id).execute()
-            if account_user_result.data and len(account_user_result.data) > 0:
-                return True
+        if result.get('is_team_member'):
+            return True
         
         raise HTTPException(status_code=403, detail="Not authorized to access this thread")
     except HTTPException:
@@ -810,52 +569,77 @@ async def verify_sandbox_access(client, sandbox_id: str, user_id: str):
     Raises:
         HTTPException: If the user doesn't have access to the project/sandbox or sandbox doesn't exist
     """
-    from core.resources import ResourceService, ResourceType
+    from core.services.db import execute_one
     
-    resource_service = ResourceService(client)
+    sql = """
+    SELECT 
+        r.id as resource_id,
+        r.account_id as resource_account_id,
+        r.config as resource_config,
+        p.project_id,
+        p.account_id as project_account_id,
+        p.is_public,
+        p.name as project_name,
+        p.description as project_description,
+        p.sandbox_resource_id,
+        p.created_at as project_created_at,
+        p.updated_at as project_updated_at,
+        COALESCE(ur.role::text, '') as user_role,
+        CASE WHEN au_resource.user_id IS NOT NULL THEN true ELSE false END as is_resource_team_member,
+        CASE WHEN au_project.user_id IS NOT NULL THEN true ELSE false END as is_project_team_member
+    FROM resources r
+    LEFT JOIN projects p ON p.sandbox_resource_id = r.id
+    LEFT JOIN user_roles ur ON ur.user_id = :user_id
+    LEFT JOIN basejump.account_user au_resource ON au_resource.account_id = r.account_id AND au_resource.user_id = :user_id
+    LEFT JOIN basejump.account_user au_project ON au_project.account_id = p.account_id AND au_project.user_id = :user_id
+    WHERE r.external_id = :sandbox_id AND r.type = 'sandbox'
+    """
     
-    # Find the resource by external_id
-    resource = await resource_service.get_resource_by_external_id(sandbox_id, ResourceType.SANDBOX)
+    result = await execute_one(sql, {"sandbox_id": sandbox_id, "user_id": user_id})
     
-    if not resource:
+    if not result:
         raise HTTPException(status_code=404, detail="Sandbox not found - no resource exists for this sandbox")
     
-    resource_account_id = resource.get('account_id')
+    resource_account_id = result.get('resource_account_id')
+    project_id = result.get('project_id')
+    is_public = result.get('is_public', False)
+    user_role = result.get('user_role', '')
+    is_resource_team_member = result.get('is_resource_team_member', False)
+    is_project_team_member = result.get('is_project_team_member', False)
     
-    # Find the project that uses this resource
-    project_result = await client.table('projects').select('*').eq('sandbox_resource_id', resource['id']).execute()
-    
-    if not project_result.data or len(project_result.data) == 0:
-        # Resource exists but no project uses it - check account access directly
-        # Check if user is a member of the resource's account
-        account_user_result = await client.schema('basejump').from_('account_user').select('account_role').eq('user_id', user_id).eq('account_id', resource_account_id).execute()
-        
-        if account_user_result.data and len(account_user_result.data) > 0:
+    # No project uses this resource - check resource account access
+    if not project_id:
+        if is_resource_team_member:
             structlog.get_logger().debug("User has access to resource via account membership", sandbox_id=sandbox_id, account_id=resource_account_id)
-            # Return resource data in project-like format for compatibility
             return {
                 'project_id': None,
                 'account_id': resource_account_id,
                 'is_public': False,
                 'sandbox': {
                     'id': sandbox_id,
-                    **resource.get('config', {})
+                    **(result.get('resource_config') or {})
                 }
             }
-        
         raise HTTPException(status_code=404, detail="Sandbox not found - no project uses this sandbox")
     
-    project_data = project_result.data[0]
-    project_id = project_data.get('project_id')
-    is_public = project_data.get('is_public', False)
+    # Build project data for return
+    project_data = {
+        'project_id': project_id,
+        'account_id': result.get('project_account_id'),
+        'is_public': is_public,
+        'name': result.get('project_name'),
+        'description': result.get('project_description'),
+        'sandbox_resource_id': result.get('sandbox_resource_id'),
+        'created_at': result.get('project_created_at'),
+        'updated_at': result.get('project_updated_at'),
+    }
     
     structlog.get_logger().debug(
         "Checking sandbox access via resource ownership",
         sandbox_id=sandbox_id,
         project_id=project_id,
         is_public=is_public,
-        user_id=user_id,
-        resource_account_id=resource_account_id
+        user_id=user_id
     )
 
     # Public projects: Allow access regardless of authentication
@@ -864,27 +648,15 @@ async def verify_sandbox_access(client, sandbox_id: str, user_id: str):
         return project_data
     
     # Check if user is an admin (admins have access to all sandboxes)
-    admin_result = await client.table('user_roles').select('role').eq('user_id', user_id).execute()
-    if admin_result.data and len(admin_result.data) > 0:
-        role = admin_result.data[0].get('role')
-        if role in ('admin', 'super_admin'):
-            structlog.get_logger().debug("Admin access granted for sandbox", sandbox_id=sandbox_id, user_role=role)
-            return project_data
-    
-    # Private projects: Verify the user is a member of the project's account
-    account_id = project_data.get('account_id')
-    if not account_id:
-        raise HTTPException(status_code=500, detail="Project has no associated account")
+    if user_role in ('admin', 'super_admin'):
+        structlog.get_logger().debug("Admin access granted for sandbox", sandbox_id=sandbox_id, user_role=user_role)
+        return project_data
     
     # Check if user is a member of the project's account
-    account_user_result = await client.schema('basejump').from_('account_user').select('account_role').eq('user_id', user_id).eq('account_id', account_id).execute()
-    
-    if account_user_result.data and len(account_user_result.data) > 0:
-        user_role = account_user_result.data[0].get('account_role')
+    if is_project_team_member:
         structlog.get_logger().debug(
-            "User has access to private project sandbox", 
-            project_id=project_id,
-            user_role=user_role
+            "User has access to private project sandbox via team membership", 
+            project_id=project_id
         )
         return project_data
     
@@ -892,8 +664,7 @@ async def verify_sandbox_access(client, sandbox_id: str, user_id: str):
         "User denied access to private project sandbox",
         sandbox_id=sandbox_id,
         project_id=project_id,
-        user_id=user_id,
-        account_id=account_id
+        user_id=user_id
     )
     raise HTTPException(status_code=403, detail="Not authorized to access this project's sandbox")
 
@@ -917,42 +688,70 @@ async def verify_sandbox_access_optional(client, sandbox_id: str, user_id: Optio
     Raises:
         HTTPException: If the user doesn't have access to the project/sandbox or sandbox doesn't exist
     """
-    from core.resources import ResourceService, ResourceType
+    from core.services.db import execute_one
     
-    resource_service = ResourceService(client)
+    sql = """
+    SELECT 
+        r.id as resource_id,
+        r.account_id as resource_account_id,
+        r.config as resource_config,
+        p.project_id,
+        p.account_id as project_account_id,
+        p.is_public,
+        p.name as project_name,
+        p.description as project_description,
+        p.sandbox_resource_id,
+        p.created_at as project_created_at,
+        p.updated_at as project_updated_at,
+        COALESCE(ur.role::text, '') as user_role,
+        CASE WHEN au_resource.user_id IS NOT NULL THEN true ELSE false END as is_resource_team_member,
+        CASE WHEN au_project.user_id IS NOT NULL THEN true ELSE false END as is_project_team_member
+    FROM resources r
+    LEFT JOIN projects p ON p.sandbox_resource_id = r.id
+    LEFT JOIN user_roles ur ON ur.user_id = :user_id
+    LEFT JOIN basejump.account_user au_resource ON au_resource.account_id = r.account_id AND au_resource.user_id = :user_id
+    LEFT JOIN basejump.account_user au_project ON au_project.account_id = p.account_id AND au_project.user_id = :user_id
+    WHERE r.external_id = :sandbox_id AND r.type = 'sandbox'
+    """
     
-    # Find the resource by external_id
-    resource = await resource_service.get_resource_by_external_id(sandbox_id, ResourceType.SANDBOX)
+    result = await execute_one(sql, {"sandbox_id": sandbox_id, "user_id": user_id or ''})
     
-    if not resource:
+    if not result:
         raise HTTPException(status_code=404, detail="Sandbox not found - no resource exists for this sandbox")
     
-    # Find the project that uses this resource
-    project_result = await client.table('projects').select('*').eq('sandbox_resource_id', resource['id']).execute()
+    resource_account_id = result.get('resource_account_id')
+    project_id = result.get('project_id')
+    is_public = result.get('is_public', False)
+    user_role = result.get('user_role', '')
+    is_resource_team_member = result.get('is_resource_team_member', False)
+    is_project_team_member = result.get('is_project_team_member', False)
     
-    if not project_result.data or len(project_result.data) == 0:
-        # Resource exists but no project uses it - check account access directly if user_id provided
-        if user_id:
-            resource_account_id = resource.get('account_id')
-            account_user_result = await client.schema('basejump').from_('account_user').select('account_role').eq('user_id', user_id).eq('account_id', resource_account_id).execute()
-            
-            if account_user_result.data and len(account_user_result.data) > 0:
-                structlog.get_logger().debug("User has access to resource via account membership", sandbox_id=sandbox_id, account_id=resource_account_id)
-                return {
-                    'project_id': None,
-                    'account_id': resource_account_id,
-                    'is_public': False,
-                    'sandbox': {
-                        'id': sandbox_id,
-                        **resource.get('config', {})
-                    }
+    # No project uses this resource
+    if not project_id:
+        if user_id and is_resource_team_member:
+            structlog.get_logger().debug("User has access to resource via account membership", sandbox_id=sandbox_id, account_id=resource_account_id)
+            return {
+                'project_id': None,
+                'account_id': resource_account_id,
+                'is_public': False,
+                'sandbox': {
+                    'id': sandbox_id,
+                    **(result.get('resource_config') or {})
                 }
-        
+            }
         raise HTTPException(status_code=404, detail="Sandbox not found - no project uses this sandbox")
     
-    project_data = project_result.data[0]
-    project_id = project_data.get('project_id')
-    is_public = project_data.get('is_public', False)
+    # Build project data for return
+    project_data = {
+        'project_id': project_id,
+        'account_id': result.get('project_account_id'),
+        'is_public': is_public,
+        'name': result.get('project_name'),
+        'description': result.get('project_description'),
+        'sandbox_resource_id': result.get('sandbox_resource_id'),
+        'created_at': result.get('project_created_at'),
+        'updated_at': result.get('project_updated_at'),
+    }
     
     structlog.get_logger().debug(
         "Checking optional sandbox access via resource ownership",
@@ -977,27 +776,15 @@ async def verify_sandbox_access_optional(client, sandbox_id: str, user_id: Optio
         raise HTTPException(status_code=401, detail="Authentication required for this private project")
     
     # Check if user is an admin (admins have access to all sandboxes)
-    admin_result = await client.table('user_roles').select('role').eq('user_id', user_id).execute()
-    if admin_result.data and len(admin_result.data) > 0:
-        role = admin_result.data[0].get('role')
-        if role in ('admin', 'super_admin'):
-            structlog.get_logger().debug("Admin access granted for sandbox", sandbox_id=sandbox_id, user_role=role)
-            return project_data
-    
-    # Verify the user is a member of the project's account
-    account_id = project_data.get('account_id')
-    if not account_id:
-        raise HTTPException(status_code=500, detail="Project has no associated account")
+    if user_role in ('admin', 'super_admin'):
+        structlog.get_logger().debug("Admin access granted for sandbox", sandbox_id=sandbox_id, user_role=user_role)
+        return project_data
     
     # Check if user is a member of the project's account
-    account_user_result = await client.schema('basejump').from_('account_user').select('account_role').eq('user_id', user_id).eq('account_id', account_id).execute()
-    
-    if account_user_result.data and len(account_user_result.data) > 0:
-        user_role = account_user_result.data[0].get('account_role')
+    if is_project_team_member:
         structlog.get_logger().debug(
-            "User has access to private project sandbox", 
-            project_id=project_id,
-            user_role=user_role
+            "User has access to private project sandbox via team membership", 
+            project_id=project_id
         )
         return project_data
     
@@ -1005,7 +792,6 @@ async def verify_sandbox_access_optional(client, sandbox_id: str, user_id: Optio
         "User denied access to private project sandbox",
         sandbox_id=sandbox_id,
         project_id=project_id,
-        user_id=user_id,
-        account_id=account_id
+        user_id=user_id
     )
     raise HTTPException(status_code=403, detail="Not authorized to access this project's sandbox")

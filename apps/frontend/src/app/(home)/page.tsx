@@ -14,6 +14,9 @@ const WordmarkFooter = lazy(() =>
 const SimpleFooter = lazy(() => 
   import('@/components/home/simple-footer').then(mod => ({ default: mod.SimpleFooter }))
 );
+const MobileAppInterstitial = lazy(() =>
+  import('@/components/announcements/mobile-app-interstitial').then(mod => ({ default: mod.MobileAppInterstitial }))
+);
 
 // Skeleton placeholder for ShowCaseSection while loading
 function ShowCaseSkeleton() {
@@ -46,7 +49,11 @@ export default function Home() {
       </Suspense>
       <Suspense fallback={null}>
         <SimpleFooter />
-      </Suspense> */}
+      </Suspense>
+      {/* Mobile app banner - shown on mobile devices for logged-in users */}
+      <Suspense fallback={null}>
+        <MobileAppInterstitial />
+      </Suspense>
     </BackgroundAALChecker>
   );
 }
