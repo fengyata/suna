@@ -33,6 +33,7 @@ import { Brain, Zap, Database, ArrowDown, ArrowUp, Wrench, Clock, Send } from 'l
 import { useMessageQueueStore } from '@/stores/message-queue-store';
 import { useComposioToolkitIcon } from '@/hooks/composio/use-composio';
 import { Skeleton } from '@/components/ui/skeleton';
+import { ModeIndicator } from '@/components/thread/mode-indicator';
 
 import { IntegrationsRegistry } from '@/components/agents/integrations-registry';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -1311,6 +1312,7 @@ export const ChatInput = memo(forwardRef<ChatInputHandles, ChatInputProps>(
 
     const rightControls = useMemo(() => (
       <div className='flex items-center gap-2 flex-shrink-0'>
+        {isLoggedIn && <ModeIndicator />}
         {isLoggedIn && <VoiceRecorder
           onTranscription={handleTranscription}
           disabled={loading || (disabled && !isAgentRunning)}

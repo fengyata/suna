@@ -35,8 +35,8 @@ const ModeLogo = memo(function ModeLogo({
 
   // Use light variant on dark mode, dark variant on light mode
   const src = mode === 'advanced' 
-    ? (isDark ? '/Advanced-Light.svg' : '/Advanced-Dark.svg')
-    : (isDark ? '/Basic-Light.svg' : '/Basic-Dark.svg');
+    ? (isDark ? '/kortix-symbol-white.svg' : '/kortix-symbol.svg')
+    : (isDark ? '/kortix-symbol-white.svg' : '/kortix-symbol.svg');
 
   return (
     <img
@@ -151,7 +151,25 @@ export const ModeIndicator = memo(function ModeIndicator() {
         </>
       );
     }
-    return <ModeLogo mode={currentMode === 'advanced' ? 'advanced' : 'basic'} height={14} />;
+
+    if (currentMode === 'advanced') {
+      return (
+        <>
+          <img src="/kortix-symbol.svg" alt="SuperAgent Advanced" className="h-4 w-4" />
+          <span className="text-sm font-medium">SuperAgent Advanced</span>
+        </>
+      );
+    }
+
+    if (currentMode === 'basic') {
+      return (
+        <>
+          <img src="/kortix-symbol.svg" alt="SuperAgent Basic" className="h-4 w-4" />
+          <span className="text-sm font-medium">SuperAgent Basic</span>
+        </>
+      );
+    }
+    // return <ModeLogo mode={currentMode === 'advanced' ? 'advanced' : 'basic'} height={14} />;
   };
 
   return (
@@ -187,8 +205,9 @@ export const ModeIndicator = memo(function ModeIndicator() {
           onClick={handleBasicClick}
         >
           <div className="flex-1 min-w-0">
-            <div className="mb-1">
-              <ModeLogo mode="basic" height={14} />
+            <div className="mb-1 flex items-center gap-2">
+              <img src="/kortix-symbol.svg" alt="SuperAgent Basic" className="h-4 w-4" />
+              <span className="text-sm font-semibold">SuperAgent Basic</span>
             </div>
             <div className="text-xs text-muted-foreground leading-relaxed">Fast and efficient for quick tasks</div>
           </div>
@@ -208,8 +227,9 @@ export const ModeIndicator = memo(function ModeIndicator() {
           onClick={handleAdvancedClick}
         >
           <div className="flex-1 min-w-0">
-            <div className="mb-1">
-              <ModeLogo mode="advanced" height={14} />
+            <div className="mb-1 flex items-center gap-2">
+              <img src="/kortix-symbol.svg" alt="SuperAgent Advanced" className="h-4 w-4" />
+              <span className="text-sm font-semibold">SuperAgent Advanced</span>
             </div>
             <div className="text-xs text-muted-foreground leading-relaxed">Maximum intelligence for complex work</div>
           </div>
