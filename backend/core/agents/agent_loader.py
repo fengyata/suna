@@ -365,13 +365,13 @@ class AgentLoader:
     def _row_to_agent_data(self, row: Dict[str, Any]) -> AgentData:
         """Convert database row to AgentData.
         
-        For Suna agents, always overrides name and description from SUNA_CONFIG
+        For SuperAgent default agents (is_suna_default), always overrides name and description from SUNA_CONFIG
         regardless of what's stored in the database.
         """
         metadata = row.get('metadata', {}) or {}
         is_suna_default = metadata.get('is_suna_default', False)
         
-        # For Suna agents, always use name from SUNA_CONFIG (never DB value)
+        # For SuperAgent default agents (is_suna_default), always use name from SUNA_CONFIG (never DB value)
         if is_suna_default:
             from core.config.suna_config import SUNA_CONFIG
             name = SUNA_CONFIG['name']
@@ -411,7 +411,7 @@ class AgentLoader:
     
     async def _load_suna_config(self, agent: AgentData, user_id: Optional[str] = None):
         """
-        Load Suna config using static in-memory config + cached user MCPs.
+        Load SuperAgent config using static in-memory config + cached user MCPs.
         
         Static parts (prompt, model, tools) = instant from memory
         User MCPs = check cache first, then DB if miss
@@ -447,7 +447,7 @@ class AgentLoader:
                 agent.configured_mcps = cached_mcps.get('configured_mcps', [])
                 agent.custom_mcps = cached_mcps.get('custom_mcps', [])
                 agent.triggers = cached_mcps.get('triggers', [])
-                logger.debug(f"⚡ Suna config loaded in {(time.time() - t_start)*1000:.1f}ms (MCPs from cache)")
+                logger.debug(f"⚡ SuperAgent config loaded in {(time.time() - t_start)*1000:.1f}ms (MCPs from cache)")
                 return
             
             # Cache miss - fetch from DB
@@ -482,9 +482,9 @@ class AgentLoader:
                     agent.triggers
                 )
                 
-                logger.debug(f"Suna config loaded in {(time.time() - t_start)*1000:.1f}ms (MCPs from DB, now cached)")
+                logger.debug(f"SuperAgent config loaded in {(time.time() - t_start)*1000:.1f}ms (MCPs from DB, now cached)")
             except Exception as e:
-                logger.warning(f"Failed to load MCPs for Suna agent {agent.agent_id}: {e}")
+                logger.warning(f"Failed to load MCPs for SuperAgent agent {agent.agent_id}: {e}")
                 agent.configured_mcps = []
                 agent.custom_mcps = []
                 agent.triggers = []
@@ -492,7 +492,7 @@ class AgentLoader:
             agent.configured_mcps = []
             agent.custom_mcps = []
             agent.triggers = []
-            logger.debug(f"⚡ Suna config loaded in {(time.time() - t_start)*1000:.1f}ms (no MCPs)")
+            logger.debug(f"⚡ SuperAgent config loaded in {(time.time() - t_start)*1000:.1f}ms (no MCPs)")
     
     async def _load_custom_config(self, agent: AgentData, user_id: str):
         """Load custom agent configuration from version."""
@@ -567,11 +567,11 @@ class AgentLoader:
     async def _batch_load_configs(self, agents: list[AgentData]):
         """Batch load configurations for multiple agents."""
         
-        # Get all version IDs for non-Suna agents
+        # Get all version IDs for non-default agents (not is_suna_default)
         version_ids = [a.current_version_id for a in agents if a.current_version_id and not a.is_suna_default]
         
         if not version_ids:
-            # Only Suna agents, load their configs
+            # Only SuperAgent default agents (is_suna_default), load their configs
             for agent in agents:
                 if agent.is_suna_default:
                     await self._load_suna_config(agent, agent.account_id)
@@ -611,7 +611,7 @@ class AgentLoader:
                 
         except Exception as e:
             logger.warning(f"Failed to batch load agent configs: {e}")
-            # Fallback: load Suna configs only
+            # Fallback: load SuperAgent configs only
             for agent in agents:
                 if agent.is_suna_default:
                     await self._load_suna_config(agent, agent.account_id)

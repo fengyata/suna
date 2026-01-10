@@ -172,7 +172,7 @@ async def create_template_from_agent(
         logger.warning(f"Template creation failed - access denied: {e}")
         raise HTTPException(status_code=403, detail=str(e))
     except SunaDefaultAgentTemplateError as e:
-        logger.warning(f"Template creation failed - Suna default agent: {e}")
+        logger.warning(f"Template creation failed - SuperAgent default agent: {e}")
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         try:

@@ -131,18 +131,18 @@ async def initialize_user(
             )
             logger.info(f"[ADMIN] Created default project for {account_id}")
         
-        # 4) Install Suna agent (docs, etc.)
+        # 4) Install SuperAgent agent (docs, etc.)
         agent_id = None
         try:
             from core.utils.suna_default_agent_service import SunaDefaultAgentService
             suna_service = SunaDefaultAgentService(db)
             agent_id = await suna_service.install_suna_agent_for_user(account_id)
             if agent_id:
-                logger.info(f"[ADMIN] Installed Suna agent {agent_id} for {account_id}")
+                logger.info(f"[ADMIN] Installed SuperAgent agent {agent_id} for {account_id}")
             else:
-                logger.warning(f"[ADMIN] Failed to install Suna agent for {account_id}")
+                logger.warning(f"[ADMIN] Failed to install SuperAgent agent for {account_id}")
         except Exception as e:
-            logger.error(f"[ADMIN] Error installing Suna agent for {account_id}: {e}")
+            logger.error(f"[ADMIN] Error installing SuperAgent agent for {account_id}: {e}")
         
         logger.info(f"[ADMIN] ✅ User {request.user_id} initialized: tier={request.tier}, credits={request.credits}, agent={agent_id}")
         

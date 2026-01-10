@@ -63,7 +63,7 @@ class ToolManager:
         if not isinstance(raw_tools, dict):
             return set()
         
-        # For default Suna agent with no explicit config, enable all
+        # For default SuperAgent agent (is_suna_default) with no explicit config, enable all
         if self.agent_config.get('is_suna_default', False) and not raw_tools:
             return set()
         
