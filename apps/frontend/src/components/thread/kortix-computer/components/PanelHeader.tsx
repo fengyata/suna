@@ -208,7 +208,7 @@ export const PanelHeader = memo(function PanelHeader({
           <Image
             src="/kortix-computer-white.svg"
             alt="SuperAgent Computer"
-            width={140}
+            width={172}
             height={16}
             className="hidden dark:block"
             priority
@@ -216,7 +216,7 @@ export const PanelHeader = memo(function PanelHeader({
           <Image
             src="/kortix-computer-black.svg"
             alt="SuperAgent Computer"
-            width={140}
+            width={172}
             height={16}
             className="block dark:hidden"
             priority
@@ -263,7 +263,7 @@ export const PanelHeader = memo(function PanelHeader({
         <Image
           src="/kortix-computer-white.svg"
           alt="SuperAgent Computer"
-          width={140}
+          width={172}
           height={16}
           className="hidden dark:block"
           priority
@@ -271,7 +271,7 @@ export const PanelHeader = memo(function PanelHeader({
         <Image
           src="/kortix-computer-black.svg"
           alt="SuperAgent Computer"
-          width={140}
+          width={172}
           height={16}
           className="block dark:hidden"
           priority

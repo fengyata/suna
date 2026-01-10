@@ -21,7 +21,7 @@ export const EmptyState = memo(function EmptyState({ t }: EmptyStateProps) {
           <Image
             src="/kortix-computer-white.svg"
             alt="SuperAgent Computer"
-            width={240}
+            width={290}
             height={27}
             className="hidden dark:block relative z-10 "
             priority
@@ -31,7 +31,7 @@ export const EmptyState = memo(function EmptyState({ t }: EmptyStateProps) {
           <Image
             src="/kortix-computer-black.svg"
             alt="SuperAgent Computer"
-            width={240}
+            width={290}
             height={27}
             className="block dark:hidden relative z-10"
             priority

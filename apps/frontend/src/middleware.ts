@@ -4,6 +4,17 @@ import type { NextRequest } from 'next/server';
 import { locales, defaultLocale, type Locale } from '@/i18n/config';
 import { detectBestLocaleFromHeaders } from '@/lib/utils/geo-detection-server';
 
+function buildExternalLoginUrl() {
+  const loginFrontend = process.env.NEXT_PUBLIC_LOGIN_FRONTEND;
+  const flashrevFrontend = process.env.NEXT_PUBLIC_FLASHREV_FRONTEND;
+
+  if (!loginFrontend || !flashrevFrontend) return '/auth';
+
+  return `${loginFrontend}/login/flashinfo?redirect_uri=${encodeURIComponent(
+    `${flashrevFrontend}/superagent`,
+  )}`;
+}
+
 // Marketing pages that support locale routing for SEO (/de, /it, etc.)
 const MARKETING_ROUTES = [
   '/',
@@ -17,6 +28,7 @@ const MARKETING_ROUTES = [
 // Routes that don't require authentication
 const PUBLIC_ROUTES = [
   '/', // Homepage should be public!
+  '/set-login',
   '/auth',
   '/auth/password',
   '/auth/callback',
@@ -74,6 +86,7 @@ function detectMobilePlatformFromUA(userAgent: string | null): 'ios' | 'android'
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const flashcloudToken = request.cookies.get('flashcloud_cookie')?.value;
   
   // 🚀 HYPER-FAST: Mobile app store redirect for /milano, /berlin, and /app
   // This runs at the edge before ANY page rendering
@@ -102,29 +115,34 @@ export async function middleware(request: NextRequest) {
   // Supabase sometimes redirects to root (/) instead of /auth/callback
   // Detect authentication parameters and redirect to proper callback handler
   if (pathname === '/' || pathname === '') {
-    const searchParams = request.nextUrl.searchParams;
-    const code = searchParams.get('code');
-    const token = searchParams.get('token');
-    const type = searchParams.get('type');
-    const error = searchParams.get('error');
+    // const searchParams = request.nextUrl.searchParams;
+    // const code = searchParams.get('code');
+    // const token = searchParams.get('token');
+    // const type = searchParams.get('type');
+    // const error = searchParams.get('error');
     
-    // If we have Supabase auth parameters, redirect to /auth/callback
-    // Note: Mobile apps use direct deep links and bypass this route
-    if (code || token || type || error) {
-      const callbackUrl = new URL('/auth/callback', request.url);
+    // // If we have Supabase auth parameters, redirect to /auth/callback
+    // // Note: Mobile apps use direct deep links and bypass this route
+    // if (code || token || type || error) {
+    //   const callbackUrl = new URL('/auth/callback', request.url);
       
-      // Preserve all query parameters
-      searchParams.forEach((value, key) => {
-        callbackUrl.searchParams.set(key, value);
-      });
+    //   // Preserve all query parameters
+    //   searchParams.forEach((value, key) => {
+    //     callbackUrl.searchParams.set(key, value);
+    //   });
       
-      console.log('🔄 Redirecting Supabase verification from root to /auth/callback');
-      return NextResponse.redirect(callbackUrl);
+    //   console.log('🔄 Redirecting Supabase verification from root to /auth/callback');
+    //   return NextResponse.redirect(callbackUrl);
+    // }
+    // 项目入口：根据 flashcloud_cookie 判断是否需要外部登录重定向
+    if (!flashcloudToken) {
+      return NextResponse.redirect(new URL(buildExternalLoginUrl(), request.url));
     }
-    // // TODO: 首页默认重定向到dashboard
-    // const url = request.nextUrl.clone();
-    // url.pathname = '/dashboard';
-    // return NextResponse.redirect(url);
+
+    // 已有 flashcloud_cookie，默认进入 dashboard
+    const url = request.nextUrl.clone();
+    url.pathname = '/dashboard';
+    return NextResponse.redirect(url);
   }
 
   // Extract path segments
@@ -252,14 +270,19 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // 非公开路由：缺少 flashcloud_cookie 视为未登录，直接外部重定向
+  if (!flashcloudToken) {
+    return NextResponse.redirect(new URL(buildExternalLoginUrl(), request.url));
+  }
+
   // Everything else requires authentication - reuse the user we already fetched
   try {
     
     // Redirect to auth if not authenticated (using the user we already fetched)
     if (authError || !user) {
+      // 有 flashcloud_cookie 但没有 Supabase 会话：触发一次服务端自动登录
       const url = request.nextUrl.clone();
-      url.pathname = '/auth';
-      url.searchParams.set('redirect', pathname);
+      url.pathname = '/set-login';
       return NextResponse.redirect(url);
     }
 
