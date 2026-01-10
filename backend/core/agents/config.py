@@ -42,7 +42,7 @@ async def load_agent_config(
                 logger.debug(f"Using default agent: {agent_data.name} ({agent_data.agent_id}) version {agent_data.version_name}")
                 return agent_data.to_dict()
             else:
-                logger.warning(f"[AGENT LOAD] No default agent found for account {account_id}, searching for shared Suna")
+                logger.warning(f"[AGENT LOAD] No default agent found for account {account_id}, searching for shared SuperAgent")
                 agent_data = await _find_shared_suna_agent()
                 
                 if not agent_data:
@@ -116,7 +116,7 @@ async def load_agent_config(
 
 
 async def _find_shared_suna_agent():
-    """Find shared Suna agent (helper for default agent loading)."""
+    """Find shared SuperAgent agent (helper for default agent loading)."""
     from core.agents.agent_loader import get_agent_loader
     from core.utils.config import config
     from core.agents import repo as agents_repo
@@ -134,13 +134,13 @@ async def _find_shared_suna_agent():
             load_config=True
         )
         if admin_user_id and shared_agent['account_id'] == admin_user_id:
-            logger.info(f"✅ Using system Suna agent from admin user: {agent_data.name} ({agent_data.agent_id})")
+            logger.info(f"✅ Using system SuperAgent agent from admin user: {agent_data.name} ({agent_data.agent_id})")
         else:
-            logger.info(f"Using shared Suna agent: {agent_data.name} ({agent_data.agent_id})")
+            logger.info(f"Using shared SuperAgent agent: {agent_data.name} ({agent_data.agent_id})")
         return agent_data
     
     if admin_user_id:
-        logger.warning(f"⚠️ SYSTEM_ADMIN_USER_ID configured but no Suna agent found for user {admin_user_id}")
+        logger.warning(f"⚠️ SYSTEM_ADMIN_USER_ID configured but no SuperAgent agent found for user {admin_user_id}")
     
-    logger.error("❌ No Suna agent found! Set SYSTEM_ADMIN_USER_ID in .env")
+    logger.error("❌ No SuperAgent agent found! Set SYSTEM_ADMIN_USER_ID in .env")
     return None
