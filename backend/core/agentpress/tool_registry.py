@@ -130,6 +130,8 @@ class ToolRegistry:
                     mcp_hidden += 1
                     logger.debug(f"🔒 [HIDE] {tool_name} (MCP)")
         
+        # Cache the built list. We already deep-copied each schema while building `schemas`, and we only
+        # ever RETURN deep copies of the cached object (see below) to prevent downstream in-place mutation.
         self._cached_openapi_schemas = schemas
         logger.info(f"🎯 [HYBRID CACHE] Exposing {native_exposed} native tools, hiding {mcp_hidden} MCP tools (smart separation)")
 
@@ -148,7 +150,9 @@ class ToolRegistry:
             except Exception as e:
                 logger.debug(f"[TOOL SCHEMA TRACE] Failed to log built schemas: {str(e)[:80]}")
 
-        return schemas
+        # IMPORTANT: Return a deep copy so downstream libraries (e.g., LiteLLM/provider adapters)
+        # can't mutate our cached schema objects in-place across requests.
+        return copy.deepcopy(self._cached_openapi_schemas)
     
     def get_all_schemas(self) -> List[Dict[str, Any]]:
         return [
