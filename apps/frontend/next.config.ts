@@ -99,10 +99,6 @@ const nextConfig = (): NextConfig => ({
         source: '/ingest/flags',
         destination: 'https://eu.i.posthog.com/flags',
       },
-      {
-        source: "/api/:path*",
-        destination: "https://superagent-native.flashlabs.ai/:path*"
-      }
     ];
   },
   
