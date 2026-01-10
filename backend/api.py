@@ -12,6 +12,7 @@ from core.services.supabase import DBConnection
 from datetime import datetime, timezone
 from core.utils.config import config, EnvMode
 import asyncio
+import sys
 from core.utils.logger import logger, structlog
 import time
 from collections import OrderedDict
@@ -42,6 +43,7 @@ from core.admin.notification_admin_api import router as notification_admin_route
 from core.admin.analytics_admin_api import router as analytics_admin_router
 from core.admin.user_admin_api import router as user_admin_router
 from core.admin.stress_test_admin_api import router as stress_test_admin_router
+from core.admin.intranet_api import router as intranet_router
 from core.services import transcription as transcription_api
 import sys
 from core.triggers import api as triggers_api
@@ -51,7 +53,7 @@ from core.services.orphan_cleanup import cleanup_orphaned_agent_runs
 
 
 if sys.platform == "win32":
-    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 db = DBConnection()
 # Use shared instance ID for distributed deployments
@@ -310,6 +312,7 @@ api_router.include_router(notification_admin_router)
 api_router.include_router(analytics_admin_router)
 api_router.include_router(user_admin_router)
 api_router.include_router(stress_test_admin_router)
+api_router.include_router(intranet_router)
 
 from core.mcp_module import api as mcp_api
 from core.credentials import api as credentials_api
@@ -491,7 +494,7 @@ if __name__ == "__main__":
     import uvicorn
     
     if sys.platform == "win32":
-        asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     
     # Enable reload mode for local and staging environments
     is_dev_env = config.ENV_MODE in [EnvMode.LOCAL, EnvMode.STAGING]

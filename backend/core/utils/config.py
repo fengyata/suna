@@ -406,6 +406,9 @@ class Configuration:
     TRIGGER_WEBHOOK_SECRET: Optional[str] = None
     SUPABASE_WEBHOOK_SECRET: Optional[str] = None  # Secret for Supabase database webhook authentication
     
+    # Flashintel configuration
+    FLASHINTEL_BASE_URL: Optional[str] = "https://discover-api-test.flashintel.ai"
+    
     # Email configuration
     
     # Agent execution limits (can be overridden via environment variable)
