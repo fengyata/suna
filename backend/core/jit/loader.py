@@ -195,16 +195,21 @@ class JITLoader:
                     
                     from core.agentpress.tool import ToolSchema, SchemaType
                     
+                    # Get input_schema, ensuring it has required 'type' field for Anthropic API
+                    input_schema = schema.get("input_schema") or {}
+                    if not input_schema or "type" not in input_schema:
+                        input_schema = {
+                            "type": "object",
+                            "properties": input_schema.get("properties", {}),
+                            "required": input_schema.get("required", [])
+                        }
+                    
                     openapi_schema = {
                         "type": "function",
                         "function": {
                             "name": schema.get("name", tool_name),
                             "description": schema.get("description", f"Execute {tool_name} tool"),
-                            "parameters": schema.get("input_schema", {
-                                "type": "object",
-                                "properties": {},
-                                "required": []
-                            })
+                            "parameters": input_schema
                         }
                     }
                     
