@@ -91,16 +91,22 @@ class DynamicToolBuilder:
         return f"{base_description} (MCP Server: {server_name})"
     
     def _create_tool_schema(self, method_name: str, description: str, tool_info: Dict[str, Any]) -> ToolSchema:
+        # Get parameters from tool_info, ensuring it has required 'type' field for Anthropic API
+        params = tool_info.get("parameters") or {}
+        if not params or "type" not in params:
+            # Anthropic API requires 'type: object' in input_schema
+            params = {
+                "type": "object",
+                "properties": params.get("properties", {}),
+                "required": params.get("required", [])
+            }
+        
         openapi_function_schema = {
             "type": "function",
             "function": {
                 "name": method_name,
                 "description": description,
-                "parameters": tool_info.get("parameters", {
-                    "type": "object",
-                    "properties": {},
-                    "required": []
-                })
+                "parameters": params
             }
         }
         

@@ -4,6 +4,7 @@ Simplified conversation thread management system for AgentPress.
 
 import asyncio
 import json
+import os
 from typing import List, Dict, Any, Optional, Type, Union, AsyncGenerator, Literal, cast, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -812,6 +813,36 @@ class ThreadManager:
             schema_start = time.time()
             openapi_tool_schemas = self.tool_registry.get_openapi_schemas() if config.native_tool_calling else None
             logger.debug(f"⏱️ [TIMING] Get tool schemas: {(time.time() - schema_start) * 1000:.1f}ms")
+
+            # Optional extra tracing (no mutation): helps detect when/where view_tasks schema becomes {}
+            if os.getenv("DEBUG_TOOL_SCHEMAS") == "1" and openapi_tool_schemas:
+                try:
+                    for i, tool in enumerate(openapi_tool_schemas):
+                        if not isinstance(tool, dict):
+                            continue
+                        func = tool.get("function", {})
+                        if not isinstance(func, dict):
+                            continue
+                        if func.get("name") == "view_tasks":
+                            params = func.get("parameters")
+                            logger.error(
+                                f"🧩 [TOOL SCHEMA TRACE] (thread_manager) tools[{i}] view_tasks "
+                                f"tool_id={id(tool)} params_id={id(params) if isinstance(params, dict) else None} "
+                                f"parameters={json.dumps(params)[:200] if isinstance(params, dict) else str(params)[:80]}"
+                            )
+                            break
+                except Exception as e:
+                    logger.debug(f"[TOOL SCHEMA TRACE] Failed in thread_manager: {str(e)[:80]}")
+            
+            # Debug: Find tools with missing 'type' in parameters (causes Anthropic API errors)
+            if openapi_tool_schemas:
+                for i, tool in enumerate(openapi_tool_schemas):
+                    func = tool.get("function", {})
+                    params = func.get("parameters", {})
+                    tool_name = func.get("name", "unknown")
+                    if not params or "type" not in params:
+                        logger.error(f"🚨 [TOOL SCHEMA BUG] Tool {i} '{tool_name}' missing 'type' in parameters: {json.dumps(params)[:200]}")
+                        logger.error(f"🚨 [TOOL SCHEMA BUG] Full tool schema: {json.dumps(tool)[:500]}")
 
             # Update generation tracking
             if generation:

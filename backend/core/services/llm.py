@@ -194,6 +194,60 @@ def _save_debug_input(params: Dict[str, Any]) -> None:
     except Exception as e:
         logger.warning(f"[LLM] ⚠️ Error saving debug input: {e}")
 
+
+def _is_anthropic_like_model(model_id: Any) -> bool:
+    if not isinstance(model_id, str):
+        return False
+    m = model_id.lower()
+    return (
+        m.startswith("anthropic/")
+        or m.startswith("bedrock/")  # many of ours are bedrock/anthropic...
+        or "claude" in m
+        or "anthropic" in m
+    )
+
+
+def _log_tool_schema_issues_for_anthropic(params: Dict[str, Any]) -> None:
+    """
+    Pure logging (no mutation). Helps pinpoint which tool index/name is missing the required schema type
+    that Anthropic validates strictly.
+    """
+    tools = params.get("tools")
+    if not isinstance(tools, list) or not tools:
+        return
+
+    for i, tool in enumerate(tools):
+        if not isinstance(tool, dict):
+            logger.error(f"[LLM] 🚨 [TOOL SCHEMA] tools[{i}] is not an object: {type(tool).__name__}")
+            continue
+
+        # Anthropic/LiteLLM 'custom' tool format: {"custom": {"name":..., "input_schema": {...}}}
+        custom = tool.get("custom")
+        if isinstance(custom, dict):
+            name = custom.get("name", "unknown")
+            input_schema = custom.get("input_schema")
+            if not isinstance(input_schema, dict) or "type" not in input_schema:
+                snippet = json.dumps(input_schema)[:300] if isinstance(input_schema, dict) else str(input_schema)[:120]
+                logger.error(f"[LLM] 🚨 [TOOL SCHEMA] tools[{i}] custom '{name}' missing input_schema.type. input_schema={snippet}")
+            continue
+
+        # OpenAI/OpenAPI function format: {"function": {"name":..., "parameters": {...}}}
+        func = tool.get("function")
+        if isinstance(func, dict):
+            name = func.get("name", "unknown")
+            fn_params = func.get("parameters")
+            if not isinstance(fn_params, dict) or "type" not in fn_params:
+                snippet = json.dumps(fn_params)[:300] if isinstance(fn_params, dict) else str(fn_params)[:120]
+                logger.error(f"[LLM] 🚨 [TOOL SCHEMA] tools[{i}] function '{name}' missing parameters.type. parameters={snippet}")
+            continue
+
+        # Other possible shapes (just log if input_schema exists but no type)
+        input_schema = tool.get("input_schema")
+        if isinstance(input_schema, dict) and "type" not in input_schema:
+            name = tool.get("name", "unknown")
+            snippet = json.dumps(input_schema)[:300]
+            logger.error(f"[LLM] 🚨 [TOOL SCHEMA] tools[{i}] '{name}' missing input_schema.type. input_schema={snippet}")
+
 _INTERNAL_MESSAGE_PROPERTIES = {"message_id"}
 
 def _strip_internal_properties(messages: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -274,6 +328,31 @@ async def make_llm_api_call(
     if tools:
         params["tools"] = tools
         params["tool_choice"] = tool_choice
+        # Optional trace for diagnosing tool schema mutation across calls (no mutation here)
+        if os.getenv("DEBUG_TOOL_SCHEMAS") == "1":
+            try:
+                # Log only the problematic tool (view_tasks) to keep noise low
+                for i, t in enumerate(tools):
+                    if not isinstance(t, dict):
+                        continue
+                    fn = t.get("function", {})
+                    if not isinstance(fn, dict):
+                        continue
+                    if fn.get("name") == "view_tasks":
+                        p = fn.get("parameters")
+                        logger.error(
+                            f"🧩 [TOOL SCHEMA TRACE] (llm pre-send) tools[{i}] view_tasks "
+                            f"tools_list_id={id(tools)} tool_id={id(t)} params_id={id(p) if isinstance(p, dict) else None} "
+                            f"parameters={json.dumps(p)[:200] if isinstance(p, dict) else str(p)[:80]}"
+                        )
+                        break
+            except Exception as e:
+                logger.debug(f"[TOOL SCHEMA TRACE] Failed in llm pre-send: {str(e)[:80]}")
+    
+    # Pure diagnostic logging for Anthropic tool schema strictness (no mutation)
+    actual_model_id = params.get("model", model_name)
+    if _is_anthropic_like_model(actual_model_id):
+        _log_tool_schema_issues_for_anthropic(params)
     
     if model_id:
         params["model_id"] = model_id

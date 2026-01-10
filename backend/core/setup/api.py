@@ -80,9 +80,13 @@ async def initialize_user_account(account_id: str, email: Optional[str] = None, 
             logger.error(f"[SETUP] Error sending welcome notification: {ex}")
             if email and user_name:
                 _send_welcome_email_async(email, user_name)
-        
-        result = await free_tier_service.auto_subscribe_to_free_tier(account_id, email)
-        
+
+        # Modify at 2026-01-09，webhook通知的时候，不处理订阅关系
+        # result = await free_tier_service.auto_subscribe_to_free_tier(account_id, email)
+        result = {
+            'success': True,
+            'message': 'Free tier subscription created successfully'
+        }
         if not result.get('success'):
             error_msg = result.get('error') or result.get('message', 'Unknown error')
             if 'Already subscribed' in error_msg or 'already' in error_msg.lower():
