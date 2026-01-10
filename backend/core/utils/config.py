@@ -309,6 +309,10 @@ class Configuration:
     SUPABASE_ANON_KEY: str
     SUPABASE_SERVICE_ROLE_KEY: str
     SUPABASE_JWT_SECRET: str
+    # JWT verification:
+    # - HS256 tokens are verified using SUPABASE_JWT_SECRET
+    # - RS256 tokens are verified using Supabase signing keys (JWKS) derived from SUPABASE_URL:
+    #   {SUPABASE_URL}/auth/v1/.well-known/jwks.json
     
     REDIS_HOST: Optional[str] = "localhost"
     REDIS_PORT: Optional[int] = 6379

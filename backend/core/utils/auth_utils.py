@@ -3,6 +3,7 @@ from fastapi import HTTPException, Request, Header
 from typing import Optional
 import jwt
 from jwt.exceptions import PyJWTError
+from functools import lru_cache
 from core.utils.logger import structlog
 from core.utils.config import config
 from core.services.supabase import DBConnection
@@ -13,6 +14,8 @@ from core.utils.logger import logger, structlog
 def _constant_time_compare(a: str, b: str) -> bool:
     """Constant-time string comparison to prevent timing attacks."""
     return hmac.compare_digest(a.encode('utf-8'), b.encode('utf-8'))
+
+_SUPABASE_ALLOWED_ALGS = {"HS256", "RS256"}
 
 
 async def verify_admin_api_key(x_admin_api_key: Optional[str] = Header(None)):
@@ -40,22 +43,55 @@ async def verify_admin_api_key(x_admin_api_key: Optional[str] = Header(None)):
 
 def _decode_jwt_with_verification(token: str) -> dict:
     """
-    Decode and verify JWT token using Supabase JWT secret.
+    Decode and verify JWT token from Supabase.
     
     This function properly validates the JWT signature to prevent token forgery.
+    It supports:
+    - HS* algorithms via SUPABASE_JWT_SECRET
+    - RS*/ES*/PS* algorithms via Supabase JWKS signing keys
     """
-    jwt_secret = config.SUPABASE_JWT_SECRET
-    
-    if not jwt_secret:
-        logger.error("SUPABASE_JWT_SECRET is not configured - JWT verification disabled!")
-        raise HTTPException(
-            status_code=500,
-            detail="Server authentication configuration error"
-        )
-    
     try:
-        # Verify signature with the Supabase JWT secret
-        # Supabase uses HS256 algorithm by default
+        header = jwt.get_unverified_header(token)
+        token_alg = header.get("alg")
+        token_kid = header.get("kid")
+
+        if token_alg and token_alg not in _SUPABASE_ALLOWED_ALGS:
+            raise jwt.InvalidAlgorithmError(f"The specified alg value is not allowed (alg={token_alg})")
+
+        # HS256 -> shared secret; RS256 -> JWKS signing keys.
+        use_jwks = (token_alg == "RS256")
+
+        if use_jwks:
+            supabase_url = getattr(config, "SUPABASE_URL", None)
+            jwks_url = supabase_url.rstrip("/") + "/auth/v1/.well-known/jwks.json" if supabase_url else None
+            if not jwks_url:
+                logger.error("SUPABASE_URL is not configured - cannot verify JWT via signing keys (JWKS)")
+                raise HTTPException(
+                    status_code=500,
+                    detail="Server authentication configuration error"
+                )
+
+            signing_key = _get_jwks_client(jwks_url).get_signing_key_from_jwt(token).key
+            return jwt.decode(
+                token,
+                signing_key,
+                algorithms=["RS256"],
+                options={
+                    "verify_signature": True,
+                    "verify_exp": True,
+                    "verify_aud": False,  # Supabase doesn't always set audience
+                    "verify_iss": False,  # Issuer varies by project
+                },
+            )
+
+        jwt_secret = getattr(config, "SUPABASE_JWT_SECRET", None)
+        if not jwt_secret:
+            logger.error("SUPABASE_JWT_SECRET is not configured - cannot verify HS* JWT")
+            raise HTTPException(
+                status_code=500,
+                detail="Server authentication configuration error"
+            )
+
         return jwt.decode(
             token,
             jwt_secret,
@@ -65,7 +101,7 @@ def _decode_jwt_with_verification(token: str) -> dict:
                 "verify_exp": True,
                 "verify_aud": False,  # Supabase doesn't always set audience
                 "verify_iss": False,  # Issuer varies by project
-            }
+            },
         )
     except jwt.ExpiredSignatureError:
         raise HTTPException(
@@ -81,12 +117,31 @@ def _decode_jwt_with_verification(token: str) -> dict:
             headers={"WWW-Authenticate": "Bearer"}
         )
     except PyJWTError as e:
-        logger.warning(f"JWT decode error: {str(e)}")
+        token_alg = None
+        token_kid = None
+        try:
+            header = jwt.get_unverified_header(token)
+            token_alg = header.get("alg")
+            token_kid = header.get("kid")
+        except Exception:
+            # Best-effort only; don't mask the original decode failure
+            pass
+
+        logger.warning(
+            f"JWT decode error: {str(e)} (token_alg={token_alg}, token_kid={token_kid}, allowed_algs={sorted(_SUPABASE_ALLOWED_ALGS)})"
+        )
         raise HTTPException(
             status_code=401,
             detail="Invalid token",
             headers={"WWW-Authenticate": "Bearer"}
         )
+
+
+@lru_cache(maxsize=1)
+def _get_jwks_client(jwks_url: str):
+    # PyJWT 2.10+ provides a built-in JWKS client.
+    from jwt import PyJWKClient
+    return PyJWKClient(jwks_url)
 
 async def get_account_id_from_thread(thread_id: str, db: "DBConnection") -> str:
     """
