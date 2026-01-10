@@ -14,14 +14,14 @@ globs:
 - **避免安全风险**：禁止 `alg=none`；禁止“按 token 自述 alg 自动接受”的不安全行为；禁止在日志/异常中输出 token 本体。
 
 ### 验签要求（强制）
-- **RS256 必须走 JWKS**：
+- **RS256 / ES256 必须走 JWKS**：
   - JWKS 地址固定从 `SUPABASE_URL` 推导：`{SUPABASE_URL}/auth/v1/.well-known/jwks.json`
   - 通过 token header 的 `kid` 从 JWKS 里选择 signing key
   - 缓存 JWKS client（建议 `@lru_cache`，容量保持小；默认 `maxsize=1` 足够）
 - **HS256 走 shared secret**：
   - 必须使用 `SUPABASE_JWT_SECRET` 进行 `HS256` 验签
 - **算法限制**：
-  - 仅允许 `HS256` / `RS256`
+- 仅允许 `HS256` / `RS256` / `ES256`
   - 绝对禁止 `none`
 
 ### 日志与可观测性（强制）

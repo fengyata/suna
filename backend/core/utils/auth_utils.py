@@ -15,7 +15,7 @@ def _constant_time_compare(a: str, b: str) -> bool:
     """Constant-time string comparison to prevent timing attacks."""
     return hmac.compare_digest(a.encode('utf-8'), b.encode('utf-8'))
 
-_SUPABASE_ALLOWED_ALGS = {"HS256", "RS256"}
+_SUPABASE_ALLOWED_ALGS = {"HS256", "RS256", "ES256"}
 
 
 async def verify_admin_api_key(x_admin_api_key: Optional[str] = Header(None)):
@@ -58,8 +58,11 @@ def _decode_jwt_with_verification(token: str) -> dict:
         if token_alg and token_alg not in _SUPABASE_ALLOWED_ALGS:
             raise jwt.InvalidAlgorithmError(f"The specified alg value is not allowed (alg={token_alg})")
 
-        # HS256 -> shared secret; RS256 -> JWKS signing keys.
-        use_jwks = (token_alg == "RS256")
+        if not token_alg:
+            raise jwt.InvalidTokenError("Missing alg in token header")
+
+        # HS256 -> shared secret; RS256/ES256 -> JWKS signing keys.
+        use_jwks = token_alg in {"RS256", "ES256"}
 
         if use_jwks:
             supabase_url = getattr(config, "SUPABASE_URL", None)
@@ -75,7 +78,7 @@ def _decode_jwt_with_verification(token: str) -> dict:
             return jwt.decode(
                 token,
                 signing_key,
-                algorithms=["RS256"],
+                algorithms=[token_alg],
                 options={
                     "verify_signature": True,
                     "verify_exp": True,
