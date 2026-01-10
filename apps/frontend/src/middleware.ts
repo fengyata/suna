@@ -4,6 +4,8 @@ import type { NextRequest } from 'next/server';
 import { locales, defaultLocale, type Locale } from '@/i18n/config';
 import { detectBestLocaleFromHeaders } from '@/lib/utils/geo-detection-server';
 
+const FLASHCLOUD_FINGERPRINT_COOKIE = 'flashcloud_auth_fingerprint';
+
 function buildExternalLoginUrl() {
   const loginFrontend = process.env.NEXT_PUBLIC_LOGIN_FRONTEND;
   const flashrevFrontend = process.env.NEXT_PUBLIC_FLASHREV_FRONTEND;
@@ -13,6 +15,14 @@ function buildExternalLoginUrl() {
   return `${loginFrontend}/login/flashinfo?redirect_uri=${encodeURIComponent(
     `${flashrevFrontend}/superagent`,
   )}`;
+}
+
+function redirectToSetLogin(request: NextRequest) {
+  const url = request.nextUrl.clone();
+  url.pathname = '/set-login';
+  // tell client this will likely end at external login
+  url.searchParams.set('external', '1');
+  return NextResponse.redirect(url);
 }
 
 // Marketing pages that support locale routing for SEO (/de, /it, etc.)
@@ -84,9 +94,20 @@ function detectMobilePlatformFromUA(userAgent: string | null): 'ios' | 'android'
   return null;
 }
 
+async function computeFlashcloudFingerprint(input: string) {
+  const data = new TextEncoder().encode(input);
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  const bytes = new Uint8Array(digest);
+  let binary = '';
+  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+  // base64url
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const flashcloudToken = request.cookies.get('flashcloud_cookie')?.value;
+  const flashcloudCompanyId = request.cookies.get('flashcloud_company_id')?.value || '';
   
   // 🚀 HYPER-FAST: Mobile app store redirect for /milano, /berlin, and /app
   // This runs at the edge before ANY page rendering
@@ -136,7 +157,7 @@ export async function middleware(request: NextRequest) {
     // }
     // 项目入口：根据 flashcloud_cookie 判断是否需要外部登录重定向
     if (!flashcloudToken) {
-      return NextResponse.redirect(new URL(buildExternalLoginUrl(), request.url));
+      return redirectToSetLogin(request);
     }
 
     // 已有 flashcloud_cookie，默认进入 dashboard
@@ -272,7 +293,25 @@ export async function middleware(request: NextRequest) {
 
   // 非公开路由：缺少 flashcloud_cookie 视为未登录，直接外部重定向
   if (!flashcloudToken) {
-    return NextResponse.redirect(new URL(buildExternalLoginUrl(), request.url));
+    return redirectToSetLogin(request);
+  }
+
+  // 绑定 Supabase session 到 flashcloud 身份：若 flashcloud cookie 变化，则强制重新 set-login
+  const expectedFingerprint = await computeFlashcloudFingerprint(`${flashcloudCompanyId}:${flashcloudToken}`);
+  const storedFingerprint = request.cookies.get(FLASHCLOUD_FINGERPRINT_COOKIE)?.value;
+  if (!storedFingerprint || storedFingerprint !== expectedFingerprint) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/set-login';
+    const resp = NextResponse.redirect(url);
+    // 先写入新的指纹，避免后续循环；最终会由 /api/setLogin 再次写入确认值
+    resp.cookies.set(FLASHCLOUD_FINGERPRINT_COOKIE, expectedFingerprint, {
+      path: '/',
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: request.nextUrl.protocol === 'https:',
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+    });
+    return resp;
   }
 
   // Everything else requires authentication - reuse the user we already fetched

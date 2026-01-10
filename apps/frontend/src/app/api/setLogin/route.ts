@@ -1,6 +1,8 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextRequest, NextResponse } from 'next/server';
 
+const FLASHCLOUD_FINGERPRINT_COOKIE = 'flashcloud_auth_fingerprint';
+
 function buildExternalLoginUrl() {
   const loginFrontend = process.env.NEXT_PUBLIC_LOGIN_FRONTEND;
   const flashrevFrontend = process.env.NEXT_PUBLIC_FLASHREV_FRONTEND;
@@ -21,6 +23,15 @@ function redirectExternalLogin(request: NextRequest) {
 type SetLoginResponseBody =
   | { ok: true; redirectUrl: string }
   | { ok: false; redirectUrl: string; message?: string };
+
+async function computeFlashcloudFingerprint(input: string) {
+  const data = new TextEncoder().encode(input);
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  const bytes = new Uint8Array(digest);
+  let binary = '';
+  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
 
 async function handleSetLogin(request: NextRequest) {
   const flashcloudToken = request.cookies.get('flashcloud_cookie')?.value;
@@ -121,6 +132,15 @@ async function handleSetLogin(request: NextRequest) {
   }
 
   // 3) Return JSON with Set-Cookie; frontend will navigate to redirectUrl
+  // 同步写入 flashcloud 指纹，确保 flashcloud 身份变化时能触发重新登录
+  const fingerprint = await computeFlashcloudFingerprint(`${companyId || ''}:${flashcloudToken}`);
+  response.cookies.set(FLASHCLOUD_FINGERPRINT_COOKIE, fingerprint, {
+    path: '/',
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: request.nextUrl.protocol === 'https:',
+    maxAge: 60 * 60 * 24 * 30, // 30 days
+  });
   return response;
 }
 
