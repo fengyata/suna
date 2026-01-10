@@ -1,4 +1,4 @@
-import { getCookie } from "./cookie";
+import { getCookie, setCookie } from "./cookie";
 
 const backend = process.env.NEXT_PUBLIC_FLASHREV_BACKEND;
 
@@ -42,11 +42,18 @@ export const getLoginInfo = function () {
     });
   }
   
-  return request(`v1/intranet/login`, {
+  return request('/api/v1/intranet/login', { // `${process.env.NEXT_PUBLIC_BACKEND_URL}/intranet/login`
     method: 'POST',
     body: JSON.stringify({
       token: token,
       company_id: company_id
     })
+  }).then(response => {
+    console.log('response', response);
+    // 如果请求成功且返回的响应中包含 token，则保存到 cookie
+    if (response && response.token) {
+      setCookie('sb-gisiphzofmhgbjdzdgtx-auth-token', response.token);
+    }
+    return response;
   })
 }
