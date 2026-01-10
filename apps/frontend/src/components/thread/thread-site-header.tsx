@@ -66,7 +66,8 @@ export function SiteHeader({
             </span>
           </div>
         ) : (
-          <ModeIndicator />
+          // <ModeIndicator />
+          <div>&nbsp;</div>
         )}
       </div>
 

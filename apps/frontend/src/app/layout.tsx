@@ -13,7 +13,6 @@ import { Suspense, lazy } from 'react';
 import { I18nProvider } from '@/components/i18n-provider';
 import { featureFlags } from '@/lib/feature-flags';
 import { CookieConsent } from '@/components/cookie-consent';
-import { AuthGuard } from '@/components/auth-guard';
 
 // Lazy load non-critical analytics and global components
 const Analytics = lazy(() => import('@vercel/analytics/react').then(mod => ({ default: mod.Analytics })));
@@ -236,7 +235,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AuthGuard />
           <AuthProvider>
             <I18nProvider>
               <PresenceProvider>
