@@ -25,6 +25,16 @@ class IntranetLoginResponse(BaseModel):
     token: str
 
 
+class IntranetCreateUserRequest(BaseModel):
+    user_id: str
+    company_id: str
+
+
+class IntranetCreateUserResponse(BaseModel):
+    code: int
+    message: str
+
+
 @router.post("/login", response_model=IntranetLoginResponse)
 async def intranet_login(request: IntranetLoginRequest):
     """
@@ -147,3 +157,76 @@ async def intranet_login(request: IntranetLoginRequest):
     except Exception as e:
         logger.error(f"Intranet login error: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/create_user", response_model=IntranetCreateUserResponse)
+async def intranet_create_user(request: IntranetCreateUserRequest):
+    """
+    Create a Supabase Auth user using email/password derived from user_id and company_id.
+
+    Email format: "{user_id}_{company_id}@flashlabs.ai"
+    Password format: "{user_id}_{company_id}"
+
+    Notes:
+    - No Flashintel token validation (by requirement)
+    - Supabase is configured to auto-confirm emails (by requirement)
+    """
+    # Email/password format must match intranet_login (L74-L76).
+    password_prefix = f"{request.user_id}_{request.company_id}"
+    email = f"{password_prefix}@flashlabs.ai"
+    password = password_prefix
+
+    # Use Admin API to create users (matches Supabase Studio "Create user" behavior).
+    # This requires the service_role key and must only be called server-side.
+    if not config.SUPABASE_URL or not config.SUPABASE_SERVICE_ROLE_KEY:
+        logger.error("SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY not configured")
+        raise HTTPException(
+            status_code=500,
+            detail="Server configuration error: Supabase not configured",
+        )
+
+    httpx_client = httpx.AsyncClient(timeout=50)
+    options = AsyncClientOptions(httpx_client=httpx_client)
+    client = await create_async_client(
+        config.SUPABASE_URL.rstrip("/"),
+        config.SUPABASE_SERVICE_ROLE_KEY,
+        options=options,
+    )
+    try:
+        await client.auth.admin.create_user(
+            {
+                "email": email,
+                "password": password,
+                "email_confirm": True,
+            }
+        )
+    except AuthApiError as e:
+        msg = getattr(e, "message", None) or str(e)
+        status = getattr(e, "status", None)
+        code = getattr(e, "code", None)
+
+        if "Invalid API key" in msg:
+            logger.error(
+                "Supabase sign-up failed: invalid API key. "
+                "Check SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY belong to the same project."
+            )
+            raise HTTPException(
+                status_code=500,
+                detail="Server configuration error: invalid Supabase API key",
+            )
+
+        # Treat "already exists" as idempotent success.
+        if code in ("email_exists", "user_already_exists") or "already been registered" in msg:
+            logger.info(f"Intranet create_user: user already exists (email: {email})")
+            return IntranetCreateUserResponse(code=200, message="User already exists")
+
+        logger.warning(
+            f"Intranet create_user failed: Supabase rejected sign-up "
+            f"(email: {email}, status: {status}, code: {code})"
+        )
+        raise HTTPException(status_code=400, detail="User creation failed")
+    finally:
+        await httpx_client.aclose()
+
+    logger.info(f"Intranet create_user successful for {email}")
+    return IntranetCreateUserResponse(code=200, message="User created")
