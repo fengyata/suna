@@ -17,7 +17,7 @@ const request = async (url: string, options = {}) => {
     headers: {
       'x-auth-company': company_id,
       'authorization': `Bearer ${token}`,
-      // 'x-api-key': 'pk_E2muZlBs00v1m315dyep2AEBO1sLsopL:sk_REJxCulmqyNVMwOT6KkA5Ipdilbd0TUo',
+      'Content-Type': 'application/json',
     },
     cache: 'no-store',
     ...options
