@@ -10,6 +10,7 @@ from supabase import AsyncClientOptions, create_async_client
 from gotrue.errors import AuthApiError
 
 from core.utils.flashintel_service import FlashintelService
+from core.services.supabase import DBConnection
 from core.utils.config import config
 from core.utils.logger import logger
 
@@ -24,6 +25,7 @@ class IntranetLoginRequest(BaseModel):
 class IntranetLoginResponse(BaseModel):
     email: str
     password: str
+    account_id: str
 
 
 class IntranetCreateUserRequest(BaseModel):
@@ -45,13 +47,13 @@ async def intranet_login(request: IntranetLoginRequest):
     1. Verify token with Flashintel API
     2. Check if user exists (companyId: 0, userId: 0 means user doesn't exist)
     3. Build email/password derived from user_id and request.company_id
-    4. Check whether this email exists in Supabase auth.users
-    5. Return {email, password} if user exists
+    4. Query Supabase auth.users by email to get the user's id
+    5. Return {email, password, account_id} if user exists
 
     Returns:
         - 403 "User not found" if Flashintel returns companyId: 0, userId: 0
         - 404 "User not found" if Supabase auth.users does not contain this email
-        - 200 with email/password on success
+        - 200 with email/password/account_id on success
     """
     try:
         # Step 1: Check token with Flashintel API.
@@ -60,11 +62,15 @@ async def intranet_login(request: IntranetLoginRequest):
             token=request.token,
             company_id=request.company_id
         )
+        if not flashintel_response:
+            logger.error(f"Flashintel response is empty for token: {request.token} and company_id: {request.company_id}")
 
         # Step 2: Check if user exists.
         data = flashintel_response.get("data", {})
+        logger.info(f"Intranet login response: {data}")
         company_id_from_response = data.get("companyId")
-        user_id = data.get("userId")
+        user_id = data.get("userId" )
+
 
         # Treat both numeric 0 and string "0" as "not found" for compatibility.
         if str(company_id_from_response) == "0" and str(user_id) == "0":
@@ -89,65 +95,33 @@ async def intranet_login(request: IntranetLoginRequest):
         email = f"{password_prefix}@flashlabs.ai"
         password = password_prefix
 
-        # Step 4: Check whether this email exists in Supabase auth.users.
-        #
-        # We query PostgREST with the `auth` schema via `Accept-Profile: auth`.
-        # This requires the service_role key and must only be called server-side.
-        if not config.SUPABASE_URL or not config.SUPABASE_SERVICE_ROLE_KEY:
-            logger.error("SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY not configured")
-            raise HTTPException(
-                status_code=500,
-                detail="Server configuration error: Supabase not configured",
+        try:
+            # Step 4: Query Supabase Auth user id (auth.users.id) by derived email.
+            #
+            # Important: PostgREST does NOT expose the `auth` schema tables directly.
+            # We call a SECURITY DEFINER RPC in `public` which reads `auth.users`
+            # internally and returns the UUID.
+            db = DBConnection()
+            client = await db.client
+            rpc_result = await client.rpc("get_user_id_by_email", {"email_param": email}).execute()  
+            logger.info(f"Supabase RPC result: {rpc_result}")
+
+            account_id = rpc_result.data
+        except Exception as e:
+            logger.error(
+                f"Intranet login error: Supabase query failed (email: {email}): {e}",
+                exc_info=True,
             )
+            raise HTTPException(status_code=500, detail="Supabase query error")
 
-        # Use the official Supabase client (auth password sign-in) to obtain access token.
-        #
-        # Note: supabase-py AsyncClient does not expose close()/aclose() in v2.17.0.
-        # To avoid leaking connections, we pass our own httpx AsyncClient via options
-        # and close it explicitly.
-        # httpx_client = httpx.AsyncClient(timeout=50)
-        # options = AsyncClientOptions(httpx_client=httpx_client)
-        # client = await create_async_client(
-        #     config.SUPABASE_URL.rstrip("/"),
-        #     config.SUPABASE_ANON_KEY,
-        #     options=options,
-        # )
-        # try:
-        #     await client.auth.sign_in_with_password(
-        #         {
-        #             "email": email,
-        #             "password": password,
-        #         }
-        #     )
-        # except AuthApiError as e:
-        #     # Most credential problems surface as AuthApiError from GoTrue.
-        #     # Keep 403 behavior for user/password issues, but surface config errors as 500.
-        #     msg = getattr(e, "message", None) or str(e)
-        #     status = getattr(e, "status", None)
+        if not account_id:
+            raise HTTPException(status_code=404, detail="User not found")
 
-        #     if "Invalid API key" in msg:
-        #         logger.error(
-        #             "Supabase auth failed: invalid API key. "
-        #             "Check SUPABASE_URL and SUPABASE_ANON_KEY belong to the same project."
-        #         )
-        #         raise HTTPException(
-        #             status_code=500,
-        #             detail="Server configuration error: invalid Supabase API key",
-        #         )
-
-        #     if status in (400, 401, 403):
-        #         logger.warning(
-        #             f"Intranet login failed: Supabase rejected login (email: {email}, status: {status})"
-        #         )
-        #         raise HTTPException(status_code=403, detail="User has no access")
-
-        #     logger.error(f"Supabase auth error (status: {status}): {msg}", exc_info=True)
-        #     raise HTTPException(status_code=500, detail="Supabase authentication error")
-        # finally:
-        #     # Always close the underlying httpx client to avoid connection leaks.
-        #     await httpx_client.aclose()
-
-        return IntranetLoginResponse(email=email, password=password)
+        return IntranetLoginResponse(
+            email=email,
+            password=password,
+            account_id=account_id,
+        )
 
     except HTTPException:
         raise

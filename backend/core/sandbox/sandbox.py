@@ -4,6 +4,7 @@ from core.utils.logger import logger
 from core.utils.config import config
 from core.utils.config import Configuration
 import asyncio
+from time import perf_counter
 
 load_dotenv()
 
@@ -68,16 +69,74 @@ async def get_or_start_sandbox(sandbox_id: str) -> AsyncSandbox:
 async def start_supervisord_session(sandbox: AsyncSandbox):
     """Start supervisord in a session."""
     session_id = "supervisord-session"
+    command = "exec /usr/bin/supervisord -n -c /etc/supervisor/conf.d/supervisord.conf"
+
+    # Log request/response details to make sandbox startup issues debuggable.
+    sandbox_id = getattr(sandbox, "id", None)
+    total_start = perf_counter()
+
+    # Legacy implementation (kept commented for reference; replaced by detailed logs below):
+    # await sandbox.process.create_session(session_id)
+    # await sandbox.process.execute_session_command(
+    #     session_id,
+    #     SessionExecuteRequest(
+    #         command="exec /usr/bin/supervisord -n -c /etc/supervisor/conf.d/supervisord.conf",
+    #         var_async=True,
+    #     ),
+    # )
+    # logger.info("Supervisord started successfully")
+    #
+    # Legacy exception handling:
+    # except Exception as e:
+    #     # Don't fail if supervisord already running
+    #     logger.warning(f"Could not start supervisord: {str(e)}")
     try:
-        await sandbox.process.create_session(session_id)
-        await sandbox.process.execute_session_command(session_id, SessionExecuteRequest(
-            command="exec /usr/bin/supervisord -n -c /etc/supervisor/conf.d/supervisord.conf",
-            var_async=True
-        ))
-        logger.info("Supervisord started successfully")
-    except Exception as e:
+        logger.info(
+            "Starting supervisord via session",
+            sandbox_id=sandbox_id,
+            session_id=session_id,
+            command=command,
+            var_async=True,
+        )
+
+        create_start = perf_counter()
+        create_response = await sandbox.process.create_session(session_id)
+        logger.info(
+            "Created supervisord session",
+            sandbox_id=sandbox_id,
+            session_id=session_id,
+            elapsed_ms=round((perf_counter() - create_start) * 1000, 2),
+            response_type=type(create_response).__name__,
+            response_repr=repr(create_response),
+        )
+
+        request = SessionExecuteRequest(command=command, var_async=True)
+        execute_start = perf_counter()
+        execute_response = await sandbox.process.execute_session_command(session_id, request)
+        logger.info(
+            "Executed supervisord command in session",
+            sandbox_id=sandbox_id,
+            session_id=session_id,
+            elapsed_ms=round((perf_counter() - execute_start) * 1000, 2),
+            response_type=type(execute_response).__name__,
+            response_repr=repr(execute_response),
+        )
+
+        logger.info(
+            "Supervisord started successfully",
+            sandbox_id=sandbox_id,
+            session_id=session_id,
+            total_elapsed_ms=round((perf_counter() - total_start) * 1000, 2),
+        )
+    except Exception:
         # Don't fail if supervisord already running
-        logger.warning(f"Could not start supervisord: {str(e)}")
+        logger.warning(
+            "Could not start supervisord via session (best-effort)",
+            sandbox_id=sandbox_id,
+            session_id=session_id,
+            total_elapsed_ms=round((perf_counter() - total_start) * 1000, 2),
+            exc_info=True,
+        )
 
 async def create_sandbox(password: str, project_id: str = None) -> AsyncSandbox:
     """Create a new sandbox with all required services configured and running."""

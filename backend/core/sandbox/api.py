@@ -971,9 +971,14 @@ async def list_file_history(
     """
     import shlex
     import uuid
+    from time import perf_counter
 
     original_path = path
     path = normalize_path(path)
+
+    # Temporary debug marker for later removal (see: bug统计日志-20260112).
+    bug_tag = "bug统计日志-20260112"
+    total_start = perf_counter()
 
     logger.debug(
         f"Received file history request for sandbox {sandbox_id}, "
@@ -994,6 +999,17 @@ async def list_file_history(
         except Exception:
             limit_int = 100
         limit_int = max(1, min(limit_int, 1000))
+
+        logger.info(
+            "list_file_history inputs normalized",
+            bug_tag=bug_tag,
+            sandbox_id=sandbox_id,
+            original_path=original_path,
+            normalized_path=path,
+            limit=limit,
+            limit_int=limit_int,
+            user_id=user_id,
+        )
 
         # normalize to path relative to /workspace
         rel_path = path
@@ -1027,17 +1043,69 @@ async def list_file_history(
 
         try:
             session_id = f"session_{uuid.uuid4().hex}"
+            bash_cmd = f"bash -lc {shlex.quote(git_cmd)}"
+
+            def _truncate(value: object, max_len: int = 2000) -> str:
+                """Return a bounded string representation for logs."""
+                text = "" if value is None else str(value)
+                if len(text) <= max_len:
+                    return text
+                return f"{text[:max_len]}...(truncated,len={len(text)})"
+
+            logger.info(
+                "list_file_history about to execute git log",
+                bug_tag=bug_tag,
+                sandbox_id=sandbox_id,
+                path=path,
+                rel_path=rel_path,
+                limit_int=limit_int,
+                session_id=session_id,
+                tmp_path=tmp_path,
+                git_cmd=_truncate(git_cmd),
+                bash_cmd=_truncate(bash_cmd),
+            )
+
+            create_start = perf_counter()
             await sandbox.process.create_session(session_id)
+            logger.info(
+                "list_file_history created session",
+                bug_tag=bug_tag,
+                sandbox_id=sandbox_id,
+                session_id=session_id,
+                elapsed_ms=round((perf_counter() - create_start) * 1000, 2),
+            )
+
+            exec_start = perf_counter()
             await sandbox.process.execute_session_command(
                 session_id,
                 SessionExecuteRequest(
-                    command=f"bash -lc {shlex.quote(git_cmd)}",
+                    command=bash_cmd,
                     var_async=False
                 )
+            )
+            logger.info(
+                "list_file_history git log completed",
+                bug_tag=bug_tag,
+                sandbox_id=sandbox_id,
+                session_id=session_id,
+                elapsed_ms=round((perf_counter() - exec_start) * 1000, 2),
             )
         except Exception as git_err:
             logger.error(
                 f"Error running git log for file {path} in sandbox {sandbox_id}: {str(git_err)}"
+            )
+            logger.error(
+                "list_file_history git log failed",
+                bug_tag=bug_tag,
+                sandbox_id=sandbox_id,
+                path=path,
+                rel_path=rel_path,
+                limit_int=limit_int,
+                session_id=locals().get("session_id"),
+                tmp_path=tmp_path,
+                git_cmd=locals().get("git_cmd"),
+                exc_info=True,
+                elapsed_ms=round((perf_counter() - total_start) * 1000, 2),
             )
             # If git log fails because file has no history or repo not initialized,
             # return an empty history rather than a hard error.
@@ -1046,8 +1114,23 @@ async def list_file_history(
                 "versions": []
             }
 
+        logger.info(
+            "list_file_history about to download git log file",
+            bug_tag=bug_tag,
+            sandbox_id=sandbox_id,
+            tmp_path=tmp_path,
+        )
         try:
+            dl_start = perf_counter()
             log_bytes = await sandbox.fs.download_file(tmp_path)
+            logger.info(
+                "list_file_history downloaded git log file",
+                bug_tag=bug_tag,
+                sandbox_id=sandbox_id,
+                tmp_path=tmp_path,
+                bytes_len=len(log_bytes) if log_bytes is not None else None,
+                elapsed_ms=round((perf_counter() - dl_start) * 1000, 2),
+            )
         finally:
             try:
                 await sandbox.fs.delete_file(tmp_path)
@@ -1073,10 +1156,30 @@ async def list_file_history(
                 "message": subject,
             })
 
-        logger.debug(
+        versions_preview = versions[:3]
+        logger.info(
+            "list_file_history parsed git log",
+            bug_tag=bug_tag,
+            sandbox_id=sandbox_id,
+            path=path,
+            rel_path=rel_path,
+            versions_count=len(versions),
+            records_count=len(records),
+            versions_preview=versions_preview,
+        )
+
+        logger.info(
             f"Found {len(versions)} versions for file {path} in sandbox {sandbox_id}"
         )
 
+        logger.info(
+            "list_file_history returning response",
+            bug_tag=bug_tag,
+            sandbox_id=sandbox_id,
+            path=path,
+            versions_count=len(versions),
+            elapsed_ms=round((perf_counter() - total_start) * 1000, 2),
+        )
         return {
             "path": path,
             "versions": versions
@@ -1087,6 +1190,14 @@ async def list_file_history(
     except Exception as e:
         logger.error(
             f"Error listing file history in sandbox {sandbox_id}, path {path}: {str(e)}"
+        )
+        logger.error(
+            "list_file_history failed",
+            bug_tag=bug_tag,
+            sandbox_id=sandbox_id,
+            path=path,
+            exc_info=True,
+            elapsed_ms=round((perf_counter() - total_start) * 1000, 2),
         )
         raise HTTPException(status_code=500, detail=str(e))
 @router.get("/sandboxes/{sandbox_id}/files/commit-info")

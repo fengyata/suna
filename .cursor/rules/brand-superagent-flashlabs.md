@@ -28,6 +28,8 @@ globs:
 ### 变更边界（强制）
 - **允许修改（仅文案）**：
   - **Prompt**：多行字符串中的身份/欢迎语/描述等可见文案。
+  - **Prompt 中的域名（例外规则）**：如果 `kortix.com` 出现在 **Prompt 文本**（多行提示词/模板字符串）里，允许替换为 `info.flashlabs.ai`。
+    - English note: This exception applies to prompt text only; do not change infrastructure URLs elsewhere.
   - **API 返回文案**：例如 `HTTPException(detail=...)` 里的提示文本（用户可见）。
   - **模板/邮件/通知文案**：标题、正文、落款、版权行等。
   - **OpenAPI 文档文案**：title/description（Swagger UI 可见）。
@@ -38,7 +40,7 @@ globs:
   - **DB 字段与 JSON key**：例如 `is_suna_default`、`is_kortix_team`、`centrally_managed` 等。
   - **RPC/函数名/索引名**：例如 `find_suna_default_agent_for_account`、`idx_*suna*`。
   - **路由路径**：例如 `/suna-agents/...`（路径属于接口契约）。
-  - **域名 / webhook URL / CORS origin / 邮箱 / 资产链接**：
+  - **域名 / webhook URL / CORS origin / 邮箱 / 资产链接**（除 Prompt 文本例外外，一律不改）：
     - 例如 `api.kortix.com`、`kortix.com/Logomark.svg`、`hello@kortix.com`、`github.com/kortix-ai/suna`。
     - 这些属于基础设施/兼容性要素：**不改**（除非产品方另行提供新值并明确要求迁移）。
   - **Docker 镜像 / network 名称**：例如 `.../suna/...`、`suna-network`。
@@ -88,6 +90,8 @@ globs:
   - `"Welcome to Suna!"` → `"Welcome to SuperAgent!"`
   - `"Sign in to Kortix"` → `"Sign in to SuperAgent"`
   - `"Kortix API"` → `"SuperAgent API"`
+- **允许（Prompt 文本中的域名例外）**：
+  - `"created by the Flashlabs team (kortix.com)."` → `"created by the Flashlabs team (info.flashlabs.ai)."`
 - **允许（团队/公司文案 → Flashlabs）**：
   - `"created by the Kortix team"` → `"created by the Flashlabs team"`
   - `"© 2025 Kortix AI Corp. All rights reserved."` → `"© 2025 Flashlabs. All rights reserved."`
@@ -95,3 +99,5 @@ globs:
   - `metadata->>'is_suna_default'` → ❌ 不改
   - `COMMENT ON COLUMN agent_templates.is_kortix_team ...` → 只允许改注释里的“Kortix team”为“Flashlabs team”，但 `is_kortix_team` 不改
   - `@router.post("/suna-agents/...")` → ❌ 不改
+- **禁止（非 Prompt 的基础设施链接/域名）**：
+  - `api.kortix.com` → ❌ 不改（除非产品明确要求迁移）

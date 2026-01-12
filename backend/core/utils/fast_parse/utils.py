@@ -1,4 +1,5 @@
 from __future__ import annotations
+import hashlib
 import re
 import unicodedata
 from typing import Optional, Tuple, Dict, Any, List
@@ -32,12 +33,57 @@ def sanitize_filename(filename: str, max_length: int = 255) -> str:
 
 
 def sanitize_filename_for_path(filename: str) -> str:
-    safe = filename.replace('/', '_').replace('\\', '_')
-    safe = re.sub(r'[\[\]{}()<>|`#%&*?!@$^+=;:\'",]', '_', safe)
-    safe = re.sub(r'\s+', '_', safe)
-    safe = re.sub(r'_+', '_', safe)
-    safe = safe.strip('_')
-    return safe or 'file'
+    """
+    Convert an arbitrary user-provided filename into a storage-safe path segment.
+
+    Why: Supabase Storage object keys can reject non-ASCII / unsafe characters (InvalidKey).
+
+    Strategy (scheme 1):
+    - Preserve the original extension (if it's a normal ASCII extension).
+    - ASCII-normalize the stem (NFKD + ignore non-ASCII).
+    - Replace unsafe characters with '_' and collapse repeats.
+    - If the stem becomes empty (e.g., emoji-only), fallback to 'file_<shorthash>'.
+    """
+    if not filename:
+        return "file"
+
+    # Keep the full incoming name (including any directory-like parts) but make separators safe.
+    raw = filename.replace("/", "_").replace("\\", "_")
+
+    # Split extension without OS-dependent path semantics.
+    stem, dot, ext = raw.rpartition(".")
+    if not dot:
+        stem = raw
+        ext = ""
+    else:
+        ext = f".{ext}" if ext else ""
+
+    original_stem = stem
+
+    # Normalize stem to ASCII.
+    stem = unicodedata.normalize("NFKD", stem)
+    stem = stem.encode("ascii", "ignore").decode("ascii")
+
+    # Replace unsafe characters and normalize whitespace/underscores.
+    safe = re.sub(r'[\[\]{}()<>|`#%&*?!@$^+=;:\'",\x00-\x1f]', "_", stem)
+    safe = re.sub(r"\s+", "_", safe)
+    safe = re.sub(r"_+", "_", safe)
+    safe = safe.strip("_. ")
+
+    if not safe:
+        # Use a stable hash so emoji-only / non-ASCII-only names still become unique-ish and valid.
+        shorthash = hashlib.sha256(original_stem.encode("utf-8")).hexdigest()[:10]
+        safe = f"file_{shorthash}"
+
+    # Only keep a "simple" ASCII extension to avoid reintroducing unsafe characters.
+    if ext:
+        ext_ascii = unicodedata.normalize("NFKD", ext).encode("ascii", "ignore").decode("ascii")
+        if re.fullmatch(r"\.[A-Za-z0-9]{1,16}", ext_ascii):
+            ext = ext_ascii.lower()
+        else:
+            ext = ""
+
+    return f"{safe}{ext}"
 
 
 def format_file_size(size_bytes: int) -> str:
