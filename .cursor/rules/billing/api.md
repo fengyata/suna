@@ -20,6 +20,7 @@ Content-Type: application/json
 | 参数名 | 类型 | 必填 | 说明 |
 |--------|------|------|------|
 | companyId | Long | 是 | 公司Id |
+| messageId | String | 是 | 消息Id |
 | userId | Long | 是 | 用户ID |
 | featId | String | 是 | 功能ID |
 | value | Long | 是 | 扣减的Token数量，必须大于0 |
