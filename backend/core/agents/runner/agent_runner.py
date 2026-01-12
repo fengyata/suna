@@ -761,6 +761,12 @@ async def execute_agent_run(
     stream_key = f"agent_run:{agent_run_id}:stream"
     trace = None
     
+    # Per-agent_run transaction (no-op if Sentry disabled)
+    try:
+        from core.services.sentry_service import transaction_agent_run
+    except Exception:
+        transaction_agent_run = None
+
     try:
         start_time = datetime.now(timezone.utc)
         
@@ -801,7 +807,7 @@ async def execute_agent_run(
         
         set_tool_output_streaming_context(agent_run_id=agent_run_id, stream_key=stream_key)
         
-        # Run agent
+        # Run agent (wrapped in Sentry transaction when enabled)
         runner_config = AgentConfig(
             thread_id=thread_id,
             project_id=project_id,
@@ -811,7 +817,7 @@ async def execute_agent_run(
             account_id=account_id,
             is_new_thread=is_new_thread
         )
-        
+
         runner = AgentRunner(runner_config)
         
         first_response = False
@@ -819,61 +825,65 @@ async def execute_agent_run(
         total_responses = 0
         stream_ttl_set = False
         error_message = None
-        
-        async for response in runner.run(cancellation_event=cancellation_event):
-            if not first_response:
-                first_response_time_ms = (time.time() - execution_start) * 1000
-                logger.info(f"⏱️ FIRST RESPONSE: {first_response_time_ms:.1f}ms")
-                first_response = True
-                
-                # Emit timing info to Redis stream for stress testing
-                try:
-                    timing_msg = {
-                        "type": "timing",
-                        "first_response_ms": round(first_response_time_ms, 1),
-                        "timestamp": datetime.now(timezone.utc).isoformat(),
-                    }
-                    await redis.stream_add(stream_key, {"data": json.dumps(timing_msg)}, maxlen=200, approximate=True)
-                except Exception:
-                    pass  # Non-critical
-            
-            if stop_state['received']:
-                logger.warning(f"🛑 Agent run stopped: {stop_state['reason']}")
-                final_status = "stopped"
-                error_message = f"Stopped by {stop_state['reason']}"
-                break
 
-            from core.services.db import serialize_row
-            if isinstance(response, dict):
-                response = serialize_row(response)
-            
-            try:
-                await redis.stream_add(stream_key, {"data": json.dumps(response)}, maxlen=200, approximate=True)
-                
-                if not stream_ttl_set:
+        from contextlib import nullcontext
+        txn_cm = transaction_agent_run() if transaction_agent_run else nullcontext()
+
+        with txn_cm:
+            async for response in runner.run(cancellation_event=cancellation_event):
+                if not first_response:
+                    first_response_time_ms = (time.time() - execution_start) * 1000
+                    logger.info(f"⏱️ FIRST RESPONSE: {first_response_time_ms:.1f}ms")
+                    first_response = True
+
+                    # Emit timing info to Redis stream for stress testing
                     try:
-                        await asyncio.wait_for(redis.expire(stream_key, REDIS_STREAM_TTL_SECONDS), timeout=2.0)
-                        stream_ttl_set = True
-                    except:
-                        pass
-            except Exception as e:
-                logger.warning(f"Failed to write to stream: {e}")
-            
-            total_responses += 1
+                        timing_msg = {
+                            "type": "timing",
+                            "first_response_ms": round(first_response_time_ms, 1),
+                            "timestamp": datetime.now(timezone.utc).isoformat(),
+                        }
+                        await redis.stream_add(stream_key, {"data": json.dumps(timing_msg)}, maxlen=200, approximate=True)
+                    except Exception:
+                        pass  # Non-critical
 
-            # Check for terminating tool
-            terminating = check_terminating_tool_call(response)
-            if terminating == 'complete':
-                complete_tool_called = True
-            
-            # Check for completion status
-            if response.get('type') == 'status':
-                status = response.get('status')
-                if status in ['completed', 'failed', 'stopped', 'error']:
-                    final_status = status if status != 'error' else 'failed'
-                    if status in ['failed', 'error']:
-                        error_message = response.get('message')
+                if stop_state['received']:
+                    logger.warning(f"🛑 Agent run stopped: {stop_state['reason']}")
+                    final_status = "stopped"
+                    error_message = f"Stopped by {stop_state['reason']}"
                     break
+
+                from core.services.db import serialize_row
+                if isinstance(response, dict):
+                    response = serialize_row(response)
+
+                try:
+                    await redis.stream_add(stream_key, {"data": json.dumps(response)}, maxlen=200, approximate=True)
+
+                    if not stream_ttl_set:
+                        try:
+                            await asyncio.wait_for(redis.expire(stream_key, REDIS_STREAM_TTL_SECONDS), timeout=2.0)
+                            stream_ttl_set = True
+                        except Exception:
+                            pass
+                except Exception as e:
+                    logger.warning(f"Failed to write to stream: {e}")
+
+                total_responses += 1
+
+                # Check for terminating tool
+                terminating = check_terminating_tool_call(response)
+                if terminating == 'complete':
+                    complete_tool_called = True
+
+                # Check for completion status
+                if response.get('type') == 'status':
+                    status = response.get('status')
+                    if status in ['completed', 'failed', 'stopped', 'error']:
+                        final_status = status if status != 'error' else 'failed'
+                        if status in ['failed', 'error']:
+                            error_message = response.get('message')
+                        break
         
         # Normal completion
         if final_status == "failed" and not error_message:
@@ -898,6 +908,11 @@ async def execute_agent_run(
         
     except Exception as e:
         logger.error(f"Error in agent run {agent_run_id}: {e}", exc_info=True)
+        try:
+            from core.services.sentry_service import capture_exception
+            capture_exception(e, llm_stage="agent.run", error_type="system_error")
+        except Exception:
+            pass
         await update_agent_run_status(agent_run_id, "failed", error=str(e), account_id=account_id)
         
     finally:

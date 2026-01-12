@@ -247,3 +247,17 @@ class ErrorProcessor:
         
         if processed_error.context:
             logger.debug(f"Error context: {processed_error.context}")
+
+        # Also report to Sentry when enabled (no-op when SENTRY_DSN is not set).
+        # We intentionally only report the original exception object to preserve stacktrace.
+        if processed_error.original_error:
+            try:
+                from core.services.sentry_service import capture_exception
+                capture_exception(
+                    processed_error.original_error,
+                    llm_stage=(processed_error.context or {}).get("llm_stage") if isinstance(processed_error.context, dict) else None,
+                    error_type=processed_error.error_type,
+                    tags={"processed_error_type": processed_error.error_type},
+                )
+            except Exception:
+                pass

@@ -236,6 +236,17 @@ def convert_buffer_to_complete_tool_calls(tool_calls_buffer: Dict[int, Dict[str,
                         parsed = json.loads(repaired)
                         if isinstance(parsed, dict):
                             logger.info(f"🔧 Tool call {tc_buf.get('id')} repaired successfully")
+                            # Sentry info event (no-op if disabled). Keep it lightweight and searchable.
+                            try:
+                                from core.services.sentry_service import record_tool_call_json_repaired
+                                record_tool_call_json_repaired(
+                                    tool_call_id=str(tc_buf.get('id') or ''),
+                                    tool_name=tc_buf.get('function', {}).get('name'),
+                                    raw_arguments_len=len(arguments_str) if isinstance(arguments_str, str) else 0,
+                                    repaired_arguments_len=len(repaired) if isinstance(repaired, str) else 0,
+                                )
+                            except Exception:
+                                pass
                             complete_tool_calls.append({
                                 "id": tc_buf['id'],
                                 "type": "function",

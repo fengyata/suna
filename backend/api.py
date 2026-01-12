@@ -19,6 +19,9 @@ from collections import OrderedDict
 import os
 import psutil
 
+# Observability (no-op if SENTRY_DSN is missing)
+from core.services.sentry_service import init_backend_sentry
+
 from pydantic import BaseModel
 import uuid
 
@@ -224,6 +227,9 @@ app = FastAPI(
     },
 )
 
+# Initialize Sentry as early as possible (safe no-op if not configured)
+init_backend_sentry()
+
 # Configure OpenAPI docs with API Key and Bearer token auth
 configure_openapi(app)
 
@@ -245,6 +251,13 @@ async def log_requests_middleware(request: Request, call_next):
         path=path,
         query_params=query_params
     )
+
+    # Sync request-level identifiers into Sentry scope (no-op if disabled)
+    try:
+        from core.services.sentry_service import set_request_scope_tags
+        set_request_scope_tags()
+    except Exception:
+        pass
 
     # Log the incoming request
     logger.debug(f"Request started: {method} {path} from {client_ip} | Query: {query_params}")

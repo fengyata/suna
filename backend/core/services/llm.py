@@ -395,7 +395,20 @@ async def make_llm_api_call(
             logger.info(f"[LLM] ⏰ T+{(pre_call_time - call_start)*1000:.1f}ms: Calling litellm.acompletion()")
             
             # Direct LiteLLM call - Router removed due to 250+ second delays
-            response = await litellm.acompletion(**params)
+            try:
+                from core.services.sentry_service import span as sentry_span
+            except Exception:
+                sentry_span = None
+
+            if sentry_span:
+                with sentry_span(
+                    op="llm.call",
+                    description=f"litellm.acompletion({actual_model})",
+                    data={"model": model_name, "actual_model": actual_model, "msg_count": msg_count, "tool_count": tool_count},
+                ):
+                    response = await litellm.acompletion(**params)
+            else:
+                response = await litellm.acompletion(**params)
             
             post_call_time = time_module.monotonic()
             ttft = post_call_time - call_start
@@ -428,7 +441,20 @@ async def make_llm_api_call(
                 return _wrap_streaming_response(response, call_start, model_name, ttft_seconds=ttft)
             return response
         else:
-            response = await litellm.acompletion(**params)
+            try:
+                from core.services.sentry_service import span as sentry_span
+            except Exception:
+                sentry_span = None
+
+            if sentry_span:
+                with sentry_span(
+                    op="llm.call",
+                    description=f"litellm.acompletion({params.get('model', model_name)})",
+                    data={"model": model_name, "msg_count": len(params.get("messages", [])), "tool_count": len(params.get("tools", []) or [])},
+                ):
+                    response = await litellm.acompletion(**params)
+            else:
+                response = await litellm.acompletion(**params)
             call_duration = time_module.monotonic() - call_start
             if LLM_DEBUG:
                 logger.info(f"[LLM] completed: {call_duration:.2f}s for {model_name}")
@@ -437,7 +463,7 @@ async def make_llm_api_call(
     except Exception as e:
         total_time = time_module.monotonic() - call_start
         logger.error(f"[LLM] call error after {total_time:.2f}s for {model_name}: {str(e)[:100]}")
-        processed_error = ErrorProcessor.process_llm_error(e, context={"model": model_name})
+        processed_error = ErrorProcessor.process_llm_error(e, context={"model": model_name, "llm_stage": "llm.call"})
         ErrorProcessor.log_error(processed_error)
         raise LLMError(processed_error.message)
 
@@ -455,7 +481,7 @@ async def _wrap_streaming_response(response, start_time: float, model_name: str,
             chunk_count += 1
             yield chunk
     except Exception as e:
-        processed_error = ErrorProcessor.process_llm_error(e)
+        processed_error = ErrorProcessor.process_llm_error(e, context={"model": model_name, "llm_stage": "llm.stream"})
         ErrorProcessor.log_error(processed_error)
         raise LLMError(processed_error.message)
     finally:
