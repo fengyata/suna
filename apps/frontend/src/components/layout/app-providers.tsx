@@ -63,17 +63,17 @@ export function AppProviders({
     </DeleteOperationEffectsWrapper>
   );
 
-  if (!showSidebar) {
-    return content;
-  }
+  // if (!showSidebar) {
+  //   return null;
+  // }
 
   return (
     <SidebarProvider>
-      {/* {sidebarContent || (
+      {showSidebar ? (
         <Suspense fallback={<SidebarSkeleton />}>
           <SidebarLeft />
         </Suspense>
-      )} */}
+      ) : null}
       <SidebarInset>
         {content}
       </SidebarInset>

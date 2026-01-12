@@ -41,7 +41,7 @@ export function SharePageWrapper({ children }: { children: React.ReactNode }) {
     // If user is logged in, wrap with all necessary providers and show sidebar
     if (isLoggedIn) {
         return (
-            <AppProviders showSidebar={true}>
+            <AppProviders showSidebar={false}>
                 {children}
                 <Suspense fallback={null}>
                     <PresentationViewerWrapper />
