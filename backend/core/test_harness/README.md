@@ -1,6 +1,6 @@
 # E2E Test Harness
 
-Comprehensive API-based E2E testing system for benchmarking the Kortix agent system.
+Comprehensive API-based E2E testing system for benchmarking the SuperAgent agent system.
 
 ## Features
 

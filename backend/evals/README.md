@@ -1,6 +1,6 @@
-# Kortix Agent Evaluations
+# SuperAgent Agent Evaluations
 
-Evaluate Kortix agent performance using **Braintrust** with JSON-based test cases.
+Evaluate SuperAgent agent performance using **Braintrust** with JSON-based test cases.
 
 ## Quick Start
 
@@ -23,7 +23,7 @@ uv run python evals/test_quick.py
 
 ### 3. View results
 
-Results are automatically uploaded to: https://www.braintrust.dev/app/Kortix/p/Kortix%20Agent/experiments/
+Results are automatically uploaded to (legacy Braintrust project): https://www.braintrust.dev/app/Kortix/p/Kortix%20Agent/experiments/
 
 ## Adding Test Cases
 
@@ -94,7 +94,7 @@ The `AgentEvalRunner` handles running agent tasks for evaluation:
 from evals.runner import AgentEvalRunner, EvalCase
 
 runner = AgentEvalRunner(
-    project_name="Kortix Agent",
+    project_name="Kortix Agent",  # Legacy Braintrust project name
     model_name="anthropic/claude-sonnet-4-20250514",  # Optional
     max_iterations=50,
     timeout_seconds=120.0,
