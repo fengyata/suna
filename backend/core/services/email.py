@@ -221,7 +221,7 @@ Let us know if you need help getting started or have questions — we're always 
 Thanks again, and welcome to the SuperAgent community!
 
 ---
-© 2025 Kortix AI Corp. All rights reserved.
+© 2025 Flashlabs. All rights reserved.
 You received this email because you signed up for a SuperAgent account."""
     
     def _get_referral_email_template(self, recipient_name: str, sender_name: str, referral_url: str) -> str:
@@ -280,7 +280,7 @@ You received this email because you signed up for a SuperAgent account."""
         </div>
         <div style="text-align: center; margin-top: 32px;">
           <p style="font-size: 12px; color: #999; margin: 0;">
-            &copy; Kortix AI Corp. All rights reserved.
+            &copy; Flashlabs. All rights reserved.
           </p>
         </div>
       </td>
@@ -302,6 +302,6 @@ What You Both Get:
 Claim your invite: {referral_url}
 
 ---
-© Kortix AI Corp. All rights reserved."""
+© Flashlabs. All rights reserved."""
 
 email_service = EmailService() 

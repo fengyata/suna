@@ -192,7 +192,7 @@ async def process_with_gemini(
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
         "Content-Type": "application/json",
         "HTTP-Referer": "https://kortix.ai",
-        "X-Title": "Kortix Canvas AI"
+        "X-Title": "SuperAgent Canvas AI"
     }
     
     payload = {

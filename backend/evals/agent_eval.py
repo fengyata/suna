@@ -1,5 +1,5 @@
 """
-Kortix Agent Evaluation Script.
+SuperAgent Agent Evaluation Script.
 
 Usage:
     # Run with default dataset (3 complex tests)
@@ -60,7 +60,7 @@ from evals.datasets import get_dataset, list_available_datasets
 def parse_args():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(
-        description="Run Kortix Agent evaluations",
+        description="Run SuperAgent evaluations",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -207,7 +207,7 @@ if __name__ == "__main__" or "braintrust" in sys.argv[0].lower():
     
     print(f"""
 ╔══════════════════════════════════════════════════════════════╗
-║                  Kortix Agent Evaluation                      ║
+║                 SuperAgent Evaluation                          ║
 ╠══════════════════════════════════════════════════════════════╣
 ║  Dataset:     {ARGS.dataset:<45} ║
 ║  Count:       {ARGS.count:<45} ║
@@ -226,7 +226,7 @@ if __name__ == "__main__" or "braintrust" in sys.argv[0].lower():
     
     # Run evaluation
     Eval(
-        "Kortix Agent",  # Project name in Braintrust
+        "Kortix Agent",  # Braintrust project name (legacy)
         data=get_eval_data,
         task=create_agent_task(
             model_name=ARGS.model,

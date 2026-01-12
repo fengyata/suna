@@ -92,7 +92,7 @@ CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_threads_account_project
 -- AGENTS TABLE - Limits API Optimization
 -- ============================================================================
 
--- Fast count of non-Suna-default agents per account
+-- Fast count of non-SuperAgent-default agents per account
 CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_agents_account_non_suna 
     ON agents(account_id) 
     WHERE (metadata->>'is_suna_default')::boolean IS NOT TRUE;

@@ -84,7 +84,7 @@ class Model:
     # Registry ID - internal identifier (e.g., "kortix/basic")
     id: str
     
-    # Display name - shown to users (e.g., "Kortix Basic")
+    # Display name - shown to users (e.g., "SuperAgent Basic")
     name: str
     
     provider: ModelProvider
