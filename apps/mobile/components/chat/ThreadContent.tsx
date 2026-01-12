@@ -1,7 +1,8 @@
 import React, { useMemo, useCallback } from 'react';
 import { View, Pressable, Linking, Text as RNText, TextInput, Platform, ScrollView, Image } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
-import { useSmoothText } from '@agentpress/shared/animations';
+// NOTE: useSmoothText removed - following frontend pattern of displaying content immediately
+// The old interface was also broken (wrong parameters and return type)
 
 // Only import ContextMenu on native platforms (iOS/Android)
 let ContextMenu: React.ComponentType<any> | null = null;
@@ -9,7 +10,7 @@ if (Platform.OS !== 'web') {
   try {
     ContextMenu = require('react-native-context-menu-view').default;
   } catch (e) {
-    console.warn('react-native-context-menu-view not available');
+    log.warn('react-native-context-menu-view not available');
   }
 }
 import { Text } from '@/components/ui/text';
@@ -38,7 +39,7 @@ import { getToolIcon } from '@/lib/icons/tool-icons';
 import { useColorScheme } from 'nativewind';
 import { useAgent } from '@/contexts/AgentContext';
 import { SelectableMarkdownText } from '@/components/ui/selectable-markdown';
-import { autoLinkUrls } from '@/lib/utils/url-autolink';
+import { autoLinkUrls } from '@agentpress/shared';
 import { FileAttachmentsGrid } from './FileAttachmentRenderer';
 import { CheckCircle2, AlertCircle, Info, CircleDashed } from 'lucide-react-native';
 import { KortixLoader } from '@/components/ui/kortix-loader';
@@ -52,6 +53,7 @@ import { renderAssistantMessage } from './assistant-message-renderer';
 import { PromptExamples } from '@/components/shared';
 import { useKortixComputerStore } from '@/stores/kortix-computer-store';
 import { isKortixDefaultAgentId } from '@/lib/agents';
+import { log } from '@/lib/logger';
 
 export interface ToolMessagePair {
   assistantMessage: UnifiedMessage | null;
@@ -709,14 +711,13 @@ export const ThreadContent: React.FC<ThreadContentProps> = React.memo(
       );
     }, [isDark, agents]);
 
-    // Apply smooth typewriter effect to streaming text (120 chars/sec for snappy feel)
-    const { text: smoothStreamingText, isAnimating: isSmoothAnimating } = useSmoothText(
-      streamingTextContent || '',
-      120,
-      true
-    );
+    // STREAMING OPTIMIZATION: Content now displays immediately as it arrives from the stream
+    // Following frontend pattern - removed useSmoothText typewriter animation that was causing artificial delay
+    // The old interface was also broken (wrong parameters and return type)
+    const smoothStreamingText = streamingTextContent || '';
+    const isSmoothAnimating = Boolean(streamingTextContent);
 
-    // Extract ask/complete text from streaming tool call for smooth animation
+    // Extract ask/complete text from streaming tool call
     const rawAskCompleteText = useMemo(() => {
       if (!streamingToolCall) return '';
       
@@ -732,11 +733,9 @@ export const ThreadContent: React.FC<ThreadContentProps> = React.memo(
       return extractTextFromArguments(toolArgs);
     }, [streamingToolCall]);
 
-    const { text: smoothAskCompleteText, isAnimating: isAskCompleteAnimating } = useSmoothText(
-      rawAskCompleteText,
-      120,
-      true
-    );
+    // Display ask/complete text immediately as it arrives (no artificial animation delay)
+    const smoothAskCompleteText = rawAskCompleteText;
+    const isAskCompleteAnimating = Boolean(rawAskCompleteText);
 
     const prevScrollTriggerLengthRef = React.useRef(0);
     const SCROLL_TRIGGER_CHARS = 80;
@@ -1259,6 +1258,14 @@ export const ThreadContent: React.FC<ThreadContentProps> = React.memo(
           }
 
           if (group.type === 'assistant_group') {
+            // Skip rendering streaming groups when last message is user
+            // because the trailing indicator handles streaming in that case
+            const isStreamingGroup = group.key.startsWith('streaming-group');
+            const lastMsgIsUser = messages[messages.length - 1]?.type === 'user';
+            if (isStreamingGroup && lastMsgIsUser) {
+              return null; // Trailing indicator handles this
+            }
+            
             const firstAssistantMsg = group.messages.find((m) => m.type === 'assistant');
             const groupAgentId = firstAssistantMsg?.agent_id;
             const assistantMessages = group.messages.filter((m) => m.type === 'assistant');
@@ -1266,7 +1273,7 @@ export const ThreadContent: React.FC<ThreadContentProps> = React.memo(
 
             return (
               <View key={group.key} className="mb-6">
-                <View className="mb-4 flex-row items-center">
+                <View className="mb-3 flex-row items-center">
                   {renderAgentIndicator(groupAgentId)}
                 </View>
 
@@ -1353,9 +1360,11 @@ export const ThreadContent: React.FC<ThreadContentProps> = React.memo(
                   })}
 
                   {/* Render streaming text content (XML tool calls or regular text) */}
+                  {/* NOTE: Only render here if last message is NOT user - otherwise trailing indicator handles it */}
                   {groupIndex === groupedMessages.length - 1 &&
                     (streamHookStatus === 'streaming' || streamHookStatus === 'connecting') &&
-                    (streamingTextContent || isSmoothAnimating) && (
+                    (streamingTextContent || isSmoothAnimating) &&
+                    messages[messages.length - 1]?.type !== 'user' && (
                       <View className="mt-2">
                         {(() => {
                           // Use raw content for tag detection
@@ -1410,9 +1419,11 @@ export const ThreadContent: React.FC<ThreadContentProps> = React.memo(
                     )}
 
                   {/* Render streaming native tool call (ask/complete) */}
+                  {/* NOTE: Only render here if last message is NOT user - otherwise trailing indicator handles it */}
                   {groupIndex === groupedMessages.length - 1 &&
                     (streamHookStatus === 'streaming' || streamHookStatus === 'connecting') &&
                     streamingToolCall &&
+                    messages[messages.length - 1]?.type !== 'user' &&
                     (() => {
                       // Check if this is ask/complete - render as text instead of tool indicator
                       const parsedMetadata = safeJsonParse<ParsedMetadata>(
@@ -1495,7 +1506,7 @@ export const ThreadContent: React.FC<ThreadContentProps> = React.memo(
                           null;
                         
                         return (
-                          <View className="gap-2">
+                          <View className="mt-2 gap-2">
                             {visibleToolCalls.map((tc: any, tcIndex: number) => {
                               const toolName = (tc.function_name || tc.name || '')?.replace(/_/g, '-');
                               const isCompleted = tc.completed === true || 
@@ -1538,10 +1549,15 @@ export const ThreadContent: React.FC<ThreadContentProps> = React.memo(
                         );
                       }
 
-                      return <CompactStreamingToolCard toolCall={null} toolName="" />;
+                      return (
+                        <View className="mt-2">
+                          <CompactStreamingToolCard toolCall={null} toolName="" />
+                        </View>
+                      );
                     })()}
 
                   {/* Show loader when agent is running but not streaming, inside the last assistant group */}
+                  {/* NOTE: Only render here if last message is NOT user - otherwise trailing indicator handles it */}
                   {groupIndex === groupedMessages.length - 1 &&
                     (agentStatus === 'running' || agentStatus === 'connecting') &&
                     !streamingTextContent &&
@@ -1550,6 +1566,7 @@ export const ThreadContent: React.FC<ThreadContentProps> = React.memo(
                     !smoothAskCompleteText &&
                     !isAskCompleteAnimating &&
                     (streamHookStatus === 'streaming' || streamHookStatus === 'connecting') &&
+                    messages[messages.length - 1]?.type !== 'user' &&
                     (() => {
                       // Check if any message in this group already has ASK or COMPLETE
                       const hasAskOrComplete = group.messages.some((msg) => {
@@ -1564,7 +1581,7 @@ export const ThreadContent: React.FC<ThreadContentProps> = React.memo(
                       });
                       return !hasAskOrComplete;
                     })() && (
-                      <View className="mt-2">
+                      <View className="mt-4">
                         <AgentLoader />
                       </View>
                     )}
@@ -1576,41 +1593,189 @@ export const ThreadContent: React.FC<ThreadContentProps> = React.memo(
           return null;
         })}
 
-        {/* Show agent indicator when waiting for response - ONLY when last message is user */}
+        {/* Show agent indicator when waiting for response OR streaming - ONLY when last message is user */}
+        {/* This unified approach prevents the layout jump when transitioning from loading to streaming */}
         {(() => {
           const lastMsg = messages[messages.length - 1];
           
           // Only show this trailing indicator if the LAST message is a USER message
-          // If last message is assistant, the loader is handled inside groupedMessages
+          // If last message is assistant, the loader/streaming is handled inside groupedMessages
           if (lastMsg?.type !== 'user') return null;
           
           const isAgentActive = agentStatus === 'running' || agentStatus === 'connecting';
           const hasStreamingContent = Boolean(streamingTextContent || streamingToolCall);
+          const isStreaming = streamHookStatus === 'streaming' || streamHookStatus === 'connecting';
           
-          // If already streaming, don't show - content will appear in the groupedMessages
-          if (hasStreamingContent) return null;
-          
-          // If nothing is happening and not sending, don't show anything (canceled/idle)
-          if (!isSendingMessage && !isAgentActive) return null;
+          // Show this indicator when:
+          // 1. Sending message (contemplating)
+          // 2. Agent active but no streaming yet (brewing ideas)
+          // 3. Streaming content (render it HERE to prevent layout jump)
+          if (!isSendingMessage && !isAgentActive && !hasStreamingContent) return null;
           
           // Contemplating = sending message, waiting for server (before agent starts)
-          // AgentLoader = agent is active but no content yet
-          const isContemplating = isSendingMessage && !isAgentActive;
+          const isContemplating = isSendingMessage && !isAgentActive && !hasStreamingContent;
+          
+          // Check if we have ACTUAL visible streaming content to show
+          // This prevents the shift from AgentLoader to empty streaming container
+          const hasVisibleStreamingText = (() => {
+            if (!streamingTextContent && !isSmoothAnimating) return false;
+            const rawContent = streamingTextContent || '';
+            const displayContent = smoothStreamingText || '';
+            
+            // Check for XML tags
+            let detectedTag: string | null = null;
+            let tagStartIndex = -1;
+            const functionCallsIndex = rawContent.indexOf('<function_calls>');
+            if (functionCallsIndex !== -1) {
+              detectedTag = 'function_calls';
+              tagStartIndex = functionCallsIndex;
+            } else {
+              for (const tag of HIDE_STREAMING_XML_TAGS) {
+                const openingTagPattern = `<${tag}`;
+                const index = rawContent.indexOf(openingTagPattern);
+                if (index !== -1) {
+                  detectedTag = tag;
+                  tagStartIndex = index;
+                  break;
+                }
+              }
+            }
+            
+            // Has visible text before tag?
+            const textBeforeTag = detectedTag && tagStartIndex >= 0
+              ? displayContent.substring(0, Math.min(displayContent.length, tagStartIndex))
+              : displayContent;
+            const hasText = preprocessTextOnlyToolsLocal(textBeforeTag).trim().length > 0;
+            
+            // Has visible tag (tool card)?
+            const hasTag = detectedTag !== null;
+            
+            return hasText || hasTag;
+          })();
+          
+          // Brewing = agent is active but no VISIBLE content yet
+          // Keep showing AgentLoader until we have actual visible streaming content
+          const isBrewing = isAgentActive && !hasVisibleStreamingText && !streamingToolCall;
           
           return (
             <View className="mb-6">
-              <View className="mb-2 flex-row items-center">
+              <View className="mb-3 flex-row items-center">
                 {renderAgentIndicator(null)}
               </View>
-              <View className="h-6 justify-center">
-              {isContemplating ? (
+              
+              {/* Contemplating state */}
+              {isContemplating && (
+                <View className="h-6 justify-center">
                   <View className="flex-row items-center">
-                  <Text className="text-xs text-muted-foreground italic">Contemplating response...</Text>
+                    <Text className="text-xs text-muted-foreground italic">Contemplating response...</Text>
+                  </View>
                 </View>
-              ) : (
-                <AgentLoader />
               )}
-              </View>
+              
+              {/* Brewing ideas state - show until we have VISIBLE streaming content */}
+              {isBrewing && (
+                <View className="mt-4">
+                  <AgentLoader />
+                </View>
+              )}
+              
+              {/* Streaming text content - only show when we have VISIBLE content */}
+              {isStreaming && hasVisibleStreamingText && (
+                <View className="mt-2">
+                  {(() => {
+                    // Use raw content for tag detection
+                    const rawContent = streamingTextContent || '';
+                    // Use smooth content for display (character-by-character animation)
+                    const displayContent = smoothStreamingText || '';
+
+                    let detectedTag: string | null = null;
+                    let tagStartIndex = -1;
+
+                    const functionCallsIndex = rawContent.indexOf('<function_calls>');
+                    if (functionCallsIndex !== -1) {
+                      detectedTag = 'function_calls';
+                      tagStartIndex = functionCallsIndex;
+                    } else {
+                      for (const tag of HIDE_STREAMING_XML_TAGS) {
+                        const openingTagPattern = `<${tag}`;
+                        const index = rawContent.indexOf(openingTagPattern);
+                        if (index !== -1) {
+                          detectedTag = tag;
+                          tagStartIndex = index;
+                          break;
+                        }
+                      }
+                    }
+
+                    // For smooth display: get text before tag, but only show as much as smoothed
+                    const textBeforeTag =
+                      detectedTag && tagStartIndex >= 0
+                        ? displayContent.substring(0, Math.min(displayContent.length, tagStartIndex))
+                        : displayContent;
+                    const processedTextBeforeTag = preprocessTextOnlyToolsLocal(textBeforeTag);
+
+                    return (
+                      <View className="gap-3">
+                        {processedTextBeforeTag.trim() && (
+                          <SelectableMarkdownText isDark={isDark}>
+                            {autoLinkUrls(processedTextBeforeTag).replace(
+                              /<((https?:\/\/|mailto:)[^>\s]+)>/g,
+                              (_: string, url: string) => `[${url}](${url})`
+                            )}
+                          </SelectableMarkdownText>
+                        )}
+                        {detectedTag && (
+                          <StreamingToolCard content={rawContent.substring(tagStartIndex)} />
+                        )}
+                      </View>
+                    );
+                  })()}
+                </View>
+              )}
+              
+              {/* Streaming tool call - render HERE to prevent layout jump */}
+              {isStreaming && streamingToolCall && (() => {
+                const parsedMetadata = safeJsonParse<ParsedMetadata>(
+                  streamingToolCall.metadata,
+                  {}
+                );
+                const toolCalls = parsedMetadata.tool_calls || [];
+                const askOrCompleteTool = findAskOrCompleteTool(toolCalls);
+
+                if (askOrCompleteTool) {
+                  const args = askOrCompleteTool.arguments || {};
+                  const question = args.question || args.result || '';
+                  if (!question) return null;
+
+                  return (
+                    <View className="mt-2">
+                      <SelectableMarkdownText isDark={isDark}>
+                        {autoLinkUrls(String(question)).replace(
+                          /<((https?:\/\/|mailto:)[^>\s]+)>/g,
+                          (_: string, url: string) => `[${url}](${url})`
+                        )}
+                      </SelectableMarkdownText>
+                    </View>
+                  );
+                }
+
+                // Non-ask/complete tool - show tool card
+                const firstToolCall = toolCalls[0];
+                if (firstToolCall) {
+                  const toolName = getUserFriendlyToolName(firstToolCall.function_name);
+                  return (
+                    <View className="mt-2">
+                      <CompactStreamingToolCard toolCall={firstToolCall} toolName={toolName} />
+                    </View>
+                  );
+                }
+
+                return (
+                  <View className="mt-2">
+                    <CompactStreamingToolCard toolCall={null} toolName="" />
+                  </View>
+                );
+              })()}
             </View>
           );
         })()}

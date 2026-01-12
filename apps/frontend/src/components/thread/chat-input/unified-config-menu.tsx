@@ -117,7 +117,7 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
 
     const placeholderSunaAgent = useMemo(() => ({
         agent_id: undefined,
-        name: 'SuperAgent',
+        name: 'Kortix',
         metadata: { is_suna_default: true }
     }), []);
 
@@ -185,7 +185,7 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
 
     const renderAgentIcon = useCallback((agent: any, size: number = 32) => {
         if (!agent && (isLoading || sunaAgent)) {
-            return <AgentAvatar isSunaDefault={true} agentName="SuperAgent" size={size} className="flex-shrink-0 !border-0" />;
+            return <AgentAvatar isSunaDefault={true} agentName="Kortix" size={size} className="flex-shrink-0 !border-0" />;
         }
         return <AgentAvatar agent={agent} agentId={agent?.agent_id} size={size} className="flex-shrink-0 !border-0" />;
     }, [isLoading, sunaAgent]);
@@ -380,7 +380,7 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
     ), [onAgentSelect, selectedAgentId, displayAgent?.agent_id, handleQuickAction]);
 
     // Check if current agent is Kortix (used in multiple places)
-    const isKortixAgent = !displayAgent?.name || displayAgent?.name === 'SuperAgent';
+    const isKortixAgent = !displayAgent?.name || displayAgent?.name === 'Kortix';
 
     // Mobile Sheet Content
     const MobileSheetContent = useCallback(() => {
@@ -445,22 +445,17 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
                                 className="w-full flex items-center gap-3 p-3 rounded-2xl border border-border bg-card hover:bg-muted/50 active:bg-muted/70 transition-colors"
                             >
                                 {isKortixAgent ? (
-                                    <img
-                                        src="/kortix-logomark-white.svg"
-                                        alt="SuperAgent"
-                                        className="dark:invert-0 invert flex-shrink-0 ml-1"
-                                        style={{ height: '14px', width: 'auto' }}
-                                    />
+                                    <div className="flex items-center justify-center w-10 h-10 bg-card border-[1.5px] border-border flex-shrink-0" style={{ borderRadius: '10.4px' }}>
+                                        {renderAgentIcon(null, 40)}
+                                    </div>
                                 ) : (
-                                    <>
-                                        <div className="flex items-center justify-center w-10 h-10 bg-card border-[1.5px] border-border flex-shrink-0" style={{ borderRadius: '10.4px' }}>
-                                            {renderAgentIcon(isLoading && !displayAgent ? placeholderSunaAgent : displayAgent, 40)}
-                                        </div>
-                                        <span className="flex-1 truncate text-base font-medium text-left min-w-0">
-                                            {displayAgent?.name}
-                                        </span>
-                                    </>
+                                    <div className="flex items-center justify-center w-10 h-10 bg-card border-[1.5px] border-border flex-shrink-0" style={{ borderRadius: '10.4px' }}>
+                                        {renderAgentIcon(isLoading && !displayAgent ? placeholderSunaAgent : displayAgent, 40)}
+                                    </div>
                                 )}
+                                <span className="flex-1 truncate text-base font-medium text-left min-w-0">
+                                    {isKortixAgent ? 'Kortix' : displayAgent?.name}
+                                </span>
                                 <ChevronDown className="h-5 w-5 text-muted-foreground rotate-[-90deg] flex-shrink-0" />
                             </button>
                         </div>
@@ -489,12 +484,7 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
             {onAgentSelect ? (
                 <div className="flex items-center gap-2 min-w-0 max-w-[180px]">
                     {isKortixAgent ? (
-                        <img
-                            src="/kortix-logomark-white.svg"
-                            alt="SuperAgent"
-                            className="dark:invert-0 invert flex-shrink-0 ml-1"
-                            style={{ height: '12px', width: 'auto' }}
-                        />
+                        <KortixLogo variant="logomark" size={14} />
                     ) : (
                         <>
                             {renderAgentIcon(isLoading && !displayAgent ? placeholderSunaAgent : displayAgent, 24)}
@@ -517,7 +507,7 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
     return (
         <>
             {/* Mobile: Use Sheet */}
-            {/* {isMobile ? (
+            {isMobile ? (
                 <>
                     <Tooltip>
                         <TooltipTrigger asChild>
@@ -545,6 +535,7 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
                     </Sheet>
                 </>
             ) : (
+                /* Desktop: Use Dropdown */
                 <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
                     <Tooltip>
                         <TooltipTrigger asChild>
@@ -559,29 +550,23 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
 
                     <DropdownMenuContent align="end" className="w-[320px] px-0 py-3 border-[1.5px] border-border rounded-2xl" sideOffset={6}>
                         <TooltipProvider>
+                            {/* Agents Submenu */}
                             {onAgentSelect && (
                                 <>
                                     <div className="px-3 pb-1">
                                         <span className="text-xs font-medium text-muted-foreground">Worker</span>
                                     </div>
                                     <div className="px-2 pb-2">
-                                        <SpotlightCard className="transition-colors cursor-pointer bg-transparent">
+                                        <SpotlightCard className={cn("transition-colors cursor-pointer bg-transparent", isKortixAgent ? "p-2" : "")}>
                                             <DropdownMenuSub>
-                                                <DropdownMenuSubTrigger className="flex items-center gap-3 text-sm cursor-pointer px-1 py-1 hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent w-full">
+                                                <DropdownMenuSubTrigger className="flex items-center gap-3 text-sm cursor-pointer px-1 hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent w-full">
                                                     {isKortixAgent ? (
-                                                        <img
-                                                            src="/kortix-logomark-white.svg"
-                                                            alt="SuperAgent"
-                                                            className="dark:invert-0 invert flex-shrink-0"
-                                                            style={{ height: '12px', width: 'auto' }}
-                                                        />
+                                                        <KortixLogo variant="logomark" size={14} />
                                                     ) : (
-                                                        <>
-                                                            <div className="flex items-center justify-center w-8 h-8 bg-card border-[1.5px] border-border flex-shrink-0" style={{ borderRadius: '10.4px' }}>
-                                                                {renderAgentIcon(isLoading && !displayAgent ? placeholderSunaAgent : displayAgent)}
-                                                            </div>
+                                                        <div className="flex items-center">
+                                                            {renderAgentIcon(isLoading && !displayAgent ? placeholderSunaAgent : displayAgent)}
                                                             <span className="flex-1 truncate font-medium text-left">{displayAgent?.name}</span>
-                                                        </>
+                                                        </div>
                                                     )}
                                                 </DropdownMenuSubTrigger>
                                                 <DropdownMenuPortal>
@@ -617,7 +602,7 @@ const LoggedInMenu: React.FC<UnifiedConfigMenuProps> = memo(function LoggedInMen
                         </TooltipProvider>
                     </DropdownMenuContent>
                 </DropdownMenu>
-            )} */}
+            )}
 
             {/* Dialogs */}
             <Dialog open={integrationsOpen} onOpenChange={setIntegrationsOpen}>

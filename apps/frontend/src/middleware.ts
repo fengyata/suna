@@ -60,7 +60,8 @@ const PUBLIC_ROUTES = [
   '/about', // About page should be public 
   '/milano', // Milano page should be public
   '/berlin', // Berlin page should be public
-  '/app', // App download page should be public
+  '/app', // App download page should be public,
+  '/careers',
   ...locales.flatMap(locale => MARKETING_ROUTES.map(route => `/${locale}${route === '/' ? '' : route}`)),
 ];
 

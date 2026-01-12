@@ -43,7 +43,7 @@ import { isStagingMode, isLocalMode } from '@/lib/config';
 import { PlanSelectionModal } from '@/components/billing/pricing';
 import { AgentConfigurationDialog } from '@/components/agents/agent-configuration-dialog';
 import { SpotlightCard } from '@/components/ui/spotlight-card';
-import UnifiedConfigMenu from './unified-config-menu';
+import { UnifiedConfigMenu } from './unified-config-menu';
 
 import posthog from 'posthog-js';
 import { trackCtaUpgrade } from '@/lib/analytics/gtm';
@@ -1067,18 +1067,8 @@ export const ChatInput = memo(forwardRef<ChatInputHandles, ChatInputProps>(
 
       let message = currentValue;
 
-      if (currentUploadedFiles.length > 0) {
-        const fileInfo = currentUploadedFiles
-          .map((file) => {
-            // Convert absolute path to relative (strip /workspace/ prefix)
-            const relativePath = file.path.startsWith('/workspace/') 
-              ? file.path.replace('/workspace/', '') 
-              : file.path;
-            return `[Uploaded File: ${relativePath}]`;
-          })
-          .join('\n');
-        message = message ? `${message}\n\n${fileInfo}` : fileInfo;
-      }
+      // File references are now built by backend - frontend just passes file_ids
+      // No need to add file references here
 
       // Append Markdown for data visualization options
       const dataOptionsMarkdown = generateDataOptionsMarkdown();
@@ -1312,7 +1302,13 @@ export const ChatInput = memo(forwardRef<ChatInputHandles, ChatInputProps>(
 
     const rightControls = useMemo(() => (
       <div className='flex items-center gap-2 flex-shrink-0'>
-        {isLoggedIn && <ModeIndicator />}
+        {!hideAgentSelection && (
+          <UnifiedConfigMenu
+            isLoggedIn={isLoggedIn}
+            selectedAgentId={selectedAgentId}
+            onAgentSelect={onAgentSelect}
+          />
+        )}
         {isLoggedIn && <VoiceRecorder
           onTranscription={handleTranscription}
           disabled={loading || (disabled && !isAgentRunning)}
@@ -1331,7 +1327,7 @@ export const ChatInput = memo(forwardRef<ChatInputHandles, ChatInputProps>(
           pendingFilesCount={pendingFilesCount}
         />
       </div>
-    ), [isLoggedIn, loading, disabled, handleTranscription, isAgentRunning, hasContent, hasFiles, isUploading, onStopAgent, handleSubmit, buttonLoaderVariant, pendingFilesCount]);
+    ), [isLoggedIn, loading, disabled, handleTranscription, isAgentRunning, hasContent, hasFiles, isUploading, onStopAgent, handleSubmit, buttonLoaderVariant, pendingFilesCount, hideAgentSelection, selectedAgentId, onAgentSelect]);
 
     const renderControls = useMemo(() => (
       <div className="flex items-center justify-between mt-0 mb-1 px-2 gap-1.5">
