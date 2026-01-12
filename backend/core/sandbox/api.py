@@ -1000,7 +1000,7 @@ async def list_file_history(
             limit_int = 100
         limit_int = max(1, min(limit_int, 1000))
 
-        logger.debug(
+        logger.info(
             "list_file_history inputs normalized",
             bug_tag=bug_tag,
             sandbox_id=sandbox_id,
@@ -1052,7 +1052,7 @@ async def list_file_history(
                     return text
                 return f"{text[:max_len]}...(truncated,len={len(text)})"
 
-            logger.debug(
+            logger.info(
                 "list_file_history about to execute git log",
                 bug_tag=bug_tag,
                 sandbox_id=sandbox_id,
@@ -1067,7 +1067,7 @@ async def list_file_history(
 
             create_start = perf_counter()
             await sandbox.process.create_session(session_id)
-            logger.debug(
+            logger.info(
                 "list_file_history created session",
                 bug_tag=bug_tag,
                 sandbox_id=sandbox_id,
@@ -1083,7 +1083,7 @@ async def list_file_history(
                     var_async=False
                 )
             )
-            logger.debug(
+            logger.info(
                 "list_file_history git log completed",
                 bug_tag=bug_tag,
                 sandbox_id=sandbox_id,
@@ -1114,7 +1114,7 @@ async def list_file_history(
                 "versions": []
             }
 
-        logger.debug(
+        logger.info(
             "list_file_history about to download git log file",
             bug_tag=bug_tag,
             sandbox_id=sandbox_id,
@@ -1123,7 +1123,7 @@ async def list_file_history(
         try:
             dl_start = perf_counter()
             log_bytes = await sandbox.fs.download_file(tmp_path)
-            logger.debug(
+            logger.info(
                 "list_file_history downloaded git log file",
                 bug_tag=bug_tag,
                 sandbox_id=sandbox_id,
@@ -1157,7 +1157,7 @@ async def list_file_history(
             })
 
         versions_preview = versions[:3]
-        logger.debug(
+        logger.info(
             "list_file_history parsed git log",
             bug_tag=bug_tag,
             sandbox_id=sandbox_id,
@@ -1168,11 +1168,11 @@ async def list_file_history(
             versions_preview=versions_preview,
         )
 
-        logger.debug(
+        logger.info(
             f"Found {len(versions)} versions for file {path} in sandbox {sandbox_id}"
         )
 
-        logger.debug(
+        logger.info(
             "list_file_history returning response",
             bug_tag=bug_tag,
             sandbox_id=sandbox_id,
