@@ -24,10 +24,6 @@ const isPaidTier = (tierKey: string | undefined): boolean => {
 
 const getDefaultModel = (accessibleModels: ModelOption[]): string => {
   // Pick the first accessible model (sorted by priority)
-  // Prefer Gemini Flash when available, otherwise fall back to Kortix models.
-  const geminiFlash = accessibleModels.find(m => m.id === 'google/gemini-flash');
-  if (geminiFlash) return geminiFlash.id;
-
   // kortix/basic should be first for free users since power is not accessible
   const basicModel = accessibleModels.find(m => m.id === 'kortix/basic');
   if (basicModel) return basicModel.id;

@@ -65,31 +65,31 @@ export const ModeIndicator = memo(function ModeIndicator() {
     [modelOptions]
   );
 
-  // Gemini models
-  const geminiFlash = useMemo(
-    () => modelOptions.find((m) => m.id === 'google/gemini-flash'),
-    [modelOptions]
-  );
+  // // Gemini models
+  // const geminiFlash = useMemo(
+  //   () => modelOptions.find((m) => m.id === 'google/gemini-flash'),
+  //   [modelOptions]
+  // );
   
-  const geminiPro = useMemo(
-    () => modelOptions.find((m) => m.id === 'google/gemini-pro'),
-    [modelOptions]
-  );
+  // const geminiPro = useMemo(
+  //   () => modelOptions.find((m) => m.id === 'google/gemini-pro'),
+  //   [modelOptions]
+  // );
 
   const canAccessPower = powerModel ? canAccessModel(powerModel.id) : false;
-  const canAccessGeminiFlash = geminiFlash ? canAccessModel(geminiFlash.id) : false;
-  const canAccessGeminiPro = geminiPro ? canAccessModel(geminiPro.id) : false;
+  // const canAccessGeminiFlash = geminiFlash ? canAccessModel(geminiFlash.id) : false;
+  // const canAccessGeminiPro = geminiPro ? canAccessModel(geminiPro.id) : false;
 
   const isPowerSelected = powerModel && selectedModel === powerModel.id;
   const isBasicSelected = basicModel && selectedModel === basicModel.id;
-  const isGeminiFlashSelected = geminiFlash && selectedModel === geminiFlash.id;
-  const isGeminiProSelected = geminiPro && selectedModel === geminiPro.id;
+  // const isGeminiFlashSelected = geminiFlash && selectedModel === geminiFlash.id;
+  // const isGeminiProSelected = geminiPro && selectedModel === geminiPro.id;
 
   // Determine current display mode
   const getCurrentDisplayMode = () => {
     if (isPowerSelected) return 'advanced';
-    if (isGeminiFlashSelected) return 'gemini-flash';
-    if (isGeminiProSelected) return 'gemini-pro';
+    // if (isGeminiFlashSelected) return 'gemini-flash';
+    // if (isGeminiProSelected) return 'gemini-pro';
     return 'basic';
   };
   const currentMode = getCurrentDisplayMode();
@@ -116,39 +116,39 @@ export const ModeIndicator = memo(function ModeIndicator() {
     }
   }, [powerModel, canAccessPower, handleModelChange]);
 
-  const handleGeminiClick = useCallback((model: typeof geminiFlash, canAccess: boolean) => {
-    if (model) {
-      if (canAccess) {
-        handleModelChange(model.id);
-        setIsOpen(false);
-      } else {
-        setIsOpen(false);
-        usePricingModalStore.getState().openPricingModal({
-          isAlert: true,
-          alertTitle: 'Upgrade to access this model',
-        });
-      }
-    }
-  }, [handleModelChange]);
+  // const handleGeminiClick = useCallback((model: typeof geminiFlash, canAccess: boolean) => {
+  //   if (model) {
+  //     if (canAccess) {
+  //       handleModelChange(model.id);
+  //       setIsOpen(false);
+  //     } else {
+  //       setIsOpen(false);
+  //       usePricingModalStore.getState().openPricingModal({
+  //         isAlert: true,
+  //         alertTitle: 'Upgrade to access this model',
+  //       });
+  //     }
+  //   }
+  // }, [handleModelChange]);
 
   // Render the trigger content based on current selection
   const renderTriggerContent = () => {
-    if (currentMode === 'gemini-flash') {
-      return (
-        <>
-          <Sparkles className="h-4 w-4 text-blue-500" />
-          <span className="text-sm font-medium">Gemini/Flash</span>
-        </>
-      );
-    }
-    if (currentMode === 'gemini-pro') {
-      return (
-        <>
-          <Sparkles className="h-4 w-4 text-blue-500" />
-          <span className="text-sm font-medium">Gemini/Pro</span>
-        </>
-      );
-    }
+    // if (currentMode === 'gemini-flash') {
+    //   return (
+    //     <>
+    //       <Sparkles className="h-4 w-4 text-blue-500" />
+    //       <span className="text-sm font-medium">Gemini/Flash</span>
+    //     </>
+    //   );
+    // }
+    // if (currentMode === 'gemini-pro') {
+    //   return (
+    //     <>
+    //       <Sparkles className="h-4 w-4 text-blue-500" />
+    //       <span className="text-sm font-medium">Gemini/Pro</span>
+    //     </>
+    //   );
+    // }
 
     if (currentMode === 'advanced') {
       return (
@@ -239,12 +239,12 @@ export const ModeIndicator = memo(function ModeIndicator() {
         </div>
 
         {/* Gemini Models Separator */}
-        {(geminiFlash || geminiPro) && (
+        {/* {(geminiFlash || geminiPro) && (
           <DropdownMenuSeparator className="my-2" />
-        )}
+        )} */}
 
         {/* Gemini Flash */}
-        {geminiFlash && (
+        {/* {geminiFlash && (
           <div
             className={cn(
               'flex items-start gap-3 px-3 py-3 cursor-pointer rounded-lg transition-all duration-150 mb-1.5',
@@ -267,10 +267,10 @@ export const ModeIndicator = memo(function ModeIndicator() {
               <Lock className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" strokeWidth={2} />
             ) : null}
           </div>
-        )}
+        )} */}
 
         {/* Gemini 3 Pro Preview */}
-        {geminiPro && (
+        {/* {geminiPro && (
           <div
             className={cn(
               'flex items-start gap-3 px-3 py-3 cursor-pointer rounded-lg transition-all duration-150',
@@ -293,7 +293,7 @@ export const ModeIndicator = memo(function ModeIndicator() {
               <Lock className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" strokeWidth={2} />
             ) : null}
           </div>
-        )}
+        )} */}
       </DropdownMenuContent>
     </DropdownMenu>
   );
