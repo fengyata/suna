@@ -890,9 +890,11 @@ class TestPromptCaching:
         """Test prompt caching support detection."""
         from core.agentpress.prompt_caching import supports_prompt_caching
         
-        # Models with PROMPT_CACHING capability should return True
-        assert supports_prompt_caching("kortix/basic") is True
-        assert supports_prompt_caching("kortix/power") is True
+        # Our caching implementation is Anthropic-only (cache_control blocks).
+        # Gemini/Vertex models should NOT enable prompt caching.
+        assert supports_prompt_caching("kortix/basic") is False
+        assert supports_prompt_caching("kortix/power") is False
+        assert supports_prompt_caching("kortix/haiku") is True
         
     @pytest.mark.asyncio
     @pytest.mark.timeout(UNIT_TEST_TIMEOUT)

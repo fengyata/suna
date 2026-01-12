@@ -105,7 +105,9 @@ class ModelRegistry:
                 ModelCapability.CHAT,
                 ModelCapability.FUNCTION_CALLING,
                 # ModelCapability.VISION,
-                ModelCapability.PROMPT_CACHING,
+                # NOTE: Prompt caching is currently implemented using Anthropic-style cache_control blocks.
+                # Gemini (Vertex) CachedContent has constraints when using system/tool instructions,
+                # so we disable prompt caching for Gemini to avoid 400 INVALID_ARGUMENT.
             ],
             pricing=gemini_3_flash_pricing,
             tier_availability=["free", "paid"],
@@ -140,7 +142,7 @@ class ModelRegistry:
                 ModelCapability.FUNCTION_CALLING,
                 # ModelCapability.VISION,
                 ModelCapability.THINKING,
-                ModelCapability.PROMPT_CACHING,
+                # NOTE: Prompt caching disabled for Gemini (see comment in kortix/basic).
             ],
             pricing=gemini_3_pro_pricing,
             tier_availability=["paid"],
