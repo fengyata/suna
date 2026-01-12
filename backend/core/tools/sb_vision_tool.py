@@ -478,6 +478,10 @@ Images remain in the sandbox and can be loaded again anytime. SVG files are auto
             logger.info(f"[LoadImage] Prepared '{cleaned_path}' for context (will be saved after tool result)")
             
             # Return structured output with _image_context_data for deferred saving
+            # IMPORTANT:
+            # Use a data URL for the LLM message content to avoid provider limitations around fetching remote URLs.
+            # (e.g., Bedrock/Anthropic vision expects inline image data; Vertex/Gemini also shouldn't rely on arbitrary HTTP fetches.)
+            image_data_url = f"data:{compressed_mime_type};base64,{base64.b64encode(compressed_bytes).decode('utf-8')}"
             result_data = {
                 "message": f"Successfully loaded image '{cleaned_path}' into context (reduced from {original_size/1024:.1f}KB to {len(compressed_bytes)/1024:.1f}KB).",
                 "file_path": cleaned_path,
@@ -489,7 +493,7 @@ Images remain in the sandbox and can be loaded again anytime. SVG files are auto
                         "role": "user",
                         "content": [
                             {"type": "text", "text": f"[Image loaded from '{cleaned_path}']"},
-                            {"type": "image_url", "image_url": {"url": public_url}}
+                            {"type": "image_url", "image_url": {"url": image_data_url}}
                         ]
                     },
                     "metadata": {
