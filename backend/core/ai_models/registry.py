@@ -49,6 +49,24 @@ class ModelRegistry:
     def _initialize_models(self):
         # Register Haiku Bedrock ARN pricing for billing resolution
         self._litellm_id_to_pricing[HAIKU_BEDROCK_ARN] = HAIKU_PRICING
+
+        # === Google Gemini 3 pricing (Google provider via LiteLLM) ===
+        # Note: we intentionally do NOT use OpenRouter for these defaults.
+        # Pricing reference can be verified on OpenRouter model cards, but the provider used is Google.
+        # - google/gemini-3-flash-preview: $0.50/M input, $3.00/M output
+        # - google/gemini-3-pro-preview:   $2.00/M input, $12.00/M output
+        gemini_3_flash_pricing = ModelPricing(
+            input_cost_per_million_tokens=0.50,
+            output_cost_per_million_tokens=3.00,
+        )
+        gemini_3_pro_pricing = ModelPricing(
+            input_cost_per_million_tokens=2.00,
+            output_cost_per_million_tokens=12.00,
+        )
+
+        # Register raw IDs (LiteLLM Google provider)
+        self._litellm_id_to_pricing["google/gemini-3-flash-preview"] = gemini_3_flash_pricing
+        self._litellm_id_to_pricing["google/gemini-3-pro-preview"] = gemini_3_pro_pricing
         
         # MiniMax M2.1 pricing (LiteLLM may return model ID without openrouter/ prefix)
         minimax_m2_pricing = ModelPricing(
@@ -60,24 +78,24 @@ class ModelRegistry:
         self._litellm_id_to_pricing["minimax/minimax-m2.1"] = minimax_m2_pricing
         self._litellm_id_to_pricing["openrouter/minimax/minimax-m2.1"] = minimax_m2_pricing
         
-        # Kortix Basic - using MiniMax M2.1
+        # Kortix Basic - using Google Gemini 3 Flash (Google provider)
         # Anthropic: basic_litellm_id = build_bedrock_profile_arn(HAIKU_4_5_PROFILE_ID) if SHOULD_USE_BEDROCK else "anthropic/claude-haiku-4-5-20251001"
-        basic_litellm_id = "openrouter/minimax/minimax-m2.1"  # 204,800 context $0.30/M input tokens $1.20/M output tokens
+        basic_litellm_id = "google/gemini-3-flash-preview"  # 1M context $0.50/M input tokens $3.00/M output tokens
         
         self.register(Model(
             id="kortix/basic",
             name="Kortix Basic",
             litellm_model_id=basic_litellm_id,
-            provider=ModelProvider.OPENROUTER,
+            provider=ModelProvider.GOOGLE,
             aliases=["kortix-basic", "Kortix Basic"],
-            context_window=200_000,
+            context_window=1_000_000,
             capabilities=[
                 ModelCapability.CHAT,
                 ModelCapability.FUNCTION_CALLING,
                 # ModelCapability.VISION,
                 ModelCapability.PROMPT_CACHING,
             ],
-            pricing=minimax_m2_pricing,
+            pricing=gemini_3_flash_pricing,
             tier_availability=["free", "paid"],
             priority=102,
             recommended=True,
@@ -85,17 +103,17 @@ class ModelRegistry:
             config=ModelConfig()
         ))
         
-        # Kortix Power - using MiniMax M2.1
+        # Kortix Power - using Google Gemini 3 Pro (Google provider)
         # Anthropic: power_litellm_id = build_bedrock_profile_arn(HAIKU_4_5_PROFILE_ID) if SHOULD_USE_BEDROCK else "anthropic/claude-haiku-4-5-20251001"
-        power_litellm_id = "openrouter/minimax/minimax-m2.1"  # 204,800 context $0.30/M input tokens $1.20/M output tokens
+        power_litellm_id = "google/gemini-3-pro-preview"  # 1M context $2.00/M input tokens $12.00/M output tokens
         
         self.register(Model(
             id="kortix/power",
             name="Kortix Advanced Mode",
             litellm_model_id=power_litellm_id,
-            provider=ModelProvider.OPENROUTER,
+            provider=ModelProvider.GOOGLE,
             aliases=["kortix-power", "Kortix POWER Mode", "Kortix Power", "Kortix Advanced Mode"],
-            context_window=200_000,
+            context_window=1_000_000,
             capabilities=[
                 ModelCapability.CHAT,
                 ModelCapability.FUNCTION_CALLING,
@@ -103,7 +121,7 @@ class ModelRegistry:
                 ModelCapability.THINKING,
                 ModelCapability.PROMPT_CACHING,
             ],
-            pricing=minimax_m2_pricing,
+            pricing=gemini_3_pro_pricing,
             tier_availability=["paid"],
             priority=101,
             recommended=True,
