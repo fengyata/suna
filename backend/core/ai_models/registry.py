@@ -64,7 +64,13 @@ class ModelRegistry:
             output_cost_per_million_tokens=12.00,
         )
 
-        # Register raw IDs (LiteLLM Google provider)
+        # Register LiteLLM Gemini provider IDs (preferred for direct Google calls)
+        # LiteLLM expects the "gemini/" provider prefix for Google Gemini.
+        self._litellm_id_to_pricing["gemini/gemini-3-flash-preview"] = gemini_3_flash_pricing
+        self._litellm_id_to_pricing["gemini/gemini-3-pro-preview"] = gemini_3_pro_pricing
+
+        # Backwards-compat aliases (some internal callers may still pass OpenRouter-style slugs)
+        # NOTE: These should NOT be sent to LiteLLM directly; we keep them for pricing resolution only.
         self._litellm_id_to_pricing["google/gemini-3-flash-preview"] = gemini_3_flash_pricing
         self._litellm_id_to_pricing["google/gemini-3-pro-preview"] = gemini_3_pro_pricing
         
@@ -80,14 +86,18 @@ class ModelRegistry:
         
         # Kortix Basic - using Google Gemini 3 Flash (Google provider)
         # Anthropic: basic_litellm_id = build_bedrock_profile_arn(HAIKU_4_5_PROFILE_ID) if SHOULD_USE_BEDROCK else "anthropic/claude-haiku-4-5-20251001"
-        basic_litellm_id = "google/gemini-3-flash-preview"  # 1M context $0.50/M input tokens $3.00/M output tokens
+        basic_litellm_id = "gemini/gemini-3-flash-preview"  # 1M context $0.50/M input tokens $3.00/M output tokens
         
         self.register(Model(
             id="kortix/basic",
             name="Kortix Basic",
             litellm_model_id=basic_litellm_id,
             provider=ModelProvider.GOOGLE,
-            aliases=["kortix-basic", "Kortix Basic"],
+            aliases=[
+                "kortix-basic",
+                "Kortix Basic",
+                "google/gemini-3-flash-preview",  # legacy slug (do not send to LiteLLM)
+            ],
             context_window=1_000_000,
             capabilities=[
                 ModelCapability.CHAT,
@@ -105,14 +115,20 @@ class ModelRegistry:
         
         # Kortix Power - using Google Gemini 3 Pro (Google provider)
         # Anthropic: power_litellm_id = build_bedrock_profile_arn(HAIKU_4_5_PROFILE_ID) if SHOULD_USE_BEDROCK else "anthropic/claude-haiku-4-5-20251001"
-        power_litellm_id = "google/gemini-3-pro-preview"  # 1M context $2.00/M input tokens $12.00/M output tokens
+        power_litellm_id = "gemini/gemini-3-pro-preview"  # 1M context $2.00/M input tokens $12.00/M output tokens
         
         self.register(Model(
             id="kortix/power",
             name="Kortix Advanced Mode",
             litellm_model_id=power_litellm_id,
             provider=ModelProvider.GOOGLE,
-            aliases=["kortix-power", "Kortix POWER Mode", "Kortix Power", "Kortix Advanced Mode"],
+            aliases=[
+                "kortix-power",
+                "Kortix POWER Mode",
+                "Kortix Power",
+                "Kortix Advanced Mode",
+                "google/gemini-3-pro-preview",  # legacy slug (do not send to LiteLLM)
+            ],
             context_window=1_000_000,
             capabilities=[
                 ModelCapability.CHAT,
