@@ -67,7 +67,7 @@ class ModelRegistry:
         # Register raw IDs (LiteLLM Google provider)
         self._litellm_id_to_pricing["google/gemini-3-flash-preview"] = gemini_3_flash_pricing
         self._litellm_id_to_pricing["google/gemini-3-pro-preview"] = gemini_3_pro_pricing
-        
+
         # MiniMax M2.1 pricing (LiteLLM may return model ID without openrouter/ prefix)
         minimax_m2_pricing = ModelPricing(
             input_cost_per_million_tokens=0.30,
@@ -77,17 +77,18 @@ class ModelRegistry:
         )
         self._litellm_id_to_pricing["minimax/minimax-m2.1"] = minimax_m2_pricing
         self._litellm_id_to_pricing["openrouter/minimax/minimax-m2.1"] = minimax_m2_pricing
-        
-        # Kortix Basic - using Google Gemini 3 Flash (Google provider)
+
+        # SuperAgent Basic - using Google Gemini 3 Flash (Google provider)
         # Anthropic: basic_litellm_id = build_bedrock_profile_arn(HAIKU_4_5_PROFILE_ID) if SHOULD_USE_BEDROCK else "anthropic/claude-haiku-4-5-20251001"
         basic_litellm_id = "google/gemini-3-flash-preview"  # 1M context $0.50/M input tokens $3.00/M output tokens
         
         self.register(Model(
             id="kortix/basic",
-            name="Kortix Basic",
+            name="SuperAgent Basic",
             litellm_model_id=basic_litellm_id,
             provider=ModelProvider.GOOGLE,
-            aliases=["kortix-basic", "Kortix Basic"],
+            aliases=["kortix-basic", "Kortix Basic", "superagent-basic",
+                "SuperAgent Basic",],
             context_window=1_000_000,
             capabilities=[
                 ModelCapability.CHAT,
@@ -103,16 +104,18 @@ class ModelRegistry:
             config=ModelConfig()
         ))
         
-        # Kortix Power - using Google Gemini 3 Pro (Google provider)
+        # SuperAgent Power - using Google Gemini 3 Pro (Google provider)
         # Anthropic: power_litellm_id = build_bedrock_profile_arn(HAIKU_4_5_PROFILE_ID) if SHOULD_USE_BEDROCK else "anthropic/claude-haiku-4-5-20251001"
         power_litellm_id = "google/gemini-3-pro-preview"  # 1M context $2.00/M input tokens $12.00/M output tokens
         
         self.register(Model(
             id="kortix/power",
-            name="Kortix Advanced Mode",
+            name="SuperAgent Advanced Mode",
             litellm_model_id=power_litellm_id,
             provider=ModelProvider.GOOGLE,
-            aliases=["kortix-power", "Kortix POWER Mode", "Kortix Power", "Kortix Advanced Mode"],
+            aliases=["kortix-power", "Kortix POWER Mode", "Kortix Power", "Kortix Advanced Mode", "superagent-power",
+                "SuperAgent Power",
+                "SuperAgent Advanced Mode",],
             context_window=1_000_000,
             capabilities=[
                 ModelCapability.CHAT,
@@ -157,7 +160,7 @@ class ModelRegistry:
             )
         ))
         
-        # Kortix Test - uses MiniMax M2.1 via direct API (only in LOCAL and STAGING, not PRODUCTION)
+        # SuperAgent Test - uses MiniMax M2.1 via direct API (only in LOCAL and STAGING, not PRODUCTION)
         if config.ENV_MODE != EnvMode.PRODUCTION:
             # MiniMax direct API - requires MINIMAX_API_KEY env var
             # Docs: https://docs.litellm.ai/docs/providers/minimax
@@ -174,10 +177,15 @@ class ModelRegistry:
 
             self.register(Model(
                 id="kortix/test",
-                name="Kortix Test",
+                name="SuperAgent Test",
                 litellm_model_id=test_litellm_id,
                 provider=ModelProvider.MINIMAX,
-                aliases=["kortix-test", "Kortix Test"],
+                aliases=[
+                    "kortix-test",
+                    "Kortix Test",
+                    "superagent-test",
+                    "SuperAgent Test",
+                ],
                 context_window=200_000,
                 capabilities=[
                     ModelCapability.CHAT,

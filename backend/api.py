@@ -90,7 +90,7 @@ async def lifespan(app: FastAPI):
         from core.utils.tool_discovery import warm_up_tools_cache
         warm_up_tools_cache()
         
-        # Pre-load static Suna config for fast path in API requests
+        # Pre-load static SuperAgent config for fast path in API requests
         from core.cache.runtime_cache import load_static_suna_config
         load_static_suna_config()
         
