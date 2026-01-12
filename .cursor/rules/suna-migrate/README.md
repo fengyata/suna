@@ -9,6 +9,7 @@
 ## 变更记录（changes）
 - `changes/20260112-fix-gemini-cache.md`：修复 Gemini/Vertex CachedContent 与 tools/system 冲突（禁用 Gemini 的 PROMPT_CACHING）
 - `changes/20260112-fix-vision-image-context.md`：修复“上传图片/带图对话不可用”（image_context 使用 data URL）
+- `changes/20260112-fix-storage-invalidkey.md`：修复 `/v1/files/stage` 中文/emoji 文件名导致 Supabase Storage `InvalidKey`
 
 ## 推荐新增方式（以后你频繁改动时）
 当一次改动涉及多文件/有上线风险时，新增一份“变更记录”，放到：
