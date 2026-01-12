@@ -56,12 +56,12 @@ export const ModeIndicator = memo(function ModeIndicator() {
   } = useModelSelection();
 
   const basicModel = useMemo(
-    () => modelOptions.find((m) => m.id === 'kortix/basic' || m.label === 'SuperAgent Basic'),
+    () => modelOptions.find((m) => m.id === 'kortix/basic' || m.label === 'Basic'),
     [modelOptions]
   );
   
   const powerModel = useMemo(
-    () => modelOptions.find((m) => m.id === 'kortix/power' || m.label === 'SuperAgent Advanced Mode'),
+    () => modelOptions.find((m) => m.id === 'kortix/power' || m.label === 'Advanced'),
     [modelOptions]
   );
 
@@ -137,7 +137,7 @@ export const ModeIndicator = memo(function ModeIndicator() {
       return (
         <>
           <Sparkles className="h-4 w-4 text-blue-500" />
-          <span className="text-sm font-medium">Gemini Flash</span>
+          <span className="text-sm font-medium">Gemini/Flash</span>
         </>
       );
     }
@@ -145,7 +145,7 @@ export const ModeIndicator = memo(function ModeIndicator() {
       return (
         <>
           <Sparkles className="h-4 w-4 text-blue-500" />
-          <span className="text-sm font-medium">Gemini 3 Pro</span>
+          <span className="text-sm font-medium">Gemini/Pro</span>
         </>
       );
     }
@@ -154,7 +154,7 @@ export const ModeIndicator = memo(function ModeIndicator() {
       return (
         <>
           <img src="/kortix-symbol.svg" alt="SuperAgent Advanced" className="h-4 w-4" />
-          <span className="text-sm font-medium">SuperAgent Advanced</span>
+          <span className="text-sm font-medium">Advanced</span>
         </>
       );
     }
@@ -163,7 +163,7 @@ export const ModeIndicator = memo(function ModeIndicator() {
       return (
         <>
           <img src="/kortix-symbol.svg" alt="SuperAgent Basic" className="h-4 w-4" />
-          <span className="text-sm font-medium">SuperAgent Basic</span>
+          <span className="text-sm font-medium">Basic</span>
         </>
       );
     }
@@ -205,7 +205,7 @@ export const ModeIndicator = memo(function ModeIndicator() {
           <div className="flex-1 min-w-0">
             <div className="mb-1 flex items-center gap-2">
               <img src="/kortix-symbol.svg" alt="SuperAgent Basic" className="h-4 w-4" />
-              <span className="text-sm font-semibold">SuperAgent Basic</span>
+              <span className="text-sm font-semibold">Basic</span>
             </div>
             <div className="text-xs text-muted-foreground leading-relaxed">Fast and efficient for quick tasks</div>
           </div>
@@ -227,7 +227,7 @@ export const ModeIndicator = memo(function ModeIndicator() {
           <div className="flex-1 min-w-0">
             <div className="mb-1 flex items-center gap-2">
               <img src="/kortix-symbol.svg" alt="SuperAgent Advanced" className="h-4 w-4" />
-              <span className="text-sm font-semibold">SuperAgent Advanced</span>
+              <span className="text-sm font-semibold">Advanced</span>
             </div>
             <div className="text-xs text-muted-foreground leading-relaxed">Maximum intelligence for complex work</div>
           </div>
@@ -257,7 +257,7 @@ export const ModeIndicator = memo(function ModeIndicator() {
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
                 <Sparkles className="h-4 w-4 text-blue-500" />
-                <span className="text-sm font-semibold">Gemini Flash</span>
+                <span className="text-sm font-semibold">Gemini/Flash</span>
               </div>
               <div className="text-xs text-muted-foreground leading-relaxed">Google's fast multimodal model with thinking</div>
             </div>
@@ -283,7 +283,7 @@ export const ModeIndicator = memo(function ModeIndicator() {
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
                 <Sparkles className="h-4 w-4 text-blue-500" />
-                <span className="text-sm font-semibold">Gemini 3 Pro Preview</span>
+                <span className="text-sm font-semibold">Gemini/Pro</span>
               </div>
               <div className="text-xs text-muted-foreground leading-relaxed">Advanced reasoning with extended thinking</div>
             </div>

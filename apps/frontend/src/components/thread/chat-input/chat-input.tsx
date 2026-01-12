@@ -1302,12 +1302,8 @@ export const ChatInput = memo(forwardRef<ChatInputHandles, ChatInputProps>(
 
     const rightControls = useMemo(() => (
       <div className='flex items-center gap-2 flex-shrink-0'>
-        {!hideAgentSelection && (
-          <UnifiedConfigMenu
-            isLoggedIn={isLoggedIn}
-            selectedAgentId={selectedAgentId}
-            onAgentSelect={onAgentSelect}
-          />
+        {isLoggedIn && (
+          <ModeIndicator />
         )}
         {isLoggedIn && <VoiceRecorder
           onTranscription={handleTranscription}
