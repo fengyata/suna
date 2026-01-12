@@ -430,6 +430,35 @@ async def debug_endpoint():
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
 
+
+@api_router.get("/sentry-debug", summary="Trigger a Sentry test event", operation_id="sentry_debug", tags=["system"])
+async def sentry_debug_endpoint():
+    """
+    Trigger a test exception event to verify Sentry ingestion.
+    - Only enabled in local/staging to avoid accidental production noise.
+    """
+    if config.ENV_MODE not in [EnvMode.LOCAL, EnvMode.STAGING]:
+        raise HTTPException(status_code=404, detail="Not found")
+
+    from core.services.sentry_service import is_enabled, capture_exception
+
+    if not is_enabled():
+        return {
+            "sentry_enabled": False,
+            "hint": "Set SENTRY_DSN in the running environment; check startup logs for '[SENTRY] Enabled ...'",
+        }
+
+    try:
+        1 / 0
+    except Exception as e:
+        event_id = capture_exception(e, llm_stage="system.debug", error_type="SentryDebug")
+
+    return {
+        "sentry_enabled": True,
+        "event_id": event_id,
+        "note": "Search this event_id in Sentry to confirm ingestion",
+    }
+
 @api_router.get("/debug/redis", summary="Redis Health & Diagnostics", operation_id="redis_health", tags=["system"])
 async def redis_health_endpoint():
     """

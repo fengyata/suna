@@ -208,9 +208,21 @@ def record_sandbox_artifacts(artifacts: Any) -> None:
         )
 
 
-def capture_exception(exc: BaseException, *, llm_stage: Optional[str] = None, error_type: Optional[str] = None, tags: Optional[Dict[str, Any]] = None) -> None:
+def capture_exception(
+    exc: BaseException,
+    *,
+    llm_stage: Optional[str] = None,
+    error_type: Optional[str] = None,
+    tags: Optional[Dict[str, Any]] = None,
+) -> Optional[str]:
+    """
+    Capture an exception to Sentry (no-op when disabled).
+
+    Returns:
+        event_id (str) when captured, otherwise None.
+    """
     if not _ENABLED:
-        return
+        return None
     try:
         import sentry_sdk
         with sentry_sdk.configure_scope() as scope:
@@ -223,9 +235,9 @@ def capture_exception(exc: BaseException, *, llm_stage: Optional[str] = None, er
             # agent-run errors must have agent_run_id; if missing, keep searchable fallback
             if not _get_ctx().get("agent_run_id"):
                 scope.set_tag("has_agent_run_id", "false")
-        sentry_sdk.capture_exception(exc)
+        return sentry_sdk.capture_exception(exc)
     except Exception:
-        return
+        return None
 
 
 # ---- JSON repair info event (dedup + count) ----
