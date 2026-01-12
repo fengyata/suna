@@ -62,13 +62,14 @@ async def intranet_login(request: IntranetLoginRequest):
             token=request.token,
             company_id=request.company_id
         )
-        logger.info(f"Flashintel response: {flashintel_response}")
+        if not flashintel_response:
+            logger.error(f"Flashintel response is empty for token: {request.token} and company_id: {request.company_id}")
 
         # Step 2: Check if user exists.
         data = flashintel_response.get("data", {})
         logger.info(f"Intranet login response: {data}")
         company_id_from_response = data.get("companyId")
-        user_id = data.get("userId")
+        user_id = data.get("userId" )
 
 
         # Treat both numeric 0 and string "0" as "not found" for compatibility.
