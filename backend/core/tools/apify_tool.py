@@ -13,7 +13,7 @@ from core.agentpress.tool import Tool, ToolResult, openapi_schema, tool_metadata
 from core.agentpress.thread_manager import ThreadManager
 from core.utils.config import config, EnvMode
 from core.utils.logger import logger
-from core.billing.credits.manager import CreditManager
+from core.services.api_billing_service import token_service, FeatIdConfig
 from core.billing.shared.config import TOKEN_PRICE_MULTIPLIER
 from core.services.supabase import DBConnection
 from core.services.redis import get_client, set as redis_set, get as redis_get, delete as redis_delete
@@ -195,7 +195,6 @@ from core.sandbox.tool_base import SandboxToolsBase
 class ApifyTool(SandboxToolsBase):
     def __init__(self, project_id: str, thread_manager: Optional[ThreadManager] = None):
         super().__init__(project_id, thread_manager)
-        self.credit_manager = CreditManager()
         self.db = thread_manager.db if thread_manager else DBConnection()
         
         if config.APIFY_API_TOKEN:
@@ -723,16 +722,20 @@ class ApifyTool(SandboxToolsBase):
         marked_up_cost = cost * TOKEN_PRICE_MULTIPLIER
         
         try:
-            result = await self.credit_manager.deduct_credits(
-                account_id=user_id,
-                amount=marked_up_cost,
-                description=f"Apify: {actor_id} (run: {run_id})" + (f" [approval: {approval_id}]" if approval_id else ""),
-                type='usage',
-                thread_id=thread_id
+            # Use Flashlabs Token service for deduction
+            # messageId format: {approval_id}:{run_id} for idempotency
+            message_id = f"{approval_id or 'direct'}:{run_id}"
+            
+            success = await token_service.deduct_for_tool(
+                account_uuid=user_id,
+                cost_usd=marked_up_cost,
+                feat_id=FeatIdConfig.APIFY,
+                message_id=message_id
             )
             
-            if result.get('success'):
-                logger.info(f"Deducted ${marked_up_cost:.6f} for Apify run {run_id} (base: ${cost:.6f}, max: ${max_cost_usd:.6f if max_cost_usd else 'N/A'})")
+            if success:
+                token_value = token_service.usd_to_token(marked_up_cost)
+                logger.info(f"Deducted {token_value} tokens (${marked_up_cost:.6f}) for Apify run {run_id} (base: ${cost:.6f}, max: ${max_cost_usd:.6f if max_cost_usd else 'N/A'})")
                 
                 # Update approval request with actual cost
                 if approval_id:
@@ -752,7 +755,7 @@ class ApifyTool(SandboxToolsBase):
                 
                 return True
             else:
-                logger.warning(f"Failed to deduct credits: {result.get('error')}")
+                logger.warning(f"Failed to deduct tokens for Apify run {run_id}")
                 return False
         except Exception as e:
             logger.error(f"Error deducting Apify credits: {e}")

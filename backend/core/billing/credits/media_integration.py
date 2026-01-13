@@ -2,14 +2,15 @@
 Media Billing Integration
 
 Provides billing checks and deductions for image/video generation via Replicate and OpenRouter.
-Integrates with the main credit management system.
+Integrates with the Flashlabs Token service for billing.
 """
 
+import uuid
 from decimal import Decimal
 from typing import Optional, Dict, Tuple, Literal
 from core.utils.config import config, EnvMode
 from core.utils.logger import logger
-from core.billing.credits.manager import credit_manager
+from core.services.api_billing_service import token_service, FeatIdConfig
 from core.billing.credits.media_calculator import (
     calculate_media_cost,
     calculate_replicate_image_cost,
@@ -31,12 +32,13 @@ class MediaBillingIntegration:
     @staticmethod
     def is_development_mode() -> bool:
         """Check if running in development/local mode (skip billing)."""
-        return config.ENV_MODE == EnvMode.LOCAL
+        return config.ENV_MODE == EnvMode.LOCAL and not token_service.billing_enabled
     
     @staticmethod
     async def check_credits(account_id: str, minimum_required: Decimal = Decimal("0.01")) -> Tuple[bool, str, Optional[Decimal]]:
         """
         Check if user has sufficient credits for media generation.
+        Uses Flashlabs Token service for balance check.
         
         Args:
             account_id: User's account ID
@@ -51,24 +53,20 @@ class MediaBillingIntegration:
             return True, "Development mode", Decimal("999999")
         
         try:
-            balance_info = await credit_manager.get_balance(account_id, use_cache=True)
+            # Use token service for balance check
+            can_run, remaining, message = await token_service.check_balance(account_id)
             
-            if isinstance(balance_info, dict):
-                balance = Decimal(str(balance_info.get('total', 0)))
-            else:
-                balance = Decimal(str(balance_info or 0))
+            if not can_run:
+                logger.warning(f"[MEDIA_BILLING] Insufficient credits for {account_id}: {message}")
+                return False, message, Decimal("0")
             
-            if balance < minimum_required:
-                logger.warning(f"[MEDIA_BILLING] Insufficient credits for {account_id}: ${balance:.4f} < ${minimum_required:.4f}")
-                return False, f"Insufficient credits. Your balance is ${balance:.2f}. Please add credits to continue.", balance
-            
-            logger.debug(f"[MEDIA_BILLING] Credit check passed for {account_id}: ${balance:.4f}")
-            return True, f"Credits available: ${balance:.2f}", balance
+            logger.debug(f"[MEDIA_BILLING] Credit check passed for {account_id}: {remaining} tokens")
+            return True, message, Decimal(str(remaining))
             
         except Exception as e:
             logger.error(f"[MEDIA_BILLING] Error checking credits for {account_id}: {e}")
-            # Fail open in case of error - let the operation proceed
-            return True, f"Credit check error: {str(e)}", None
+            # Fail-closed: treat errors as "no balance"
+            return False, f"Credit check error: {str(e)}", None
     
     @staticmethod
     async def deduct_media_credits(
@@ -85,7 +83,7 @@ class MediaBillingIntegration:
         variant: Optional[str] = None,
     ) -> Dict:
         """
-        Deduct credits for media generation.
+        Deduct credits for media generation using Flashlabs Token service.
         
         Args:
             account_id: User's account ID
@@ -129,7 +127,7 @@ class MediaBillingIntegration:
                 logger.warning(f"[MEDIA_BILLING] Zero cost calculated for {model}")
                 return {'success': True, 'cost': 0, 'new_balance': 0}
             
-            # Build description
+            # Build description for logging
             if not description:
                 pricing_info = get_model_pricing_info(provider, model)
                 model_desc = pricing_info.get('description', model)
@@ -138,32 +136,50 @@ class MediaBillingIntegration:
                 else:
                     description = f"{model_desc} ({count} image{'s' if count > 1 else ''})"
             
+            # Generate idempotency key if not provided
+            if not message_id:
+                message_id = f"{thread_id or 'unknown'}:media:{uuid.uuid4()}"
+            
             logger.info(f"[MEDIA_BILLING] Deducting ${cost:.4f} for {description} from {account_id}")
             
-            # Deduct credits
-            result = await credit_manager.deduct_credits(
-                account_id=account_id,
-                amount=cost,
-                description=description,
-                type='media_generation',
-                message_id=message_id,
-                thread_id=thread_id
-            )
-            
-            if result.get('success'):
-                logger.info(f"[MEDIA_BILLING] Successfully deducted ${cost:.4f} from {account_id}. New balance: ${result.get('new_total', result.get('new_balance', 0)):.2f}")
-                await invalidate_account_state_cache(account_id)
-            else:
-                logger.error(f"[MEDIA_BILLING] Failed to deduct credits for {account_id}: {result.get('error')}")
-            
-            return {
-                'success': result.get('success', False),
-                'cost': float(cost),
-                'new_balance': result.get('new_total', result.get('new_balance', 0)),
-                'from_expiring': result.get('from_expiring', 0),
-                'from_non_expiring': result.get('from_non_expiring', 0),
-                'transaction_id': result.get('transaction_id', result.get('ledger_id'))
-            }
+            # Deduct using Flashlabs Token service
+            try:
+                feat_id = (
+                    FeatIdConfig.VIDEO_GENERATION
+                    if media_type == "video"
+                    else FeatIdConfig.IMAGE  # image -> web_scrape (per mapping)
+                )
+                success = await token_service.deduct_for_tool(
+                    account_uuid=account_id,
+                    cost_usd=cost,
+                    feat_id=feat_id,
+                    message_id=message_id
+                )
+                
+                if success:
+                    token_value = token_service.usd_to_token(cost)
+                    logger.info(f"[MEDIA_BILLING] Successfully deducted {token_value} tokens (${cost:.4f}) from {account_id}")
+                    await invalidate_account_state_cache(account_id)
+                    return {
+                        'success': True,
+                        'cost': float(cost),
+                        'token_value': token_value,
+                        'new_balance': 0  # Token service doesn't return balance
+                    }
+                else:
+                    logger.error(f"[MEDIA_BILLING] Failed to deduct tokens for {account_id}")
+                    return {
+                        'success': False,
+                        'cost': float(cost),
+                        'error': 'Token deduction failed'
+                    }
+            except Exception as e:
+                logger.error(f"[MEDIA_BILLING] Token deduction error for {account_id}: {e}")
+                return {
+                    'success': False,
+                    'error': str(e),
+                    'cost': float(cost)
+                }
             
         except Exception as e:
             logger.error(f"[MEDIA_BILLING] Error deducting credits for {account_id}: {e}")

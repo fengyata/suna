@@ -16,7 +16,7 @@ import re
 from datetime import datetime
 from PIL import Image
 from core.utils.logger import logger
-from core.utils.config import get_config
+from core.utils.config import get_config, EnvMode
 from core.billing.credits.media_integration import media_billing
 from core.billing.credits.media_calculator import select_image_quality, cap_quality_for_tier, FREE_TIERS
 from core.utils.image_processing import upscale_image_sync, remove_background_sync, UPSCALE_MODEL, REMOVE_BG_MODEL
@@ -255,7 +255,9 @@ Generate, edit, upscale, or remove background from images. Video generation supp
                 quality_variant = select_image_quality(user_tier)
             
             # VIDEO RESTRICTION: Free users cannot generate videos
-            if mode == "video" and user_tier in FREE_TIERS:
+            # In LOCAL dev mode we allow video generation for testing.
+            cfg = get_config()
+            if mode == "video" and user_tier in FREE_TIERS and cfg.ENV_MODE != EnvMode.LOCAL:
                 logger.warning(f"[MEDIA_BILLING] Video generation blocked for free user {account_id}")
                 return ToolResult(success=True, output="Video generation requires a paid subscription. Please upgrade your plan to access video generation features.")
             

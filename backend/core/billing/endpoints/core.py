@@ -1,3 +1,14 @@
+"""
+Legacy billing endpoints.
+
+NOTE: These endpoints are marked as legacy. The billing system has been migrated
+to the Flashlabs Token service. These endpoints are kept for backwards compatibility
+but may return limited or placeholder data.
+
+For current billing information, use:
+- /billing/account-state - Get complete account state including token balance
+"""
+
 from fastapi import APIRouter, HTTPException, Depends, Query
 from typing import Dict
 from decimal import Decimal
@@ -6,6 +17,7 @@ from core.services.credits import credit_service
 from core.utils.auth_utils import verify_and_get_user_id_from_jwt
 from core.utils.config import config, EnvMode
 from core.utils.logger import logger
+from core.services.api_billing_service import token_service, FeatIdConfig
 from ..shared.config import (
     TOKEN_PRICE_MULTIPLIER, 
     get_tier_by_name,
@@ -26,37 +38,51 @@ async def deduct_token_usage(
     usage: TokenUsageRequest,
     account_id: str = Depends(verify_and_get_user_id_from_jwt)
 ) -> Dict:
+    """
+    LEGACY: Deduct token usage.
+    
+    This endpoint has been migrated to use Flashlabs Token service.
+    """
     cost = calculate_token_cost(usage.prompt_tokens, usage.completion_tokens, usage.model)
     
     if cost <= 0:
-        balance = await credit_manager.get_balance(account_id)
-        return {'success': True, 'cost': 0, 'new_balance': balance['total'] * CREDITS_PER_DOLLAR}
-
-    result = await credit_manager.deduct_credits(
-        account_id=account_id,
-        amount=cost,
-        description=f"AI usage: {usage.model} ({usage.prompt_tokens}+{usage.completion_tokens} tokens)",
-        type='usage',
-        message_id=usage.message_id,
-        thread_id=usage.thread_id
-    )
+        return {'success': True, 'cost': 0, 'new_balance': 0}
     
-    await invalidate_account_state_cache(account_id)
-    
-    return {
-        'success': result['success'],
-        'cost': float(cost) * CREDITS_PER_DOLLAR,
-        'new_balance': float(result['new_balance']) * CREDITS_PER_DOLLAR,
-        'usage': {
-            'prompt_tokens': usage.prompt_tokens,
-            'completion_tokens': usage.completion_tokens,
-            'model': usage.model
+    try:
+        # Use Flashlabs Token service for deduction
+        message_id = usage.message_id or f"{usage.thread_id or 'unknown'}:direct:{datetime.now(timezone.utc).timestamp()}"
+        
+        success = await token_service.deduct_for_llm(
+            account_uuid=account_id,
+            cost_usd=cost,
+            model=usage.model,
+            message_id=message_id
+        )
+        
+        await invalidate_account_state_cache(account_id)
+        
+        return {
+            'success': success,
+            'cost': float(cost) * CREDITS_PER_DOLLAR,
+            'new_balance': 0,  # Token service doesn't return balance
+            'usage': {
+                'prompt_tokens': usage.prompt_tokens,
+                'completion_tokens': usage.completion_tokens,
+                'model': usage.model
+            }
         }
-    }
+    except Exception as e:
+        logger.error(f"[BILLING] Deduction error: {e}")
+        return {
+            'success': False,
+            'cost': float(cost) * CREDITS_PER_DOLLAR,
+            'error': str(e)
+        }
 
 
 @router.get("/tier-configurations") 
 async def get_tier_configurations() -> Dict:
+    """Get tier configurations (not affected by migration)."""
     try:
         tier_configs = []
         for tier_key, tier in TIERS.items():
@@ -89,21 +115,24 @@ async def get_tier_configurations() -> Dict:
 async def get_credit_breakdown(
     account_id: str = Depends(verify_and_get_user_id_from_jwt)
 ) -> Dict:
-    from core.billing import repo as billing_repo
+    """
+    LEGACY: Get credit breakdown.
+    
+    This endpoint is deprecated. The billing system has been migrated to
+    Flashlabs Token service. Use /billing/account-state for current balance.
+    """
+    logger.warning(f"[BILLING] Legacy /credit-breakdown endpoint called by {account_id}")
     
     try:
-        balance_result = await credit_service.get_balance(account_id)
-        if isinstance(balance_result, dict):
-            current_balance = float(balance_result.get('total', 0))
-        else:
-            current_balance = float(balance_result)
-        
-        total_purchased, purchases = await billing_repo.get_purchases(account_id)
+        # Return token balance from new service
+        balance_info = await token_service.get_balance_for_display(account_id)
         
         return {
-            "balance": current_balance * CREDITS_PER_DOLLAR,
-            "total_purchased": total_purchased * CREDITS_PER_DOLLAR,
-            "breakdown": purchases
+            "balance": balance_info.get('remaining', 0),
+            "total_purchased": 0,  # Not available from token service
+            "breakdown": [],  # Not available from token service
+            "_legacy": True,
+            "_message": "This endpoint is deprecated. Use /billing/account-state for current balance."
         }
     except Exception as e:
         logger.error(f"[BILLING] Error getting credit breakdown: {e}")
@@ -115,20 +144,20 @@ async def get_usage_history(
     days: int = 30,
     account_id: str = Depends(verify_and_get_user_id_from_jwt)
 ) -> Dict:
-    from core.billing import repo as billing_repo
-    from datetime import timedelta
+    """
+    LEGACY: Get usage history.
     
-    try:
-        total_usage, usage_history = await billing_repo.get_usage_history(account_id, days)
-        
-        since_date = datetime.now(timezone.utc) - timedelta(days=days)
-        
-        return {
-            'usage_history': usage_history,
-            'total_usage': total_usage * CREDITS_PER_DOLLAR,
-            'period_days': days,
-            'period_start': since_date.isoformat()
-        }
-    except Exception as e:
-        logger.error(f"[BILLING] Error getting usage history: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+    This endpoint is deprecated. The billing system has been migrated to
+    Flashlabs Token service. Usage history is now managed by the token service.
+    """
+    logger.warning(f"[BILLING] Legacy /usage-history endpoint called by {account_id}")
+    
+    # IMPORTANT: Keep response shape compatible with frontend UsageHistory type
+    # (apps/frontend/src/lib/api/billing.ts -> interface UsageHistory)
+    return {
+        "daily_usage": {},  # Not available from token service
+        "total_period_usage": 0,
+        "total_period_credits": 0,
+        "_legacy": True,
+        "_message": "This endpoint is deprecated. Usage history is now managed by Flashlabs Token service."
+    }
