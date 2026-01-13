@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,38 +10,41 @@ import { Check, Lock, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useModelSelection } from '@/hooks/agents';
 import { usePricingModalStore } from '@/stores/pricing-modal-store';
-import { isProductionMode } from '@/lib/config';
-import { ModelProviderIcon } from '@/lib/model-provider-icons';
-import { Separator } from '@/components/ui/separator';
 
-// Logo component for mode display with theme support
-// Uses CSS to switch between light/dark variants without JS
-const ModeLogo = memo(function ModeLogo({ 
-  mode, 
-  height = 12
-}: { 
-  mode: 'basic' | 'advanced'; 
+/**
+ * ModeIndicator 模型规则（硬约束）：\n
+ * - 只允许 2 个模型：kortix/basic 与 kortix/power\n
+ * - 两个模型都使用同一张图片：/kortix-symbol.svg\n
+ * - 不允许从 accountState/models 或任何配置动态扩展模型列表\n
+ */
+const FIXED_MODELS = [
+  {
+    id: 'kortix/basic',
+    label: 'Basic',
+    description: 'Fast and efficient for quick tasks',
+    iconSrc: '/kortix-symbol.svg',
+  },
+  {
+    id: 'kortix/power',
+    label: 'Advanced',
+    description: 'Fast and efficient for quick tasks',
+    iconSrc: '/kortix-symbol.svg',
+  },
+] as const;
+
+type FixedModelId = (typeof FIXED_MODELS)[number]['id'];
+
+const ModeLogo = memo(function ModeLogo({
+  height = 14,
+}: {
   height?: number;
 }) {
-  const darkSrc = mode === 'advanced' ? '/Advanced-Light.svg' : '/Basic-Light.svg';
-  const lightSrc = mode === 'advanced' ? '/Advanced-Dark.svg' : '/Basic-Dark.svg';
-
   return (
-    <span className="flex-shrink-0 relative" style={{ height: `${height}px`, width: 'auto' }}>
-      {/* Light mode image */}
+    <span className="flex-shrink-0 relative" style={{ height: `${height}px`, width: `${height}px` }}>
       <img
-        src={lightSrc}
-        alt={mode === 'advanced' ? 'Kortix Advanced' : 'Kortix Basic'}
-        className="block dark:hidden"
-        style={{ height: `${height}px`, width: 'auto' }}
-        suppressHydrationWarning
-      />
-      {/* Dark mode image */}
-      <img
-        src={darkSrc}
-        alt={mode === 'advanced' ? 'Kortix Advanced' : 'Kortix Basic'}
-        className="hidden dark:block"
-        style={{ height: `${height}px`, width: 'auto' }}
+        src="/kortix-symbol.svg"
+        alt="Model"
+        style={{ height: `${height}px`, width: `${height}px` }}
         suppressHydrationWarning
       />
     </span>
@@ -52,74 +55,44 @@ export const ModeIndicator = memo(function ModeIndicator() {
   const [isOpen, setIsOpen] = useState(false);
   const {
     selectedModel,
-    allModels: modelOptions,
     canAccessModel,
     handleModelChange,
   } = useModelSelection();
 
-  // Check if we should show all models option (non-production mode)
-  const showAllModelsOption = !isProductionMode();
+  // Normalize selection to one of the two allowed models.
+  const normalizedSelectedModel = useMemo<FixedModelId>(() => {
+    return (selectedModel === 'kortix/power' ? 'kortix/power' : 'kortix/basic') as FixedModelId;
+  }, [selectedModel]);
 
-  const basicModel = useMemo(
-    () => modelOptions.find((m) => m.id === 'kortix/basic' || m.label === 'Kortix Basic'),
-    [modelOptions]
-  );
-  
-  const powerModel = useMemo(
-    () => modelOptions.find((m) => m.id === 'kortix/power' || m.label === 'Kortix Advanced Mode'),
-    [modelOptions]
-  );
+  // If some other model got selected elsewhere, force it back to basic.
+  useEffect(() => {
+    if (selectedModel && selectedModel !== 'kortix/basic' && selectedModel !== 'kortix/power') {
+      handleModelChange('kortix/basic');
+    }
+  }, [selectedModel, handleModelChange]);
 
-  // Get other models (not basic or power) for the staging section
-  const otherModels = useMemo(() => {
-    return modelOptions.filter(
-      (m) => m.id !== 'kortix/basic' && m.id !== 'kortix/power' && 
-             m.label !== 'Kortix Basic' && m.label !== 'Kortix Advanced Mode'
-    ).sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0));
-  }, [modelOptions]);
-
-  // Check if a non-standard model is selected
-  const isOtherModelSelected = useMemo(() => {
-    return selectedModel && 
-           selectedModel !== basicModel?.id && 
-           selectedModel !== powerModel?.id;
-  }, [selectedModel, basicModel?.id, powerModel?.id]);
-
-  const selectedOtherModel = useMemo(() => {
-    if (!isOtherModelSelected) return null;
-    return modelOptions.find((m) => m.id === selectedModel);
-  }, [isOtherModelSelected, modelOptions, selectedModel]);
-
-  const canAccessPower = powerModel ? canAccessModel(powerModel.id) : false;
-  const isPowerSelected = powerModel && selectedModel === powerModel.id;
-  const isBasicSelected = basicModel && selectedModel === basicModel.id;
+  const canAccessPower = canAccessModel('kortix/power');
+  const isPowerSelected = normalizedSelectedModel === 'kortix/power';
+  const isBasicSelected = normalizedSelectedModel === 'kortix/basic';
 
   const handleBasicClick = useCallback(() => {
-    if (basicModel) {
-      handleModelChange(basicModel.id);
-      setIsOpen(false);
-    }
-  }, [basicModel, handleModelChange]);
-
-  const handleAdvancedClick = useCallback(() => {
-    if (powerModel) {
-      if (canAccessPower) {
-        handleModelChange(powerModel.id);
-        setIsOpen(false);
-      } else {
-        setIsOpen(false);
-        usePricingModalStore.getState().openPricingModal({
-          isAlert: true,
-          alertTitle: 'Upgrade to access Kortix Advanced mode',
-        });
-      }
-    }
-  }, [powerModel, canAccessPower, handleModelChange]);
-
-  const handleOtherModelClick = useCallback((modelId: string) => {
-    handleModelChange(modelId);
+    handleModelChange('kortix/basic');
     setIsOpen(false);
   }, [handleModelChange]);
+
+  const handleAdvancedClick = useCallback(() => {
+    if (canAccessPower) {
+      handleModelChange('kortix/power');
+      setIsOpen(false);
+      return;
+    }
+
+    setIsOpen(false);
+    usePricingModalStore.getState().openPricingModal({
+      isAlert: true,
+      alertTitle: 'Upgrade to access Advanced mode',
+    });
+  }, [canAccessPower, handleModelChange]);
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
@@ -130,7 +103,10 @@ export const ModeIndicator = memo(function ModeIndicator() {
             'hover:bg-accent/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
           )}
         >
-          <ModeLogo mode={isPowerSelected ? 'advanced' : 'basic'} height={14} />
+          <ModeLogo height={14} />
+          <span className="text-sm font-medium text-foreground">
+            {isPowerSelected ? 'Advanced' : 'Basic'}
+          </span>
           <ChevronDown className={cn(
             "h-4 w-4 text-muted-foreground transition-transform duration-200",
             isOpen && "rotate-180"
@@ -155,7 +131,10 @@ export const ModeIndicator = memo(function ModeIndicator() {
         >
           <div className="flex-1 min-w-0">
             <div className="mb-1">
-              <ModeLogo mode="basic" height={14} />
+              <div className="flex items-center gap-2">
+                <ModeLogo height={14} />
+                <div className="text-sm font-medium">Basic</div>
+              </div>
             </div>
             <div className="text-xs text-muted-foreground leading-relaxed">Fast and efficient for quick tasks</div>
           </div>
@@ -176,9 +155,12 @@ export const ModeIndicator = memo(function ModeIndicator() {
         >
           <div className="flex-1 min-w-0">
             <div className="mb-1">
-              <ModeLogo mode="advanced" height={14} />
+              <div className="flex items-center gap-2">
+                <ModeLogo height={14} />
+                <div className="text-sm font-medium">Advanced</div>
+              </div>
             </div>
-            <div className="text-xs text-muted-foreground leading-relaxed">Maximum intelligence for complex work</div>
+            <div className="text-xs text-muted-foreground leading-relaxed">Fast and efficient for quick tasks</div>
           </div>
           {isPowerSelected ? (
             <Check className="h-4 w-4 text-foreground flex-shrink-0 mt-0.5" strokeWidth={2} />
@@ -186,45 +168,6 @@ export const ModeIndicator = memo(function ModeIndicator() {
             <Lock className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" strokeWidth={2} />
           ) : null}
         </div>
-
-        {/* All Models Section - Only in staging/local mode */}
-        {showAllModelsOption && otherModels.length > 0 && (
-          <>
-            <Separator className="my-2" />
-            <div className="px-2 py-1 text-xs font-medium text-muted-foreground flex items-center gap-2">
-              <span>All Models</span>
-              <span className="text-[10px] px-1.5 py-0.5 bg-amber-500/10 text-amber-600 dark:text-amber-500 rounded-md">
-                Staging
-              </span>
-            </div>
-            <div className="max-h-[200px] overflow-y-auto">
-              {otherModels.map((model) => {
-                const isSelected = selectedModel === model.id;
-                
-                return (
-                  <div
-                    key={model.id}
-                    className={cn(
-                      'flex items-center gap-3 px-3 py-2 cursor-pointer rounded-lg transition-all duration-150 my-0.5',
-                      isSelected 
-                        ? 'bg-accent' 
-                        : 'hover:bg-accent/50 active:bg-accent/70'
-                    )}
-                    onClick={() => handleOtherModelClick(model.id)}
-                  >
-                    <ModelProviderIcon modelId={model.id} size={20} />
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium truncate">{model.label}</div>
-                    </div>
-                    {isSelected && (
-                      <Check className="h-4 w-4 text-foreground flex-shrink-0" strokeWidth={2} />
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </>
-        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
