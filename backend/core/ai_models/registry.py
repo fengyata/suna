@@ -166,7 +166,10 @@ class ModelRegistry:
                 ModelCapability.FUNCTION_CALLING,
                 # ModelCapability.VISION,
                 ModelCapability.THINKING,
-                # NOTE: Prompt caching disabled for Gemini (see comment in kortix/basic).
+                # Prompt caching uses Anthropic-style cache_control blocks.
+                # NOTE: Enabling this requires prompt_caching.py to resolve registry IDs
+                # (e.g., "kortix/power") to real LiteLLM model IDs for token counting.
+                ModelCapability.PROMPT_CACHING,
             ],
             pricing=sonnet_4_5_pricing,
             tier_availability=["paid"],
