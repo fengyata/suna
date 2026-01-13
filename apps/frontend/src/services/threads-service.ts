@@ -29,15 +29,35 @@ type FlashcloudAuth = {
 
 function getFlashcloudAuthFromRequest(request: NextRequest): FlashcloudAuth | null {
   // Prefer explicit headers (e.g. Postman / cross-origin client)
-  const tokenFromHeader = request.headers.get('flashcloud_cookie') || request.headers.get('Flashcloud-Cookie');
-  const companyIdFromHeader =
+  const tokenFromFlashcloudHeader = request.headers.get('flashcloud_cookie') || request.headers.get('Flashcloud-Cookie');
+  const companyIdFromFlashcloudHeader =
     request.headers.get('flashcloud_company_id') || request.headers.get('Flashcloud-Company-Id');
 
-  // Fallback to cookies (typical browser flow)
-  const token = tokenFromHeader || request.cookies.get('flashcloud_cookie')?.value;
-  const companyId = companyIdFromHeader || request.cookies.get('flashcloud_company_id')?.value;
-  console.log('token', token);
-  console.log('companyId', companyId);
+  // Also support "standard-ish" headers used by our backend proxy calls
+  const authz = request.headers.get('authorization') || request.headers.get('Authorization');
+  const tokenFromAuthz =
+    authz && authz.toLowerCase().startsWith('bearer ') ? authz.slice('bearer '.length).trim() : null;
+  const companyIdFromXAuthCompany =
+    request.headers.get('x-auth-company') || request.headers.get('X-Auth-Company') || request.headers.get('x_auth_company');
+
+  // Optional query fallback (useful for debugging / non-browser clients)
+  let tokenFromQuery: string | null = null;
+  let companyIdFromQuery: string | null = null;
+  try {
+    const url = new URL(request.url);
+    tokenFromQuery = url.searchParams.get('flashcloud_cookie') || url.searchParams.get('token');
+    companyIdFromQuery = url.searchParams.get('flashcloud_company_id') || url.searchParams.get('company_id');
+  } catch {
+    // ignore
+  }
+
+  // Fallback to cookies (browser same-origin / shared-domain cookie flow)
+  const tokenFromCookie = request.cookies.get('flashcloud_cookie')?.value || null;
+  const companyIdFromCookie = request.cookies.get('flashcloud_company_id')?.value || null;
+
+  const token = tokenFromFlashcloudHeader || tokenFromAuthz || tokenFromQuery || tokenFromCookie;
+  const companyId = companyIdFromFlashcloudHeader || companyIdFromXAuthCompany || companyIdFromQuery || companyIdFromCookie;
+
   if (!token || !companyId) return null;
   return { token, companyId };
 }
@@ -114,7 +134,7 @@ export async function listThreads(params: {
   const page = Number.isFinite(params.page) && params.page > 0 ? params.page : 1;
   const limit = Number.isFinite(params.limit) && params.limit > 0 ? Math.min(params.limit, 200) : 20;
 
-  console.log('request', request);
+  console.log('request.headers-->', request.headers);
 
   const accountId = await fetchAccountId(request);
 

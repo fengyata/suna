@@ -5,6 +5,7 @@ import { corsJson, corsPreflight } from '@/lib/utils/cors';
 export const runtime = 'nodejs';
 
 export async function OPTIONS(request: NextRequest) {
+  console.log('OPTIONS request-->', request.headers);
   return corsPreflight(request);
 }
 
@@ -13,6 +14,7 @@ export async function GET(request: NextRequest) {
   const page = Number(searchParams.get('page') || '1');
   const limit = Number(searchParams.get('limit') || '20');
 
+  console.log('request-->', request.headers);
   try {
     const result = await listThreads({
       request,
