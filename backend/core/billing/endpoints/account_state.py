@@ -9,6 +9,7 @@ from core.utils.logger import logger
 from core.utils.cache import Cache
 from core.ai_models import model_manager
 from core.services.credits import credit_service
+from core.services.api_billing_service import token_service
 from ..shared.config import (
     CREDITS_PER_DOLLAR,
     get_tier_by_name,
@@ -90,17 +91,20 @@ async def _build_account_state(account_id: str) -> Dict:
     - Fetches tier info ONCE and passes to all limit checkers
     - Caches Stripe subscription data (5 min TTL)
     - Runs all limit checks in parallel
+    - Uses Flashlabs Token service for balance info
     """
     import time
     t_start = time.time()
     
-    # Fetch credit account and tier info in parallel
+    # Fetch credit account, tier info, and token balance in parallel
     credit_account_task = get_credit_account(account_id)
     tier_info_task = subscription_service.get_user_subscription_tier(account_id, skip_cache=False)
+    token_balance_task = token_service.get_balance_for_display(account_id)
     
-    credit_account, subscription_tier_info = await asyncio.gather(
+    credit_account, subscription_tier_info, token_balance = await asyncio.gather(
         credit_account_task,
-        tier_info_task
+        tier_info_task,
+        token_balance_task
     )
     credit_account = credit_account or {}
     
@@ -109,54 +113,24 @@ async def _build_account_state(account_id: str) -> Dict:
     if not tier_info:
         tier_info = TIERS['none']
     
-    logger.debug(f"[ACCOUNT_STATE] Fetched credit account + tier in {(time.time() - t_start) * 1000:.1f}ms")
+    logger.debug(f"[ACCOUNT_STATE] Fetched credit account + tier + token balance in {(time.time() - t_start) * 1000:.1f}ms")
     
     # Trial status
     trial_status = credit_account.get('trial_status')
     trial_ends_at = credit_account.get('trial_ends_at')
     is_trial = trial_status == 'active'
     
-    # Balance calculations (stored in dollars, convert to credits)
-    daily_dollars = float(credit_account.get('daily_credits_balance', 0) or 0)
-    monthly_dollars = float(credit_account.get('expiring_credits', 0) or 0)
-    extra_dollars = float(credit_account.get('non_expiring_credits', 0) or 0)
-    last_daily_refresh = credit_account.get('last_daily_refresh')
+    # Use token balance from Flashlabs Token service
+    # The 'remaining' from token service represents the available credits
+    total_credits = token_balance.get('remaining', 0)
     
-    # Convert to credits
-    daily_credits = daily_dollars * CREDITS_PER_DOLLAR
-    monthly_credits = monthly_dollars * CREDITS_PER_DOLLAR
-    extra_credits = extra_dollars * CREDITS_PER_DOLLAR
-    total_credits = daily_credits + monthly_credits + extra_credits
+    # Legacy fields (set to 0 since we use token service now)
+    daily_credits = 0
+    monthly_credits = 0
+    extra_credits = 0
     
-    # Daily credits refresh info
+    # Daily credits refresh info - disabled for token service
     daily_credits_info = None
-    has_daily_credits = tier_info.daily_credit_config and tier_info.daily_credit_config.get('enabled')
-    
-    if has_daily_credits:
-        refresh_interval_hours = tier_info.daily_credit_config.get('refresh_interval_hours', 24)
-        daily_amount = float(tier_info.daily_credit_config.get('amount', 0)) * CREDITS_PER_DOLLAR
-        
-        next_refresh_at = None
-        seconds_until_refresh = None
-        
-        if last_daily_refresh:
-            try:
-                last_refresh_dt = datetime.fromisoformat(last_daily_refresh.replace('Z', '+00:00'))
-                next_refresh_dt = last_refresh_dt + timedelta(hours=refresh_interval_hours)
-                next_refresh_at = next_refresh_dt.isoformat()
-                time_diff = next_refresh_dt - datetime.now(timezone.utc)
-                seconds_until_refresh = max(0, int(time_diff.total_seconds()))
-            except Exception:
-                pass
-        
-        daily_credits_info = {
-            'enabled': True,
-            'daily_amount': daily_amount,
-            'refresh_interval_hours': refresh_interval_hours,
-            'last_refresh': last_daily_refresh,
-            'next_refresh_at': next_refresh_at,
-            'seconds_until_refresh': seconds_until_refresh
-        }
     
     # Get subscription info - use cached Stripe data
     subscription_data = None
@@ -390,16 +364,32 @@ async def get_account_state(
     This is the single source of truth for all billing-related frontend data.
     Data is cached for 5 minutes to optimize latency.
     """
-    # Local development mode - return mock data
+    # Local development mode:
+    # - By default, return local mock (unlimited limits)
+    # - If TOKEN_BILLING_ENABLE_LOCAL=true, still return local mock for tier/limits
+    #   but override credits with real token remaining so you can test billing end-to-end.
     if config.ENV_MODE == EnvMode.LOCAL:
+        billing_enabled_local = bool(token_service.billing_enabled)
         all_models = model_manager.list_available_models(include_disabled=True)
+
+        credits_total = 999999
+        if billing_enabled_local:
+            try:
+                balance_info = await token_service.get_balance_for_display(account_id)
+                credits_total = int(balance_info.get("remaining", 0) or 0)
+            except Exception as e:
+                # fail-closed for billing itself is handled elsewhere; for account-state we still
+                # want the UI usable in local mode, so fall back to 0 credits.
+                logger.error(f"[ACCOUNT_STATE] Token balance fetch failed in local billing test mode: {e}")
+                credits_total = 0
+
         return {
             'credits': {
-                'total': 999999,
-                'daily': 200,
-                'monthly': 999799,
+                'total': credits_total,
+                'daily': 0,
+                'monthly': 0,
                 'extra': 0,
-                'can_run': True,
+                'can_run': credits_total >= 1,
                 'daily_refresh': None
             },
             'subscription': {
@@ -492,7 +482,10 @@ async def get_account_state(
             },
             '_cache': {
                 'cached': False,
-                'local_mode': True
+                'ttl_seconds': ACCOUNT_STATE_CACHE_TTL,
+                # Important: don't set local_mode=true when billing test is enabled,
+                # otherwise frontend will show "billing disabled" banner.
+                **({'local_mode': True} if not billing_enabled_local else {'billing_test_mode': True})
             }
         }
     

@@ -109,11 +109,22 @@ def supports_prompt_caching(model_name: str) -> bool:
     try:
         from core.ai_models.registry import registry
         from core.ai_models.models import ModelCapability
+        from core.ai_models.models import ModelProvider
         
         model = registry.get(model_name)
         if model and ModelCapability.PROMPT_CACHING in model.capabilities:
-            logger.debug(f"Model '{model_name}' supports prompt caching")
-            return True
+            # IMPORTANT:
+            # The caching strategy implemented in this module uses Anthropic-style cache_control markers.
+            # Gemini/Vertex prompt caching has different constraints and can error when tools/system/tool_config
+            # are present (see Vertex "CachedContent can not be used with GenerateContent request..." errors).
+            # To avoid provider-specific breakages, we only enable this strategy for Anthropic provider here.
+            if model.provider == ModelProvider.ANTHROPIC:
+                logger.debug(f"Model '{model_name}' supports Anthropic prompt caching")
+                return True
+            logger.debug(
+                f"Model '{model_name}' has PROMPT_CACHING but provider={model.provider.value} "
+                f"does not use Anthropic caching strategy"
+            )
         
         return False
     except Exception as e:
