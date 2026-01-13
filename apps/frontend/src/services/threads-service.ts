@@ -36,6 +36,8 @@ function getFlashcloudAuthFromRequest(request: NextRequest): FlashcloudAuth | nu
   // Fallback to cookies (typical browser flow)
   const token = tokenFromHeader || request.cookies.get('flashcloud_cookie')?.value;
   const companyId = companyIdFromHeader || request.cookies.get('flashcloud_company_id')?.value;
+  console.log('token', token);
+  console.log('companyId', companyId);
   if (!token || !companyId) return null;
   return { token, companyId };
 }
@@ -46,9 +48,11 @@ function getFlashcloudAuthFromRequest(request: NextRequest): FlashcloudAuth | nu
  */
 export async function fetchAccountId(request: NextRequest): Promise<string | null> {
   const auth = getFlashcloudAuthFromRequest(request);
+  console.log('auth', auth);
   if (!auth) return null;
 
   const backend = process.env.NEXT_PUBLIC_BACKEND_URL;
+  console.log('backend', backend);
   if (!backend) return null;
 
   try {
@@ -69,6 +73,7 @@ export async function fetchAccountId(request: NextRequest): Promise<string | nul
     if (!res.ok) return null;
 
     const creds: any = await res.json().catch(() => null);
+    console.log('creds', creds);
     // Prefer accountId; fallback to account_id for compatibility.
     const accountId =
       (typeof creds?.accountId === 'string' && creds.accountId) ||
@@ -108,6 +113,8 @@ export async function listThreads(params: {
   const { request } = params;
   const page = Number.isFinite(params.page) && params.page > 0 ? params.page : 1;
   const limit = Number.isFinite(params.limit) && params.limit > 0 ? Math.min(params.limit, 200) : 20;
+
+  console.log('request', request);
 
   const accountId = await fetchAccountId(request);
 
