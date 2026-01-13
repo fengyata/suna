@@ -413,6 +413,11 @@ class Configuration:
     # Flashintel configuration
     FLASHINTEL_BASE_URL: Optional[str] = "https://discover-api-test.flashintel.ai"
     
+    # Flashlabs Token Service configuration
+    TOKEN_API_BASE_URL: Optional[str] = None
+    # Enable token billing even when ENV_MODE=local (for local testing only)
+    TOKEN_BILLING_ENABLE_LOCAL: bool = False
+    
     # Email configuration
     
     # Agent execution limits (can be overridden via environment variable)

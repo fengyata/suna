@@ -69,6 +69,11 @@ class ModelRegistry:
         self._litellm_id_to_pricing["gemini/gemini-3-flash-preview"] = gemini_3_flash_pricing
         self._litellm_id_to_pricing["gemini/gemini-3-pro-preview"] = gemini_3_pro_pricing
 
+        # Some callers/logs may pass Gemini model IDs without provider prefix.
+        # Keep these for pricing resolution to avoid "[COST_CALC] No pricing found..." warnings.
+        self._litellm_id_to_pricing["gemini-3-flash-preview"] = gemini_3_flash_pricing
+        self._litellm_id_to_pricing["gemini-3-pro-preview"] = gemini_3_pro_pricing
+
         # Backwards-compat aliases (some internal callers may still pass OpenRouter-style slugs)
         # NOTE: These should NOT be sent to LiteLLM directly; we keep them for pricing resolution only.
         self._litellm_id_to_pricing["google/gemini-3-flash-preview"] = gemini_3_flash_pricing

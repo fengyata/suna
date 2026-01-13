@@ -125,13 +125,14 @@ async def approve_apify_request(
             
             from decimal import Decimal
             from core.billing.shared.config import TOKEN_PRICE_MULTIPLIER
+            from core.services.api_billing_service import token_service, FeatIdConfig
             
             max_cost_usd_value = approval.get('max_cost_usd')
             if max_cost_usd_value is None:
                 max_cost_usd = Decimal(0)
             else:
                 max_cost_usd = Decimal(str(max_cost_usd_value))
-            max_cost_with_markup = max_cost_usd * TOKEN_PRICE_MULTIPLIER  # Apply markup (deduct_credits expects USD with markup)
+            max_cost_with_markup = max_cost_usd * TOKEN_PRICE_MULTIPLIER  # Apply markup
             
             # CRITICAL: Update status to 'approved' BEFORE deducting credits
             # This prevents double-charging if Redis write fails after credit deduction
@@ -157,28 +158,26 @@ async def approve_apify_request(
                     detail="Failed to update approval status. Please try again."
                 )
             
-            # Now deduct credits (status is already 'approved', so retry won't double-charge)
+            # Now deduct credits using Flashlabs Token service (status is already 'approved', so retry won't double-charge)
             deduction_success = False
             if max_cost_usd > 0:
                 try:
-                    from core.billing.credits.manager import CreditManager
-                    credit_manager = CreditManager()
-                    
-                    result = await credit_manager.deduct_credits(
-                        account_id=user_id,
-                        amount=max_cost_with_markup,
-                        description=f"Apify hold: {approval.get('actor_id')} (approval: {approval_id}) - max cost hold",
-                        type='usage',
-                        thread_id=thread_id
+                    # Use approval_id as message_id for idempotency
+                    success = await token_service.deduct_for_tool(
+                        account_uuid=user_id,
+                        cost_usd=max_cost_with_markup,
+                        feat_id=FeatIdConfig.APIFY,
+                        message_id=f"apify_hold:{approval_id}"
                     )
                     
-                    if result.get('success'):
+                    if success:
                         deduction_success = True
+                        token_value = token_service.usd_to_token(max_cost_with_markup)
                         approval['deducted_on_approve_credits'] = float(max_cost_with_markup)
                         approval['deducted_on_approve_usd'] = float(max_cost_usd)
-                        logger.info(f"✅ Deducted ${max_cost_with_markup:.6f} USD (with markup) on approve for {approval_id} (max cost hold: ${max_cost_usd:.6f} USD)")
+                        logger.info(f"✅ Deducted {token_value} tokens (${max_cost_with_markup:.6f} USD) on approve for {approval_id} (max cost hold: ${max_cost_usd:.6f} USD)")
                     else:
-                        logger.error(f"Failed to deduct credits on approve: {result.get('error')}")
+                        logger.error(f"Failed to deduct tokens on approve")
                         # Rollback status to 'pending' since credit deduction failed
                         approval['status'] = 'pending'
                         approval['updated_at'] = datetime.now(timezone.utc).isoformat()
@@ -203,7 +202,7 @@ async def approve_apify_request(
                 except HTTPException:
                     raise
                 except Exception as e:
-                    logger.error(f"Error deducting credits on approve: {e}", exc_info=True)
+                    logger.error(f"Error deducting tokens on approve: {e}", exc_info=True)
                     # Rollback status to 'pending' since credit deduction failed
                     approval['status'] = 'pending'
                     approval['updated_at'] = datetime.now(timezone.utc).isoformat()

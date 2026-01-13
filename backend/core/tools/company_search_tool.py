@@ -2,6 +2,7 @@ from typing import Optional
 import asyncio
 import structlog
 import json
+import uuid
 from decimal import Decimal
 
 # exa-py removed due to openai 2.x incompatibility - tool disabled
@@ -19,7 +20,7 @@ from core.agentpress.tool import Tool, ToolResult, openapi_schema, tool_metadata
 from core.utils.config import config, EnvMode
 from core.utils.logger import logger
 from core.agentpress.thread_manager import ThreadManager
-from core.billing.credits.manager import CreditManager
+from core.services.api_billing_service import token_service, FeatIdConfig
 from core.billing.shared.config import TOKEN_PRICE_MULTIPLIER
 from core.services.supabase import DBConnection
 
@@ -72,7 +73,6 @@ class CompanySearchTool(Tool):
         self.thread_manager = thread_manager
         self.api_key = config.EXA_API_KEY
         self.db = thread_manager.db if thread_manager else DBConnection()
-        self.credit_manager = CreditManager()
         self.exa_client = None
         
         if self.api_key:
@@ -100,26 +100,31 @@ class CompanySearchTool(Tool):
         return None, None
     
     async def _deduct_credits(self, user_id: str, num_results: int, thread_id: Optional[str] = None) -> bool:
+        """Deduct credits using Flashlabs Token service"""
         base_cost = Decimal('0.45')
         total_cost = base_cost * TOKEN_PRICE_MULTIPLIER
         
         try:
-            result = await self.credit_manager.use_credits(
-                account_id=user_id,
-                amount=total_cost,
-                description=f"Company search: {num_results} results",
-                thread_id=thread_id
+            # Generate idempotency key
+            message_id = f"{thread_id or 'unknown'}:search:{uuid.uuid4()}"
+            
+            success = await token_service.deduct_for_tool(
+                account_uuid=user_id,
+                cost_usd=total_cost,
+                feat_id=FeatIdConfig.COMPANY_SEARCH,
+                message_id=message_id
             )
             
-            if result.get('success'):
-                logger.info(f"Deducted ${total_cost:.2f} for company search ({num_results} results)")
+            if success:
+                token_value = token_service.usd_to_token(total_cost)
+                logger.info(f"Deducted {token_value} tokens (${total_cost:.2f}) for company search ({num_results} results)")
                 return True
             else:
-                logger.warning(f"Failed to deduct credits: {result.get('error')}")
+                logger.warning(f"Failed to deduct tokens for company search")
                 return False
                 
         except Exception as e:
-            logger.error(f"Error deducting credits: {e}")
+            logger.error(f"Error deducting tokens: {e}")
             return False
 
     @openapi_schema({
@@ -302,8 +307,8 @@ class CompanySearchTool(Tool):
             base_cost = Decimal('0.45')
             total_cost = base_cost * TOKEN_PRICE_MULTIPLIER
             
-            if config.ENV_MODE == EnvMode.LOCAL:
-                logger.info("Running in LOCAL mode - skipping billing for company search")
+            if config.ENV_MODE == EnvMode.LOCAL and not token_service.billing_enabled:
+                logger.info("Running in LOCAL mode - billing skipped for company search")
                 cost_deducted_str = f"{int(total_cost * 100)} credits (LOCAL - not charged)"
             else:
                 credits_deducted = await self._deduct_credits(user_id, len(formatted_results), thread_id)
