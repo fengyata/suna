@@ -5,12 +5,14 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-  DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { Check, Lock, ChevronDown, Sparkles } from 'lucide-react';
+import { Check, Lock, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useModelSelection } from '@/hooks/agents';
 import { usePricingModalStore } from '@/stores/pricing-modal-store';
+import { isProductionMode } from '@/lib/config';
+import { ModelProviderIcon } from '@/lib/model-provider-icons';
+import { Separator } from '@/components/ui/separator';
 
 // Logo component for mode display with theme support
 // Uses CSS to switch between light/dark variants without JS
@@ -55,44 +57,42 @@ export const ModeIndicator = memo(function ModeIndicator() {
     handleModelChange,
   } = useModelSelection();
 
+  // Check if we should show all models option (non-production mode)
+  const showAllModelsOption = !isProductionMode();
+
   const basicModel = useMemo(
-    () => modelOptions.find((m) => m.id === 'kortix/basic' || m.label === 'Basic'),
+    () => modelOptions.find((m) => m.id === 'kortix/basic' || m.label === 'Kortix Basic'),
     [modelOptions]
   );
   
   const powerModel = useMemo(
-    () => modelOptions.find((m) => m.id === 'kortix/power' || m.label === 'Advanced'),
+    () => modelOptions.find((m) => m.id === 'kortix/power' || m.label === 'Kortix Advanced Mode'),
     [modelOptions]
   );
 
-  // // Gemini models
-  // const geminiFlash = useMemo(
-  //   () => modelOptions.find((m) => m.id === 'google/gemini-flash'),
-  //   [modelOptions]
-  // );
-  
-  // const geminiPro = useMemo(
-  //   () => modelOptions.find((m) => m.id === 'google/gemini-pro'),
-  //   [modelOptions]
-  // );
+  // Get other models (not basic or power) for the staging section
+  const otherModels = useMemo(() => {
+    return modelOptions.filter(
+      (m) => m.id !== 'kortix/basic' && m.id !== 'kortix/power' && 
+             m.label !== 'Kortix Basic' && m.label !== 'Kortix Advanced Mode'
+    ).sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0));
+  }, [modelOptions]);
+
+  // Check if a non-standard model is selected
+  const isOtherModelSelected = useMemo(() => {
+    return selectedModel && 
+           selectedModel !== basicModel?.id && 
+           selectedModel !== powerModel?.id;
+  }, [selectedModel, basicModel?.id, powerModel?.id]);
+
+  const selectedOtherModel = useMemo(() => {
+    if (!isOtherModelSelected) return null;
+    return modelOptions.find((m) => m.id === selectedModel);
+  }, [isOtherModelSelected, modelOptions, selectedModel]);
 
   const canAccessPower = powerModel ? canAccessModel(powerModel.id) : false;
-  // const canAccessGeminiFlash = geminiFlash ? canAccessModel(geminiFlash.id) : false;
-  // const canAccessGeminiPro = geminiPro ? canAccessModel(geminiPro.id) : false;
-
   const isPowerSelected = powerModel && selectedModel === powerModel.id;
   const isBasicSelected = basicModel && selectedModel === basicModel.id;
-  // const isGeminiFlashSelected = geminiFlash && selectedModel === geminiFlash.id;
-  // const isGeminiProSelected = geminiPro && selectedModel === geminiPro.id;
-
-  // Determine current display mode
-  const getCurrentDisplayMode = () => {
-    if (isPowerSelected) return 'advanced';
-    // if (isGeminiFlashSelected) return 'gemini-flash';
-    // if (isGeminiProSelected) return 'gemini-pro';
-    return 'basic';
-  };
-  const currentMode = getCurrentDisplayMode();
 
   const handleBasicClick = useCallback(() => {
     if (basicModel) {
@@ -110,65 +110,16 @@ export const ModeIndicator = memo(function ModeIndicator() {
         setIsOpen(false);
         usePricingModalStore.getState().openPricingModal({
           isAlert: true,
-          alertTitle: 'Upgrade to access SuperAgent Advanced mode',
+          alertTitle: 'Upgrade to access Kortix Advanced mode',
         });
       }
     }
   }, [powerModel, canAccessPower, handleModelChange]);
 
-  // const handleGeminiClick = useCallback((model: typeof geminiFlash, canAccess: boolean) => {
-  //   if (model) {
-  //     if (canAccess) {
-  //       handleModelChange(model.id);
-  //       setIsOpen(false);
-  //     } else {
-  //       setIsOpen(false);
-  //       usePricingModalStore.getState().openPricingModal({
-  //         isAlert: true,
-  //         alertTitle: 'Upgrade to access this model',
-  //       });
-  //     }
-  //   }
-  // }, [handleModelChange]);
-
-  // Render the trigger content based on current selection
-  const renderTriggerContent = () => {
-    // if (currentMode === 'gemini-flash') {
-    //   return (
-    //     <>
-    //       <Sparkles className="h-4 w-4 text-blue-500" />
-    //       <span className="text-sm font-medium">Gemini/Flash</span>
-    //     </>
-    //   );
-    // }
-    // if (currentMode === 'gemini-pro') {
-    //   return (
-    //     <>
-    //       <Sparkles className="h-4 w-4 text-blue-500" />
-    //       <span className="text-sm font-medium">Gemini/Pro</span>
-    //     </>
-    //   );
-    // }
-
-    if (currentMode === 'advanced') {
-      return (
-        <>
-          <img src="/kortix-symbol.svg" alt="SuperAgent Advanced" className="h-4 w-4" />
-          <span className="text-sm font-medium">Advanced</span>
-        </>
-      );
-    }
-
-    if (currentMode === 'basic') {
-      return (
-        <>
-          <img src="/kortix-symbol.svg" alt="SuperAgent Basic" className="h-4 w-4" />
-          <span className="text-sm font-medium">Basic</span>
-        </>
-      );
-    }
-    // return <ModeLogo mode={currentMode === 'advanced' ? 'advanced' : 'basic'} height={14} />;
-  };
+  const handleOtherModelClick = useCallback((modelId: string) => {
+    handleModelChange(modelId);
+    setIsOpen(false);
+  }, [handleModelChange]);
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
@@ -179,7 +130,7 @@ export const ModeIndicator = memo(function ModeIndicator() {
             'hover:bg-accent/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
           )}
         >
-          {renderTriggerContent()}
+          <ModeLogo mode={isPowerSelected ? 'advanced' : 'basic'} height={14} />
           <ChevronDown className={cn(
             "h-4 w-4 text-muted-foreground transition-transform duration-200",
             isOpen && "rotate-180"
@@ -203,9 +154,8 @@ export const ModeIndicator = memo(function ModeIndicator() {
           onClick={handleBasicClick}
         >
           <div className="flex-1 min-w-0">
-            <div className="mb-1 flex items-center gap-2">
-              <img src="/kortix-symbol.svg" alt="SuperAgent Basic" className="h-4 w-4" />
-              <span className="text-sm font-semibold">Basic</span>
+            <div className="mb-1">
+              <ModeLogo mode="basic" height={14} />
             </div>
             <div className="text-xs text-muted-foreground leading-relaxed">Fast and efficient for quick tasks</div>
           </div>
@@ -225,9 +175,8 @@ export const ModeIndicator = memo(function ModeIndicator() {
           onClick={handleAdvancedClick}
         >
           <div className="flex-1 min-w-0">
-            <div className="mb-1 flex items-center gap-2">
-              <img src="/kortix-symbol.svg" alt="SuperAgent Advanced" className="h-4 w-4" />
-              <span className="text-sm font-semibold">Advanced</span>
+            <div className="mb-1">
+              <ModeLogo mode="advanced" height={14} />
             </div>
             <div className="text-xs text-muted-foreground leading-relaxed">Maximum intelligence for complex work</div>
           </div>
@@ -238,62 +187,44 @@ export const ModeIndicator = memo(function ModeIndicator() {
           ) : null}
         </div>
 
-        {/* Gemini Models Separator */}
-        {/* {(geminiFlash || geminiPro) && (
-          <DropdownMenuSeparator className="my-2" />
-        )} */}
-
-        {/* Gemini Flash */}
-        {/* {geminiFlash && (
-          <div
-            className={cn(
-              'flex items-start gap-3 px-3 py-3 cursor-pointer rounded-lg transition-all duration-150 mb-1.5',
-              isGeminiFlashSelected 
-                ? 'bg-accent' 
-                : 'hover:bg-accent/50 active:bg-accent/70'
-            )}
-            onClick={() => handleGeminiClick(geminiFlash, canAccessGeminiFlash)}
-          >
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                <Sparkles className="h-4 w-4 text-blue-500" />
-                <span className="text-sm font-semibold">Gemini/Flash</span>
-              </div>
-              <div className="text-xs text-muted-foreground leading-relaxed">Google's fast multimodal model with thinking</div>
+        {/* All Models Section - Only in staging/local mode */}
+        {showAllModelsOption && otherModels.length > 0 && (
+          <>
+            <Separator className="my-2" />
+            <div className="px-2 py-1 text-xs font-medium text-muted-foreground flex items-center gap-2">
+              <span>All Models</span>
+              <span className="text-[10px] px-1.5 py-0.5 bg-amber-500/10 text-amber-600 dark:text-amber-500 rounded-md">
+                Staging
+              </span>
             </div>
-            {isGeminiFlashSelected ? (
-              <Check className="h-4 w-4 text-foreground flex-shrink-0 mt-0.5" strokeWidth={2} />
-            ) : !canAccessGeminiFlash ? (
-              <Lock className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" strokeWidth={2} />
-            ) : null}
-          </div>
-        )} */}
-
-        {/* Gemini 3 Pro Preview */}
-        {/* {geminiPro && (
-          <div
-            className={cn(
-              'flex items-start gap-3 px-3 py-3 cursor-pointer rounded-lg transition-all duration-150',
-              isGeminiProSelected 
-                ? 'bg-accent' 
-                : 'hover:bg-accent/50 active:bg-accent/70'
-            )}
-            onClick={() => handleGeminiClick(geminiPro, canAccessGeminiPro)}
-          >
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                <Sparkles className="h-4 w-4 text-blue-500" />
-                <span className="text-sm font-semibold">Gemini/Pro</span>
-              </div>
-              <div className="text-xs text-muted-foreground leading-relaxed">Advanced reasoning with extended thinking</div>
+            <div className="max-h-[200px] overflow-y-auto">
+              {otherModels.map((model) => {
+                const isSelected = selectedModel === model.id;
+                
+                return (
+                  <div
+                    key={model.id}
+                    className={cn(
+                      'flex items-center gap-3 px-3 py-2 cursor-pointer rounded-lg transition-all duration-150 my-0.5',
+                      isSelected 
+                        ? 'bg-accent' 
+                        : 'hover:bg-accent/50 active:bg-accent/70'
+                    )}
+                    onClick={() => handleOtherModelClick(model.id)}
+                  >
+                    <ModelProviderIcon modelId={model.id} size={20} />
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-medium truncate">{model.label}</div>
+                    </div>
+                    {isSelected && (
+                      <Check className="h-4 w-4 text-foreground flex-shrink-0" strokeWidth={2} />
+                    )}
+                  </div>
+                );
+              })}
             </div>
-            {isGeminiProSelected ? (
-              <Check className="h-4 w-4 text-foreground flex-shrink-0 mt-0.5" strokeWidth={2} />
-            ) : !canAccessGeminiPro ? (
-              <Lock className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" strokeWidth={2} />
-            ) : null}
-          </div>
-        )} */}
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
