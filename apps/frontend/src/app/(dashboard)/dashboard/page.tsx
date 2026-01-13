@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { DashboardContent } from "../../../components/dashboard/dashboard-content";
+// import { DashboardContentNew } from "../../../components/dashboard/dashboard-content-new";
 import { BackgroundAALChecker } from "@/components/auth/background-aal-checker";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";

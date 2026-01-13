@@ -11,7 +11,7 @@ import { createClient } from '@/lib/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { clearUserLocalStorage } from '@/lib/utils/clear-local-storage';
-import { useSunaModesStore } from '@/lib/stores/suna-modes-store';
+import { useSunaModesStore } from '@/stores/suna-modes-store';
 import { useRouter } from 'next/navigation';
 // Auth tracking moved to AuthEventTracker component (handles OAuth redirects)
 

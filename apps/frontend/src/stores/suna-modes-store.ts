@@ -6,11 +6,15 @@ interface SunaModesState {
   selectedCharts: string[];
   selectedOutputFormat: string | null;
   selectedTemplate: string | null;
+  subType: string | null;
+  initialParameters: Record<string, any> | null;
   
   setSelectedMode: (mode: string | null) => void;
   setSelectedCharts: (charts: string[]) => void;
   setSelectedOutputFormat: (format: string | null) => void;
   setSelectedTemplate: (template: string | null) => void;
+  setSubType: (subType: string | null) => void;
+  setInitialParameters: (parameters: Record<string, any> | null) => void;
 }
 
 export const useSunaModesStore = create<SunaModesState>()(
@@ -20,9 +24,13 @@ export const useSunaModesStore = create<SunaModesState>()(
       selectedCharts: [],
       selectedOutputFormat: null,
       selectedTemplate: null,
+      subType: null,
+      initialParameters: null,
       
       setSelectedMode: (mode: string | null) => {
         set({ selectedMode: mode });
+        // Reset subtype/params whenever mode changes (matches legacy behavior)
+        set({ subType: null, initialParameters: null });
         
         // Reset data-specific selections when mode changes
         if (mode !== 'data') {
@@ -31,6 +39,10 @@ export const useSunaModesStore = create<SunaModesState>()(
         if (mode !== 'slides') {
           set({ selectedTemplate: null });
         }
+      },
+
+      setSubType: (subType: string | null) => {
+        set({ subType });
       },
       
       setSelectedCharts: (charts: string[]) => {
@@ -43,6 +55,10 @@ export const useSunaModesStore = create<SunaModesState>()(
       
       setSelectedTemplate: (template: string | null) => {
         set({ selectedTemplate: template });
+      },
+
+      setInitialParameters: (parameters: Record<string, any> | null) => {
+        set({ initialParameters: parameters });
       },
     }),
     {
@@ -70,6 +86,10 @@ export function useSunaModePersistence() {
     setSelectedCharts: store.setSelectedCharts,
     setSelectedOutputFormat: store.setSelectedOutputFormat,
     setSelectedTemplate: store.setSelectedTemplate,
+    subType: store.subType,
+    setSubType: store.setSubType,
+    initialParameters: store.initialParameters,
+    setInitialParameters: store.setInitialParameters,
   };
 }
 
