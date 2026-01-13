@@ -50,6 +50,16 @@ class ModelRegistry:
         # Register Haiku Bedrock ARN pricing for billing resolution
         self._litellm_id_to_pricing[HAIKU_BEDROCK_ARN] = HAIKU_PRICING
 
+        # Claude Sonnet 4.5 pricing (used for billing resolution).
+        # Note: We only define input/output here. Cache pricing will fall back to
+        # input pricing when not specified (see ModelPricing properties).
+        sonnet_4_5_pricing = ModelPricing(
+            input_cost_per_million_tokens=3.00,
+            output_cost_per_million_tokens=15.00,
+        )
+        self._litellm_id_to_pricing[SONNET_BEDROCK_ARN] = sonnet_4_5_pricing
+        self._litellm_id_to_pricing["anthropic/claude-sonnet-4-5-20250929"] = sonnet_4_5_pricing
+
         # === Google Gemini 3 pricing (Google provider via LiteLLM) ===
         # Note: we intentionally do NOT use OpenRouter for these defaults.
         # Pricing reference can be verified on OpenRouter model cards, but the provider used is Google.
@@ -122,26 +132,35 @@ class ModelRegistry:
             config=ModelConfig()
         ))
         
-        # SuperAgent Power - using Google Gemini 3 Pro (Google provider)
-        # Anthropic: power_litellm_id = build_bedrock_profile_arn(HAIKU_4_5_PROFILE_ID) if SHOULD_USE_BEDROCK else "anthropic/claude-haiku-4-5-20251001"
-        power_litellm_id = "gemini/gemini-3-pro-preview"  # 1M context $2.00/M input tokens $12.00/M output tokens
+        # SuperAgent Power - using Claude Sonnet 4.5.
+        # Environment routing:
+        # - STAGING/PRODUCTION: Bedrock inference profile ARN
+        # - LOCAL: Anthropic direct API
+        power_litellm_id = (
+            SONNET_BEDROCK_ARN
+            if SHOULD_USE_BEDROCK
+            else "anthropic/claude-sonnet-4-5-20250929"
+        )
         
         self.register(Model(
             id="kortix/power",
             name="SuperAgent Advanced Mode",
             litellm_model_id=power_litellm_id,
-            provider=ModelProvider.GOOGLE,
+            provider=ModelProvider.BEDROCK if SHOULD_USE_BEDROCK else ModelProvider.ANTHROPIC,
             aliases=[
                 "kortix-power",
                 "Kortix POWER Mode",
                 "Kortix Power",
                 "Kortix Advanced Mode",
                 "google/gemini-3-pro-preview",  # legacy slug (do not send to LiteLLM)
+                "anthropic/claude-sonnet-4-5-20250929",
+                "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+                SONNET_BEDROCK_ARN,
                 "superagent-power",
                 "SuperAgent Power",
                 "SuperAgent Advanced Mode"
             ],
-            context_window=1_000_000,
+            context_window=200_000,
             capabilities=[
                 ModelCapability.CHAT,
                 ModelCapability.FUNCTION_CALLING,
@@ -149,7 +168,7 @@ class ModelRegistry:
                 ModelCapability.THINKING,
                 # NOTE: Prompt caching disabled for Gemini (see comment in kortix/basic).
             ],
-            pricing=gemini_3_pro_pricing,
+            pricing=sonnet_4_5_pricing,
             tier_availability=["paid"],
             priority=101,
             recommended=True,
