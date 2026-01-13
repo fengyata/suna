@@ -11,6 +11,8 @@ import { createClient } from '@/lib/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { clearUserLocalStorage } from '@/lib/utils/clear-local-storage';
+import { useSunaModesStore } from '@/lib/stores/suna-modes-store';
+import { useRouter } from 'next/navigation';
 // Auth tracking moved to AuthEventTracker component (handles OAuth redirects)
 
 type AuthContextType = {
@@ -28,6 +30,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const getInitialSession = async () => {
@@ -81,6 +84,44 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       console.error('❌ Error signing out:', error);
     }
   };
+
+  const { selectedMode, setSelectedMode } = useSunaModesStore()
+  useEffect(() => {
+
+    const handleMessage = (event: MessageEvent) => {
+      // console.log('Received message:', event.data);
+      let data = event.data
+      if (data.type == 'send_text') {
+        sessionStorage.setItem('send_text', data.data.send_text)
+      }
+      // TODO: add init_superagent_data
+      // if(data.type == 'init_superagent_data'){
+      //   GlobalUserInfo.mainProjectData = {
+      //     ...GlobalUserInfo.mainProjectData,
+      //     ...data.data
+      //   }
+      //   console.log('init_superagent_data', GlobalUserInfo)
+      // }
+      if(data.type == 'superagent_router'){
+        router.push(data.data.path)
+      }
+      if(data.type == 'superagent_selected_mode'){
+        setSelectedMode(data.data.mode)
+        router.push('/dashboard')
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    window.parent.postMessage({
+      type: 'SUB_PROJECT_READY',
+      message: '子项目已初始化完成',
+      timestamp: Date.now(),
+    }, '*');
+
+    return () => {
+      window.removeEventListener('message', handleMessage);
+    };
+  }, []);
 
   const value = {
     supabase,

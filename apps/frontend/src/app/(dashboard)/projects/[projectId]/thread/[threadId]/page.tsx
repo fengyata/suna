@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ThreadComponent } from '@/components/thread/ThreadComponent';
 
 export default function ThreadPage({
@@ -13,6 +13,14 @@ export default function ThreadPage({
 }) {
   const unwrappedParams = React.use(params);
   const { projectId, threadId } = unwrappedParams;
+  useEffect(() => {
+    window.parent.postMessage({
+      type: 'superagent_history_select',
+      data: {
+        threadId
+      },
+    }, '*');
+  },[])
 
   return <ThreadComponent projectId={projectId} threadId={threadId} />;
 }
