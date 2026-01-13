@@ -5,6 +5,7 @@ export type DashboardModeId =
   | 'video'
   | 'research'
   | 'ads'
+  | 'aicall'
   | 'slides'
   | 'data'
   | 'website'

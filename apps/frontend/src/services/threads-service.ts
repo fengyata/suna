@@ -82,7 +82,7 @@ export async function fetchAccountId(request: NextRequest): Promise<string | nul
 
 function getSupabaseAdminClient(): SupabaseClient {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const serviceRoleKey = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url) {
     throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL');
@@ -110,6 +110,8 @@ export async function listThreads(params: {
   const limit = Number.isFinite(params.limit) && params.limit > 0 ? Math.min(params.limit, 200) : 20;
 
   const accountId = await fetchAccountId(request);
+
+  console.log('accountId', accountId);
   if (!accountId) {
     return {
       threads: [],

@@ -4,22 +4,22 @@ import React, { useMemo } from 'react';
 import {
   Image as ImageIcon,
   Video as VideoIcon,
-  Mic,
   LineChart,
   UserCheck,
   Briefcase,
-  Database,
+  Users,
   MapPin,
   Share2,
   Search,
   Rocket,
   Presentation,
-  Layout,
+  FileCodeIcon,
   ExternalLink,
   type LucideIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { DashboardModeAction, DashboardModeCard, DashboardModeId } from './types';
+import { useTranslations } from 'next-intl';
 
 function ModeCardIcon({
   Icon,
@@ -39,107 +39,95 @@ export function ModeCards(props: {
   onAction: (action: DashboardModeAction) => void;
   className?: string;
 }) {
+  const t = useTranslations('dashboard');
   const cards = useMemo<DashboardModeCard[]>(() => {
     const flashrev = process.env.NEXT_PUBLIC_FLASHREV_FRONTEND;
 
     return [
       {
         id: 'image',
-        title: 'Visuals',
-        description: 'Marketing assets',
+        title: t('image'),
+        description: t('marketing_assets'),
         icon: ImageIcon,
         accentClassName: 'bg-purple-100 text-purple-600 group-hover:scale-110',
         action: { type: 'select_mode', mode: 'image' },
       },
       {
         id: 'video',
-        title: 'Video Studio',
-        description: 'Demos & outreach',
+        title: t('video_studio'),
+        description: t('demos_outreach'),
         icon: VideoIcon,
         accentClassName: 'bg-red-100 text-red-600 group-hover:scale-110',
         action: { type: 'select_mode', mode: 'video' },
       },
       {
-        id: 'meeting_agent',
-        title: 'Meeting Agent',
-        description: 'Insights & transcripts',
-        icon: Mic,
-        accentClassName: 'bg-pink-100 text-pink-600 group-hover:scale-110',
-        action: {
-          type: 'external',
-          url: flashrev ? `${flashrev}/engage/meetings/foryou` : '#',
-          target: '_blank',
-        },
-        external: true,
-      },
-      {
         id: 'pipeline',
-        title: 'Pipeline Manager',
-        description: 'Forecasting & deal QA',
+        title: t('pipeline_manager'),
+        description: t('forecasting_deal_qa'),
         icon: LineChart,
         accentClassName: 'bg-emerald-100 text-emerald-600 group-hover:scale-110',
         action: { type: 'select_mode', mode: 'pipeline' },
       },
       {
         id: 'ae',
-        title: 'Account Executive',
-        description: 'Full-cycle sales agent',
+        title: t('account_executive'),
+        description: t('full_cycle_sales_agent'),
         icon: UserCheck,
         accentClassName: 'bg-blue-100 text-blue-600 group-hover:scale-110',
         action: { type: 'select_mode', mode: 'ae' },
       },
       {
         id: 'strategist',
-        title: 'Deal Strategist',
-        description: 'Negotiation & closers',
+        title: t('deal_strategist'),
+        description: t('negotiation_closers'),
         icon: Briefcase,
         accentClassName: 'bg-emerald-100 text-emerald-600 group-hover:scale-110',
         action: { type: 'select_mode', mode: 'strategist' },
       },
       {
         id: 'people',
-        title: 'Data Analyst',
-        description: 'Cleaning & enrichment',
-        icon: Database,
+        title: t('data_analyst'),
+        description: t('cleaning_enrichment'),
+        icon: Users,
         accentClassName: 'bg-cyan-100 text-cyan-600 group-hover:scale-110',
         action: { type: 'select_mode', mode: 'people' },
       },
       {
         id: 'icp',
-        title: 'Territory & Persona',
-        description: 'ICP & market planning',
+        title: t('territory_persona'),
+        description: t('icp_market_planning'),
         icon: MapPin,
         accentClassName: 'bg-purple-100 text-purple-600 group-hover:scale-110',
         action: { type: 'select_mode', mode: 'icp' },
       },
       {
         id: 'socialselling',
-        title: 'Social Selling',
-        description: 'Brand content',
+        title: t('social_selling'),
+        description: t('brand_content'),
         icon: Share2,
         accentClassName: 'bg-indigo-100 text-indigo-600 group-hover:scale-110',
         action: { type: 'select_mode', mode: 'socialselling' },
       },
       {
         id: 'research',
-        title: 'Deep Research',
-        description: 'Market intel & reports',
+        title: t('deep_research'),
+        description: t('market_intel_reports'),
         icon: Search,
         accentClassName: 'bg-teal-100 text-teal-600 group-hover:scale-110',
         action: { type: 'select_mode', mode: 'research' },
       },
       {
         id: 'ads',
-        title: 'Ad Studio',
-        description: 'Ads creative & ROI',
+        title: t('ad_studio'),
+        description: t('ads_creative_roi'),
         icon: Rocket,
         accentClassName: 'bg-rose-100 text-rose-600 group-hover:scale-110',
         action: { type: 'select_mode', mode: 'ads' },
       },
       {
         id: 'gtm_decks',
-        title: 'GTM Decks',
-        description: 'Proposals & QBRs',
+        title: t('gtm_decks'),
+        description: t('proposals_qbrs'),
         icon: Presentation,
         accentClassName: 'bg-orange-100 text-orange-600 group-hover:scale-110',
         action: {
@@ -151,14 +139,14 @@ export function ModeCards(props: {
       },
       {
         id: 'website',
-        title: 'Web App',
-        description: 'Landing pages & sites',
-        icon: Layout,
+        title: t('website'),
+        description: t('landing_pages_sites'),
+        icon: FileCodeIcon,
         accentClassName: 'bg-indigo-100 text-indigo-600 group-hover:scale-110',
         action: { type: 'select_mode', mode: 'website' },
       },
     ];
-  }, []);
+  }, [t]);
 
   return (
     <div className={cn('w-full', props.className)}>

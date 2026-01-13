@@ -13,6 +13,7 @@ import { SupabaseClient } from '@supabase/supabase-js';
 import { clearUserLocalStorage } from '@/lib/utils/clear-local-storage';
 import { useSunaModesStore } from '@/stores/suna-modes-store';
 import { useRouter } from 'next/navigation';
+import { checkToken } from '@/lib/utils/request';
 // Auth tracking moved to AuthEventTracker component (handles OAuth redirects)
 
 type AuthContextType = {
@@ -21,16 +22,30 @@ type AuthContextType = {
   user: User | null;
   isLoading: boolean;
   signOut: () => Promise<void>;
+  userInfo: GlobalUserInfoType
 };
 
+type GlobalUserInfoType = {
+  companyId:string
+  companyUuid: string
+  userId: string
+  userRole: string
+  userInfo: any
+  vip: any
+  mainProjectData?: any
+}
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export let GlobalUserInfo:GlobalUserInfoType = {} as GlobalUserInfoType //全局GlobalUserInfo
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const router = useRouter();
   const supabase = createClient();
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
+  const [userInfo, setUserInfo] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const getInitialSession = async () => {
@@ -123,12 +138,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
   }, []);
 
+  useEffect(() => {
+    setLoading(true)
+    checkToken().then(res => {
+      if (res.code == 200) {
+        GlobalUserInfo = res.data;
+        setUserInfo(res.data)
+      } else {
+        setUserInfo(null)
+      }
+    }).finally(() => {
+      setLoading(false)
+    })
+  }, [])
+
   const value = {
     supabase,
     session,
     user,
     isLoading,
     signOut,
+    userInfo,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

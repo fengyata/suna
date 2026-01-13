@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { ChatInput } from '@/components/thread/chat-input/chat-input';
 import { useAgentStartInput, UseAgentStartInputOptions } from '@/hooks/dashboard';
 import { useTranslations } from 'next-intl';
@@ -24,6 +24,10 @@ export interface AgentStartInputProps {
   variant?: 'hero' | 'dashboard';
   /** Custom placeholder text */
   placeholder?: string;
+  /** 外部注入 prompt（用于 dashboard 模板点击回填）；不传则保持原行为 */
+  externalPrompt?: string | null;
+  /** 外部 prompt 版本号：用于重复点击同一模板也能触发回填 */
+  externalPromptNonce?: number;
   /** Whether this component is for logged-in users only */
   requireAuth?: boolean;
   /** Callback when auth is required but user is not logged in */
@@ -61,6 +65,8 @@ export interface AgentStartInputProps {
 export function AgentStartInput({
   variant = 'dashboard',
   placeholder,
+  externalPrompt,
+  externalPromptNonce,
   requireAuth = true,
   onAuthRequired,
   redirectOnError,
@@ -151,6 +157,20 @@ export function AgentStartInput({
   const defaultGreetingClass = variant === 'hero'
     ? "text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-medium text-balance text-center px-4 sm:px-2"
     : "text-2xl sm:text-2xl md:text-3xl font-normal text-foreground/90";
+
+  // 支持外部模板点击回填 prompt
+  useEffect(() => {
+    if (typeof externalPrompt !== 'string') return;
+    if (!externalPrompt) return;
+    // 如果外部传了 nonce，则以 nonce 为准强制回填（允许重复点击同一个 prompt）
+    if (typeof externalPromptNonce === 'number') {
+      setInputValue(externalPrompt);
+      return;
+    }
+    // 否则保持轻量行为：仅在值不同的时候回填
+    if (externalPrompt === inputValue) return;
+    setInputValue(externalPrompt);
+  }, [externalPrompt, externalPromptNonce, inputValue, setInputValue]);
   
   return (
     <>
@@ -229,7 +249,7 @@ export function AgentStartInput({
       </div>
       
       {/* Suna Modes Panel */}
-      {showModesPanel && isSunaAgent && (
+      {/* {showModesPanel && isSunaAgent && (
         <div className={modesPanelWrapperClassName || "w-full animate-in fade-in-0 slide-in-from-bottom-4 duration-500 delay-200 fill-mode-both"}>
           <Suspense fallback={<div className="h-24 bg-muted/10 rounded-lg animate-pulse" />}>
             <SunaModesPanel
@@ -249,7 +269,7 @@ export function AgentStartInput({
           </Suspense>
         </div>
       )}
-      
+       */}
       {/* Agent Run Limit Banner */}
       {agentLimitData && (
         <Suspense fallback={null}>
