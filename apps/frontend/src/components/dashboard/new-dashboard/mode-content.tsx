@@ -158,12 +158,6 @@ export function ModeContent(props: {
             onPromptSelect={handlePromptSelect}
           />
         )}
-
-        {(mode === 'slides' || mode === 'meeting_agent' || mode === 'gtm_decks') && (
-          <div className="mt-4 text-sm text-gray-600">
-            当前项目中该模式不提供独立面板；你仍可在下方直接输入需求。
-          </div>
-        )}
       </div>
     </div>
   );

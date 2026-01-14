@@ -1,6 +1,7 @@
 'use client';
 
-import { X, ExternalLink, LucideIcon } from 'lucide-react';
+import { X, ExternalLink } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';

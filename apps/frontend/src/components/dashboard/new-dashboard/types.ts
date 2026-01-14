@@ -16,7 +16,8 @@ export type DashboardModeId =
   | 'icp'
   | 'socialselling'
   | 'meeting_agent'
-  | 'slides';
+  | 'slides'
+  | 'gtm_decks';
 
 export type DashboardModeAction =
   | { type: 'select_mode'; mode: DashboardModeId }
