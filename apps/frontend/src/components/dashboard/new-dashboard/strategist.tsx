@@ -6,7 +6,7 @@ import type { ModePanelProps } from './mode-panel-props';
 
 export function StrategistModePanel({ onPromptSelect }: ModePanelProps) {
   return (
-    <div className="max-w-6xl mx-auto px-4 md:px-6 animate-fade-in mt-6">
+    <div className="max-w-6xl mx-auto px-4 md:px-6 animate-fade-in">
       <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-6 mb-8 flex items-start gap-4">
         <div className="p-3 bg-emerald-100 rounded-lg text-emerald-700">
           <Briefcase size={24} />

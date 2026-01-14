@@ -249,7 +249,7 @@ export function AgentStartInput({
       </div>
       
       {/* Suna Modes Panel */}
-      {/* {showModesPanel && isSunaAgent && (
+      {showModesPanel && isSunaAgent && (
         <div className={modesPanelWrapperClassName || "w-full animate-in fade-in-0 slide-in-from-bottom-4 duration-500 delay-200 fill-mode-both"}>
           <Suspense fallback={<div className="h-24 bg-muted/10 rounded-lg animate-pulse" />}>
             <SunaModesPanel
@@ -269,7 +269,7 @@ export function AgentStartInput({
           </Suspense>
         </div>
       )}
-       */}
+      
       {/* Agent Run Limit Banner */}
       {agentLimitData && (
         <Suspense fallback={null}>

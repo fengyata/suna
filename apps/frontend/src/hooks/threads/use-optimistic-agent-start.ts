@@ -26,6 +26,10 @@ export interface OptimisticAgentStartOptions {
   modeStarter?: string;
   /** Mode for backend context (slides, sheets, docs, canvas, video, research) */
   mode?: string;
+  /** Dashboard-mode specific sub type (e.g. image style, video style) */
+  subType?: string;
+  /** Dashboard-mode specific initial parameters to send to backend */
+  initialParameters?: Record<string, any>;
 }
 
 export interface OptimisticAgentStartResult {
@@ -140,7 +144,7 @@ export function useOptimisticAgentStart(
   const startAgent = useCallback(async (
     options: OptimisticAgentStartOptions
   ): Promise<OptimisticAgentStartResult | null> => {
-    const { message, fileIds = [], modelName, agentId, modeStarter, mode } = options;
+    const { message, fileIds = [], modelName, agentId, modeStarter, mode, subType, initialParameters } = options;
     
     const trimmedMessage = message.trim();
     if (!trimmedMessage && fileIds.length === 0) {
@@ -184,6 +188,8 @@ export function useOptimisticAgentStart(
         model_name: modelName,
         agent_id: agentId || undefined,
         mode: mode,
+        sub_type: subType,
+        initial_parameters: initialParameters,
       }).then((response) => {
         console.log('[OptimisticAgentStart] API succeeded, response:', response);
         

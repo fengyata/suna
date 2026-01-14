@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Layout, Megaphone, Building, Globe, ArrowUp } from 'lucide-react';
+import { Layout, Megaphone, Building, Globe, ArrowUp, FileCodeIcon } from 'lucide-react';
 import type { ModePanelProps } from './mode-panel-props';
 
 const WEBSITE_TEMPLATES: Array<{
@@ -44,20 +44,20 @@ const WEBSITE_TEMPLATES: Array<{
 
 export function WebsiteModePanel({ onPromptSelect }: ModePanelProps) {
   return (
-    <div className="max-w-6xl mx-auto px-4 md:px-6 animate-fade-in mt-6">
+    <div className="max-w-6xl mx-auto px-4 md:px-6 animate-fade-in">
       <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-6 mb-8 flex items-start gap-4">
         <div className="p-3 bg-indigo-100 rounded-lg text-indigo-700">
-          <Layout size={24} />
+          <FileCodeIcon size={24} />
         </div>
         <div>
-          <h3 className="text-lg font-bold text-indigo-900">Website / Web App Builder</h3>
+          <h3 className="text-lg font-bold text-indigo-900">Website</h3>
           <p className="text-indigo-700 text-sm mt-1">Generate high-converting landing pages and functional web apps with AI.</p>
         </div>
       </div>
 
       <div>
         <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">Template library</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {WEBSITE_TEMPLATES.map((cat) => (
             <div key={cat.category} className="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-md transition-all">
               <div className="flex items-center gap-2 mb-4">

@@ -9,6 +9,9 @@ import {
   Smartphone,
   MonitorPlay,
   Rocket,
+  Languages,
+  Award,
+  Sparkles,
   Users,
   MousePointerClick,
   Link as LinkIcon,
@@ -32,12 +35,28 @@ const AD_PLATFORMS = [
 ];
 
 const TARGET_LANGUAGES = [
-  { code: 'zh', label: 'Chinese' },
-  { code: 'en', label: 'English' },
-  { code: 'ja', label: 'Japanese' },
-  { code: 'ko', label: 'Korean' },
   { code: 'es', label: 'Spanish' },
   { code: 'fr', label: 'French' },
+  { code: 'de', label: 'German' },
+  { code: 'ja', label: 'Japanese' },
+  { code: 'pt', label: 'Portuguese' },
+  { code: 'it', label: 'Italian' },
+  { code: 'zh', label: 'Chinese' },
+  { code: 'ko', label: 'Korean' },
+  { code: 'ar', label: 'Arabic' },
+  { code: 'nl', label: 'Dutch' },
+  { code: 'sv', label: 'Swedish' },
+  { code: 'no', label: 'Norwegian' },
+  { code: 'da', label: 'Danish' },
+  { code: 'fi', label: 'Finnish' },
+  { code: 'hi', label: 'Hindi' },
+  { code: 'ru', label: 'Russian' },
+  { code: 'tr', label: 'Turkish' },
+  { code: 'pl', label: 'Polish' },
+  { code: 'id', label: 'Indonesian' },
+  { code: 'th', label: 'Thai' },
+  { code: 'vi', label: 'Vietnamese' },
+  { code: 'el', label: 'Greek' },
 ];
 
 const AD_FORMATS = [
@@ -47,7 +66,16 @@ const AD_FORMATS = [
   { name: 'Story', icon: <Film size={16} /> },
 ];
 
-const AD_VISUAL_STYLES = ['Minimalist', 'Bold & Vibrant', 'Professional', 'Playful', 'Luxury', 'Futuristic', 'Corporate'];
+const AD_VISUAL_STYLES = [
+  'Minimalist',
+  'Bold & Vibrant',
+  'Professional',
+  'Playful',
+  'Luxury',
+  'Futuristic',
+  'Hand-Drawn',
+  'Corporate',
+];
 
 export function AdsModePanel({ mode, setInitialParameters, onPromptSelect }: ModePanelProps) {
   const [adProductUrl, setAdProductUrl] = useState('');
@@ -145,7 +173,7 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 md:px-6 animate-fade-in mt-6">
+    <div className="max-w-6xl mx-auto px-4 md:px-6 animate-fade-in">
       <div className="bg-rose-50 border border-rose-100 rounded-xl p-6 mb-8 flex items-start gap-4 shadow-sm">
         <div className="p-3 bg-rose-100 rounded-lg text-rose-700">
           <Rocket size={24} />
@@ -171,11 +199,21 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="text-xs font-semibold text-gray-500 mb-1.5 block">Product landing page URL</label>
-                  <Input value={adProductUrl} onChange={(e) => setAdProductUrl(e.target.value)} placeholder="https://..." />
+                  <Input
+                    value={adProductUrl}
+                    onChange={(e) => setAdProductUrl(e.target.value)}
+                    placeholder="https://..."
+                    className="focus:ring-2 focus:ring-rose-100 focus:border-rose-300"
+                  />
                 </div>
                 <div>
                   <label className="text-xs font-semibold text-gray-500 mb-1.5 block">Competitor URL</label>
-                  <Input value={adCompetitorUrl} onChange={(e) => setAdCompetitorUrl(e.target.value)} placeholder="https://..." />
+                  <Input
+                    value={adCompetitorUrl}
+                    onChange={(e) => setAdCompetitorUrl(e.target.value)}
+                    placeholder="https://..."
+                    className="focus:ring-2 focus:ring-rose-100 focus:border-rose-300"
+                  />
                 </div>
               </div>
 
@@ -335,16 +373,18 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
                   <input
                     type="range"
                     min={1}
-                    max={10}
+                    max={5}
                     value={adCreativeCount}
                     onChange={(e) => setAdCreativeCount(Number(e.target.value))}
-                    className="w-full accent-rose-500"
+                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-rose-600 mt-2"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-gray-500 mb-2 block">Translate</label>
+                <label className="text-xs font-semibold text-gray-500 mb-3 block flex items-center gap-1">
+                  <Languages size={14} /> Mass translation
+                </label>
                 <div className="flex flex-wrap gap-2">
                   {TARGET_LANGUAGES.map((lang) => {
                     const active = adLanguages.has(lang.code);
@@ -354,8 +394,10 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
                         type="button"
                         onClick={() => toggleSingleLanguage(lang.code)}
                         className={cn(
-                          'px-3 py-1.5 rounded-full text-xs border transition-colors',
-                          active ? 'border-rose-300 bg-rose-50 text-rose-700' : 'border-gray-200 bg-white text-gray-600 hover:bg-gray-50',
+                          'text-[11px] font-medium px-3 py-1.5 rounded-full border transition-colors',
+                          active
+                            ? 'bg-rose-600 text-white border-rose-600 shadow-sm'
+                            : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300 hover:text-gray-700',
                         )}
                       >
                         {lang.label}
@@ -366,27 +408,39 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
               </div>
             </div>
           </div>
+
+          <button
+            type="button"
+            onClick={handleGeneratePrompt}
+            className="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl shadow-lg shadow-rose-200 transition-all flex items-center justify-center gap-2"
+          >
+            <Sparkles size={18} fill="currentColor" /> Generate concepts ({adCreativeCount})
+          </button>
         </div>
 
         {/* Right column */}
         <div className="space-y-6">
-          <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-            <h3 className="text-sm font-bold text-gray-800 mb-3 flex items-center gap-2">
-              <span className="w-6 h-6 bg-rose-100 text-rose-700 rounded-full flex items-center justify-center text-xs">
-                4
-              </span>
-              Generate
+          <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl p-6 text-white shadow-lg sticky top-20">
+            <h3 className="text-sm font-bold mb-4 flex items-center gap-2 text-yellow-400">
+              <Award size={16} /> Strategy applied
             </h3>
-            <button
-              type="button"
-              onClick={handleGeneratePrompt}
-              className="w-full py-3 bg-gray-900 hover:bg-black text-white font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
-            >
-              <Rocket size={16} /> Fill prompt
-            </button>
-            <p className="text-xs text-gray-500 mt-3">
-              Click to generate a structured prompt from the form and auto-fill the input box below.
+            <p className="text-xs text-slate-300 mb-4">
+              For every concept generated, we will automatically produce three variations.
             </p>
+            <div className="space-y-3">
+              <div className="bg-white/10 rounded-lg p-3 border border-white/5">
+                <div className="text-xs font-bold text-white mb-1">1. Scarcity &amp; urgency</div>
+                <div className="text-[10px] text-slate-400">FOMO, limited time offers, exclusive access hooks</div>
+              </div>
+              <div className="bg-white/10 rounded-lg p-3 border border-white/5">
+                <div className="text-xs font-bold text-white mb-1">2. Benefit-driven</div>
+                <div className="text-[10px] text-slate-400">Clear value proposition, problem-solution framing</div>
+              </div>
+              <div className="bg-white/10 rounded-lg p-3 border border-white/5">
+                <div className="text-xs font-bold text-white mb-1">3. Social proof</div>
+                <div className="text-[10px] text-slate-400">Testimonials, user numbers, trust indicators</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

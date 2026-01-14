@@ -128,6 +128,8 @@ export function useAgentStartInput(options: UseAgentStartInputOptions = {}): Use
     selectedCharts,
     selectedOutputFormat,
     selectedTemplate,
+    subType,
+    initialParameters,
     setSelectedMode,
     setSelectedCharts,
     setSelectedOutputFormat,
@@ -254,6 +256,10 @@ export function useAgentStartInput(options: UseAgentStartInputOptions = {}): Use
       fileIds: fileIds.length > 0 ? fileIds : undefined,
       modelName: options?.model_name,
       agentId: selectedAgentId || undefined,
+      // Pass mode context + initial parameters into backend request body
+      mode: selectedMode || undefined,
+      subType: subType || undefined,
+      initialParameters: initialParameters || undefined,
     });
 
     if (result) {

@@ -658,14 +658,14 @@ export function AgentConfigurationDialog({
 
                 <TabsContent value="instructions" className="p-6 mt-0 flex flex-col h-full">
                   <div className="flex flex-col flex-1 min-h-0">
-                    {isSunaAgent && (
+                    {/* {isSunaAgent && (
                       <Alert className="mb-4 bg-blue-50 border-blue-200 dark:bg-blue-950/20 dark:border-blue-900">
                         <Info className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                         <AlertDescription className="text-sm text-blue-800 dark:text-blue-300">
                           You can't edit the main Kortix, but you can create a new AI Worker that you can modify as you wish.
                         </AlertDescription>
                       </Alert>
-                    )}
+                    )} */}
                     <Label className="text-base font-semibold mb-3 block flex-shrink-0">System Prompt</Label>
                     <ExpandableMarkdownEditor
                       value={formData.system_prompt}
@@ -679,14 +679,14 @@ export function AgentConfigurationDialog({
 
                 <TabsContent value="tools" className="p-6 mt-0 flex flex-col h-full">
                   <div className="flex flex-col flex-1 min-h-0 h-full">
-                    {isSunaAgent && (
+                    {/* {isSunaAgent && (
                       <Alert className="mb-4 bg-blue-50 border-blue-200 dark:bg-blue-950/20 dark:border-blue-900">
                         <Info className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                         <AlertDescription className="text-sm text-blue-800 dark:text-blue-300">
                           You can't edit the main Kortix, but you can create a new AI Worker that you can modify as you wish.
                         </AlertDescription>
                       </Alert>
-                    )}
+                    )} */}
                     <GranularToolConfiguration
                       tools={formData.agentpress_tools}
                       onToolsChange={handleToolsChange}

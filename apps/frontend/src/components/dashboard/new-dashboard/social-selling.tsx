@@ -6,7 +6,7 @@ import type { ModePanelProps } from './mode-panel-props';
 
 export function SocialSellingModePanel({ onPromptSelect }: ModePanelProps) {
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-6 animate-fade-in mt-6">
+    <div className="max-w-7xl mx-auto px-4 md:px-6 animate-fade-in">
       <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-6 mb-8 flex items-start gap-4">
         <div className="p-3 bg-indigo-100 rounded-lg text-indigo-700">
           <Share2 size={24} />

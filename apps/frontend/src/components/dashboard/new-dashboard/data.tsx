@@ -6,7 +6,7 @@ import type { ModePanelProps } from './mode-panel-props';
 
 export function DataModePanel({ onPromptSelect }: ModePanelProps) {
   return (
-    <div className="max-w-6xl mx-auto px-4 md:px-6 animate-fade-in mt-6">
+    <div className="max-w-6xl mx-auto px-4 md:px-6 animate-fade-in">
       <div className="bg-cyan-50 border border-cyan-100 rounded-xl p-6 mb-8 flex items-start gap-4">
         <div className="p-3 bg-cyan-100 rounded-lg text-cyan-700">
           <Table size={24} />

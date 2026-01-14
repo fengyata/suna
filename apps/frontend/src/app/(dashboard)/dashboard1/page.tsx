@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { DashboardContentNew } from "../../../components/dashboard/dashboard-content-new";
+import { DashboardContent } from "../../../components/dashboard/dashboard-content";
 import { BackgroundAALChecker } from "@/components/auth/background-aal-checker";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -26,7 +26,7 @@ export default async function DashboardPage() {
           </div>
         }
       >
-        <DashboardContentNew />
+        <DashboardContent />
       </Suspense>
     </BackgroundAALChecker>
   );

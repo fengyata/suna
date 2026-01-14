@@ -183,7 +183,7 @@ const IsolatedTextarea = memo(forwardRef<HTMLTextAreaElement, IsolatedTextareaPr
         onPaste={onPaste}
         placeholder={placeholder}
         className={cn(
-          'w-full bg-transparent dark:bg-transparent border-none shadow-none focus-visible:ring-0 px-0.5 pb-6 pt-4 min-h-[100px] sm:min-h-[72px] max-h-[200px] overflow-y-auto resize-none rounded-[24px]',
+          'w-full bg-transparent dark:bg-transparent border-none shadow-none focus-visible:ring-0 px-0.5 pb-2 pt-2 min-h-[40px] sm:min-h-[40px] max-h-[200px] overflow-y-auto resize-none',
           // Use 16px on mobile to prevent zoom, 15px on desktop
           // Use Tailwind responsive classes to avoid hydration mismatch (same classes on server and client)
           '!text-[16px] sm:!text-[15px]',
@@ -1469,7 +1469,7 @@ export const ChatInput = memo(forwardRef<ChatInputHandles, ChatInputProps>(
             </button>
           )}
           <Card
-            className={`shadow-none w-full max-w-4xl mx-auto bg-transparent border-none overflow-visible py-0 pb-5 ${isSnackVisible ? 'mt-6' : ''} ${enableAdvancedConfig && selectedAgentId ? '' : 'rounded-3xl'} relative z-10`}
+            className={`shadow-none w-full max-w-4xl mx-auto bg-transparent border-none overflow-visible py-0 ${isSnackVisible ? 'mt-6' : ''} ${enableAdvancedConfig && selectedAgentId ? '' : 'rounded-3xl'} relative z-10`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={(e) => {

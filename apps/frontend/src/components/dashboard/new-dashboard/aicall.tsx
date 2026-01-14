@@ -17,7 +17,7 @@ export function AICallModePanel({ mode, setInitialParameters, onPromptSelect }: 
   }, [mode, scriptPrompt, setInitialParameters]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-6 animate-fade-in mt-6">
+    <div className="max-w-7xl mx-auto px-4 md:px-6 animate-fade-in">
       <div className="bg-lime-50 border border-lime-100 rounded-xl p-6 mb-8 flex items-start gap-4">
         <div className="p-3 bg-lime-100 rounded-lg text-lime-700">
           <PhoneCall size={24} />

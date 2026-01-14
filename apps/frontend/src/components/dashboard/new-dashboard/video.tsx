@@ -1,16 +1,15 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
-import { Film, Wand2 } from 'lucide-react';
+import Image from 'next/image';
+import { Film, RefreshCw } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { PromptExamples } from '@/components/shared/prompt-examples';
 import type { ModePanelProps } from './mode-panel-props';
-
-const VIDEO_PROMPTS: string[] = [
-  'Help me generate an advertising marketing video with cinematic product display, smooth rotating camera around luxury skincare bottle, dramatic lighting transitions, and elegant particle effects highlighting premium quality.',
-  'Generate a dynamic social media advertising video showcasing trendy fashion accessories, quick cuts between lifestyle shots, vibrant urban backgrounds, and energetic transitions with brand logo animations.',
-  'Generate a professional unboxing video with pristine white studio setup, hands carefully revealing tech products, close-up shots of premium materials, and satisfying unboxing moments.',
-  'Generate a tech product demonstration video showcasing smartphone interface, screen recording with gesture interactions, smooth animations, feature highlights, and futuristic visual effects.',
-];
+import { sunaModes, type SunaSamplePrompt } from '../suna-modes-data';
 
 const VIDEO_MODELS: Record<
   string,
@@ -58,26 +57,23 @@ function getSora2ModelVariant(params: { baseModel: string; duration: string; asp
   return params.baseModel;
 }
 
-export function VideoModePanel({ mode, setInitialParameters, onPromptSelect }: ModePanelProps) {
+function getRandomPrompts(prompts: SunaSamplePrompt[], count: number): SunaSamplePrompt[] {
+  const shuffled = [...prompts].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
+}
+
+export function VideoModePanel({ mode, subType, setSubType, setInitialParameters, onPromptSelect }: ModePanelProps) {
   const [model, setModel] = useState<string>('sora-2');
-  const [aspectRatio, setAspectRatio] = useState<string | null>(null);
-  const [duration, setDuration] = useState<string | null>(null);
-  const [resolution, setResolution] = useState<string | null>(null);
-  const [nums, setNums] = useState<string | null>(null);
+  const [randomizedPrompts, setRandomizedPrompts] = useState<SunaSamplePrompt[]>([]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const modelOptions = useMemo(() => Object.values(VIDEO_MODELS), []);
   const modelConfig = VIDEO_MODELS[model] ?? VIDEO_MODELS['sora-2'];
+  const videoMode = useMemo(() => sunaModes.find((m) => m.id === 'video') ?? null, []);
 
   useEffect(() => {
-    setAspectRatio(null);
-    setDuration(null);
-    setResolution(null);
-    setNums(null);
-  }, [model]);
-
-  useEffect(() => {
-    const resolvedAspect = aspectRatio || (modelConfig.aspect_ratio[0] ?? '16:9');
-    const resolvedDuration = duration || (modelConfig.duration[0] ?? '4');
+    const resolvedAspect = modelConfig.aspect_ratio[0] ?? '16:9';
+    const resolvedDuration = modelConfig.duration[0] ?? '4';
     const resolvedModel = getSora2ModelVariant({
       baseModel: model,
       duration: resolvedDuration,
@@ -88,15 +84,27 @@ export function VideoModePanel({ mode, setInitialParameters, onPromptSelect }: M
       model: resolvedModel,
       aspect_ratio: resolvedAspect,
       duration: resolvedDuration,
-      resolution: modelConfig.resolution.length > 0 ? resolution || modelConfig.resolution[0] : undefined,
-      nums: nums || String(modelConfig.nums[0] ?? 1),
+      resolution: modelConfig.resolution.length > 0 ? modelConfig.resolution[0] : undefined,
+      nums: String(modelConfig.nums[0] ?? 1),
       source_from: ['user'],
       mode,
     });
-  }, [mode, model, aspectRatio, duration, resolution, nums, modelConfig, setInitialParameters]);
+  }, [mode, model, modelConfig, setInitialParameters]);
+
+  useEffect(() => {
+    if (!videoMode) return;
+    setRandomizedPrompts(getRandomPrompts(videoMode.samplePrompts, 4));
+  }, [videoMode]);
+
+  const handleRefreshPrompts = () => {
+    if (!videoMode) return;
+    setIsRefreshing(true);
+    setRandomizedPrompts(getRandomPrompts(videoMode.samplePrompts, 4));
+    setTimeout(() => setIsRefreshing(false), 300);
+  };
 
   return (
-    <div className="max-w-6xl mx-auto animate-fade-in mt-6">
+    <div className="max-w-6xl mx-auto animate-fade-in">
       {/* Banner */}
       <div className="mb-8 bg-black rounded-xl p-6 text-white flex flex-col md:flex-row md:justify-between md:items-center shadow-lg relative overflow-hidden gap-4">
         <div className="relative z-10">
@@ -111,12 +119,12 @@ export function VideoModePanel({ mode, setInitialParameters, onPromptSelect }: M
 
         <div className="w-full md:w-[260px] relative z-10">
           <Select value={model} onValueChange={setModel}>
-            <SelectTrigger className="w-full bg-white/10 text-white border-white/20">
+            <SelectTrigger className="w-full bg-white/10 text-white border-white/20 cursor-pointer">
               <SelectValue placeholder="Select model" />
             </SelectTrigger>
             <SelectContent>
               {modelOptions.map((m) => (
-                <SelectItem key={m.model} value={m.model}>
+                <SelectItem key={m.model} value={m.model} className="cursor-pointer">
                   {m.name}
                 </SelectItem>
               ))}
@@ -127,89 +135,81 @@ export function VideoModePanel({ mode, setInitialParameters, onPromptSelect }: M
         <div className="absolute top-0 right-0 w-64 h-full bg-gradient-to-l from-red-900/40 to-transparent pointer-events-none" />
       </div>
 
-      {/* Quick Creator */}
-      <div className="mb-10 bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
-        <h3 className="text-sm font-bold text-gray-800 mb-4 flex items-center gap-2">
-          <Wand2 size={16} className="text-red-500" /> Quick Creator
-        </h3>
-        <div className="flex gap-3 items-center flex-col md:flex-nowrap md:flex-row">
-          <Select value={aspectRatio ?? ''} onValueChange={(v) => setAspectRatio(v)}>
-            <SelectTrigger className="w-full md:w-auto flex-1">
-              <SelectValue placeholder="Select aspect ratio" />
-            </SelectTrigger>
-            <SelectContent>
-              {modelConfig.aspect_ratio.map((ar) => (
-                <SelectItem key={ar} value={ar}>
-                  {ar}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          <span className="text-gray-400 hidden md:inline">+</span>
-
-          <Select value={duration ?? ''} onValueChange={(v) => setDuration(v)}>
-            <SelectTrigger className="w-full md:w-auto flex-1">
-              <SelectValue placeholder="Select duration" />
-            </SelectTrigger>
-            <SelectContent>
-              {modelConfig.duration.map((d) => (
-                <SelectItem key={d} value={d}>
-                  {d}s
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          <span className="text-gray-400 hidden md:inline">+</span>
-
-          <Select value={nums ?? ''} onValueChange={(v) => setNums(v)}>
-            <SelectTrigger className="w-full md:w-auto flex-1">
-              <SelectValue placeholder="Select number of videos" />
-            </SelectTrigger>
-            <SelectContent>
-              {modelConfig.nums.map((n) => (
-                <SelectItem key={n} value={String(n)}>
-                  {n}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          {modelConfig.resolution.length > 0 && (
-            <>
-              <span className="text-gray-400 hidden md:inline">+</span>
-              <Select value={resolution ?? ''} onValueChange={(v) => setResolution(v)}>
-                <SelectTrigger className="w-full md:w-auto flex-1">
-                  <SelectValue placeholder="Select resolution" />
-                </SelectTrigger>
-                <SelectContent>
-                  {modelConfig.resolution.map((r) => (
-                    <SelectItem key={r} value={r}>
-                      {r}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </>
-          )}
+      {videoMode?.options && (
+        <div className="space-y-3 animate-in fade-in-0 zoom-in-95 duration-300 delay-75 mb-8">
+          <p className="text-xs text-muted-foreground/60">{videoMode.options.title}</p>
+          <ScrollArea className="w-full">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 pb-2">
+              {videoMode.options.items.map((item) => {
+                const active = subType === item.id;
+                return (
+                  <Card
+                    key={item.id}
+                    className={
+                      'flex flex-col items-center gap-2 cursor-pointer group p-2 transition-all duration-200 border border-border rounded-xl overflow-hidden relative'
+                    }
+                    onClick={() => {
+                      setSubType(item.id);
+                      onPromptSelect(`Generate a ${item.name.toLowerCase()} style video`);
+                    }}
+                  >
+                    <div
+                      className={
+                        'w-full aspect-square rounded-lg border border-border/50 group-hover:border-primary/50 group-hover:scale-105 transition-all duration-200 flex items-center justify-center overflow-hidden relative'
+                      }
+                    >
+                      {item.image ? (
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          sizes="(max-width: 640px) 50vw, 25vw"
+                          className="object-cover"
+                          loading="lazy"
+                        />
+                      ) : null}
+                      {active && (
+                        <div className="absolute inset-0 ring-2 ring-primary/30 pointer-events-none rounded-lg" />
+                      )}
+                    </div>
+                    <span className="text-xs text-center text-muted-foreground group-hover:text-foreground transition-colors duration-200 font-medium">
+                      {item.name}
+                    </span>
+                  </Card>
+                );
+              })}
+            </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
         </div>
-      </div>
+      )}
 
-      {/* Example prompts */}
-      <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Examples</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {VIDEO_PROMPTS.map((p, i) => (
-          <button
-            key={i}
-            type="button"
-            onClick={() => onPromptSelect(p)}
-            className="bg-white p-4 rounded-xl border border-gray-200 hover:border-red-300 hover:shadow-sm transition-all text-left"
-          >
-            <div className="text-xs text-gray-700 line-clamp-3">{p}</div>
-          </button>
-        ))}
-      </div>
+      {randomizedPrompts.length > 0 && (
+        <div className="animate-in fade-in-0 zoom-in-95 duration-300">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <p className="text-xs text-muted-foreground/60">Sample prompts</p>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleRefreshPrompts}
+                className="h-6 w-6 p-0 text-muted-foreground hover:text-foreground transition-colors duration-200"
+              >
+                <span className={isRefreshing ? 'animate-spin' : undefined}>
+                  <RefreshCw className="w-3.5 h-3.5" />
+                </span>
+              </Button>
+            </div>
+            <PromptExamples
+              prompts={randomizedPrompts}
+              onPromptClick={(p) => onPromptSelect(p)}
+              variant="text"
+              columns={1}
+              showTitle={false}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

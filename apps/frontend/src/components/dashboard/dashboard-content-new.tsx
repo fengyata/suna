@@ -92,7 +92,7 @@ export function DashboardContentNew() {
                 )}
 
                 {!showCards && (
-                  <div className="px-4 md:px-6 py-6">
+                  <div className="py-6 pb-8">
                     <ModeContent
                       selectedMode={selectedMode}
                       onBack={() => setSelectedMode(null)}
@@ -110,12 +110,12 @@ export function DashboardContentNew() {
             </div>
 
             {/* Bottom input area (uses AgentStartInput, not reference ChatInput logic) */}
-            <div className={cn('w-full bg-white border-gray-100 p-4 z-20', isMobile ? '' : 'border-t')}>
+            <div className={cn('w-full bg-white border-gray-100 p-3 z-20', isMobile ? '' : 'border-t')}>
               <div className="max-w-4xl mx-auto relative">
                 <SuperModesPanel
                   selectedMode={selectedMode}
                   onModeSelect={setSelectedMode}
-                  className="pb-3"
+                  className="pb-1"
                 />
                 <AgentStartInput
                   variant="dashboard"
@@ -135,7 +135,7 @@ export function DashboardContentNew() {
                   modesPanelWrapperClassName="pt-3 max-w-4xl mx-auto"
                 />
 
-                <div className="text-center mt-2 text-xs text-gray-400">
+                <div className="text-center mt-3 text-xs text-gray-400">
                   SuperAgent 可能会出错，请核对关键信息。
                 </div>
               </div>

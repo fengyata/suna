@@ -385,6 +385,8 @@ export const optimisticAgentStart = async (options: {
   agent_id?: string;
   memory_enabled?: boolean;
   mode?: string;  // Mode: slides, sheets, docs, canvas, video, research
+  sub_type?: string;
+  initial_parameters?: Record<string, any>;
 }): Promise<OptimisticAgentStartResponse> => {
   try {
     if (!API_URL) {
@@ -422,6 +424,18 @@ export const optimisticAgentStart = async (options: {
     
     if (options.mode) {
       formData.append('mode', options.mode);
+    }
+
+    if (options.sub_type) {
+      formData.append('sub_type', options.sub_type);
+    }
+
+    if (options.initial_parameters) {
+      try {
+        formData.append('initial_parameters', JSON.stringify(options.initial_parameters));
+      } catch {
+        // ignore non-serializable
+      }
     }
 
     const response = await backendApi.upload<OptimisticAgentStartResponse>(
