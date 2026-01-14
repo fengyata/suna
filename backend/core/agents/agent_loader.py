@@ -8,7 +8,7 @@ from typing import Dict, Any, Optional
 from dataclasses import dataclass
 from core.utils.logger import logger
 from core.services.supabase import DBConnection
-
+from core.prompts.core_prompt import CORE_SYSTEM_PROMPT
 
 @dataclass
 class AgentData:
@@ -398,6 +398,7 @@ class AgentLoader:
             metadata=metadata,
             is_suna_default=is_suna_default,
             config_loaded=False
+            system_prompt="" if not is_suna_default else CORE_SYSTEM_PROMPT
         )
     
     async def _load_agent_config(self, agent: AgentData, user_id: str):
