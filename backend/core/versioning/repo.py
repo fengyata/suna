@@ -72,7 +72,7 @@ async def get_agent_current_version(agent_id: str) -> Optional[Dict[str, Any]]:
         "version_id": current_version_id,
         "agent_id": agent_id
     })
-    if is_suna_default:
+    if result["version_name"] == "v1":
         result["system_prompt"] = CORE_SYSTEM_PROMPT
     
     return serialize_row(dict(result)) if result else None
