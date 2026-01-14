@@ -860,7 +860,6 @@ async def execute_agent_run(
         
         async for response in runner.run(cancellation_event=cancellation_event):
             # Check cancellation immediately after each response (before processing)
-            logger.info(f"🛑 Agent run stopped: {response}")
             if cancellation_event.is_set() or stop_state['received']:
                 logger.warning(f"🛑 Agent run stopped: {stop_state.get('reason', 'cancellation_event')}")
                 final_status = "stopped"
