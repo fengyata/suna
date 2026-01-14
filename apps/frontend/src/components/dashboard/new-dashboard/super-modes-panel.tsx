@@ -14,6 +14,7 @@ import {
   Search,
   Rocket,
   FileCodeIcon,
+  ExternalLink,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
@@ -54,14 +55,14 @@ export function SuperModesPanel(props: {
   const modes = useMemo<SuperMode[]>(
     () => [
       { id: 'image', label: t('image'), icon: ImageIcon, categories: ['Marketing'] },
-      { id: 'video', label: t('video_studio'), icon: VideoIcon, categories: ['Marketing', 'CX'] },
-      { id: 'pipeline', label: t('pipeline_manager'), icon: LineChart, categories: ['Sales', 'Ops'] },
-      { id: 'ae', label: t('account_executive'), icon: UserCheck, categories: ['Sales'] },
+      { id: 'video', label: t('video'), icon: VideoIcon, categories: ['Marketing', 'CX'] },
+      { id: 'pipeline', label: t('pipeline'), icon: LineChart, categories: ['Sales', 'Ops'] },
+      { id: 'ae', label: t('account_exec'), icon: UserCheck, categories: ['Sales'] },
       { id: 'strategist', label: t('deal_strategist'), icon: Briefcase, categories: ['Sales', 'CX'] },
-      { id: 'people', label: t('data_analyst'), icon: Table, categories: ['Ops', 'Marketing', 'CX'] },
-      { id: 'icp', label: t('territory_persona'), icon: MapPin, categories: ['Sales', 'Marketing'] },
+      { id: 'people', label: t('data'), icon: Table, categories: ['Ops', 'Marketing', 'CX'] },
+      { id: 'icp', label: t('territory_icp'), icon: MapPin, categories: ['Sales', 'Marketing'] },
       { id: 'socialselling', label: t('social_selling'), icon: Share2, categories: ['Marketing', 'Sales'] },
-      { id: 'research', label: t('deep_research'), icon: Search, categories: ['Sales', 'Marketing'] },
+      { id: 'research', label: t('research'), icon: Search, categories: ['Sales', 'Marketing'] },
       { id: 'ads', label: t('ad_studio'), icon: Rocket, categories: ['Marketing'] },
       { id: 'slides', label: t('gtm_decks'), icon: Presentation, categories: ['Sales', 'Marketing', 'CX'] },
       { id: 'website', label: t('website'), icon: FileCodeIcon, categories: ['Marketing'] },
@@ -135,6 +136,7 @@ export function SuperModesPanel(props: {
             >
               <Icon className="!w-3.5 !h-3.5" />
               {mode.label}
+              {['slides'].includes(mode.id) && <ExternalLink size={12} className="text-gray-400" />}
               {selected && <div className="w-1.5 h-1.5 bg-green-400 rounded-full ml-1" />}
             </button>
           );

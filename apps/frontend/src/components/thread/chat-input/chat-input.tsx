@@ -1316,7 +1316,7 @@ export const ChatInput = memo(forwardRef<ChatInputHandles, ChatInputProps>(
           />
         </div>
 
-        {onModeDeselect && (
+        {/* {onModeDeselect && (
           <div className="hidden sm:block">
             <ModeButton
               selectedMode={selectedMode}
@@ -1324,7 +1324,7 @@ export const ChatInput = memo(forwardRef<ChatInputHandles, ChatInputProps>(
               onDeselect={handleModeDeselect}
             />
           </div>
-        )}
+        )} */}
       </div>
     ), [hideAttachments, loading, disabled, isAgentRunning, isUploading, sandboxId, projectId, messages, isLoggedIn, isFreeTier, quickIntegrations, integrationIcons, handleOpenRegistry, handleOpenPlanModal, threadId, isSunaAgent, sunaAgentModes, onModeDeselect, selectedMode, isModeDismissing, handleModeDeselect, hideAgentSelection, selectedAgentId, onAgentSelect]);
 

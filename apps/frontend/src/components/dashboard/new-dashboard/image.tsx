@@ -132,7 +132,7 @@ export function ImageModePanel({ mode, subType, setSubType, setInitialParameters
         <div className="space-y-3 animate-in fade-in-0 zoom-in-95 duration-300 delay-75 mb-8">
           <p className="text-xs text-muted-foreground/60">{imageMode.options.title}</p>
           <ScrollArea className="w-full">
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 pb-2">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 pb-2">
               {imageMode.options.items.map((item) => {
                 const active = subType === item.id;
                 return (
