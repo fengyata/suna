@@ -6,6 +6,7 @@ from typing import Dict, List, Any, Optional
 from uuid import uuid4, UUID
 from enum import Enum
 
+from core.prompts.core_prompt import CORE_SYSTEM_PROMPT
 from core.services.supabase import DBConnection
 from core.utils.logger import logger
 
@@ -117,13 +118,14 @@ class VersionService:
     def _version_from_db_row(self, row: Dict[str, Any]) -> AgentVersion:
         config = row.get('config', {})
         tools = config.get('tools', {})
+        is_default_prompt = not row.get('previous_version_id') and row['version_number'] == 1 
         
         return AgentVersion(
             version_id=row['version_id'],
             agent_id=row['agent_id'],
             version_number=row['version_number'],
             version_name=row['version_name'],
-            system_prompt=config.get('system_prompt', ''),
+            system_prompt=config.get('system_prompt', '') if not is_default_prompt else CORE_SYSTEM_PROMPT,
             model=config.get('model'),  # Extract model from config
             configured_mcps=tools.get('mcp', []),
             custom_mcps=tools.get('custom_mcp', []),

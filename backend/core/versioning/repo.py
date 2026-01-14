@@ -1,5 +1,6 @@
 from typing import Optional, List, Dict, Any
 from datetime import datetime, timezone
+from core.prompts.core_prompt import CORE_SYSTEM_PROMPT
 from core.services.db import execute, execute_one, execute_mutate, serialize_row, serialize_rows
 from core.utils.logger import logger
 
@@ -54,7 +55,7 @@ async def update_agent_version_stats(agent_id: str, version_count: int) -> bool:
 
 
 async def get_agent_current_version(agent_id: str) -> Optional[Dict[str, Any]]:
-    sql = "SELECT current_version_id FROM agents WHERE agent_id = :agent_id"
+    sql = "SELECT current_version_id,is_default FROM agents WHERE agent_id = :agent_id"
     agent_result = await execute_one(sql, {"agent_id": agent_id})
     
     if not agent_result or not agent_result.get("current_version_id"):
