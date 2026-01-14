@@ -2,6 +2,8 @@ from typing import Union, Dict, Any, Optional, AsyncGenerator, List
 import os
 import json
 import asyncio
+import httpx
+import structlog
 
 # Set aiohttp connection pool limits BEFORE importing litellm (reads env at import time)
 # Default limits (300 total, 50 per host) cause pool exhaustion with concurrent LLM calls
@@ -360,14 +362,57 @@ async def _wrap_streaming_response(response, start_time: float, model_name: str,
     """Wraps streaming response and yields TTFT metadata as first chunk."""
     import time as time_module
     chunk_count = 0
+
+    # Track inter-chunk timing using monotonic time (not affected by system clock changes).
+    # "gap_seconds" measures time since the last successfully received provider chunk.
+    last_chunk_at_monotonic: Optional[float] = None
+    last_gap_seconds: Optional[float] = None
+    recent_gaps_seconds: List[float] = []
     try:
         # Yield TTFT metadata as the very first item (special marker dict, not LiteLLM chunk)
         if ttft_seconds is not None:
             yield {"__llm_ttft_seconds__": ttft_seconds, "model": model_name}
         
         async for chunk in response:
+            now = time_module.monotonic()
+            if last_chunk_at_monotonic is not None:
+                last_gap_seconds = now - last_chunk_at_monotonic
+                recent_gaps_seconds.append(last_gap_seconds)
+                # Keep only the last N gaps to avoid unbounded memory growth.
+                if len(recent_gaps_seconds) > 5:
+                    recent_gaps_seconds.pop(0)
+            last_chunk_at_monotonic = now
             chunk_count += 1
             yield chunk
+    except (asyncio.TimeoutError, asyncio.CancelledError, httpx.TimeoutException) as e:
+        now = time_module.monotonic()
+        gap_seconds = (now - last_chunk_at_monotonic) if last_chunk_at_monotonic is not None else None
+        total_elapsed_seconds = (now - start_time) if start_time else None
+
+        # agent_run_id is bound into structlog contextvars by the agent runner.
+        context_vars = structlog.contextvars.get_contextvars()
+        agent_run_id = context_vars.get("agent_run_id")
+        thread_id = context_vars.get("thread_id")
+
+        logger.error(
+            "[LLM] ⏱️ STREAM TIMEOUT/CANCEL",
+            model=model_name,
+            agent_run_id=agent_run_id,
+            thread_id=thread_id,
+            chunk_count=chunk_count,
+            gap_seconds=gap_seconds,
+            last_gap_seconds=last_gap_seconds,
+            recent_gaps_seconds=recent_gaps_seconds,
+            ttft_seconds=ttft_seconds,
+            total_elapsed_seconds=total_elapsed_seconds,
+            stream_timeout_seconds=getattr(litellm, "stream_timeout", None),
+            request_timeout_seconds=getattr(litellm, "request_timeout", None),
+            exc_type=type(e).__name__,
+        )
+
+        processed_error = ErrorProcessor.process_llm_error(e)
+        ErrorProcessor.log_error(processed_error)
+        raise LLMError(processed_error.message)
     except Exception as e:
         processed_error = ErrorProcessor.process_llm_error(e)
         ErrorProcessor.log_error(processed_error)
