@@ -12,6 +12,23 @@ import type { ChatInputHandles } from '@/components/thread/chat-input/chat-input
 
 const PENDING_PROMPT_KEY = 'pendingAgentPrompt';
 
+function postRefreshHistoryToParent() {
+  if (typeof window === 'undefined') return;
+  try {
+    // only notify outer container when embedded in iframe
+    if (window.self === window.top) return;
+  } catch {
+    // Cross-origin iframe access may throw; assume embedded
+  }
+
+  window.parent.postMessage(
+    {
+      type: 'superagent_refresh_history',
+    },
+    '*',
+  );
+}
+
 export interface UseAgentStartInputOptions {
   /** Path to redirect to on error (e.g., '/dashboard' or '/') */
   redirectOnError?: string;
@@ -238,6 +255,10 @@ export function useAgentStartInput(options: UseAgentStartInputOptions = {}): Use
       modelName: options?.model_name,
       agentId: selectedAgentId || undefined,
     });
+
+    if (result) {
+      postRefreshHistoryToParent();
+    }
 
     if (!result) {
       // Error was handled by the hook, reset state

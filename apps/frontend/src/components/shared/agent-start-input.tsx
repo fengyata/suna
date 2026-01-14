@@ -204,7 +204,7 @@ export function AgentStartInput({
           selectedCharts={selectedCharts}
           selectedOutputFormat={selectedOutputFormat}
           selectedTemplate={selectedTemplate}
-          hideAgentSelection={true}
+          hideAgentSelection={false}
         />
         
         {/* Alert Banners */}

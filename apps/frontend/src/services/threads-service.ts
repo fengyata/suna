@@ -153,7 +153,7 @@ export async function listThreads(params: {
 
   const { data, error, count } = await supabase
     .from('threads')
-    .select('thread_id, project_id, name, created_at, updated_at, is_public', { count: 'exact' })
+    .select('thread_id, project_id, name, created_at, updated_at, is_public, account_id', { count: 'exact' })
     .eq('account_id', accountId)
     .order('updated_at', { ascending: false })
     .range(from, to);
@@ -173,13 +173,11 @@ export async function listThreads(params: {
 }
 
 export async function renameThread(params: {
-  request: NextRequest;
   threadId: string;
   name: string;
+  accountId: string;
 }): Promise<{ ok: true; thread: ThreadRow } | { ok: false }> {
-  const { request, threadId, name } = params;
-
-  const accountId = await fetchAccountId(request);
+  const { threadId, name, accountId } = params;
   if (!accountId) return { ok: false };
 
   const supabase = getSupabaseAdminClient();
@@ -200,37 +198,33 @@ export async function renameThread(params: {
 }
 
 export async function deleteThread(params: {
-  request: NextRequest;
   threadId: string;
+  accountId: string;
+  projectId: string | null;
 }): Promise<{ ok: true } | { ok: false }> {
-  const { request, threadId } = params;
-
-  const accountId = await fetchAccountId(request);
+  const { threadId, accountId, projectId } = params;
   if (!accountId) return { ok: false };
-
   const supabase = getSupabaseAdminClient();
 
-  // Mirror backend logic (core/threads/repo.py delete_thread_data + api.py cleanup):
-  // 1) Read project_id (and ensure ownership via account_id).
-  const { data: threadRow, error: threadRowError } = await supabase
-    .from('threads')
-    .select('thread_id, project_id')
-    .eq('thread_id', threadId)
-    .eq('account_id', accountId)
-    .maybeSingle();
-
-  if (threadRowError) throw threadRowError;
-  if (!threadRow) return { ok: false };
-
-  const projectId = (threadRow as any).project_id as string | null;
-
   // 2) Delete dependent data first to avoid FK violations (agent_runs has no ON DELETE CASCADE).
-  const { error: agentRunsError } = await supabase.from('agent_runs').delete().eq('thread_id', threadId);
-  if (agentRunsError) throw agentRunsError;
+  // Optimize: delete agent_runs + messages in parallel, and also fetch remainingCount (excluding current thread)
+  // so we can decide whether to delete the project later without extra round-trips.
+  const [agentRunsRes, messagesRes, remainingRes] = await Promise.all([
+    supabase.from('agent_runs').delete().eq('thread_id', threadId),
+    supabase.from('messages').delete().eq('thread_id', threadId),
+    projectId
+      ? supabase
+          .from('threads')
+          .select('thread_id', { count: 'exact', head: true })
+          .eq('project_id', projectId)
+          .eq('account_id', accountId)
+          .neq('thread_id', threadId)
+      : Promise.resolve({ count: 0 as number | null, error: null as any }),
+  ]);
 
-  // Backend also deletes messages explicitly; keep behavior consistent.
-  const { error: messagesError } = await supabase.from('messages').delete().eq('thread_id', threadId);
-  if (messagesError) throw messagesError;
+  if (agentRunsRes.error) throw agentRunsRes.error;
+  if (messagesRes.error) throw messagesRes.error;
+  if (remainingRes.error) throw remainingRes.error;
 
   // 3) Delete thread
   const { data: deletedThreads, error: deleteThreadError } = await supabase
@@ -245,14 +239,8 @@ export async function deleteThread(params: {
 
   // 4) If this was the last thread in the project, delete the project (best-effort parity with backend).
   if (projectId) {
-    const { count: remainingCount, error: countError } = await supabase
-      .from('threads')
-      .select('thread_id', { count: 'exact', head: true })
-      .eq('project_id', projectId);
-
-    if (countError) throw countError;
-
-    if ((remainingCount || 0) === 0) {
+    const remainingCount = typeof remainingRes.count === 'number' ? remainingRes.count : 0;
+    if (remainingCount === 0) {
       const { error: deleteProjectError } = await supabase
         .from('projects')
         .delete()

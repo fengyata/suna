@@ -175,7 +175,9 @@ export function AgentConfigurationDialog({
   const isSunaAgent = agent?.metadata?.is_suna_default || false;
   const restrictions = agent?.metadata?.restrictions || {};
   const isNameEditable = !isViewingOldVersion && (restrictions.name_editable !== false) && !isSunaAgent;
-  const isSystemPromptEditable = !isViewingOldVersion && (restrictions.system_prompt_editable !== false) && !isSunaAgent;
+  // const isSystemPromptEditable = !isViewingOldVersion && (restrictions.system_prompt_editable !== false) && !isSunaAgent;
+  // TODO: 修改为可编辑
+  const isSystemPromptEditable = true;
   const areToolsEditable = !isViewingOldVersion && (restrictions.tools_editable !== false) && !isSunaAgent;
 
   const hasChanges = useMemo(() => {
