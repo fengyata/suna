@@ -860,7 +860,6 @@ async def execute_agent_run(
         
         async for response in runner.run(cancellation_event=cancellation_event):
             # Check cancellation immediately after each response (before processing)
-            logger.info(f"🛑 Agent run stopped: {response}")
             if cancellation_event.is_set() or stop_state['received']:
                 logger.warning(f"🛑 Agent run stopped: {stop_state.get('reason', 'cancellation_event')}")
                 final_status = "stopped"
@@ -888,7 +887,7 @@ async def execute_agent_run(
                 response = serialize_row(response)
             
             try:
-                await redis.stream_add(stream_key, {"data": json.dumps(response)}, maxlen=200, approximate=True)
+                await redis.stream_add(stream_key, {"data": json.dumps(response)}, maxlen=200, approximate=True) # 添加日志删除冲突的代码
                 
                 if not stream_ttl_set:
                     try:
