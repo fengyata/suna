@@ -887,7 +887,7 @@ async def execute_agent_run(
                 response = serialize_row(response)
             
             try:
-                await redis.stream_add(stream_key, {"data": json.dumps(response)}, maxlen=200, approximate=True) # 添加日志删除冲突的代码
+                await redis.stream_add(stream_key, {"data": json.dumps(response)}, maxlen=200, approximate=True)
                 
                 if not stream_ttl_set:
                     try:
