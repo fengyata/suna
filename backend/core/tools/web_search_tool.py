@@ -523,29 +523,30 @@ class SandboxWebSearchTool(SandboxToolsBase):
             logging.debug(f"[WebSearch] Moondream2 error: {e}")
             return ""
 
-    @openapi_schema({
-        "type": "function",
-        "function": {
-            "name": "scrape_webpage",
-            "description": "Extract full text content from multiple webpages in a single operation. IMPORTANT: You should ALWAYS collect multiple relevant URLs from web-search results and scrape them all in a single call for efficiency. This tool saves time by processing multiple pages simultaneously rather than one at a time. The extracted text includes the main content of each page without HTML markup by default, but can optionally include full HTML if needed for structure analysis. **🚨 PARAMETER NAMES**: Use EXACTLY these parameter names: `urls` (REQUIRED), `include_html` (optional).",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "urls": {
-                        "type": "string",
-                        "description": "**REQUIRED** - Multiple URLs to scrape, separated by commas. You should ALWAYS include several URLs when possible for efficiency. Example: 'https://example.com/page1,https://example.com/page2,https://example.com/page3'"
-                    },
-                    "include_html": {
-                        "type": "boolean",
-                        "description": "**OPTIONAL** - Whether to include the full raw HTML content alongside the extracted text. Set to true when you need to analyze page structure, extract specific HTML elements, or work with complex layouts. Default: false.",
-                        "default": False
-                    }
-                },
-                "required": ["urls"],
-                "additionalProperties": False
-            }
-        }
-    })
+    # NOTE: Firecrawl scraping disabled — keep code, don't expose tool schema.
+    # @openapi_schema({
+    #     "type": "function",
+    #     "function": {
+    #         "name": "scrape_webpage",
+    #         "description": "Extract full text content from multiple webpages in a single operation. IMPORTANT: You should ALWAYS collect multiple relevant URLs from web-search results and scrape them all in a single call for efficiency. This tool saves time by processing multiple pages simultaneously rather than one at a time. The extracted text includes the main content of each page without HTML markup by default, but can optionally include full HTML if needed for structure analysis. **🚨 PARAMETER NAMES**: Use EXACTLY these parameter names: `urls` (REQUIRED), `include_html` (optional).",
+    #         "parameters": {
+    #             "type": "object",
+    #             "properties": {
+    #                 "urls": {
+    #                     "type": "string",
+    #                     "description": "**REQUIRED** - Multiple URLs to scrape, separated by commas. You should ALWAYS include several URLs when possible for efficiency. Example: 'https://example.com/page1,https://example.com/page2,https://example.com/page3'"
+    #                 },
+    #                 "include_html": {
+    #                     "type": "boolean",
+    #                     "description": "**OPTIONAL** - Whether to include the full raw HTML content alongside the extracted text. Set to true when you need to analyze page structure, extract specific HTML elements, or work with complex layouts. Default: false.",
+    #                     "default": False
+    #                 }
+    #             },
+    #             "required": ["urls"],
+    #             "additionalProperties": False
+    #         }
+    #     }
+    # })
     async def scrape_webpage(
         self,
         urls: str,
