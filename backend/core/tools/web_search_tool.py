@@ -5,6 +5,9 @@ from core.utils.config import config
 from core.sandbox.tool_base import SandboxToolsBase
 from core.agentpress.thread_manager import ThreadManager
 from core.services.http_client import get_http_client
+from core.services.api_billing_service import token_service, FeatIdConfig
+from core.utils.tool_output_streaming import get_current_tool_call_id
+import structlog
 import json
 import datetime
 import asyncio
@@ -119,6 +122,14 @@ class SandboxWebSearchTool(SandboxToolsBase):
 
         # Tavily asynchronous search client
         self.tavily_client = AsyncTavilyClient(api_key=self.tavily_api_key)
+
+    def _get_thread_id_from_context(self) -> str | None:
+        """从 structlog contextvars 获取 thread_id（调用 schedule_deduct_tokens 需要显式传入）。"""
+        try:
+            context_vars = structlog.contextvars.get_contextvars()
+            return context_vars.get("thread_id")
+        except Exception:
+            return None
 
     @openapi_schema({
         "type": "function",
@@ -246,11 +257,22 @@ class SandboxWebSearchTool(SandboxToolsBase):
                             all_successful = False
                 
                 logging.info(f"Batch search completed: {len([r for r in batch_response['results'] if r.get('success')])}/{len(queries)} queries successful")
-                
-                return ToolResult(
-                    success=all_successful,
-                    output=json.dumps(batch_response, ensure_ascii=False)
-                )
+
+                # 计费口径（你指定）：
+                # batch web_search：按成功次数 N 统一扣除 N 个 token（一次扣费）
+                # 扣费异步执行，不阻塞工具返回
+                success_count = sum(1 for r in batch_response["results"] if r.get("success", False))
+                if success_count > 0:
+                    token_service.schedule_deduct_tokens(
+                        thread_id=self._get_thread_id_from_context() or "",
+                        db=self.thread_manager.db,
+                        feat_id=FeatIdConfig.WEB_SEARCH,
+                        action="tavily",
+                        token_value=success_count,
+                        tool_call_id=get_current_tool_call_id(),
+                    )
+
+                return ToolResult(success=all_successful, output=json.dumps(batch_response, ensure_ascii=False))
             else:
                 if not query or not isinstance(query, str):
                     return self.fail_response("A valid search query is required.")
@@ -268,6 +290,15 @@ class SandboxWebSearchTool(SandboxToolsBase):
                 response["elapsed_time"] = round(elapsed_time, 2)
                 
                 if result.get("success", False):
+                    # 单次搜索成功扣 1 token（异步）
+                    token_service.schedule_deduct_tokens(
+                        thread_id=self._get_thread_id_from_context() or "",
+                        db=self.thread_manager.db,
+                        feat_id=FeatIdConfig.WEB_SEARCH,
+                        action="tavily",
+                        token_value=1,
+                        tool_call_id=get_current_tool_call_id(),
+                    )
                     return ToolResult(
                         success=True,
                         output=json.dumps(response, ensure_ascii=False)
@@ -583,6 +614,19 @@ class SandboxWebSearchTool(SandboxToolsBase):
             # Summarize results
             successful = sum(1 for r in results if r.get("success", False))
             failed = len(results) - successful
+
+            # 计费口径（你指定）：
+            # - 先抓取，后扣费
+            # - 成功定义：只要触发了 scrape_webpage 就扣 1 次（固定 1 token），不论抓取结果
+            # - 异步扣费，不阻塞工具返回
+            token_service.schedule_deduct_tokens(
+                thread_id=self._get_thread_id_from_context() or "",
+                db=self.thread_manager.db,
+                feat_id=FeatIdConfig.WEB_SCRAPE,
+                action="firecrawl",
+                token_value=1,
+                tool_call_id=get_current_tool_call_id(),
+            )
             
             # Create success/failure message
             if successful == len(results):
@@ -700,34 +744,34 @@ class SandboxWebSearchTool(SandboxToolsBase):
             if "metadata" in data.get("data", {}):
                 formatted_result["metadata"] = data["data"]["metadata"]
                 logging.info(f"Added metadata: {data['data']['metadata'].keys()}")
-            
+
             # Create a simple filename from the URL domain and date
             timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-            
+
             # Extract domain from URL for the filename
             from urllib.parse import urlparse
             parsed_url = urlparse(url)
             domain = parsed_url.netloc.replace("www.", "")
-            
+
             # Clean up domain for filename
             domain = "".join([c if c.isalnum() else "_" for c in domain])
             safe_filename = f"{timestamp}_{domain}.json"
-            
+
             logging.info(f"Generated filename: {safe_filename}")
-            
+
             # Save results to a file in the /workspace/scrape directory
             scrape_dir = f"{self.workspace_path}/scrape"
             await self.sandbox.fs.create_folder(scrape_dir, "755")
-            
+
             results_file_path = f"{scrape_dir}/{safe_filename}"
             json_content = json.dumps(formatted_result, ensure_ascii=False, indent=2)
             logging.info(f"Saving content to file: {results_file_path}, size: {len(json_content)} bytes")
-            
+
             await self.sandbox.fs.upload_file(
                 json_content.encode(),
                 results_file_path,
             )
-            
+
             return {
                 "url": url,
                 "success": True,
@@ -746,7 +790,6 @@ class SandboxWebSearchTool(SandboxToolsBase):
                 "success": False,
                 "error": error_message
             }
-
 
 if __name__ == "__main__":
     async def test_web_search():

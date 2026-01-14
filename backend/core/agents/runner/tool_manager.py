@@ -17,6 +17,7 @@ DEFAULT_CORE_TOOLS = [
     'task_list_tool',       # Task management
     'web_search_tool',      # Web search
     'image_search_tool',    # Image search
+    'apify_tool',           # Universal scraper (requires APIFY_API_TOKEN)
     'browser_tool',         # Web browsing
     'sb_shell_tool',        # Shell commands
     'sb_git_sync',          # Git operations
@@ -122,6 +123,18 @@ class ToolManager:
                 project_id=self.project_id, 
                 thread_id=self.thread_id, 
                 thread_manager=self.thread_manager
+            )
+
+        # Apify tool (if API token configured AND enabled in config)
+        # Note: Apify runs require user approval (request_apify_approval workflow).
+        if config.APIFY_API_TOKEN and self._is_tool_enabled('apify_tool'):
+            from core.tools.apify_tool import ApifyTool
+            enabled_methods = self._get_enabled_methods_for_tool('apify_tool')
+            self.thread_manager.add_tool(
+                ApifyTool,
+                function_names=enabled_methods,
+                thread_manager=self.thread_manager,
+                project_id=self.project_id,
             )
         
         # Core sandbox tools - only register if enabled

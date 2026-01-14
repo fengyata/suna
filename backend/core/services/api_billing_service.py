@@ -13,6 +13,7 @@ Key features:
 
 import json
 import re
+import asyncio
 from decimal import Decimal, ROUND_CEILING
 from typing import Tuple, Optional, Dict, Any
 from dataclasses import dataclass
@@ -47,6 +48,8 @@ class FeatIdConfig:
     LLM_USAGE = "llm_usage"
     # 2) Apify tool 对应 featId
     WEB_SCRAPE = "web_scrape"
+    # 2.1) Web search tool (Tavily) 对应 featId
+    WEB_SEARCH = "web_search"
     # 3) 图片 tool 对应 featId
     IMAGE = "images_generation"
     # 4) 视频 tool 对应 featId
@@ -252,6 +255,154 @@ class FlashlabsTokenService:
         except Exception as e:
             logger.error(f"[TOKEN_SERVICE] Failed to resolve user {account_uuid}: {e}")
             raise ValueError(f"Failed to resolve user: {e}")
+
+    async def resolve_account_uuid_from_thread(
+        self,
+        thread_id: str,
+        supabase_client: Any,
+    ) -> Optional[str]:
+        """
+        Resolve thread_id -> account_uuid (threads.account_id).
+
+        Note:
+        - 这里不依赖 ThreadManager，调用方传入已初始化的 Supabase client（例如 thread_manager.db.client）。
+        - 仅用于工具层在扣费前（或异步扣费任务中）补齐 account_uuid。
+        """
+        try:
+            if not thread_id:
+                return None
+
+            cache_key = f"account_uuid_from_thread:{thread_id}"
+
+            # Check Redis cache first
+            try:
+                cached = await redis.get(cache_key)
+                if cached:
+                    # redis returns str/bytes depending on implementation; normalize to str
+                    if isinstance(cached, (bytes, bytearray)):
+                        cached = cached.decode("utf-8", errors="replace")
+                    logger.debug(
+                        f"[TOKEN_SERVICE] account_uuid_from_thread cache hit - thread_id={thread_id}"
+                    )
+                    return str(cached)
+            except Exception as e:
+                logger.debug(f"[TOKEN_SERVICE] Cache read failed: {e}")
+
+            logger.debug(
+                f"[TOKEN_SERVICE] account_uuid_from_thread cache miss - thread_id={thread_id}"
+            )
+            result = (
+                await supabase_client.from_("threads")
+                .select("account_id")
+                .eq("thread_id", thread_id)
+                .single()
+                .execute()
+            )
+            if result.data:
+                account_id = result.data.get("account_id")
+                if account_id:
+                    try:
+                        await redis.set(cache_key, str(account_id), ex=self.USER_MAPPING_CACHE_TTL)
+                    except Exception as e:
+                        logger.debug(f"[TOKEN_SERVICE] Cache write failed: {e}")
+                return account_id
+        except Exception as e:
+            logger.error(f"[TOKEN_SERVICE] Failed to resolve account_uuid from thread {thread_id}: {e}")
+        return None
+
+    def schedule_deduct_tokens(
+        self,
+        *,
+        thread_id: str,
+        db: Any,
+        feat_id: str,
+        action: str,
+        token_value: int,
+        tool_call_id: Optional[str] = None,
+        message_suffix: Optional[str] = None,
+    ) -> None:
+        """
+        异步扣费调度（fire-and-forget），不阻塞工具调用性能。
+
+        - 调用方显式传入 thread_id（避免 service 强耦合 structlog context）
+        - db 期望为 DBConnection 或兼容对象（需支持 await db.client 获取 supabase client）
+        - messageId 默认：{thread_id}:{action}:{tool_call_id|no_tool_call_id}
+          batch/聚合场景可通过 message_suffix 追加以区分幂等键
+        """
+        # Keep a single messageId for traceability across logs and token service idempotency.
+        base_message_id = f"{thread_id}:{action}:{tool_call_id or 'no_tool_call_id'}"
+        message_id = f"{base_message_id}:{message_suffix}" if message_suffix else base_message_id
+
+        if not self.billing_enabled:
+            logger.debug(
+                "[TOKEN_SERVICE] schedule_deduct_tokens skipped (billing disabled) "
+                f"- thread_id={thread_id}, feat_id={feat_id}, action={action}, "
+                f"token_value={token_value}, message_id={message_id}"
+            )
+            return
+
+        if not thread_id:
+            logger.warning("[TOKEN_SERVICE] schedule_deduct_tokens missing thread_id; skipping")
+            return
+
+        if token_value <= 0:
+            logger.debug(
+                "[TOKEN_SERVICE] schedule_deduct_tokens skipped (token_value<=0) "
+                f"- thread_id={thread_id}, feat_id={feat_id}, action={action}, "
+                f"token_value={token_value}, message_id={message_id}"
+            )
+            return
+
+        logger.info(
+            "[TOKEN_SERVICE] schedule_deduct_tokens scheduled "
+            f"- thread_id={thread_id}, feat_id={feat_id}, action={action}, "
+            f"token_value={token_value}, tool_call_id={tool_call_id or 'no_tool_call_id'}, "
+            f"message_id={message_id}"
+        )
+
+        async def _run():
+            try:
+                logger.debug(
+                    "[TOKEN_SERVICE] schedule_deduct_tokens task start "
+                    f"- thread_id={thread_id}, feat_id={feat_id}, action={action}, "
+                    f"token_value={token_value}, message_id={message_id}"
+                )
+                client = await db.client
+                account_id = await self.resolve_account_uuid_from_thread(thread_id, client)
+                if not account_id:
+                    logger.error(f"[TOKEN_SERVICE] Cannot resolve account_id for thread {thread_id}")
+                    return
+                account_id_str = str(account_id)
+                account_id_safe = (
+                    f"{account_id_str[:8]}...{account_id_str[-6:]}"
+                    if len(account_id_str) > 14
+                    else account_id_str
+                )
+                logger.debug(
+                    "[TOKEN_SERVICE] schedule_deduct_tokens resolved account "
+                    f"- thread_id={thread_id}, account_uuid={account_id_safe}, "
+                    f"feat_id={feat_id}, action={action}, token_value={token_value}, "
+                    f"message_id={message_id}"
+                )
+                await self.deduct_tokens_for_tool(
+                    account_uuid=account_id,
+                    feat_id=feat_id,
+                    token_value=token_value,
+                    message_id=message_id,
+                )
+                logger.info(
+                    "[TOKEN_SERVICE] schedule_deduct_tokens completed "
+                    f"- thread_id={thread_id}, account_uuid={account_id_safe}, "
+                    f"feat_id={feat_id}, action={action}, token_value={token_value}, "
+                    f"message_id={message_id}"
+                )
+            except Exception as e:
+                logger.error(f"[TOKEN_SERVICE] Async billing deduction failed: {e}")
+
+        try:
+            asyncio.create_task(_run())
+        except RuntimeError:
+            logger.warning("[TOKEN_SERVICE] No running event loop; cannot schedule async billing deduction")
     
     # ========== Token API Calls ==========
     
@@ -503,6 +654,29 @@ class FlashlabsTokenService:
         company_id, user_id = await self.resolve_company_user(account_uuid)
         
         return await self.reduce_token(company_id, user_id, feat_id, value, message_id)
+
+    async def deduct_tokens_for_tool(
+        self,
+        account_uuid: str,
+        feat_id: str,
+        token_value: int,
+        message_id: str
+    ) -> bool:
+        """
+        Deduct tokens for tool usage with fixed token amount.
+
+        与 deduct_for_tool 类似，但不接收 cost_usd，不做 usd_to_token 换算，
+        直接按 token_value 扣减（用于固定扣 token 的工具）。
+        """
+        # Skip in local mode unless explicitly enabled
+        if not self.billing_enabled:
+            return True
+
+        if token_value <= 0:
+            return True
+
+        company_id, user_id = await self.resolve_company_user(account_uuid)
+        return await self.reduce_token(company_id, user_id, feat_id, token_value, message_id)
     
     async def get_balance_for_display(self, account_uuid: str) -> Dict[str, Any]:
         """
