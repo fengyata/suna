@@ -1217,6 +1217,9 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
   const playback = usePlaybackController({
     messages,
     enabled: isShared,
+    // Share cover overlay controls when playback actually starts.
+    // If we auto-start behind the overlay, we can end up with a "flash" of the first user message.
+    autoStart: false,
     isSidePanelOpen,
     onToggleSidePanel: toggleSidePanel,
     setCurrentToolIndex,
@@ -1332,7 +1335,8 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
 
     if (!hasStartedPlaybackRef.current) {
       hasStartedPlaybackRef.current = true;
-      playback.togglePlayback();
+      // Restart ensures we begin from message 0 with a clean slate (no pre-rendered first user message).
+      playback.restartPlayback();
     }
   }, [playback]);
 

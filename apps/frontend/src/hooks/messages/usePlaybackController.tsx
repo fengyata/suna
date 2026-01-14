@@ -90,6 +90,11 @@ function playbackReducer(state: PlaybackState, action: PlaybackAction): Playback
 interface UsePlaybackControllerOptions {
     messages: UnifiedMessage[];
     enabled: boolean;
+    /**
+     * If true, playback will auto-start shortly after messages load.
+     * For share pages that show a cover overlay, this should be false so the overlay controls start.
+     */
+    autoStart?: boolean;
     isSidePanelOpen: boolean;
     onToggleSidePanel: () => void;
     setCurrentToolIndex: (index: number) => void;
@@ -99,6 +104,7 @@ interface UsePlaybackControllerOptions {
 export function usePlaybackController({
     messages,
     enabled,
+    autoStart = true,
     isSidePanelOpen,
     onToggleSidePanel,
     setCurrentToolIndex,
@@ -107,7 +113,10 @@ export function usePlaybackController({
     const [state, dispatch] = useReducer(playbackReducer, {
         isPlaying: false,
         currentMessageIndex: 0,
-        visibleMessages: messages.length > 0 ? [messages[0]] : [],
+        // IMPORTANT (share playback): do NOT pre-render the first message.
+        // If we render messages[0] fully before playback starts, the first user message will "flash"
+        // fully and then get cleared/replaced when we stream it character-by-character.
+        visibleMessages: enabled ? [] : (messages.length > 0 ? [messages[0]] : []),
         streamingText: '',
         isStreamingText: false,
         currentToolCall: null,
@@ -128,12 +137,8 @@ export function usePlaybackController({
         messagesRef.current = messages;
     }, [messages]);
 
-    // Initialize with first message when messages load
-    useEffect(() => {
-        if (enabled && messages.length > 0 && state.visibleMessages.length === 0) {
-            dispatch({ type: 'SET_VISIBLE_MESSAGES', messages: [messages[0]] });
-        }
-    }, [enabled, messages, state.visibleMessages.length, dispatch]);
+    // NOTE: We intentionally do NOT initialize visibleMessages with messages[0] when enabled (share playback).
+    // Playback will render messages as it streams them to avoid the "first user message flashes fully" issue.
 
     // Stream text character by character with realistic typing animation.
     // Optionally accepts a "finalMessage" to persist after streaming finishes.
@@ -518,6 +523,17 @@ export function usePlaybackController({
         }
     }, [state.isPlaying, isSidePanelOpen, onToggleSidePanel]);
 
+    const startPlayback = useCallback(() => {
+        dispatch({ type: 'START_PLAYBACK' });
+        if (!isSidePanelOpen) {
+            onToggleSidePanel();
+        }
+    }, [isSidePanelOpen, onToggleSidePanel]);
+
+    const stopPlayback = useCallback(() => {
+        dispatch({ type: 'STOP_PLAYBACK' });
+    }, []);
+
     const resetPlayback = useCallback(() => {
         if (streamCleanupRef.current) {
             streamCleanupRef.current();
@@ -525,6 +541,18 @@ export function usePlaybackController({
         }
         dispatch({ type: 'RESET' });
         if (isSidePanelOpen) {
+            onToggleSidePanel();
+        }
+    }, [isSidePanelOpen, onToggleSidePanel]);
+
+    const restartPlayback = useCallback(() => {
+        if (streamCleanupRef.current) {
+            streamCleanupRef.current();
+            streamCleanupRef.current = null;
+        }
+        dispatch({ type: 'RESET' });
+        dispatch({ type: 'START_PLAYBACK' });
+        if (!isSidePanelOpen) {
             onToggleSidePanel();
         }
     }, [isSidePanelOpen, onToggleSidePanel]);
@@ -559,6 +587,7 @@ export function usePlaybackController({
 
     // Auto-start playback after a delay when first loaded
     useEffect(() => {
+        if (!autoStart) return;
         if (enabled && messages.length > 0 && state.currentMessageIndex === 0 && !state.isPlaying) {
             const autoStartTimer = setTimeout(() => {
                 dispatch({ type: 'START_PLAYBACK' });
@@ -569,7 +598,7 @@ export function usePlaybackController({
 
             return () => clearTimeout(autoStartTimer);
         }
-    }, [enabled, messages.length, state.currentMessageIndex, state.isPlaying, isSidePanelOpen, onToggleSidePanel]);
+    }, [autoStart, enabled, messages.length, state.currentMessageIndex, state.isPlaying, isSidePanelOpen, onToggleSidePanel]);
 
     return {
         playbackState: {
@@ -579,7 +608,10 @@ export function usePlaybackController({
                 : state.visibleMessages,
         },
         togglePlayback,
+        startPlayback,
+        stopPlayback,
         resetPlayback,
+        restartPlayback,
         skipToEnd,
         forwardOne,
         backwardOne,
