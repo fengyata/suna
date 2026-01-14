@@ -111,8 +111,12 @@ async function handleSetLogin(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
+          const isHttps = request.nextUrl.protocol === 'https:';
           cookiesToSet.forEach(({ name, value, options }) => {
-            response.cookies.set(name, value, options);
+            // IMPORTANT:
+            // In some test environments we run on plain http (e.g. *.local-flashlabs.ai).
+            // If cookies are marked as Secure, browsers will drop them on http, causing login redirect loops (307).
+            response.cookies.set(name, value, { ...options, secure: isHttps });
           });
         },
       },

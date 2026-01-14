@@ -219,13 +219,15 @@ export async function middleware(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
+          const isHttps = request.nextUrl.protocol === 'https:';
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
           supabaseResponse = NextResponse.next({
             request,
           });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          );
+          cookiesToSet.forEach(({ name, value, options }) => {
+            // Keep cookie Secure flag aligned with current scheme to prevent http login loops.
+            supabaseResponse.cookies.set(name, value, { ...options, secure: isHttps });
+          });
         },
       },
     }
