@@ -397,7 +397,7 @@ class AgentLoader:
             version_count=row.get('version_count', 1),
             metadata=metadata,
             is_suna_default=is_suna_default,
-            config_loaded=True,
+            config_loaded=False,
             system_prompt="" if not is_suna_default else CORE_SYSTEM_PROMPT,
             
         )
