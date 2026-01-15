@@ -473,7 +473,9 @@ class SandboxWebSearchTool(SandboxToolsBase):
                         logging.debug(f"[WebSearch] Could not get dimensions: {dim_err}")
                     
                     # Get image description using Moondream2
-                    description = await self._describe_image(image_bytes, content_type)
+                    # 取消调用 replicate 模型,获取图片描述,直接返回空字符串
+                    # description = await self._describe_image(image_bytes, content_type)
+                    description = ""
                     image_data["description"] = description
         
         except Exception as e:
