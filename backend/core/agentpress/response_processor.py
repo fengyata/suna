@@ -2078,6 +2078,42 @@ class ResponseProcessor:
             else:
                 if generation and 'accumulated_content' in locals():
                     try:
+                        # Lightweight stream summary for Langfuse (no per-chunk logging).
+                        try:
+                            summary = {
+                                "chunk_count": chunk_count if 'chunk_count' in locals() else None,
+                                "finish_reason": finish_reason if 'finish_reason' in locals() else None,
+                            }
+                            # last_n_chars: useful for partial/interrupt cases without storing full chunks
+                            if isinstance(accumulated_content, str) and accumulated_content:
+                                summary["last_n_chars"] = accumulated_content[-2000:]
+
+                            # tool_calls_buffer summary (native) if present
+                            if 'tool_calls_buffer' in locals() and isinstance(tool_calls_buffer, dict):
+                                try:
+                                    buffer_items = []
+                                    for idx, tc in list(tool_calls_buffer.items())[:10]:
+                                        fn = (tc or {}).get("function", {}) if isinstance(tc, dict) else {}
+                                        buffer_items.append(
+                                            {
+                                                "idx": idx,
+                                                "id": tc.get("id") if isinstance(tc, dict) else None,
+                                                "name": fn.get("name") if isinstance(fn, dict) else None,
+                                                "args_len": len(fn.get("arguments", "")) if isinstance(fn, dict) and isinstance(fn.get("arguments"), str) else None,
+                                            }
+                                        )
+                                    summary["last_tool_call_buffer_summary"] = {
+                                        "buffer_size": len(tool_calls_buffer),
+                                        "sample": buffer_items,
+                                    }
+                                except Exception:
+                                    pass
+
+                            generation.update(metadata=summary)
+                        except Exception:
+                            # Best-effort only
+                            pass
+
                         if final_llm_response and hasattr(final_llm_response, 'usage'):
                             generation.update(
                                 usage=final_llm_response.usage.model_dump() if hasattr(final_llm_response.usage, 'model_dump') else dict(final_llm_response.usage),
@@ -2548,49 +2584,64 @@ class ResponseProcessor:
 
             raw_args_for_logging = tool_call.get("raw_arguments", arguments) if isinstance(tool_call.get("raw_arguments"), str) else arguments
             
-            if isinstance(arguments, str):
-                logger.debug(f"🔄 Parsing string arguments for {function_name}")
-                logger.debug(f"📝 Raw arguments string: {raw_args_for_logging[:200]}...")
-                
-                parsed_args = None
-                try:
-                    parsed_args = safe_json_parse(arguments)
-                    if isinstance(parsed_args, dict):
-                        arg_types = {k: type(v).__name__ for k, v in parsed_args.items()}
-                        logger.debug(f"✅ Parsed arguments as dict successfully. Types: {arg_types}")
-                        logger.debug(f"📋 Parsed arguments: {parsed_args}")
-                        result = await tool_fn(**parsed_args)
-                    else:
-                        logger.warning(f"⚠️ Parsed arguments is not a dict (type: {type(parsed_args)}), trying direct JSON parse")
-                        try:
-                            parsed_args = json.loads(arguments)
-                            if isinstance(parsed_args, dict):
-                                arg_types = {k: type(v).__name__ for k, v in parsed_args.items()}
-                                logger.debug(f"✅ Direct JSON parse succeeded. Types: {arg_types}")
-                                logger.debug(f"📋 Parsed arguments: {parsed_args}")
-                                result = await tool_fn(**parsed_args)
-                            else:
-                                raise ValueError(f"JSON parse result is not a dict: {type(parsed_args)}")
-                        except json.JSONDecodeError as je:
-                            logger.error(f"❌ Direct JSON parse also failed: {str(je)}")
-                            raise
-                except (json.JSONDecodeError, ValueError, TypeError) as parse_error:
-                    logger.error(f"❌ Error parsing arguments: {str(parse_error)}")
-                    logger.error(f"❌ Raw arguments that failed: {raw_args_for_logging[:500]}")
-                    # Last resort: try to pass as single argument (some tools might accept this)
-                    logger.debug(f"🔄 Falling back to passing raw string as single argument")
-                    result = await tool_fn(arguments)
-            else:
-                # Arguments are already parsed (dict or other type)
-                if isinstance(arguments, dict):
-                    # Log argument types to verify they're preserved correctly
-                    arg_types = {k: type(v).__name__ for k, v in arguments.items()}
-                    logger.debug(f"✅ Arguments are already a dict, unpacking. Types: {arg_types}")
-                    logger.debug(f"📋 Arguments: {arguments}")
-                    result = await tool_fn(**arguments)
+            # Sentry span for tool execution (no-op if disabled)
+            try:
+                from core.services.sentry_service import span as sentry_span
+            except Exception:
+                sentry_span = None
+
+            # Wrap the entire tool invocation in a single Sentry span (context managers are single-use).
+            from contextlib import nullcontext
+            tool_span_cm = (
+                sentry_span(op="tool.execute", description=function_name, data={"tool_name": function_name})
+                if sentry_span
+                else nullcontext()
+            )
+
+            with tool_span_cm:
+                if isinstance(arguments, str):
+                    logger.debug(f"🔄 Parsing string arguments for {function_name}")
+                    logger.debug(f"📝 Raw arguments string: {raw_args_for_logging[:200]}...")
+                    
+                    parsed_args = None
+                    try:
+                        parsed_args = safe_json_parse(arguments)
+                        if isinstance(parsed_args, dict):
+                            arg_types = {k: type(v).__name__ for k, v in parsed_args.items()}
+                            logger.debug(f"✅ Parsed arguments as dict successfully. Types: {arg_types}")
+                            logger.debug(f"📋 Parsed arguments: {parsed_args}")
+                            result = await tool_fn(**parsed_args)
+                        else:
+                            logger.warning(f"⚠️ Parsed arguments is not a dict (type: {type(parsed_args)}), trying direct JSON parse")
+                            try:
+                                parsed_args = json.loads(arguments)
+                                if isinstance(parsed_args, dict):
+                                    arg_types = {k: type(v).__name__ for k, v in parsed_args.items()}
+                                    logger.debug(f"✅ Direct JSON parse succeeded. Types: {arg_types}")
+                                    logger.debug(f"📋 Parsed arguments: {parsed_args}")
+                                    result = await tool_fn(**parsed_args)
+                                else:
+                                    raise ValueError(f"JSON parse result is not a dict: {type(parsed_args)}")
+                            except json.JSONDecodeError as je:
+                                logger.error(f"❌ Direct JSON parse also failed: {str(je)}")
+                                raise
+                    except (json.JSONDecodeError, ValueError, TypeError) as parse_error:
+                        logger.error(f"❌ Error parsing arguments: {str(parse_error)}")
+                        logger.error(f"❌ Raw arguments that failed: {raw_args_for_logging[:500]}")
+                        # Last resort: try to pass as single argument (some tools might accept this)
+                        logger.debug(f"🔄 Falling back to passing raw string as single argument")
+                        result = await tool_fn(arguments)
                 else:
-                    logger.debug(f"🔄 Arguments are non-dict type ({type(arguments)}), passing as single argument")
-                    result = await tool_fn(arguments)
+                    # Arguments are already parsed (dict or other type)
+                    if isinstance(arguments, dict):
+                        # Log argument types to verify they're preserved correctly
+                        arg_types = {k: type(v).__name__ for k, v in arguments.items()}
+                        logger.debug(f"✅ Arguments are already a dict, unpacking. Types: {arg_types}")
+                        logger.debug(f"📋 Arguments: {arguments}")
+                        result = await tool_fn(**arguments)
+                    else:
+                        logger.debug(f"🔄 Arguments are non-dict type ({type(arguments)}), passing as single argument")
+                        result = await tool_fn(arguments)
 
             logger.debug(f"✅ Tool execution completed successfully")
             # logger.debug(f"📤 Result type: {type(result)}")
@@ -2606,6 +2657,14 @@ class ResponseProcessor:
                 else:
                     logger.error(f"❌ Tool returned invalid result type: {type(result)}")
                     result = ToolResult(success=False, output=f"Tool returned invalid result type: {type(result)}")
+
+            # Record sandbox artifacts (addresses only) in Sentry (no-op if disabled)
+            try:
+                if getattr(result, "artifacts", None):
+                    from core.services.sentry_service import record_sandbox_artifacts
+                    record_sandbox_artifacts(result.artifacts)
+            except Exception:
+                pass
 
             span.end(status_message="tool_executed", output=str(result))
             return result

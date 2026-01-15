@@ -524,7 +524,7 @@ class AgentRunner:
                     if chunk.get('status') == 'stopped':
                         should_continue = False
                         break
-                    
+
                     # Check for finish_reason in content (handles LLM completion signals)
                     content = chunk.get('content', {})
                     if isinstance(content, str):
@@ -532,7 +532,7 @@ class AgentRunner:
                             content = json.loads(content)
                         except (json.JSONDecodeError, TypeError):
                             content = {}
-                    
+
                     if isinstance(content, dict):
                         finish_reason = content.get('finish_reason')
                         # Stop on 'stop' or 'agent_terminated' - these indicate the LLM completed naturally
@@ -781,6 +781,12 @@ async def execute_agent_run(
     stream_key = f"agent_run:{agent_run_id}:stream"
     trace = None
     
+    # Per-agent_run transaction (no-op if Sentry disabled)
+    try:
+        from core.services.sentry_service import transaction_agent_run
+    except Exception:
+        transaction_agent_run = None
+
     try:
         start_time = datetime.now(timezone.utc)
         
@@ -793,7 +799,7 @@ async def execute_agent_run(
             await redis.expire(stream_key, REDIS_STREAM_TTL_SECONDS)
         except Exception:
             pass  # Non-critical, we'll retry later
-        
+
         from core.ai_models import model_manager
         effective_model = model_manager.resolve_model_id(model_name)
         
@@ -819,7 +825,7 @@ async def execute_agent_run(
                         stop_state['reason'] = 'cancellation_event'
                         logger.info(f"🛑 Stop detected via cancellation_event for {agent_run_id}")
                         break
-                    
+
                     # Then check Redis stop signal (periodic, cross-instance)
                     if await redis.check_stop_signal(agent_run_id):
                         stop_state['received'] = True
@@ -827,7 +833,7 @@ async def execute_agent_run(
                         cancellation_event.set()
                         logger.info(f"🛑 Stop detected via Redis for {agent_run_id}")
                         break
-                    
+
                     # Sleep after check (not before) so first check is immediate
                     await asyncio.sleep(STOP_CHECK_INTERVAL)
                 except asyncio.CancelledError:
@@ -866,12 +872,12 @@ async def execute_agent_run(
                 final_status = "stopped"
                 error_message = f"Stopped by {stop_state.get('reason', 'cancellation_event')}"
                 break
-            
+
             if not first_response:
                 first_response_time_ms = (time.time() - execution_start) * 1000
                 logger.info(f"⏱️ FIRST RESPONSE: {first_response_time_ms:.1f}ms")
                 first_response = True
-                
+
                 # Emit timing info to Redis stream for stress testing
                 try:
                     timing_msg = {
@@ -889,7 +895,7 @@ async def execute_agent_run(
             
             try:
                 await redis.stream_add(stream_key, {"data": json.dumps(response)}, maxlen=200, approximate=False)
-                
+
                 if not stream_ttl_set:
                     try:
                         await asyncio.wait_for(redis.expire(stream_key, REDIS_STREAM_TTL_SECONDS), timeout=2.0)
@@ -938,12 +944,17 @@ async def execute_agent_run(
         
     except Exception as e:
         logger.error(f"Error in agent run {agent_run_id}: {e}", exc_info=True)
+        try:
+            from core.services.sentry_service import capture_exception
+            capture_exception(e, llm_stage="agent.run", error_type="system_error")
+        except Exception:
+            pass
         await update_agent_run_status(agent_run_id, "failed", error=str(e), account_id=account_id)
         
     finally:
         from core.utils.lifecycle_tracker import log_cleanup_error
         cleanup_errors = []
-        
+
         # Step 1: Clear streaming context
         try:
             clear_tool_output_streaming_context()
@@ -968,7 +979,7 @@ async def execute_agent_run(
         except Exception as e:
             log_cleanup_error(agent_run_id, "redis_expire", e)
             cleanup_errors.append(f"redis_expire: {e}")
-        
+
         # Log cleanup errors summary if any occurred
         if cleanup_errors:
             logger.error(

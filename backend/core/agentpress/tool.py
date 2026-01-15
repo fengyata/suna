@@ -41,6 +41,9 @@ class ToolResult:
     """
     success: bool
     output: Any
+    # Optional sandbox artifacts produced by this tool call.
+    # Only addresses/paths should be stored (no file content).
+    artifacts: Optional[List[Dict[str, Any]]] = None
 
 @dataclass
 class ToolMetadata:

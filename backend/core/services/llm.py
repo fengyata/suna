@@ -63,7 +63,7 @@ class LLMTimingCallback(CustomLogger):
         metadata = litellm_params.get("metadata") if isinstance(litellm_params, dict) else {}
         if metadata is None:
             metadata = {}
-        
+
         retry_count = metadata.get("_litellm_retry_count", 0) if isinstance(metadata, dict) else 0
         if retry_count > 0:
             logger.warning(f"[LLM] 🔄 RETRY #{retry_count} for {model}")
@@ -71,7 +71,7 @@ class LLMTimingCallback(CustomLogger):
     def log_post_api_call(self, kwargs, response_obj, start_time, end_time):
         """Silent - we log completion in our own code."""
         pass
-    
+
     def log_success_event(self, kwargs, response_obj, start_time, end_time):
         """Only log slow successes (>30s)."""
         try:
@@ -89,7 +89,7 @@ class LLMTimingCallback(CustomLogger):
             duration = (end_time - start_time).total_seconds()
         except:
             duration = 0
-        
+
         exception = kwargs.get("exception", response_obj)
         error_str = str(exception)[:200] if exception else "unknown"
         logger.error(f"[LLM] ❌ FAIL: {model} after {duration:.2f}s - {error_str}")
@@ -112,11 +112,11 @@ def setup_api_keys() -> None:
     # Set Anthropic API key for LiteLLM
     if getattr(config, 'ANTHROPIC_API_KEY', None):
         os.environ["ANTHROPIC_API_KEY"] = config.ANTHROPIC_API_KEY
-    
+
     # Set OpenAI API key for LiteLLM
     if getattr(config, 'OPENAI_API_KEY', None):
         os.environ["OPENAI_API_KEY"] = config.OPENAI_API_KEY
-    
+
     if getattr(config, 'OPENROUTER_API_KEY', None) and getattr(config, 'OPENROUTER_API_BASE', None):
         os.environ["OPENROUTER_API_BASE"] = config.OPENROUTER_API_BASE
     
@@ -333,12 +333,29 @@ async def make_llm_api_call(
     
     import time as time_module
     call_start = time_module.monotonic()
-    
+
     try:
         _save_debug_input(params)
-        
+        actual_model = params.get("model", model_name)
+        msg_count = len(params.get("messages", []))
+        tool_count = len(params.get("tools", []) or [])
+
         if stream:
-            response = await litellm.acompletion(**params)
+            # Direct LiteLLM call - Router removed due to 250+ second delays
+            try:
+                from core.services.sentry_service import span as sentry_span
+            except Exception:
+                sentry_span = None
+
+            if sentry_span:
+                with sentry_span(
+                        op="llm.call",
+                        description=f"litellm.acompletion({actual_model})",
+                        data={"model": model_name, "actual_model": actual_model, "msg_count": msg_count, "tool_count": tool_count},
+                ):
+                    response = await litellm.acompletion(**params)
+            else:
+                response = await litellm.acompletion(**params)
             ttft = time_module.monotonic() - call_start
             
             # Log TTFT with severity based on duration
@@ -353,7 +370,20 @@ async def make_llm_api_call(
                 return _wrap_streaming_response(response, call_start, model_name, ttft_seconds=ttft)
             return response
         else:
-            response = await litellm.acompletion(**params)
+            try:
+                from core.services.sentry_service import span as sentry_span
+            except Exception:
+                sentry_span = None
+
+            if sentry_span:
+                with sentry_span(
+                        op="llm.call",
+                        description=f"litellm.acompletion({params.get('model', model_name)})",
+                        data={"model": model_name, "msg_count": len(params.get("messages", [])), "tool_count": len(params.get("tools", []) or [])},
+                ):
+                    response = await litellm.acompletion(**params)
+            else:
+                response = await litellm.acompletion(**params)
             duration = time_module.monotonic() - call_start
             logger.info(f"[LLM] ✅ {duration:.2f}s {model_name}")
             return response
@@ -361,7 +391,7 @@ async def make_llm_api_call(
     except Exception as e:
         total_time = time_module.monotonic() - call_start
         logger.error(f"[LLM] call error after {total_time:.2f}s for {model_name}: {str(e)[:100]}")
-        processed_error = ErrorProcessor.process_llm_error(e, context={"model": model_name})
+        processed_error = ErrorProcessor.process_llm_error(e, context={"model": model_name, "llm_stage": "llm.call"})
         ErrorProcessor.log_error(processed_error)
         raise LLMError(processed_error.message)
 
@@ -422,7 +452,7 @@ async def _wrap_streaming_response(response, start_time: float, model_name: str,
         ErrorProcessor.log_error(processed_error)
         raise LLMError(processed_error.message)
     except Exception as e:
-        processed_error = ErrorProcessor.process_llm_error(e)
+        processed_error = ErrorProcessor.process_llm_error(e, context={"model": model_name, "llm_stage": "llm.stream"})
         ErrorProcessor.log_error(processed_error)
         raise LLMError(processed_error.message)
     finally:

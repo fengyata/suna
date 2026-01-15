@@ -18,6 +18,7 @@ from core.agentpress.response_processor import ResponseProcessor, ProcessorConfi
 from core.agentpress.error_processor import ErrorProcessor
 from core.services.supabase import DBConnection
 from core.utils.logger import logger
+from core.utils.logger import structlog
 from langfuse.client import StatefulGenerationClient, StatefulTraceClient
 from core.services.langfuse import langfuse
 from datetime import datetime, timezone
@@ -587,6 +588,12 @@ class ThreadManager:
         
         # Simple run counter - increments with each call
         run_number = auto_continue_state['count'] + 1
+
+        # Bind run_number for downstream observability (Sentry repair signals, etc.)
+        try:
+            structlog.contextvars.bind_contextvars(run_number=run_number)
+        except Exception:
+            pass
         
         logger.debug(f"🔥 LLM API call iteration #{run_number} of run")
         
@@ -862,7 +869,16 @@ class ThreadManager:
 
             schema_start = time.time()
             if openapi_tool_schemas_task:
-                openapi_tool_schemas = await openapi_tool_schemas_task
+                try:
+                    from core.services.sentry_service import span as sentry_span
+                except Exception:
+                    sentry_span = None
+
+                if sentry_span:
+                    with sentry_span(op="agent.tools.schemas", description="tool_registry.get_openapi_schemas"):
+                        openapi_tool_schemas = await openapi_tool_schemas_task
+                else:
+                    openapi_tool_schemas = await openapi_tool_schemas_task
                 logger.debug(f"⏱️ [TIMING] Get tool schemas (parallel): {(time.time() - schema_start) * 1000:.1f}ms")
             else:
                 openapi_tool_schemas = None
@@ -911,6 +927,7 @@ class ThreadManager:
                             "temperature": llm_temperature,
                             "tool_choice": tool_choice,
                             "tools": tools_param,
+                            "run_number": run_number,
                         }
                     )
                 except Exception as e:

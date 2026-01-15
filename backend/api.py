@@ -19,6 +19,9 @@ from collections import OrderedDict
 import os
 import psutil
 
+# Observability (no-op if SENTRY_DSN is missing)
+from core.services.sentry_service import init_backend_sentry
+
 from pydantic import BaseModel
 import uuid
 
@@ -229,6 +232,9 @@ app = FastAPI(
     },
 )
 
+# Initialize Sentry as early as possible (safe no-op if not configured)
+init_backend_sentry()
+
 # Configure OpenAPI docs with API Key and Bearer token auth
 configure_openapi(app)
 
@@ -250,6 +256,13 @@ async def log_requests_middleware(request: Request, call_next):
         path=path,
         query_params=query_params
     )
+
+    # Sync request-level identifiers into Sentry scope (no-op if disabled)
+    try:
+        from core.services.sentry_service import set_request_scope_tags
+        set_request_scope_tags()
+    except Exception:
+        pass
 
     # Log the incoming request
     logger.debug(f"Request started: {method} {path} from {client_ip} | Query: {query_params}")
@@ -420,6 +433,35 @@ async def debug_endpoint():
         "active_runs_on_instance": len(_cancellation_events),
         "is_shutting_down": _is_shutting_down,
         "timestamp": datetime.now(timezone.utc).isoformat()
+    }
+
+
+@api_router.get("/sentry-debug", summary="Trigger a Sentry test event", operation_id="sentry_debug", tags=["system"])
+async def sentry_debug_endpoint():
+    """
+    Trigger a test exception event to verify Sentry ingestion.
+    - Only enabled in local/staging to avoid accidental production noise.
+    """
+    if config.ENV_MODE not in [EnvMode.LOCAL, EnvMode.STAGING]:
+        raise HTTPException(status_code=404, detail="Not found")
+
+    from core.services.sentry_service import is_enabled, capture_exception
+
+    if not is_enabled():
+        return {
+            "sentry_enabled": False,
+            "hint": "Set SENTRY_DSN in the running environment; check startup logs for '[SENTRY] Enabled ...'",
+        }
+
+    try:
+        1 / 0
+    except Exception as e:
+        event_id = capture_exception(e, llm_stage="system.debug", error_type="SentryDebug")
+
+    return {
+        "sentry_enabled": True,
+        "event_id": event_id,
+        "note": "Search this event_id in Sentry to confirm ingestion",
     }
 
 @api_router.get("/debug/redis", summary="Redis Health & Diagnostics", operation_id="redis_health", tags=["system"])
