@@ -357,6 +357,7 @@ export function useAgentStream(
             postOpenAddonDialogToParent();
           }
           handleBillingError(processed.errorMessage);
+          finalizeStream('stopped', currentRunIdRef.current);
         }
         break;
       
