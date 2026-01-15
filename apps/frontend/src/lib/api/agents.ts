@@ -4,32 +4,9 @@ import { backendApi } from '../api-client';
 import { BillingError, AgentRunLimitError, ProjectLimitError, ThreadLimitError, NoAccessTokenAvailableError, RequestTooLargeError, parseTierRestrictionError } from './errors';
 import { nonRunningAgentRuns, activeStreams, cleanupEventSource } from './streaming';
 import { Message } from './threads';
+import { postOpenAddonDialogToParent } from '@/lib/error-handler';
 
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
-
-function postOpenAddonDialogToParent() {
-  if (typeof window === 'undefined') return;
-
-  try {
-    // only notify outer container when embedded in iframe
-    if (window.self === window.top) return;
-  } catch {
-    // Cross-origin iframe access may throw; assume embedded
-  }
-
-  setTimeout(() => {
-    try {
-      window.parent.postMessage(
-        {
-          type: 'open-addon-dialog',
-        },
-        '*',
-      );
-    } catch {
-      // ignore
-    }
-  }, 0);
-}
 
 export type AgentRun = {
   id: string;
