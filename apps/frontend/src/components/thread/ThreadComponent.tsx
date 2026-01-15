@@ -1223,6 +1223,7 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
     isSidePanelOpen,
     onToggleSidePanel: toggleSidePanel,
     setCurrentToolIndex,
+    navigateToToolCall,
     toolCalls,
   });
 
@@ -1881,7 +1882,7 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
               isPlaying={playback.playbackState.isPlaying}
               isSidePanelOpen={isSidePanelOpen}
               onTogglePlayback={playback.togglePlayback}
-              onReset={playback.resetPlayback}
+              onReset={playback.restartPlayback}
               onSkipToEnd={playback.skipToEnd}
               onForwardOne={playback.forwardOne}
               onBackwardOne={playback.backwardOne}
@@ -2015,7 +2016,7 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
             isPlaying={playback.playbackState.isPlaying}
             isSidePanelOpen={isSidePanelOpen}
             onTogglePlayback={playback.togglePlayback}
-            onReset={playback.resetPlayback}
+            onReset={playback.restartPlayback}
             onSkipToEnd={playback.skipToEnd}
             onForwardOne={playback.forwardOne}
             onBackwardOne={playback.backwardOne}
