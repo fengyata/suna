@@ -33,6 +33,7 @@ function playbackReducer(state: PlaybackState, action: PlaybackAction): Playback
             return { ...state, isPlaying: true };
         case 'RESET':
             return {
+                ...state,
                 isPlaying: false,
                 currentMessageIndex: 0,
                 visibleMessages: [],
@@ -98,6 +99,7 @@ interface UsePlaybackControllerOptions {
     isSidePanelOpen: boolean;
     onToggleSidePanel: () => void;
     setCurrentToolIndex: (index: number) => void;
+    navigateToToolCall?: (index: number) => void;
     toolCalls: any[];
 }
 
@@ -108,6 +110,7 @@ export function usePlaybackController({
     isSidePanelOpen,
     onToggleSidePanel,
     setCurrentToolIndex,
+    navigateToToolCall,
     toolCalls,
 }: UsePlaybackControllerOptions) {
     const [state, dispatch] = useReducer(playbackReducer, {
@@ -540,10 +543,16 @@ export function usePlaybackController({
             streamCleanupRef.current = null;
         }
         dispatch({ type: 'RESET' });
+
+        setCurrentToolIndex(0);
+        if (navigateToToolCall) {
+            navigateToToolCall(0);
+        }
+
         if (isSidePanelOpen) {
             onToggleSidePanel();
         }
-    }, [isSidePanelOpen, onToggleSidePanel]);
+    }, [isSidePanelOpen, onToggleSidePanel, setCurrentToolIndex, navigateToToolCall]);
 
     const restartPlayback = useCallback(() => {
         if (streamCleanupRef.current) {
@@ -551,11 +560,17 @@ export function usePlaybackController({
             streamCleanupRef.current = null;
         }
         dispatch({ type: 'RESET' });
+
+        setCurrentToolIndex(0);
+        if (navigateToToolCall) {
+            navigateToToolCall(0);
+        }
+
         dispatch({ type: 'START_PLAYBACK' });
         if (!isSidePanelOpen) {
             onToggleSidePanel();
         }
-    }, [isSidePanelOpen, onToggleSidePanel]);
+    }, [isSidePanelOpen, onToggleSidePanel, setCurrentToolIndex, navigateToToolCall]);
 
     const skipToEnd = useCallback(() => {
         if (streamCleanupRef.current) {
@@ -563,11 +578,17 @@ export function usePlaybackController({
             streamCleanupRef.current = null;
         }
         dispatch({ type: 'SKIP_TO_END', messages });
-        if (toolCalls.length > 0 && !isSidePanelOpen) {
-            setCurrentToolIndex(toolCalls.length - 1);
-            onToggleSidePanel();
+        if (toolCalls.length > 0) {
+            const lastIdx = toolCalls.length - 1;
+            setCurrentToolIndex(lastIdx);
+            if (navigateToToolCall) {
+                navigateToToolCall(lastIdx);
+            }
+            if (!isSidePanelOpen) {
+                onToggleSidePanel();
+            }
         }
-    }, [messages, toolCalls, isSidePanelOpen, setCurrentToolIndex, onToggleSidePanel]);
+    }, [messages, toolCalls, isSidePanelOpen, setCurrentToolIndex, navigateToToolCall, onToggleSidePanel]);
 
     const forwardOne = useCallback(() => {
         if (streamCleanupRef.current) {
