@@ -29,6 +29,25 @@ import { StreamConnection } from './stream-connection';
 
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
 
+function postOpenAddonDialogToParent() {
+  if (typeof window === 'undefined') return;
+
+  try {
+    // only notify outer container when embedded in iframe
+    if (window.self === window.top) return;
+  } catch {
+    // Cross-origin iframe access may throw; assume embedded
+  }
+
+  setTimeout(() => {
+    try {
+      window.parent.postMessage({ type: 'open-addon-dialog' }, '*');
+    } catch {
+      // ignore
+    }
+  }, 1000);
+}
+
 export interface AgentStreamCallbacks {
   onMessage: (message: UnifiedMessage) => void;
   onStatusChange?: (status: AgentStatus) => void;
@@ -65,6 +84,7 @@ export function useAgentStream(
   options: UseAgentStreamOptions = {}
 ): UseAgentStreamResult {
   const queryClient = useQueryClient();
+  const addonDialogThrottleMs = 2000;
   
   const [status, setStatus] = useState<AgentStatus>('idle');
   const [textChunks, setTextChunks] = useState<Array<{ content: string; sequence: number }>>([]);
@@ -78,6 +98,7 @@ export function useAgentStream(
   const currentRunIdRef = useRef<string | null>(null);
   const threadIdRef = useRef(threadId);
   const isMountedRef = useRef(true);
+  const lastAddonDialogPostedAtRef = useRef<number>(0);
   
   const callbacksRef = useRef(callbacks);
   const optionsRef = useRef(options);
@@ -348,6 +369,11 @@ export function useAgentStream(
       
       case 'billing_error':
         if (processed.errorMessage) {
+          const now = Date.now();
+          if (now - lastAddonDialogPostedAtRef.current >= addonDialogThrottleMs) {
+            lastAddonDialogPostedAtRef.current = now;
+            postOpenAddonDialogToParent();
+          }
           handleBillingError(processed.errorMessage);
         }
         break;
