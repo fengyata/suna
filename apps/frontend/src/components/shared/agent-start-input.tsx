@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, lazy, useEffect } from 'react';
+import React, { Suspense, lazy, useEffect, useRef } from 'react';
 import { ChatInput } from '@/components/thread/chat-input/chat-input';
 import { useAgentStartInput, UseAgentStartInputOptions } from '@/hooks/dashboard';
 import { useTranslations } from 'next-intl';
@@ -88,6 +88,11 @@ export function AgentStartInput({
   const tSuna = useTranslations('suna');
   const tCommon = useTranslations('common');
   const tBilling = useTranslations('billing');
+
+  // Track the last external prompt we applied so user edits (including clearing)
+  // won't be overwritten by the same external prompt on re-render.
+  const lastAppliedExternalPromptNonceRef = useRef<number | null>(null);
+  const lastAppliedExternalPromptRef = useRef<string | null>(null);
   
   const { user } = useAuth();
   const pricingModalStore = usePricingModalStore();
@@ -162,15 +167,21 @@ export function AgentStartInput({
   useEffect(() => {
     if (typeof externalPrompt !== 'string') return;
     if (!externalPrompt) return;
-    // 如果外部传了 nonce，则以 nonce 为准强制回填（允许重复点击同一个 prompt）
+
+    // 如果外部传了 nonce，则以 nonce 为准仅回填一次（允许重复点击同一个 prompt，但不覆盖用户手动编辑/清空）
     if (typeof externalPromptNonce === 'number') {
+      if (lastAppliedExternalPromptNonceRef.current === externalPromptNonce) return;
+      lastAppliedExternalPromptNonceRef.current = externalPromptNonce;
+      lastAppliedExternalPromptRef.current = externalPrompt;
       setInputValue(externalPrompt);
       return;
     }
-    // 否则保持轻量行为：仅在值不同的时候回填
-    if (externalPrompt === inputValue) return;
+
+    // 否则保持轻量行为：同一条 externalPrompt 只回填一次
+    if (lastAppliedExternalPromptRef.current === externalPrompt) return;
+    lastAppliedExternalPromptRef.current = externalPrompt;
     setInputValue(externalPrompt);
-  }, [externalPrompt, externalPromptNonce, inputValue, setInputValue]);
+  }, [externalPrompt, externalPromptNonce, setInputValue]);
   
   return (
     <>
