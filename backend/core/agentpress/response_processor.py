@@ -253,7 +253,20 @@ class ResponseProcessor:
         if not isinstance(model_id, str):
             return False
         m = model_id.lower()
-        return m.startswith("gemini/") or m.startswith("google/gemini") or ("gemini" in m)
+        if m.startswith("gemini/") or m.startswith("google/gemini") or ("gemini" in m):
+            return True
+        # If not, try to resolve through model registry to get actual LiteLLM model ID
+        try:
+            from core.ai_models import model_manager
+            actual_litellm_model_id = model_manager.get_litellm_model_id(model_id)
+            if actual_litellm_model_id != model_id:
+                actual_m = actual_litellm_model_id.lower()
+                return actual_m.startswith("gemini/") or actual_m.startswith("google/gemini") or ("gemini" in actual_m)
+        except Exception:
+            # Fallback to original behavior if registry access fails
+            pass
+        logger.warning(f"Failed to determine if {model_id} is a Gemini model")
+        return False
 
     def _transform_execute_tool_call(self, tool_call: Dict[str, Any]) -> Dict[str, Any]:
         """Transform execute_tool calls to appear as real tool calls for frontend UI components."""
@@ -1303,7 +1316,7 @@ class ResponseProcessor:
             # Gemini native tool calling quirk:
             # Gemini often returns finish_reason=STOP even when it is requesting tool execution.
             # Our auto-continue only triggers on 'length'/'tool_calls', so normalize stop->length
-            # ONLY when Gemini + native tool calling actually produced tool_calls.
+            # ONLY when Gemini + native tool calling actually produced tool_calls.     
             if (
                 self._is_gemini_model_id(llm_model)
                 and config.native_tool_calling
