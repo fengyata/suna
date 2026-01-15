@@ -147,7 +147,6 @@ Available tools:
             stream=True,
             llm_model="gpt-4o",
             processor_config=ProcessorConfig(
-                xml_tool_calling=True,
                 execute_tools=True,
                 tool_execution_strategy="sequential"
             ),

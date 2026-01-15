@@ -67,7 +67,8 @@ export function useAgentStream(
   const queryClient = useQueryClient();
   
   const [status, setStatus] = useState<AgentStatus>('idle');
-  const [textChunks, setTextChunks] = useState<Array<{ content: string; sequence: number }>>([]);
+  // Changed to cumulative text content (AgentScope migration)
+  const [textContent, setTextContent] = useState<string>('');
   const [reasoningContent, setReasoningContent] = useState('');
   const [toolCall, setToolCall] = useState<UnifiedMessage | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -133,33 +134,29 @@ export function useAgentStream(
     };
   }, []);
   
-  const textContent = useMemo(() => {
-    if (textChunks.length === 0) return '';
-    const sorted = [...textChunks].sort((a, b) => a.sequence - b.sequence);
-    return sorted.map(chunk => chunk.content).join('');
-  }, [textChunks]);
+  // textContent is now directly stored as state (cumulative from AgentScope)
+  // No need to compute from chunks anymore
   
+  // Simplified for cumulative content from AgentScope
   const flushPendingChunks = useCallback(() => {
     if (!isMountedRef.current) return;
     
+    // For cumulative mode, we just take the latest content
     if (pendingChunksRef.current.length > 0) {
-      const chunksToAdd = [...pendingChunksRef.current];
+      // Sort by sequence and take the last one (cumulative)
+      const sorted = [...pendingChunksRef.current].sort((a, b) => a.sequence - b.sequence);
+      const latestChunk = sorted[sorted.length - 1];
       pendingChunksRef.current = [];
       
-      setTextChunks(prev => {
-        const combined = [...prev, ...chunksToAdd];
-        const deduplicated = new Map<number, { content: string; sequence: number }>();
-        for (const chunk of combined) {
-          deduplicated.set(chunk.sequence, chunk);
-        }
-        return Array.from(deduplicated.values()).sort((a, b) => a.sequence - b.sequence);
-      });
+      // Set content directly (cumulative, not concatenated)
+      setTextContent(latestChunk.content);
     }
     
     rafIdRef.current = null;
   }, []);
   
   const addTextChunk = useCallback((content: string, sequence: number) => {
+    // Content is now cumulative - just store it
     pendingChunksRef.current.push({ content, sequence });
     
     if (!rafIdRef.current) {
@@ -201,7 +198,7 @@ export function useAgentStream(
   }, [queryClient]);
   
   const resetState = useCallback(() => {
-    setTextChunks([]);
+    setTextContent('');
     setReasoningContent('');
     setToolCall(null);
     setError(null);
@@ -323,7 +320,7 @@ export function useAgentStream(
       
       case 'message_complete':
         flushPendingChunks();
-        setTextChunks([]);
+        setTextContent('');
         setToolCall(null);
         clearAccumulator(accumulatorRef.current);
         

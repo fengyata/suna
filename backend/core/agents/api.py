@@ -398,16 +398,30 @@ async def start_agent_run(
         cleanup_errors = []
         
         try:
-            await execute_agent_run(
-                agent_run_id=agent_run_id,
-                thread_id=thread_id,
-                project_id=project_id,
-                model_name=effective_model,
-                agent_config=agent_config,
-                account_id=account_id,
-                cancellation_event=cancellation_event,
-                is_new_thread=is_new_thread
-            )
+            # Switch between native and AgentScope implementations
+            if config.USE_AGENTSCOPE:
+                from core.agentscope_core import execute_agent_run_agentscope
+                await execute_agent_run_agentscope(
+                    agent_run_id=agent_run_id,
+                    thread_id=thread_id,
+                    project_id=project_id,
+                    model_name=effective_model,
+                    agent_config=agent_config,
+                    account_id=account_id,
+                    cancellation_event=cancellation_event,
+                    is_new_thread=is_new_thread,
+                )
+            else:
+                await execute_agent_run(
+                    agent_run_id=agent_run_id,
+                    thread_id=thread_id,
+                    project_id=project_id,
+                    model_name=effective_model,
+                    agent_config=agent_config,
+                    account_id=account_id,
+                    cancellation_event=cancellation_event,
+                    is_new_thread=is_new_thread,
+                )
             final_status = "completed"
         except asyncio.CancelledError:
             final_status = "cancelled"

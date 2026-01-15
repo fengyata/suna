@@ -495,7 +495,6 @@ class AgentRunner:
             getattr(self, 'mcp_wrapper_instance', None), 
             self.client,
             tool_registry=self.thread_manager.tool_registry,
-            xml_tool_calling=config.AGENT_XML_TOOL_CALLING,
             user_id=self.account_id,
             mcp_loader=getattr(self.thread_manager, 'mcp_loader', None)
         )
@@ -600,7 +599,6 @@ class AgentRunner:
                 temporary_message=None,
                 latest_user_message_content=None,
                 processor_config=ProcessorConfig(
-                    xml_tool_calling=config.AGENT_XML_TOOL_CALLING,
                     native_tool_calling=config.AGENT_NATIVE_TOOL_CALLING, 
                     execute_tools=True,
                     execute_on_stream=config.AGENT_EXECUTE_ON_STREAM,

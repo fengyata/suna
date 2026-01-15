@@ -16,7 +16,6 @@ class PromptManager:
                                   mcp_wrapper_instance: Optional[MCPToolWrapper],
                                   client=None,
                                   tool_registry=None,
-                                  xml_tool_calling: bool = False,
                                   user_id: Optional[str] = None,
                                   mcp_loader=None) -> Tuple[dict, Optional[dict]]:
         
@@ -60,7 +59,6 @@ class PromptManager:
         system_content = await PromptManager._append_jit_mcp_info(system_content, mcp_loader, fresh_mcp_config)
         logger.debug(f"⏱️ [PROMPT TIMING] _append_jit_mcp_info: {(time.time() - t4) * 1000:.1f}ms")
         
-        system_content = PromptManager._append_xml_tool_calling_instructions(system_content, xml_tool_calling, tool_registry)
         system_content = PromptManager._append_datetime_info(system_content)
         
         t5 = time.time()
@@ -379,85 +377,6 @@ class PromptManager:
         logger.info(f"⚡ [MCP PROMPT] Appended MCP info ({len(mcp_jit_info)} chars) for {len(toolkit_tools)} toolkits, {total_tools} total tools")
         return system_content + mcp_jit_info
     
-    @staticmethod
-    def _append_xml_tool_calling_instructions(system_content: str, xml_tool_calling: bool, tool_registry) -> str:
-        if not (xml_tool_calling and tool_registry):
-            return system_content
-        
-        openapi_schemas = tool_registry.get_openapi_schemas()
-        
-        if not openapi_schemas:
-            return system_content
-        
-        schemas_json = json.dumps(openapi_schemas, indent=2)
-        
-        examples_content = f"""
-
-In this environment you have access to a set of tools you can use to answer the user's question.
-
-You can invoke functions by writing a <function_calls> block like the following as part of your reply to the user:
-
-<function_calls>
-<invoke name="function_name">
-<parameter name="param_name">param_value</parameter>
-...
-</invoke>
-</function_calls>
-
-String and scalar parameters should be specified as-is, while lists and objects should use JSON format.
-
-Here are the functions available in JSON Schema format:
-
-```json
-{schemas_json}
-```
-
-When using the tools:
-- Use the exact function names from the JSON schema above
-- Include all required parameters as specified in the schema
-- Format complex data (objects, arrays) as JSON strings within the parameter tags
-- Boolean values should be "true" or "false" (lowercase)
-
-CRITICAL: STOP SEQUENCE
-After completing your tool calls, you MUST output the special stop token: |||STOP_AGENT|||
-
-This token tells the system you are done and ready for tool execution. The system will AUTOMATICALLY STOP generation when it sees this token.
-
-RULES FOR TOOL CALLING:
-1. Generate ONLY ONE <function_calls> block per response
-2. Each <function_calls> block can contain multiple <invoke> tags for parallel tool execution
-3. IMPORTANT: Tool execution ONLY happens when you output the |||STOP_AGENT||| stop sequence
-4. IMMEDIATELY after </function_calls>, output: |||STOP_AGENT|||
-5. NEVER write anything after |||STOP_AGENT|||
-6. Do NOT continue the conversation after this token
-7. Do NOT simulate tool results or user responses
-
-Example of correct tool call format (single block):
-<function_calls>
-<invoke name="example_tool">
-<parameter name="param1">value1</parameter>
-</invoke>
-</function_calls>
-|||STOP_AGENT|||
-
-[Generation stops here automatically - do not continue]
-
-Example of correct tool call format (multiple invokes in one block):
-<function_calls>
-<invoke name="tool1">
-<parameter name="param1">value1</parameter>
-</invoke>
-<invoke name="tool2">
-<parameter name="param2">value2</parameter>
-</invoke>
-</function_calls>
-|||STOP_AGENT|||
-
-[Generation stops here automatically - do not continue]
-"""
-        
-        logger.debug("Appended XML tool examples to system prompt")
-        return system_content + examples_content
     
     @staticmethod
     def _append_datetime_info(system_content: str) -> str:

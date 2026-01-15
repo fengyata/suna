@@ -1082,19 +1082,13 @@ class ThreadManager:
 
             # Make LLM call
             try:
-                # Use |||STOP_AGENT||| as stop sequence for XML tool calling
-                # This ensures the LLM stops after completing a tool call block
-                # Check xml_tool_calling directly - it's independent of native_tool_calling
-                stop_sequences = ["|||STOP_AGENT|||"] if config.xml_tool_calling else None
-                
                 llm_response = await make_llm_api_call(
                     prepared_messages, llm_model,
                     temperature=llm_temperature,
                     max_tokens=llm_max_tokens,
                     tools=openapi_tool_schemas,
                     tool_choice=tool_choice if config.native_tool_calling else "none",
-                    stream=stream,
-                    stop=stop_sequences if stop_sequences else None
+                    stream=stream
                 )
                 
                 # For streaming, the call returns immediately with a generator

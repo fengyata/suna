@@ -45,10 +45,12 @@ class EnvMode(Enum):
 class Configuration:
     ENV_MODE: Optional[EnvMode] = EnvMode.LOCAL
 
-    AGENT_XML_TOOL_CALLING: bool = False      # Enable XML-based tool calls (<function_calls>)
     AGENT_NATIVE_TOOL_CALLING: bool = True  # Enable OpenAI-style native function calling
     AGENT_EXECUTE_ON_STREAM: bool = True     # Execute tools as they stream (vs. at end)
     AGENT_TOOL_EXECUTION_STRATEGY: str = "parallel"  # "parallel" or "sequential"
+    
+    # AgentScope Migration Flag
+    USE_AGENTSCOPE: bool = False  # Enable AgentScope-based agent execution (migration in progress)
     # ============================================
     
     # ===== PRESENCE CONFIGURATION =====

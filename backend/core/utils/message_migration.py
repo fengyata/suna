@@ -16,8 +16,17 @@ import uuid
 import re
 from typing import Dict, Any, List, Optional
 from core.utils.logger import logger
-from core.agentpress.xml_tool_parser import strip_xml_tool_calls, parse_xml_tool_calls
 from core.utils.json_helpers import safe_json_parse
+
+# XML tool parser functions - removed in Phase 1 migration cleanup
+# These will be reimplemented if needed for Phase 7 historical data migration
+def strip_xml_tool_calls(content: str) -> str:
+    """Stub: XML tool call stripping removed - native tool calling only."""
+    return content
+
+def parse_xml_tool_calls(content: str) -> list:
+    """Stub: XML tool call parsing removed - native tool calling only."""
+    return []
 
 
 def needs_migration(message: Dict[str, Any]) -> bool:
