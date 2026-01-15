@@ -1307,7 +1307,6 @@ class ResponseProcessor:
             if (
                 self._is_gemini_model_id(llm_model)
                 and config.native_tool_calling
-                and tool_calls_buffer
                 and isinstance(finish_reason, str)
                 and finish_reason.lower() == "stop"
             ):
