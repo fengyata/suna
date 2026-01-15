@@ -390,6 +390,353 @@
     "explore_agentic_ai_capabilities": "探索 Agentic AI 能力",
     "marketing_assets": "营销素材",
     "image": "图片",
+    "images": {
+      "label": "图片",
+      "bannerTitle": "图片工作室",
+      "bannerDescription": "生成逼真的营销素材、复杂图表，以及包含大量文字的海报。",
+      "selectModelPlaceholder": "选择模型",
+      "styleTitle": "选择风格",
+      "samplePrompts": "示例提示",
+      "generateWithStylePrompt": "生成一张 {style} 风格的图片"
+    },
+    "videos": {
+      "label": "视频",
+      "bannerTitle": "视频创作",
+      "bannerDescription": "生成电影级视频，具备更真实的光影与更一致的运动表现。",
+      "selectModelPlaceholder": "选择模型",
+      "styleTitle": "选择视频风格",
+      "samplePrompts": "示例提示",
+      "generateWithStylePrompt": "生成一个 {style} 风格的视频"
+    },
+    "tags": {
+      "sales": "销售",
+      "cx": "客户成功",
+      "mktg": "市场",
+      "ops": "运营",
+      "hr": "人力",
+      "legal": "法务"
+    },
+    "aePanel": {
+      "bannerTitle": "客户经理助手",
+      "bannerDescription": "覆盖销售全流程：发现、演示与交接。",
+      "cards": {
+        "discovery": {
+          "title": "发现阶段准备",
+          "description": "生成有针对性的问题清单与背景调研。",
+          "prompt": "为一家金融科技公司的销售副总裁准备发现阶段问题，并补充必要的背景研究..."
+        },
+        "handoff": {
+          "title": "销售 → 客户成功交接",
+          "description": "结构化整理成交信息，确保顺畅上手。",
+          "prompt": "为客户成功团队创建一份交接文档（包含目标、范围、关键人、风险与下一步）..."
+        },
+        "leadFeedback": {
+          "title": "线索反馈闭环",
+          "description": "向市场团队反馈线索质量与改进建议。",
+          "prompt": "为市场团队撰写一份关于线索质量的反馈与改进建议..."
+        }
+      }
+    },
+    "dataPanel": {
+      "bannerTitle": "数据分析师助手",
+      "bannerDescription": "清洗名单、丰富联系人信息，并分析 CSV 获取 GTM 洞察。",
+      "cards": {
+        "leadCleaner": {
+          "title": "线索名单清洗",
+          "description": "修正格式、去重、标准化字段，便于导入 CRM。",
+          "prompt": "清洗这份线索名单并标准化职位名称等字段..."
+        },
+        "lookalikes": {
+          "title": "相似客群拓展",
+          "description": "基于你最好的客户画像挖掘新潜在客户。",
+          "prompt": "基于我最好的 10 个客户，找出相似公司/客户群体..."
+        },
+        "ticketAnalysis": {
+          "title": "工单分析",
+          "description": "从客服导出的工单中识别高频问题与情绪趋势。",
+          "prompt": "分析这些支持工单，提取情绪、重复问题与根因线索..."
+        }
+      }
+    },
+    "pipelinePanel": {
+      "bannerTitle": "销售管道管理",
+      "bannerDescription": "预测、交易质检与风险识别。",
+      "cards": {
+        "q4Forecast": {
+          "title": "Q4 预测",
+          "description": "预测收入并识别可能延期的交易。",
+          "prompt": "预测我 Q4 的收入并识别可能延期的风险点..."
+        },
+        "campaignRoi": {
+          "title": "活动 ROI",
+          "description": "对近期赢单进行归因分析。",
+          "prompt": "分析赢单交易的营销归因，评估各活动/渠道 ROI..."
+        },
+        "churnForecast": {
+          "title": "流失预测",
+          "description": "预测续费情况并识别高风险客户。",
+          "prompt": "预测即将续费客户群的流失风险，并给出缓解建议..."
+        }
+      }
+    },
+    "researchPanel": {
+      "bannerTitle": "深度研究",
+      "bannerDescription": "使用更强的推理能力进行深度市场研究、竞品策略分析并生成完整报告。",
+      "sectionTitle": "开始新的研究",
+      "items": {
+        "competitorDeepDive": "竞品深度剖析",
+        "marketTrendAnalysis": "市场趋势分析",
+        "accountIntelligenceReport": "客户情报报告",
+        "regulatoryImpactStudy": "监管影响研究"
+      },
+      "promptTemplate": "围绕「{topic}」开展研究，输出关键结论与可执行建议..."
+    },
+    "socialSellingPanel": {
+      "bannerTitle": "社交销售助手",
+      "bannerDescription": "打造个人品牌、生成爆款开头，并用 AI 高效触达潜在客户。",
+      "cards": {
+        "viralHook": {
+          "title": "爆款开头生成",
+          "description": "用 AI 写出让人停下来的开场白。",
+          "prompt": "写一个反常识的 LinkedIn 贴文开头，主题是..."
+        },
+        "repurpose": {
+          "title": "内容改写复用",
+          "description": "把博客一键改写成帖子、Thread 或轮播内容。",
+          "prompt": "把这篇博客改写成一条 Twitter Thread（分段、带节奏）..."
+        },
+        "dmSequence": {
+          "title": "私信序列撰写",
+          "description": "写出不尬聊、不推销的外联私信。",
+          "prompt": "为一个看过我主页的冷线索，写一组私信跟进序列..."
+        }
+      }
+    },
+    "strategistPanel": {
+      "bannerTitle": "交易策略师",
+      "bannerDescription": "用谈判打法、合同审阅与定价策略，加速成交周期。",
+      "cards": {
+        "proposal": {
+          "title": "智能提案生成",
+          "description": "自动起草 + 补齐报价结构。",
+          "cta": "立即起草",
+          "prompt": "为【客户】生成一份标准定价方案/提案（含范围、里程碑、报价与条款）..."
+        },
+        "redline": {
+          "title": "合同红线助手",
+          "description": "AI 审阅合同并提出修改建议。",
+          "cta": "上传文档",
+          "prompt": "分析这份合同并建议需要修改/补充的条款（红线建议）..."
+        },
+        "followUp": {
+          "title": "多线程跟进",
+          "description": "为多个关键人定制跟进邮件。",
+          "cta": "生成序列",
+          "prompt": "为 VP 和 Director 等关键人分别写多线程跟进邮件序列..."
+        },
+        "expansion": {
+          "title": "扩容机会挖掘",
+          "description": "识别增购信号并评估健康度。",
+          "cta": "发现机会",
+          "prompt": "分析账户使用情况，识别扩容/增购信号并给出行动建议..."
+        }
+      }
+    },
+    "icpPanel": {
+      "bannerTitle": "区域与画像",
+      "bannerDescription": "定义 ICP、划分区域并梳理采购委员会。",
+      "sectionTitle": "深度细分",
+      "cards": {
+        "repAssignment": {
+          "title": "销售分配建议",
+          "description": "基于优势与历史表现推荐覆盖策略。",
+          "prompt": "基于历史表现，为西海岸区域建议销售分配与覆盖策略..."
+        },
+        "quotaModeling": {
+          "title": "配额建模",
+          "description": "优化目标并分析产能缺口。",
+          "prompt": "基于当前人员配置，为 FY24 建立配额产能模型并找出缺口..."
+        },
+        "predictiveHiring": {
+          "title": "预测性招聘",
+          "description": "根据增长轨迹进行人员规划。",
+          "prompt": "根据管道速度与收入目标，制定招聘计划与节奏..."
+        },
+        "marketSegmentation": {
+          "title": "市场细分",
+          "description": "细化 ICP 与买方画像。",
+          "prompt": "为我们的企业版细分市场定义心理画像与关键动机..."
+        },
+        "customerHealth": {
+          "title": "客户健康画像",
+          "description": "提炼长期成功客户的共同特征。",
+          "prompt": "为我们最成功的客户构建健康度画像与评分维度..."
+        }
+      }
+    },
+    "websitePanel": {
+      "bannerTitle": "网站",
+      "bannerDescription": "用 AI 生成高转化落地页与可用的 Web 应用。",
+      "sectionTitle": "模板库",
+      "promptTemplate": "为……创建一个「{template}」",
+      "categories": {
+        "marketing": {
+          "title": "营销与活动",
+          "items": {
+            "landingPage": "高转化落地页",
+            "webinarRegistration": "直播/研讨会报名页",
+            "productLaunchCountdown": "产品发布倒计时页",
+            "eventMicrosite": "活动专题页",
+            "newsletterSignup": "Newsletter 订阅页"
+          }
+        },
+        "corporate": {
+          "title": "企业与品牌",
+          "items": {
+            "corporateHomepage": "现代企业官网首页",
+            "aboutLeadership": "关于我们与管理团队",
+            "careersCulture": "招聘与文化页",
+            "pressMediaKit": "媒体资料包/新闻中心"
+          }
+        },
+        "saas": {
+          "title": "SaaS 与产品",
+          "items": {
+            "saasHomepage": "SaaS 产品首页",
+            "pricingComparison": "定价与方案对比页",
+            "featureDeepDive": "功能深挖详情页",
+            "docsHelpCenter": "文档/帮助中心"
+          }
+        },
+        "content": {
+          "title": "内容与作品集",
+          "items": {
+            "personalPortfolio": "个人品牌作品集",
+            "agencyShowcase": "创意机构展示页",
+            "consultantBooking": "咨询预约页",
+            "resourceLibraryBlog": "资源库/博客"
+          }
+        }
+      }
+    },
+    "adsPanel": {
+      "bannerTitle": "广告工作室",
+      "bannerDescription": "用清晰的人群定向与创意方向，生成高转化广告方案。",
+      "none": "无",
+      "steps": {
+        "strategyTargeting": "策略与定向",
+        "adSpecifications": "广告规格",
+        "creativeDirection": "创意方向"
+      },
+      "fields": {
+        "productUrl": "产品落地页链接",
+        "competitorUrl": "竞品链接",
+        "targetAudience": "目标人群",
+        "platforms": "投放平台",
+        "format": "形式",
+        "callToAction": "行动号召（CTA）",
+        "visualStyle": "视觉风格",
+        "outputVolume": "输出数量",
+        "massTranslation": "批量翻译"
+      },
+      "placeholders": {
+        "url": "https://...",
+        "age": "年龄（例如 25-45）",
+        "location": "地区（例如 中国/北美/EMEA）",
+        "interests": "兴趣（例如 SaaS、科技）",
+        "ctaText": "按钮文案（例如 立即注册）",
+        "destinationLink": "落地链接（例如 https://...）"
+      },
+      "platforms": {
+        "googleAds": "Google Ads",
+        "metaAds": "Meta Ads",
+        "linkedin": "LinkedIn",
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "youtube": "YouTube"
+      },
+      "formats": {
+        "singleImage": "单图",
+        "carousel": "轮播",
+        "shortVideo": "短视频",
+        "story": "故事/竖版"
+      },
+      "visualStyles": {
+        "minimalist": "极简",
+        "boldVibrant": "鲜明活力",
+        "professional": "专业",
+        "playful": "俏皮",
+        "luxury": "奢华",
+        "futuristic": "未来感",
+        "handDrawn": "手绘",
+        "corporate": "企业风"
+      },
+      "languages": {
+        "es": "西班牙语",
+        "fr": "法语",
+        "de": "德语",
+        "ja": "日语",
+        "pt": "葡萄牙语",
+        "it": "意大利语",
+        "zh": "中文",
+        "ko": "韩语",
+        "ar": "阿拉伯语",
+        "nl": "荷兰语",
+        "sv": "瑞典语",
+        "no": "挪威语",
+        "da": "丹麦语",
+        "fi": "芬兰语",
+        "hi": "印地语",
+        "ru": "俄语",
+        "tr": "土耳其语",
+        "pl": "波兰语",
+        "id": "印尼语",
+        "th": "泰语",
+        "vi": "越南语",
+        "el": "希腊语"
+      },
+      "outputVolumeConcepts": "{count} 个方案",
+      "generateButton": "生成方案（{count}）",
+      "strategyAppliedTitle": "已应用策略",
+      "strategyAppliedDescription": "每个方案都会自动生成三种不同的文案变体。",
+      "variations": {
+        "1": {
+          "title": "1. 稀缺与紧迫",
+          "description": "FOMO、限时优惠、独家权益等钩子"
+        },
+        "2": {
+          "title": "2. 价值导向",
+          "description": "清晰价值主张、问题-解决方案框架"
+        },
+        "3": {
+          "title": "3. 社会证明",
+          "description": "客户证言、用户规模、可信背书"
+        }
+      },
+      "prompt": {
+        "notProvided": "未提供",
+        "general": "不限",
+        "global": "全球",
+        "learnMore": "了解更多",
+        "na": "无",
+        "productUrl": "产品链接：{value}",
+        "competitorUrl": "竞品链接：{value}",
+        "targetAudienceTitle": "目标人群：",
+        "targetAudienceAge": "- 年龄：{value}",
+        "targetAudienceLocation": "- 地区：{value}",
+        "targetAudienceInterests": "- 兴趣：{value}",
+        "campaignSpecsTitle": "投放规格：",
+        "platforms": "- 平台：{value}",
+        "formats": "- 形式：{value}",
+        "callToAction": "- CTA：\"{text}\"（链接：{link}）",
+        "visualStyle": "- 视觉风格：{value}",
+        "settingsTitle": "设置：",
+        "numberOfConcepts": "- 方案数量：{value}",
+        "translationLanguages": "- 翻译语言：{value}",
+        "instructions": "请基于以上输入生成高转化的广告方案。",
+        "variationsInstruction": "并为每个方案提供 3 种不同的文案变体（稀缺/价值/社会证明）。"
+      }
+    },
     "video_studio": "视频工作室",
     "demos_outreach": "演示与外联",
     "pipeline_manager": "管道管理",
