@@ -77,11 +77,8 @@ export function SuperModesPanel(props: {
   }, [activeCategory, modes]);
 
   const toggleMode = (modeId: SuperModeId) => {
-    if (props.selectedMode === modeId) {
-      props.onModeSelect(null);
-      return;
-    }
-    props.onModeSelect(modeId);
+    const nextMode = props.selectedMode === modeId ? null : modeId;
+    props.onModeSelect(nextMode);
   };
 
   return (

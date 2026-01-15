@@ -12,6 +12,25 @@ import type { DashboardModeAction } from '@/components/dashboard/new-dashboard/t
 import { useSunaModePersistence } from '@/stores/suna-modes-store';
 import { GlobalUserInfo } from '@/components/AuthProvider';
 
+function postSelectedModeToParent(mode: string | null) {
+  if (typeof window === 'undefined') return;
+
+  try {
+    // only notify outer container when embedded in iframe
+    if (window.self === window.top) return;
+  } catch {
+    // Cross-origin iframe access may throw; assume embedded
+  }
+
+  window.parent.postMessage(
+    {
+      type: 'superagent_selected_mode',
+      data: { mode },
+    },
+    '*',
+  );
+}
+
 export function DashboardContentNew() {
   const isMobile = useIsMobile();
   const t = useTranslations('dashboard');
@@ -24,15 +43,23 @@ export function DashboardContentNew() {
   const [externalPrompt, setExternalPrompt] = useState<{ text: string; nonce: number } | null>(null);
   const [externalPromptNonce, setExternalPromptNonce] = useState(0);
 
+  const handleModeSelect = useCallback(
+    (mode: string | null) => {
+      setSelectedMode(mode);
+      setExternalPrompt(null);
+      setExternalPromptNonce(0);
+      postSelectedModeToParent(mode);
+    },
+    [setSelectedMode],
+  );
+
   const handleConfigureAgent = useCallback((_agentId: string) => {
     // 当前新面板不展示配置弹窗，先保持回调占位，避免 AgentStartInput 行为改变
   }, []);
 
   const handleAction = useCallback((action: DashboardModeAction) => {
     if (action.type === 'select_mode') {
-      setSelectedMode(action.mode);
-      setExternalPrompt(null);
-      setExternalPromptNonce(0);
+      handleModeSelect(action.mode);
       // keep URL stable
       return;
     }
@@ -44,7 +71,7 @@ export function DashboardContentNew() {
       window.open(url, action.target || '_blank');
       return;
     }
-  }, [setSelectedMode]);
+  }, [handleModeSelect]);
 
   const getTimeOfDay = () => {
     const hours = new Date().getHours();
@@ -95,7 +122,7 @@ export function DashboardContentNew() {
                   <div className="py-6 pb-8">
                     <ModeContent
                       selectedMode={selectedMode}
-                      onBack={() => setSelectedMode(null)}
+                      onBack={() => handleModeSelect(null)}
                       onPromptSelect={(prompt) => {
                         setExternalPromptNonce((n) => {
                           const next = n + 1;
@@ -112,11 +139,13 @@ export function DashboardContentNew() {
             {/* Bottom input area (uses AgentStartInput, not reference ChatInput logic) */}
             <div className={cn('w-full bg-white border-gray-100 p-3 z-20', isMobile ? '' : 'border-t')}>
               <div className="max-w-4xl mx-auto relative">
-                <SuperModesPanel
-                  selectedMode={selectedMode}
-                  onModeSelect={setSelectedMode}
-                  className="pb-1"
-                />
+                <div className="hidden md:block">
+                  <SuperModesPanel
+                    selectedMode={selectedMode}
+                    onModeSelect={handleModeSelect}
+                    className="pb-1"
+                  />
+                </div>
                 <AgentStartInput
                   variant="dashboard"
                   requireAuth={true}

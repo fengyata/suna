@@ -1269,7 +1269,7 @@ export const ChatInput = memo(forwardRef<ChatInputHandles, ChatInputProps>(
     // Controls are split into left and right to minimize re-renders
     // Memoized to prevent recreation on every keystroke
     const leftControls = useMemo(() => (
-      <div className="flex items-center gap-1.5 min-w-0 flex-shrink overflow-visible">
+      <div className="items-center gap-1.5 min-w-0 flex-shrink overflow-visible hidden md:flex">
         {!hideAttachments && (
           <FileUploadHandler
             ref={fileInputRef}
@@ -1333,10 +1333,10 @@ export const ChatInput = memo(forwardRef<ChatInputHandles, ChatInputProps>(
         {isLoggedIn && (
           <ModeIndicator />
         )}
-        {isLoggedIn && <VoiceRecorder
+        {isLoggedIn && <div className="hidden md:block"><VoiceRecorder
           onTranscription={handleTranscription}
           disabled={loading || (disabled && !isAgentRunning)}
-        />}
+        /></div>}
 
         <SubmitButton
           hasContent={hasContent}
@@ -1354,7 +1354,7 @@ export const ChatInput = memo(forwardRef<ChatInputHandles, ChatInputProps>(
     ), [isLoggedIn, loading, disabled, handleTranscription, isAgentRunning, hasContent, hasFiles, isUploading, onStopAgent, handleSubmit, buttonLoaderVariant, pendingFilesCount, hideAgentSelection, selectedAgentId, onAgentSelect]);
 
     const renderControls = useMemo(() => (
-      <div className="flex items-center justify-between mt-0 mb-1 px-2 gap-1.5">
+      <div className="flex items-center justify-end mt-0 mb-1 px-2 gap-1.5 md:justify-between">
         {leftControls}
         {rightControls}
       </div>
