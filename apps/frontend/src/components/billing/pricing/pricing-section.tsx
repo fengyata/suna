@@ -5,7 +5,7 @@ import { siteConfig } from '@/lib/site-config';
 import { storeCheckoutData, trackSelectItem, trackViewItem, trackAddToCart, PlanItemData } from '@/lib/analytics/gtm';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import NextImage from 'next/image';
 import {
   CheckIcon,
@@ -1029,6 +1029,7 @@ export function PricingSection({
   const promo = usePromo();
   const [promoCodeCopied, setPromoCodeCopied] = useState(false);
   const promoCopyTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastAddonDialogPostedAtRef = React.useRef<number>(0);
   const isUserAuthenticated = !!user;
   const queryClient = useQueryClient();
   
@@ -1235,9 +1236,58 @@ export function PricingSection({
     }
   };
 
+  const addonDialogThrottleMs = 2000;
+  const postOpenAddonDialogToParent = useCallback(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      // Only postMessage when embedded in an iframe
+      if (window.self === window.top) return;
+    } catch {
+      // If cross-origin access to window.top throws, assume we are embedded
+    }
 
+    const now = Date.now();
+    if (now - lastAddonDialogPostedAtRef.current < addonDialogThrottleMs) return;
+    lastAddonDialogPostedAtRef.current = now;
 
-  if (isLocalMode()) {
+    setTimeout(() => {
+      try {
+        window.parent.postMessage({ type: 'open-addon-dialog' }, '*');
+      } catch {
+        // ignore
+      }
+    }, 1000);
+  }, []);
+
+  const isBilling402Alert = useMemo(() => {
+    if (!isAlert) return false;
+    const title = (alertTitle || '').toLowerCase();
+    const subtitle = (alertSubtitle || '').toLowerCase();
+
+    // BillingError(402) -> error-handler.ts will usually set title/subtitle like below.
+    return (
+      title.includes('billing check failed') ||
+      title.includes('credit') ||
+      subtitle.includes('credit') ||
+      subtitle.includes('upgrade your plan') ||
+      subtitle.includes('add credits')
+    );
+  }, [isAlert, alertTitle, alertSubtitle]);
+
+  const localMode = isLocalMode();
+
+  useEffect(() => {
+    // When Billing(402) opened the pricing modal in local mode, don't show the local-mode blocker UI.
+    // Just notify the parent to open the addon dialog.
+    if (!localMode) return;
+    if (!isBilling402Alert) return;
+    postOpenAddonDialogToParent();
+  }, [isBilling402Alert, localMode, postOpenAddonDialogToParent]);
+
+  if (localMode) {
+    if (isBilling402Alert) {
+      return null;
+    }
     return (
       <div className="p-4 bg-muted/30 border border-border rounded-lg text-center">
         <p className="text-sm text-muted-foreground">

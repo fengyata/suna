@@ -16,6 +16,35 @@ export interface ModelOption {
   contextWindow?: number;
 }
 
+const localModels = [
+  {
+    "id": "kortix/basic",
+    "name": "Basic",
+    "allowed": true,
+    "context_window": 1000000,
+    "capabilities": [
+        "chat",
+        "function_calling"
+    ],
+    "priority": 102,
+    "recommended": true
+  },
+  {
+    "id": "kortix/power",
+    "name": "Advanced",
+    "allowed": true,
+    "context_window": 200000,
+    "capabilities": [
+      "chat",
+      "function_calling",
+      "thinking",
+      "prompt_caching"
+    ],
+    "priority": 101,
+    "recommended": true
+  }
+];
+
 // Helper to check if user has a PAID subscription (not free tier)
 const isPaidTier = (tierKey: string | undefined): boolean => {
   if (!tierKey) return false;
@@ -61,7 +90,7 @@ export const useModelSelection = () => {
   const availableModels = useMemo<ModelOption[]>(() => {
     if (!accountState?.models) return [];
 
-    return accountState.models.map(model => ({
+    return localModels.map(model => ({
       id: model.id,
       label: model.name,
       requiresSubscription: !model.allowed, // Backend already computed this correctly
@@ -160,7 +189,7 @@ export const useModelSelection = () => {
     availableModels: accessibleModels,
     allModels: availableModels,
     isLoading,
-    modelsData: accountState?.subscription ? { models: accountState.models, tier: accountState.subscription.tier_key } : undefined,
+    modelsData: accountState?.subscription ? { models: localModels, tier: accountState.subscription.tier_key } : undefined,
     subscriptionStatus,
     canAccessModel,
     isSubscriptionRequired,

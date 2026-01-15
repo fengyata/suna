@@ -4,12 +4,15 @@ import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Check, Lock, ChevronDown } from 'lucide-react';
+import { Check, Lock, ChevronDown, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useModelSelection } from '@/hooks/agents';
 import { usePricingModalStore } from '@/stores/pricing-modal-store';
+import { useSelectedAgentId } from '@/stores/agent-selection-store';
+import { AgentTriggersDialog } from '@/components/agents/triggers/agent-triggers-dialog';
 
 /**
  * ModeIndicator 模型规则（硬约束）：\n
@@ -53,11 +56,13 @@ const ModeLogo = memo(function ModeLogo({
 
 export const ModeIndicator = memo(function ModeIndicator() {
   const [isOpen, setIsOpen] = useState(false);
+  const [triggersOpen, setTriggersOpen] = useState(false);
   const {
     selectedModel,
     canAccessModel,
     handleModelChange,
   } = useModelSelection();
+  const selectedAgentId = useSelectedAgentId();
 
   // Normalize selection to one of the two allowed models.
   const normalizedSelectedModel = useMemo<FixedModelId>(() => {
@@ -95,81 +100,115 @@ export const ModeIndicator = memo(function ModeIndicator() {
   }, [canAccessPower, handleModelChange]);
 
   return (
-    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-      <DropdownMenuTrigger asChild>
-        <button
-          className={cn(
-            'flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-150 cursor-pointer',
-            'hover:bg-accent/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
-          )}
-        >
-          <ModeLogo height={14} />
-          <span className="text-sm font-medium text-foreground">
-            {isPowerSelected ? 'Advanced' : 'Basic'}
-          </span>
-          <ChevronDown className={cn(
-            "h-4 w-4 text-muted-foreground transition-transform duration-200",
-            isOpen && "rotate-180"
-          )} strokeWidth={2} />
-        </button>
-      </DropdownMenuTrigger>
+    <>
+      <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+        <DropdownMenuTrigger asChild>
+          <button
+            className={cn(
+              'flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-150 cursor-pointer',
+              'hover:bg-accent/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+            )}
+          >
+            <ModeLogo height={14} />
+            <span className="text-sm font-medium text-foreground">
+              {isPowerSelected ? 'Advanced' : 'Basic'}
+            </span>
+            <ChevronDown className={cn(
+              "h-4 w-4 text-muted-foreground transition-transform duration-200",
+              isOpen && "rotate-180"
+            )} strokeWidth={2} />
+          </button>
+        </DropdownMenuTrigger>
 
-      <DropdownMenuContent 
-        align="start" 
-        className="w-[320px] p-2 rounded-xl border border-border/50 shadow-lg"
-        sideOffset={8}
-      >
-        {/* Basic Mode */}
-        <div
-          className={cn(
-            'flex items-start gap-3 px-3 py-3 cursor-pointer rounded-lg transition-all duration-150 mb-1.5',
-            isBasicSelected 
-              ? 'bg-accent' 
-              : 'hover:bg-accent/50 active:bg-accent/70'
-          )}
-          onClick={handleBasicClick}
+        <DropdownMenuContent 
+          align="start" 
+          className="w-[320px] p-2 rounded-xl border border-border/50 shadow-lg"
+          sideOffset={8}
         >
-          <div className="flex-1 min-w-0">
-            <div className="mb-1">
-              <div className="flex items-center gap-2">
-                <ModeLogo height={14} />
-                <div className="text-sm font-medium">Basic</div>
+          {/* Basic Mode */}
+          <div
+            className={cn(
+              'flex items-start gap-3 px-3 py-3 cursor-pointer rounded-lg transition-all duration-150 mb-1.5',
+              isBasicSelected 
+                ? 'bg-accent' 
+                : 'hover:bg-accent/50 active:bg-accent/70'
+            )}
+            onClick={handleBasicClick}
+          >
+            <div className="flex-1 min-w-0">
+              <div className="mb-1">
+                <div className="flex items-center gap-2">
+                  <ModeLogo height={14} />
+                  <div className="text-sm font-medium">Basic</div>
+                </div>
               </div>
+              <div className="text-xs text-muted-foreground leading-relaxed">Fast and efficient for quick tasks</div>
             </div>
-            <div className="text-xs text-muted-foreground leading-relaxed">Fast and efficient for quick tasks</div>
+            {isBasicSelected && (
+              <Check className="h-4 w-4 text-foreground flex-shrink-0 mt-0.5" strokeWidth={2} />
+            )}
           </div>
-          {isBasicSelected && (
-            <Check className="h-4 w-4 text-foreground flex-shrink-0 mt-0.5" strokeWidth={2} />
-          )}
-        </div>
 
-        {/* Advanced Mode */}
-        <div
-          className={cn(
-            'flex items-start gap-3 px-3 py-3 cursor-pointer rounded-lg transition-all duration-150',
-            isPowerSelected 
-              ? 'bg-accent' 
-              : 'hover:bg-accent/50 active:bg-accent/70'
-          )}
-          onClick={handleAdvancedClick}
-        >
-          <div className="flex-1 min-w-0">
-            <div className="mb-1">
-              <div className="flex items-center gap-2">
-                <ModeLogo height={14} />
-                <div className="text-sm font-medium">Advanced</div>
+          {/* Advanced Mode */}
+          <div
+            className={cn(
+              'flex items-start gap-3 px-3 py-3 cursor-pointer rounded-lg transition-all duration-150',
+              isPowerSelected 
+                ? 'bg-accent' 
+                : 'hover:bg-accent/50 active:bg-accent/70'
+            )}
+            onClick={handleAdvancedClick}
+          >
+            <div className="flex-1 min-w-0">
+              <div className="mb-1">
+                <div className="flex items-center gap-2">
+                  <ModeLogo height={14} />
+                  <div className="text-sm font-medium">Advanced</div>
+                </div>
               </div>
+              <div className="text-xs text-muted-foreground leading-relaxed">Fast and efficient for quick tasks</div>
             </div>
-            <div className="text-xs text-muted-foreground leading-relaxed">Fast and efficient for quick tasks</div>
+            {isPowerSelected ? (
+              <Check className="h-4 w-4 text-foreground flex-shrink-0 mt-0.5" strokeWidth={2} />
+            ) : !canAccessPower ? (
+              <Lock className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" strokeWidth={2} />
+            ) : null}
           </div>
-          {isPowerSelected ? (
-            <Check className="h-4 w-4 text-foreground flex-shrink-0 mt-0.5" strokeWidth={2} />
-          ) : !canAccessPower ? (
-            <Lock className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" strokeWidth={2} />
-          ) : null}
-        </div>
-      </DropdownMenuContent>
-    </DropdownMenu>
+
+          <DropdownMenuSeparator />
+
+          {/* Triggers button (under model list) */}
+          <button
+            type="button"
+            disabled={!selectedAgentId}
+            onClick={() => {
+              if (!selectedAgentId) return;
+              setIsOpen(false);
+              setTriggersOpen(true);
+            }}
+            className={cn(
+              'mt-2 w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150',
+              selectedAgentId && 'cursor-pointer',
+              'hover:bg-accent/50 active:bg-accent/70',
+              'disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent'
+            )}
+          >
+            <span className="flex items-center gap-2">
+              <Zap className="h-4 w-4 text-muted-foreground" />
+              Triggers
+            </span>
+          </button>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      {selectedAgentId ? (
+        <AgentTriggersDialog
+          open={triggersOpen}
+          onOpenChange={setTriggersOpen}
+          agentId={selectedAgentId}
+        />
+      ) : null}
+    </>
   );
 });
 
