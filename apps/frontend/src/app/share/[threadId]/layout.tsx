@@ -13,7 +13,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
     openGraph: {
       title: 'Shared Conversation | SuperAgent',
       description: 'Replay this Worker conversation on SuperAgent',
-      images: [`${process.env.NEXT_PUBLIC_URL}/share-page/og-fallback.png`],
+      images: ['https://static.flashintel.ai/trigger/superagent/og-fallback.png'],
     },
   };
 
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
       projectData.description ||
       'Replay this Worker conversation on SuperAgent';
     const ogImage = isDevelopment
-      ? `${process.env.NEXT_PUBLIC_URL}/share-page/og-fallback.png`
+      ? 'https://static.flashintel.ai/trigger/superagent/og-fallback.png'
       : `${process.env.NEXT_PUBLIC_URL}/api/share-page/og-image?title=${projectData.name}`;
 
     return {

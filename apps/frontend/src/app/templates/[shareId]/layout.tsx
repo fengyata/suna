@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: { params: Promise<{ shareId: 
         url: `${process.env.NEXT_PUBLIC_URL}/templates/${templateId}`,
         images: [
           {
-            url: `${process.env.NEXT_PUBLIC_URL}/share-page/og-fallback.png`,
+            url: 'https://static.flashintel.ai/trigger/superagent/og-fallback.png',
             width: 1200,
             height: 630,
             alt: 'SuperAgent AI Worker Template',
