@@ -7,6 +7,30 @@ import { Message } from './threads';
 
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
 
+function postOpenAddonDialogToParent() {
+  if (typeof window === 'undefined') return;
+
+  try {
+    // only notify outer container when embedded in iframe
+    if (window.self === window.top) return;
+  } catch {
+    // Cross-origin iframe access may throw; assume embedded
+  }
+
+  setTimeout(() => {
+    try {
+      window.parent.postMessage(
+        {
+          type: 'open-addon-dialog',
+        },
+        '*',
+      );
+    } catch {
+      // ignore
+    }
+  }, 1000);
+}
+
 export type AgentRun = {
   id: string;
   thread_id: string;
@@ -151,7 +175,8 @@ export const unifiedAgentStart = async (options: {
           throw parsedError;
         }
         
-        // Otherwise, throw BillingError
+        // Otherwise, treat as billing/credits issue
+        postOpenAddonDialogToParent();
         throw new BillingError(status, errorDetail);
       }
 
@@ -459,6 +484,9 @@ export const optimisticAgentStart = async (options: {
           detail: errorDetail,
           response: { data: { detail: errorDetail } },
         });
+        if (parsedError instanceof BillingError) {
+          postOpenAddonDialogToParent();
+        }
         throw parsedError;
       }
 
