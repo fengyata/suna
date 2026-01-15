@@ -103,10 +103,11 @@ async def stream_status_message(
         if metadata:
             status_msg["metadata"] = metadata
         
-        await asyncio.wait_for(
+        entry_id = await asyncio.wait_for(
             redis.stream_add(stream_key, {"data": json.dumps(status_msg)}, maxlen=200, approximate=True),
             timeout=2.0
         )
+        logger.debug(f"📨 redis.stream_add(status) stream={stream_key} id={entry_id}")
     except (asyncio.TimeoutError, Exception) as e:
         logger.debug(f"Failed to write status message (non-critical): {e}")
 
@@ -839,7 +840,7 @@ async def execute_agent_run(
         
         set_tool_output_streaming_context(agent_run_id=agent_run_id, stream_key=stream_key)
         
-        # Run agent
+        # Run agent (wrapped in Sentry transaction when enabled)
         runner_config = AgentConfig(
             thread_id=thread_id,
             project_id=project_id,
@@ -878,7 +879,7 @@ async def execute_agent_run(
                         "first_response_ms": round(first_response_time_ms, 1),
                         "timestamp": datetime.now(timezone.utc).isoformat(),
                     }
-                    await redis.stream_add(stream_key, {"data": json.dumps(timing_msg)}, maxlen=200, approximate=True)
+                    await redis.stream_add(stream_key, {"data": json.dumps(timing_msg)}, maxlen=200, approximate=False)
                 except Exception:
                     pass  # Non-critical
 
@@ -887,7 +888,7 @@ async def execute_agent_run(
                 response = serialize_row(response)
             
             try:
-                await redis.stream_add(stream_key, {"data": json.dumps(response)}, maxlen=200, approximate=True)
+                await redis.stream_add(stream_key, {"data": json.dumps(response)}, maxlen=200, approximate=False)
                 
                 if not stream_ttl_set:
                     try:
@@ -896,7 +897,7 @@ async def execute_agent_run(
                     except:
                         pass
             except Exception as e:
-                logger.warning(f"Failed to write to stream: {e}")
+                logger.error(f"Failed to write to stream: {e}")
             
             total_responses += 1
 
