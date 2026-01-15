@@ -40,6 +40,7 @@ import { useUserCurrency } from '@/hooks/use-user-currency';
 import { useLanguage } from '@/hooks/use-language';
 import { convertPriceString, parsePriceAmount, formatPrice } from '@/lib/utils/currency';
 import { usePromo } from '@/hooks/utils/use-promo';
+import { postOpenAddonDialogToParent } from '@/lib/error-handler';
 
 // Constants
 export const SUBSCRIPTION_PLANS = {
@@ -1029,7 +1030,6 @@ export function PricingSection({
   const promo = usePromo();
   const [promoCodeCopied, setPromoCodeCopied] = useState(false);
   const promoCopyTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-  const lastAddonDialogPostedAtRef = React.useRef<number>(0);
   const isUserAuthenticated = !!user;
   const queryClient = useQueryClient();
   
@@ -1236,29 +1236,6 @@ export function PricingSection({
     }
   };
 
-  const addonDialogThrottleMs = 2000;
-  const postOpenAddonDialogToParent = useCallback(() => {
-    if (typeof window === 'undefined') return;
-    try {
-      // Only postMessage when embedded in an iframe
-      if (window.self === window.top) return;
-    } catch {
-      // If cross-origin access to window.top throws, assume we are embedded
-    }
-
-    const now = Date.now();
-    if (now - lastAddonDialogPostedAtRef.current < addonDialogThrottleMs) return;
-    lastAddonDialogPostedAtRef.current = now;
-
-    setTimeout(() => {
-      try {
-        window.parent.postMessage({ type: 'open-addon-dialog' }, '*');
-      } catch {
-        // ignore
-      }
-    }, 0);
-  }, []);
-
   const isBilling402Alert = useMemo(() => {
     if (!isAlert) return false;
     const title = (alertTitle || '').toLowerCase();
@@ -1282,7 +1259,7 @@ export function PricingSection({
     if (!localMode) return;
     if (!isBilling402Alert) return;
     postOpenAddonDialogToParent();
-  }, [isBilling402Alert, localMode, postOpenAddonDialogToParent]);
+  }, [isBilling402Alert, localMode]);
 
   if (localMode) {
     if (isBilling402Alert) {
