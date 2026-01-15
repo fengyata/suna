@@ -241,6 +241,20 @@ class ResponseProcessor:
             # Ultimate fallback: convert to string
             return {"raw_response": str(model_response), "serialization_error": str(e)}
 
+    @staticmethod
+    def _is_gemini_model_id(model_id: Any) -> bool:
+        """
+        Gemini model detector.
+
+        Notes:
+        - Preferred LiteLLM provider prefix: `gemini/...`
+        - Keep legacy compatibility for slugs like `google/gemini-...`
+        """
+        if not isinstance(model_id, str):
+            return False
+        m = model_id.lower()
+        return m.startswith("gemini/") or m.startswith("google/gemini") or ("gemini" in m)
+
     def _transform_execute_tool_call(self, tool_call: Dict[str, Any]) -> Dict[str, Any]:
         """Transform execute_tool calls to appear as real tool calls for frontend UI components."""
         try:
@@ -1285,6 +1299,28 @@ class ResponseProcessor:
                         self._log_frontend_message(item, frontend_debug_file)
                         yield item
 
+
+            # Gemini native tool calling quirk:
+            # Gemini often returns finish_reason=STOP even when it is requesting tool execution.
+            # Our auto-continue only triggers on 'length'/'tool_calls', so normalize stop->length
+            # ONLY when Gemini + native tool calling actually produced tool_calls.
+            if (
+                self._is_gemini_model_id(llm_model)
+                and config.native_tool_calling
+                and tool_calls_buffer
+                and isinstance(finish_reason, str)
+                and finish_reason.lower() == "stop"
+            ):
+                logger.warning(
+                    "[GEMINI] Normalizing finish_reason stop->length for native tool calling (streaming)",
+                    model=llm_model,
+                    thread_id=thread_id,
+                    thread_run_id=thread_run_id,
+                    native_tool_call_count=len(tool_calls_buffer),
+                    original_finish_reason=finish_reason,
+                    normalized_finish_reason="length",
+                )
+                finish_reason = "length"
 
             # Only auto-continue for 'length' or 'tool_calls' finish reasons (not 'stop' or others)
             # Don't auto-continue if agent should terminate (ask/complete tool executed)
