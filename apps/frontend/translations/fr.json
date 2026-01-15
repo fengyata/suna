@@ -390,6 +390,353 @@
     "explore_agentic_ai_capabilities": "Explorer les capacités d’IA agentique",
     "marketing_assets": "Ressources marketing",
     "image": "Image",
+    "images": {
+      "label": "Image",
+      "bannerTitle": "Studio d’images",
+      "bannerDescription": "Génère des assets marketing photoréalistes, des diagrammes complexes et des affiches riches en texte.",
+      "selectModelPlaceholder": "Sélectionner un modèle",
+      "styleTitle": "Choisir un style",
+      "samplePrompts": "Prompts d’exemple",
+      "generateWithStylePrompt": "Générer une image au style {style}"
+    },
+    "videos": {
+      "label": "Vidéo",
+      "bannerTitle": "Créateur de vidéos",
+      "bannerDescription": "Crée des vidéos cinématographiques avec un éclairage hyperréaliste et un mouvement cohérent.",
+      "selectModelPlaceholder": "Sélectionner un modèle",
+      "styleTitle": "Choisir un style vidéo",
+      "samplePrompts": "Prompts d’exemple",
+      "generateWithStylePrompt": "Générer une vidéo au style {style}"
+    },
+    "tags": {
+      "sales": "Sales",
+      "cx": "CX",
+      "mktg": "MKTG",
+      "ops": "Ops",
+      "hr": "HR",
+      "legal": "Legal"
+    },
+    "aePanel": {
+      "bannerTitle": "Agent Account Executive",
+      "bannerDescription": "Ton assistant commercial full-cycle pour discovery, démos et handoffs.",
+      "cards": {
+        "discovery": {
+          "title": "Prépa discovery",
+          "description": "Génère des questions ciblées et du research.",
+          "prompt": "Prépare des questions de discovery pour un VP Sales dans une fintech..."
+        },
+        "handoff": {
+          "title": "Handoff Sales → CS",
+          "description": "Structure les notes de deal pour un onboarding fluide.",
+          "prompt": "Crée un document de handoff pour l’équipe CSM..."
+        },
+        "leadFeedback": {
+          "title": "Boucle feedback leads",
+          "description": "Partage des insights sur la qualité des leads avec le marketing.",
+          "prompt": "Rédige un feedback sur la qualité des leads pour le marketing..."
+        }
+      }
+    },
+    "dataPanel": {
+      "bannerTitle": "Agent Analyste data",
+      "bannerDescription": "Nettoie des listes, enrichit des contacts et analyse des CSV pour des insights GTM.",
+      "cards": {
+        "leadCleaner": {
+          "title": "Nettoyage de liste de leads",
+          "description": "Corrige le format, supprime les doublons et standardise les champs pour importer dans le CRM.",
+          "prompt": "Nettoie cette liste de leads et standardise les intitulés de poste..."
+        },
+        "lookalikes": {
+          "title": "Audiences lookalike",
+          "description": "Découvre de nouveaux prospects à partir de tes meilleurs clients.",
+          "prompt": "Trouve des entreprises similaires à mes 10 meilleurs clients..."
+        },
+        "ticketAnalysis": {
+          "title": "Analyse de tickets",
+          "description": "Identifie les problèmes récurrents et le sentiment à partir d’exports support.",
+          "prompt": "Analyse ces tickets support pour le sentiment et les sujets récurrents..."
+        }
+      }
+    },
+    "pipelinePanel": {
+      "bannerTitle": "Gestionnaire de pipeline",
+      "bannerDescription": "Prévisions, QA des deals et détection des risques.",
+      "cards": {
+        "q4Forecast": {
+          "title": "Prévision Q4",
+          "description": "Prédis le revenu et repère les deals à risque de slippage.",
+          "prompt": "Prévois mon revenu Q4 et identifie les risques de slippage..."
+        },
+        "campaignRoi": {
+          "title": "ROI des campagnes",
+          "description": "Analyse d’attribution pour les wins récents.",
+          "prompt": "Analyse l’attribution des campagnes pour les deals closed-won..."
+        },
+        "churnForecast": {
+          "title": "Prévision churn",
+          "description": "Prédis les renewals et identifie les comptes à risque.",
+          "prompt": "Prévois le risque de churn pour la prochaine cohorte de renouvellement..."
+        }
+      }
+    },
+    "researchPanel": {
+      "bannerTitle": "Recherche approfondie",
+      "bannerDescription": "Utilise un raisonnement avancé pour analyser le marché, les stratégies concurrentes et produire des rapports complets.",
+      "sectionTitle": "Lancer une nouvelle recherche",
+      "items": {
+        "competitorDeepDive": "Deep dive concurrentiel",
+        "marketTrendAnalysis": "Analyse des tendances marché",
+        "accountIntelligenceReport": "Rapport d’intelligence compte",
+        "regulatoryImpactStudy": "Étude d’impact réglementaire"
+      },
+      "promptTemplate": "Réalise un(e) {topic} sur..."
+    },
+    "socialSellingPanel": {
+      "bannerTitle": "Assistant social selling",
+      "bannerDescription": "Construis ta personal brand, écris des hooks viraux et engage des prospects avec l’IA.",
+      "cards": {
+        "viralHook": {
+          "title": "Générateur de hook viral",
+          "description": "Stoppe le scroll avec des ouvertures écrites par l’IA.",
+          "prompt": "Écris un hook contrarian pour un post LinkedIn sur..."
+        },
+        "repurpose": {
+          "title": "Recyclage de contenu",
+          "description": "Transforme des blogs en posts, threads et carrousels.",
+          "prompt": "Transforme ce billet de blog en thread Twitter..."
+        },
+        "dmSequence": {
+          "title": "Rédacteur de séquence DM",
+          "description": "Des messages d’outreach sans ton commercial.",
+          "prompt": "Écris une séquence de DM pour un prospect froid qui a vu mon profil..."
+        }
+      }
+    },
+    "strategistPanel": {
+      "bannerTitle": "Stratège de deals",
+      "bannerDescription": "Accélère les cycles de vente avec négociation, revue de contrat et stratégie de pricing.",
+      "cards": {
+        "proposal": {
+          "title": "Générateur de proposition",
+          "description": "Brouillon auto + pricing.",
+          "cta": "Rédiger maintenant",
+          "prompt": "Génère une proposition pour [Client] avec une tarification standard..."
+        },
+        "redline": {
+          "title": "Assistant redline",
+          "description": "Revue de contrat et suggestions avec l’IA.",
+          "cta": "Téléverser le doc",
+          "prompt": "Analyse ce contrat et propose des redlines..."
+        },
+        "followUp": {
+          "title": "Follow-up multi-thread",
+          "description": "Emails personnalisés pour les parties prenantes.",
+          "cta": "Créer la séquence",
+          "prompt": "Rédige des emails de follow-up multi-thread pour un VP et un Director..."
+        },
+        "expansion": {
+          "title": "Scout d’expansion",
+          "description": "Détecte les signaux d’upsell et score la santé.",
+          "cta": "Trouver des opportunités",
+          "prompt": "Analyse l’usage du compte pour détecter des signaux d’expansion..."
+        }
+      }
+    },
+    "icpPanel": {
+      "bannerTitle": "Territoire & persona",
+      "bannerDescription": "Définis l’ICP, segmente les territoires et cartographie les comités d’achat.",
+      "sectionTitle": "Segmentation approfondie",
+      "cards": {
+        "repAssignment": {
+          "title": "Attribution des reps",
+          "description": "Recommande la couverture selon les points forts.",
+          "prompt": "Suggère des attributions de reps pour la West Coast selon les performances passées..."
+        },
+        "quotaModeling": {
+          "title": "Modélisation des quotas",
+          "description": "Optimise les objectifs et analyse les écarts de capacité.",
+          "prompt": "Modélise la capacité de quota pour FY24 avec l’effectif actuel..."
+        },
+        "predictiveHiring": {
+          "title": "Recrutement prédictif",
+          "description": "Prévision de staffing selon la trajectoire de croissance.",
+          "prompt": "Crée un plan de recrutement basé sur la vélocité du pipeline et les objectifs de revenu..."
+        },
+        "marketSegmentation": {
+          "title": "Segmentation marché",
+          "description": "Affiner l’ICP et les buyer personas.",
+          "prompt": "Définis le profil psychographique de notre segment Enterprise..."
+        },
+        "customerHealth": {
+          "title": "Profil santé client",
+          "description": "Identifie les traits des clients long-terme qui réussissent.",
+          "prompt": "Crée un profil de health score pour nos clients les plus performants..."
+        }
+      }
+    },
+    "websitePanel": {
+      "bannerTitle": "Site web",
+      "bannerDescription": "Génère des landing pages à forte conversion et des web apps fonctionnelles avec l’IA.",
+      "sectionTitle": "Bibliothèque de templates",
+      "promptTemplate": "Crée un(e) {template} pour...",
+      "categories": {
+        "marketing": {
+          "title": "Marketing & campagnes",
+          "items": {
+            "landingPage": "Landing page à forte conversion",
+            "webinarRegistration": "Site d’inscription webinar",
+            "productLaunchCountdown": "Compte à rebours de lancement",
+            "eventMicrosite": "Microsite d’événement",
+            "newsletterSignup": "Page d’inscription newsletter"
+          }
+        },
+        "corporate": {
+          "title": "Corporate & marque",
+          "items": {
+            "corporateHomepage": "Homepage corporate moderne",
+            "aboutLeadership": "À propos & leadership",
+            "careersCulture": "Carrières & culture",
+            "pressMediaKit": "Presse & media kit"
+          }
+        },
+        "saas": {
+          "title": "SaaS & produit",
+          "items": {
+            "saasHomepage": "Homepage produit SaaS",
+            "pricingComparison": "Comparatif pricing & plans",
+            "featureDeepDive": "Page détail d’une feature",
+            "docsHelpCenter": "Documentation / centre d’aide"
+          }
+        },
+        "content": {
+          "title": "Contenu & portfolio",
+          "items": {
+            "personalPortfolio": "Portfolio personal brand",
+            "agencyShowcase": "Vitrine agence créative",
+            "consultantBooking": "Page de prise de rendez‑vous",
+            "resourceLibraryBlog": "Bibliothèque de ressources / blog"
+          }
+        }
+      }
+    },
+    "adsPanel": {
+      "bannerTitle": "Studio publicitaire",
+      "bannerDescription": "Génère des publicités à forte conversion avec un ciblage clair et une direction créative.",
+      "none": "Aucun",
+      "steps": {
+        "strategyTargeting": "Stratégie & ciblage",
+        "adSpecifications": "Spécifications de l’annonce",
+        "creativeDirection": "Direction créative"
+      },
+      "fields": {
+        "productUrl": "URL de la landing produit",
+        "competitorUrl": "URL du concurrent",
+        "targetAudience": "Audience cible",
+        "platforms": "Plateformes",
+        "format": "Format",
+        "callToAction": "Call to action",
+        "visualStyle": "Style visuel",
+        "outputVolume": "Volume de sortie",
+        "massTranslation": "Traduction en masse"
+      },
+      "placeholders": {
+        "url": "https://...",
+        "age": "Âge (ex. 25-45)",
+        "location": "Localisation (ex. FR, EU)",
+        "interests": "Intérêts (ex. SaaS, Tech)",
+        "ctaText": "Texte du bouton (ex. S’inscrire)",
+        "destinationLink": "Lien de destination (ex. https://...)"
+      },
+      "platforms": {
+        "googleAds": "Google Ads",
+        "metaAds": "Meta Ads",
+        "linkedin": "LinkedIn",
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "youtube": "YouTube"
+      },
+      "formats": {
+        "singleImage": "Image unique",
+        "carousel": "Carrousel",
+        "shortVideo": "Vidéo courte",
+        "story": "Story"
+      },
+      "visualStyles": {
+        "minimalist": "Minimaliste",
+        "boldVibrant": "Audacieux & vibrant",
+        "professional": "Professionnel",
+        "playful": "Ludique",
+        "luxury": "Luxe",
+        "futuristic": "Futuriste",
+        "handDrawn": "Dessiné à la main",
+        "corporate": "Corporate"
+      },
+      "languages": {
+        "es": "Espagnol",
+        "fr": "Français",
+        "de": "Allemand",
+        "ja": "Japonais",
+        "pt": "Portugais",
+        "it": "Italien",
+        "zh": "Chinois",
+        "ko": "Coréen",
+        "ar": "Arabe",
+        "nl": "Néerlandais",
+        "sv": "Suédois",
+        "no": "Norvégien",
+        "da": "Danois",
+        "fi": "Finnois",
+        "hi": "Hindi",
+        "ru": "Russe",
+        "tr": "Turc",
+        "pl": "Polonais",
+        "id": "Indonésien",
+        "th": "Thaï",
+        "vi": "Vietnamien",
+        "el": "Grec"
+      },
+      "outputVolumeConcepts": "{count} concepts",
+      "generateButton": "Générer des concepts ({count})",
+      "strategyAppliedTitle": "Stratégie appliquée",
+      "strategyAppliedDescription": "Pour chaque concept, nous générons automatiquement trois variations.",
+      "variations": {
+        "1": {
+          "title": "1. Rareté & urgence",
+          "description": "FOMO, offres limitées, accès exclusif"
+        },
+        "2": {
+          "title": "2. Axé bénéfices",
+          "description": "Proposition de valeur claire, cadrage problème‑solution"
+        },
+        "3": {
+          "title": "3. Preuve sociale",
+          "description": "Témoignages, nombre d’utilisateurs, signaux de confiance"
+        }
+      },
+      "prompt": {
+        "notProvided": "Non fourni",
+        "general": "Général",
+        "global": "Global",
+        "learnMore": "En savoir plus",
+        "na": "N/A",
+        "productUrl": "URL produit : {value}",
+        "competitorUrl": "URL concurrent : {value}",
+        "targetAudienceTitle": "Audience cible :",
+        "targetAudienceAge": "- Âge : {value}",
+        "targetAudienceLocation": "- Localisation : {value}",
+        "targetAudienceInterests": "- Intérêts : {value}",
+        "campaignSpecsTitle": "Spécifications de campagne :",
+        "platforms": "- Plateformes : {value}",
+        "formats": "- Formats : {value}",
+        "callToAction": "- Call to Action : \"{text}\" (Lien : {link})",
+        "visualStyle": "- Style visuel : {value}",
+        "settingsTitle": "Paramètres :",
+        "numberOfConcepts": "- Nombre de concepts : {value}",
+        "translationLanguages": "- Langues de traduction : {value}",
+        "instructions": "Génère des concepts publicitaires à forte conversion à partir de ces informations.",
+        "variationsInstruction": "Assure-toi de fournir 3 variations de copy par concept (Rareté, Bénéfice, Preuve sociale)."
+      }
+    },
     "video_studio": "Studio vidéo",
     "demos_outreach": "Démos & prospection",
     "pipeline_manager": "Gestionnaire de pipeline",

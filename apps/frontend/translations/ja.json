@@ -390,6 +390,353 @@
     "explore_agentic_ai_capabilities": "エージェント型AIの機能を探す",
     "marketing_assets": "マーケティング素材",
     "image": "画像",
+    "images": {
+      "label": "画像",
+      "bannerTitle": "画像スタジオ",
+      "bannerDescription": "写実的なマーケティング素材、複雑な図解、文字量の多いポスターを生成します。",
+      "selectModelPlaceholder": "モデルを選択",
+      "styleTitle": "スタイルを選択",
+      "samplePrompts": "サンプルプロンプト",
+      "generateWithStylePrompt": "{style} スタイルの画像を生成"
+    },
+    "videos": {
+      "label": "動画",
+      "bannerTitle": "動画クリエイター",
+      "bannerDescription": "リアルなライティングと一貫した動きで、シネマティックな動画を作成します。",
+      "selectModelPlaceholder": "モデルを選択",
+      "styleTitle": "動画スタイルを選択",
+      "samplePrompts": "サンプルプロンプト",
+      "generateWithStylePrompt": "{style} スタイルの動画を生成"
+    },
+    "tags": {
+      "sales": "Sales",
+      "cx": "CX",
+      "mktg": "MKTG",
+      "ops": "Ops",
+      "hr": "HR",
+      "legal": "Legal"
+    },
+    "aePanel": {
+      "bannerTitle": "アカウントエグゼクティブ",
+      "bannerDescription": "Discovery、デモ、引き継ぎまで営業の全工程を支援します。",
+      "cards": {
+        "discovery": {
+          "title": "Discovery 準備",
+          "description": "的確な質問リストとリサーチを作成します。",
+          "prompt": "FinTech の VP of Sales 向けに discovery 質問を準備して..."
+        },
+        "handoff": {
+          "title": "Sales → CS 引き継ぎ",
+          "description": "オンボーディングがスムーズになるように情報を整理します。",
+          "prompt": "CSM チーム向けの引き継ぎドキュメントを作成して..."
+        },
+        "leadFeedback": {
+          "title": "リード品質フィードバック",
+          "description": "マーケにリード品質の示唆を共有します。",
+          "prompt": "マーケティング向けにリード品質のフィードバックを作成して..."
+        }
+      }
+    },
+    "dataPanel": {
+      "bannerTitle": "データアナリスト",
+      "bannerDescription": "リストの整形・エンリッチ・CSV 分析で GTM の示唆を得ます。",
+      "cards": {
+        "leadCleaner": {
+          "title": "リードリスト整形",
+          "description": "フォーマット修正、重複削除、CRM 取込用に標準化します。",
+          "prompt": "このリードリストをクレンジングして職種を標準化して..."
+        },
+        "lookalikes": {
+          "title": "類似顧客抽出",
+          "description": "最良の顧客を基に新規プロスペクトを発見します。",
+          "prompt": "上位 10 顧客に似た企業を見つけて..."
+        },
+        "ticketAnalysis": {
+          "title": "チケット分析",
+          "description": "サポートのエクスポートから頻出課題と感情を抽出します。",
+          "prompt": "このサポートチケットを分析して感情と再発課題を特定して..."
+        }
+      }
+    },
+    "pipelinePanel": {
+      "bannerTitle": "パイプライン管理",
+      "bannerDescription": "予測、ディール QA、リスク検知。",
+      "cards": {
+        "q4Forecast": {
+          "title": "Q4 予測",
+          "description": "売上予測とディールの遅延リスクを把握します。",
+          "prompt": "Q4 の売上を予測して slippage リスクを特定して..."
+        },
+        "campaignRoi": {
+          "title": "キャンペーン ROI",
+          "description": "直近の勝ちディールをアトリビューション分析します。",
+          "prompt": "closed-won ディールのキャンペーンアトリビューションを分析して..."
+        },
+        "churnForecast": {
+          "title": "チャーン予測",
+          "description": "更新予測とリスクアカウントを特定します。",
+          "prompt": "次回更新コホートのチャーンリスクを予測して..."
+        }
+      }
+    },
+    "researchPanel": {
+      "bannerTitle": "深掘りリサーチ",
+      "bannerDescription": "高度な推論で市場調査・競合分析を行い、包括的なレポートを作成します。",
+      "sectionTitle": "新しいリサーチを開始",
+      "items": {
+        "competitorDeepDive": "競合ディープダイブ",
+        "marketTrendAnalysis": "市場トレンド分析",
+        "accountIntelligenceReport": "アカウントインテリジェンスレポート",
+        "regulatoryImpactStudy": "規制影響調査"
+      },
+      "promptTemplate": "{topic} を実施して..."
+    },
+    "socialSellingPanel": {
+      "bannerTitle": "ソーシャルセリング",
+      "bannerDescription": "個人ブランドを育て、バズるフックを書き、AI で見込み客に接点を作ります。",
+      "cards": {
+        "viralHook": {
+          "title": "バズフック生成",
+          "description": "スクロールを止める書き出しを作ります。",
+          "prompt": "LinkedIn 投稿の contrarian なフックを書いて...（テーマ：）"
+        },
+        "repurpose": {
+          "title": "コンテンツ再利用",
+          "description": "ブログを投稿・スレッド・カルーセルに変換します。",
+          "prompt": "このブログを Twitter のスレッドに再構成して..."
+        },
+        "dmSequence": {
+          "title": "DM シーケンス",
+          "description": "売り込み感のないアウトリーチ文面を作ります。",
+          "prompt": "プロフィールを見たコールドプロスペクト向け DM シーケンスを書いて..."
+        }
+      }
+    },
+    "strategistPanel": {
+      "bannerTitle": "ディール戦略",
+      "bannerDescription": "交渉、契約レビュー、価格戦略でディールサイクルを加速します。",
+      "cards": {
+        "proposal": {
+          "title": "提案書生成",
+          "description": "自動ドラフト＋価格の埋め込み。",
+          "cta": "今すぐ作成",
+          "prompt": "[Client] 向けに標準価格で提案書を作成して..."
+        },
+        "redline": {
+          "title": "レッドライン支援",
+          "description": "契約をレビューし修正案を提示します。",
+          "cta": "ドキュメントをアップロード",
+          "prompt": "この契約を分析して redline を提案して..."
+        },
+        "followUp": {
+          "title": "マルチスレッドフォロー",
+          "description": "関係者別にパーソナライズしたメールを作成します。",
+          "cta": "シーケンス作成",
+          "prompt": "VP と Director 向けにマルチスレッドのフォローアップメールを作成して..."
+        },
+        "expansion": {
+          "title": "拡張機会検知",
+          "description": "アップセルの兆候と健全性を評価します。",
+          "cta": "機会を探す",
+          "prompt": "アカウント利用状況から拡張シグナルを分析して..."
+        }
+      }
+    },
+    "icpPanel": {
+      "bannerTitle": "テリトリー & ペルソナ",
+      "bannerDescription": "ICP を定義し、テリトリーをセグメントし、購買委員会を整理します。",
+      "sectionTitle": "深いセグメンテーション",
+      "cards": {
+        "repAssignment": {
+          "title": "担当割り当て",
+          "description": "強みに基づいてカバレッジを提案します。",
+          "prompt": "過去実績を基に West Coast テリトリーの担当割り当てを提案して..."
+        },
+        "quotaModeling": {
+          "title": "クォータモデル",
+          "description": "目標最適化とキャパギャップ分析。",
+          "prompt": "現状 headcount を前提に FY24 のクォータキャパシティをモデル化して..."
+        },
+        "predictiveHiring": {
+          "title": "予測採用",
+          "description": "成長に基づいて採用計画を立てます。",
+          "prompt": "パイプライン速度と売上目標を基に採用計画を作成して..."
+        },
+        "marketSegmentation": {
+          "title": "市場セグメント",
+          "description": "ICP と buyer persona を磨き込みます。",
+          "prompt": "Enterprise セグメントのサイコグラフィックプロファイルを定義して..."
+        },
+        "customerHealth": {
+          "title": "顧客ヘルスプロファイル",
+          "description": "成功する長期顧客の共通点を抽出します。",
+          "prompt": "最も成功している顧客のヘルススコアプロファイルを作成して..."
+        }
+      }
+    },
+    "websitePanel": {
+      "bannerTitle": "ウェブサイト",
+      "bannerDescription": "高コンバージョンの LP と実用的な Web アプリを AI で生成します。",
+      "sectionTitle": "テンプレートライブラリ",
+      "promptTemplate": "{template} を作成して...",
+      "categories": {
+        "marketing": {
+          "title": "マーケティング & キャンペーン",
+          "items": {
+            "landingPage": "高コンバージョン LP",
+            "webinarRegistration": "ウェビナー登録サイト",
+            "productLaunchCountdown": "プロダクトローンチのカウントダウン",
+            "eventMicrosite": "イベント用マイクロサイト",
+            "newsletterSignup": "ニュースレター登録ページ"
+          }
+        },
+        "corporate": {
+          "title": "コーポレート & ブランド",
+          "items": {
+            "corporateHomepage": "モダンなコーポレートトップ",
+            "aboutLeadership": "会社概要 & 経営陣",
+            "careersCulture": "採用 & カルチャー",
+            "pressMediaKit": "プレス & メディアキット"
+          }
+        },
+        "saas": {
+          "title": "SaaS & プロダクト",
+          "items": {
+            "saasHomepage": "SaaS プロダクトトップ",
+            "pricingComparison": "料金プラン比較",
+            "featureDeepDive": "機能詳細ページ",
+            "docsHelpCenter": "ドキュメント / ヘルプセンター"
+          }
+        },
+        "content": {
+          "title": "コンテンツ & ポートフォリオ",
+          "items": {
+            "personalPortfolio": "個人ブランドのポートフォリオ",
+            "agencyShowcase": "クリエイティブエージェンシーの紹介",
+            "consultantBooking": "コンサル予約ページ",
+            "resourceLibraryBlog": "リソースライブラリ / ブログ"
+          }
+        }
+      }
+    },
+    "adsPanel": {
+      "bannerTitle": "広告スタジオ",
+      "bannerDescription": "明確なターゲティングとクリエイティブ指示で、高CVな広告案を生成します。",
+      "none": "なし",
+      "steps": {
+        "strategyTargeting": "戦略 & ターゲティング",
+        "adSpecifications": "広告仕様",
+        "creativeDirection": "クリエイティブ指示"
+      },
+      "fields": {
+        "productUrl": "商品LPのURL",
+        "competitorUrl": "競合URL",
+        "targetAudience": "ターゲット",
+        "platforms": "プラットフォーム",
+        "format": "形式",
+        "callToAction": "CTA",
+        "visualStyle": "ビジュアルスタイル",
+        "outputVolume": "出力数",
+        "massTranslation": "一括翻訳"
+      },
+      "placeholders": {
+        "url": "https://...",
+        "age": "年齢（例: 25-45）",
+        "location": "地域（例: JP, APAC）",
+        "interests": "興味（例: SaaS, Tech）",
+        "ctaText": "ボタン文言（例: 今すぐ登録）",
+        "destinationLink": "遷移先リンク（例: https://...）"
+      },
+      "platforms": {
+        "googleAds": "Google Ads",
+        "metaAds": "Meta Ads",
+        "linkedin": "LinkedIn",
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "youtube": "YouTube"
+      },
+      "formats": {
+        "singleImage": "単一画像",
+        "carousel": "カルーセル",
+        "shortVideo": "ショート動画",
+        "story": "ストーリー"
+      },
+      "visualStyles": {
+        "minimalist": "ミニマル",
+        "boldVibrant": "大胆 & ビビッド",
+        "professional": "プロフェッショナル",
+        "playful": "ポップ",
+        "luxury": "ラグジュアリー",
+        "futuristic": "未来的",
+        "handDrawn": "手描き",
+        "corporate": "コーポレート"
+      },
+      "languages": {
+        "es": "スペイン語",
+        "fr": "フランス語",
+        "de": "ドイツ語",
+        "ja": "日本語",
+        "pt": "ポルトガル語",
+        "it": "イタリア語",
+        "zh": "中国語",
+        "ko": "韓国語",
+        "ar": "アラビア語",
+        "nl": "オランダ語",
+        "sv": "スウェーデン語",
+        "no": "ノルウェー語",
+        "da": "デンマーク語",
+        "fi": "フィンランド語",
+        "hi": "ヒンディー語",
+        "ru": "ロシア語",
+        "tr": "トルコ語",
+        "pl": "ポーランド語",
+        "id": "インドネシア語",
+        "th": "タイ語",
+        "vi": "ベトナム語",
+        "el": "ギリシャ語"
+      },
+      "outputVolumeConcepts": "{count} 件の案",
+      "generateButton": "案を生成（{count}）",
+      "strategyAppliedTitle": "適用する戦略",
+      "strategyAppliedDescription": "各コンセプトに対して、3つの文案バリエーションを自動生成します。",
+      "variations": {
+        "1": {
+          "title": "1. 希少性 & 緊急性",
+          "description": "FOMO、期間限定、限定特典のフック"
+        },
+        "2": {
+          "title": "2. 価値訴求",
+          "description": "明確な価値提案、課題→解決の構成"
+        },
+        "3": {
+          "title": "3. 社会的証明",
+          "description": "レビュー、利用者数、信頼の根拠"
+        }
+      },
+      "prompt": {
+        "notProvided": "未入力",
+        "general": "一般",
+        "global": "グローバル",
+        "learnMore": "詳細を見る",
+        "na": "N/A",
+        "productUrl": "プロダクトURL: {value}",
+        "competitorUrl": "競合URL: {value}",
+        "targetAudienceTitle": "ターゲット:",
+        "targetAudienceAge": "- 年齢: {value}",
+        "targetAudienceLocation": "- 地域: {value}",
+        "targetAudienceInterests": "- 興味: {value}",
+        "campaignSpecsTitle": "キャンペーン仕様:",
+        "platforms": "- プラットフォーム: {value}",
+        "formats": "- 形式: {value}",
+        "callToAction": "- CTA: \"{text}\"（リンク: {link}）",
+        "visualStyle": "- ビジュアルスタイル: {value}",
+        "settingsTitle": "設定:",
+        "numberOfConcepts": "- コンセプト数: {value}",
+        "translationLanguages": "- 翻訳言語: {value}",
+        "instructions": "上記の入力を元に、高CVな広告コンセプトを生成してください。",
+        "variationsInstruction": "各コンセプトごとに 3 種類のコピー（希少性/価値/社会的証明）を必ず含めてください。"
+      }
+    },
     "video_studio": "動画スタジオ",
     "demos_outreach": "デモ＆アウトリーチ",
     "pipeline_manager": "パイプライン管理",

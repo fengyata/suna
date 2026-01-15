@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { PromptExamples } from '@/components/shared/prompt-examples';
+import { useTranslations } from 'next-intl';
 import type { ModePanelProps } from './mode-panel-props';
 import { sunaModes, type SunaSamplePrompt } from '../suna-modes-data';
 
@@ -63,6 +64,8 @@ function getRandomPrompts(prompts: SunaSamplePrompt[], count: number): SunaSampl
 }
 
 export function VideoModePanel({ mode, subType, setSubType, setInitialParameters, onPromptSelect }: ModePanelProps) {
+  const t = useTranslations('dashboard');
+  const tSuna = useTranslations('suna');
   const [model, setModel] = useState<string>('sora-2');
   const [randomizedPrompts, setRandomizedPrompts] = useState<SunaSamplePrompt[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -70,6 +73,30 @@ export function VideoModePanel({ mode, subType, setSubType, setInitialParameters
   const modelOptions = useMemo(() => Object.values(VIDEO_MODELS), []);
   const modelConfig = VIDEO_MODELS[model] ?? VIDEO_MODELS['sora-2'];
   const videoMode = useMemo(() => sunaModes.find((m) => m.id === 'video') ?? null, []);
+
+  // Get translated prompts for video mode (preserving thumbnails)
+  const getTranslatedPrompts = (prompts: SunaSamplePrompt[]): SunaSamplePrompt[] => {
+    const maxPrompts = prompts.length;
+    const out: SunaSamplePrompt[] = [];
+
+    for (let index = 0; index < maxPrompts; index++) {
+      const originalPrompt = prompts[index];
+      try {
+        const key = `prompts.video.${index}` as any;
+        const translatedText = tSuna(key);
+        // next-intl returns the key if missing; keep a defensive fallback
+        if (!translatedText || translatedText === `suna.${key}` || translatedText.startsWith('suna.prompts.')) {
+          out.push(originalPrompt);
+        } else {
+          out.push({ text: translatedText, thumbnail: originalPrompt.thumbnail });
+        }
+      } catch {
+        out.push(originalPrompt);
+      }
+    }
+
+    return out;
+  };
 
   useEffect(() => {
     const resolvedAspect = modelConfig.aspect_ratio[0] ?? '16:9';
@@ -93,13 +120,15 @@ export function VideoModePanel({ mode, subType, setSubType, setInitialParameters
 
   useEffect(() => {
     if (!videoMode) return;
-    setRandomizedPrompts(getRandomPrompts(videoMode.samplePrompts, 4));
+    const translatedPrompts = getTranslatedPrompts(videoMode.samplePrompts);
+    setRandomizedPrompts(getRandomPrompts(translatedPrompts, 4));
   }, [videoMode]);
 
   const handleRefreshPrompts = () => {
     if (!videoMode) return;
     setIsRefreshing(true);
-    setRandomizedPrompts(getRandomPrompts(videoMode.samplePrompts, 4));
+    const translatedPrompts = getTranslatedPrompts(videoMode.samplePrompts);
+    setRandomizedPrompts(getRandomPrompts(translatedPrompts, 4));
     setTimeout(() => setIsRefreshing(false), 300);
   };
 
@@ -110,17 +139,17 @@ export function VideoModePanel({ mode, subType, setSubType, setInitialParameters
         <div className="relative z-10">
           <h2 className="text-xl font-bold mb-1 flex items-center gap-2">
             <Film size={20} className="text-red-500" />
-            Video Creator
+            {t('videos.bannerTitle')}
           </h2>
           <p className="text-gray-400 text-sm max-w-lg">
-            Create cinematic videos with hyper-real lighting and consistent motion.
+            {t('videos.bannerDescription')}
           </p>
         </div>
 
         <div className="w-full md:w-[260px] relative z-10">
           <Select value={model} onValueChange={setModel}>
             <SelectTrigger className="w-full bg-white/10 text-white border-white/20 cursor-pointer">
-              <SelectValue placeholder="Select model" />
+              <SelectValue placeholder={t('videos.selectModelPlaceholder')} />
             </SelectTrigger>
             <SelectContent>
               {modelOptions.map((m) => (
@@ -137,7 +166,7 @@ export function VideoModePanel({ mode, subType, setSubType, setInitialParameters
 
       {videoMode?.options && (
         <div className="space-y-3 animate-in fade-in-0 zoom-in-95 duration-300 delay-75 mb-8">
-          <p className="text-xs text-muted-foreground/60">{videoMode.options.title}</p>
+          <p className="text-xs text-muted-foreground/60">{t('videos.styleTitle')}</p>
           <ScrollArea className="w-full">
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 pb-2">
               {videoMode.options.items.map((item) => {
@@ -150,7 +179,7 @@ export function VideoModePanel({ mode, subType, setSubType, setInitialParameters
                     }
                     onClick={() => {
                       setSubType(item.id);
-                      onPromptSelect(`Generate a ${item.name.toLowerCase()} style video`);
+                      onPromptSelect(t('videos.generateWithStylePrompt', { style: item.name.toLowerCase() }), item.id);
                     }}
                   >
                     <div
@@ -188,7 +217,7 @@ export function VideoModePanel({ mode, subType, setSubType, setInitialParameters
         <div className="animate-in fade-in-0 zoom-in-95 duration-300">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <p className="text-xs text-muted-foreground/60">Sample prompts</p>
+              <p className="text-xs text-muted-foreground/60">{t('videos.samplePrompts')}</p>
               <Button
                 variant="ghost"
                 size="sm"
@@ -202,7 +231,7 @@ export function VideoModePanel({ mode, subType, setSubType, setInitialParameters
             </div>
             <PromptExamples
               prompts={randomizedPrompts}
-              onPromptClick={(p) => onPromptSelect(p)}
+              onPromptClick={(p) => onPromptSelect(p, subType)}
               variant="text"
               columns={1}
               showTitle={false}

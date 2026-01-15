@@ -23,15 +23,16 @@ import {
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 import type { ModePanelProps } from './mode-panel-props';
 
 const AD_PLATFORMS = [
-  { name: 'Google Ads', icon: <Globe size={16} />, color: 'text-blue-600 bg-blue-50' },
-  { name: 'Meta Ads', icon: <Facebook size={16} />, color: 'text-blue-700 bg-blue-50' },
-  { name: 'LinkedIn', icon: <Linkedin size={16} />, color: 'text-blue-800 bg-blue-50' },
-  { name: 'Instagram', icon: <Instagram size={16} />, color: 'text-pink-600 bg-pink-50' },
-  { name: 'TikTok', icon: <Smartphone size={16} />, color: 'text-black bg-gray-100' },
-  { name: 'YouTube', icon: <MonitorPlay size={16} />, color: 'text-red-600 bg-red-50' },
+  { id: 'googleAds', name: 'Google Ads', icon: <Globe size={16} />, color: 'text-blue-600 bg-blue-50' },
+  { id: 'metaAds', name: 'Meta Ads', icon: <Facebook size={16} />, color: 'text-blue-700 bg-blue-50' },
+  { id: 'linkedin', name: 'LinkedIn', icon: <Linkedin size={16} />, color: 'text-blue-800 bg-blue-50' },
+  { id: 'instagram', name: 'Instagram', icon: <Instagram size={16} />, color: 'text-pink-600 bg-pink-50' },
+  { id: 'tiktok', name: 'TikTok', icon: <Smartphone size={16} />, color: 'text-black bg-gray-100' },
+  { id: 'youtube', name: 'YouTube', icon: <MonitorPlay size={16} />, color: 'text-red-600 bg-red-50' },
 ];
 
 const TARGET_LANGUAGES = [
@@ -60,24 +61,25 @@ const TARGET_LANGUAGES = [
 ];
 
 const AD_FORMATS = [
-  { name: 'Single Image', icon: <ImageIcon size={16} /> },
-  { name: 'Carousel', icon: <Layers size={16} /> },
-  { name: 'Short Video', icon: <Smartphone size={16} /> },
-  { name: 'Story', icon: <Film size={16} /> },
+  { id: 'singleImage', name: 'Single Image', icon: <ImageIcon size={16} /> },
+  { id: 'carousel', name: 'Carousel', icon: <Layers size={16} /> },
+  { id: 'shortVideo', name: 'Short Video', icon: <Smartphone size={16} /> },
+  { id: 'story', name: 'Story', icon: <Film size={16} /> },
 ];
 
 const AD_VISUAL_STYLES = [
-  'Minimalist',
-  'Bold & Vibrant',
-  'Professional',
-  'Playful',
-  'Luxury',
-  'Futuristic',
-  'Hand-Drawn',
-  'Corporate',
+  { id: 'minimalist', name: 'Minimalist' },
+  { id: 'boldVibrant', name: 'Bold & Vibrant' },
+  { id: 'professional', name: 'Professional' },
+  { id: 'playful', name: 'Playful' },
+  { id: 'luxury', name: 'Luxury' },
+  { id: 'futuristic', name: 'Futuristic' },
+  { id: 'handDrawn', name: 'Hand-Drawn' },
+  { id: 'corporate', name: 'Corporate' },
 ];
 
 export function AdsModePanel({ mode, setInitialParameters, onPromptSelect }: ModePanelProps) {
+  const t = useTranslations('dashboard');
   const [adProductUrl, setAdProductUrl] = useState('');
   const [adCompetitorUrl, setAdCompetitorUrl] = useState('');
   const [adPlatforms, setAdPlatforms] = useState<Set<string>>(() => new Set(['Google Ads']));
@@ -94,7 +96,7 @@ export function AdsModePanel({ mode, setInitialParameters, onPromptSelect }: Mod
   const platformsText = useMemo(() => Array.from(adPlatforms).join(', '), [adPlatforms]);
   const formatsText = useMemo(() => Array.from(adFormats).join(', '), [adFormats]);
   const langsText = useMemo(
-    () => (adLanguages.size > 0 ? Array.from(adLanguages).join(', ') : 'None'),
+    () => (adLanguages.size > 0 ? Array.from(adLanguages).join(', ') : t('adsPanel.none')),
     [adLanguages],
   );
 
@@ -147,27 +149,31 @@ export function AdsModePanel({ mode, setInitialParameters, onPromptSelect }: Mod
   ]);
 
   const handleGeneratePrompt = () => {
-    const prompt = `
-Product URL: ${adProductUrl || 'Not provided'}
-Competitor URL: ${adCompetitorUrl || 'Not provided'}
-Target Audience:
-- Age: ${adAudienceAge || 'General'}
-- Location: ${adAudienceLocation || 'Global'}
-- Interests: ${adAudienceInterests || 'General'}
-
-Campaign Specs:
-- Platforms: ${platformsText}
-- Formats: ${formatsText}
-- Call to Action: "${adCtaText || 'Learn More'}" (Link: ${adCtaLink || 'N/A'})
-- Visual Style: ${adVisualStyle}
-
-Settings:
-- Number of Concepts: ${adCreativeCount}
-- Translation Languages: ${langsText}
-
-Please generate high-converting ad concepts based on these inputs.
-Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) for each concept.
-`.trim();
+    const prompt = [
+      t('adsPanel.prompt.productUrl', { value: adProductUrl || t('adsPanel.prompt.notProvided') }),
+      t('adsPanel.prompt.competitorUrl', { value: adCompetitorUrl || t('adsPanel.prompt.notProvided') }),
+      '',
+      t('adsPanel.prompt.targetAudienceTitle'),
+      t('adsPanel.prompt.targetAudienceAge', { value: adAudienceAge || t('adsPanel.prompt.general') }),
+      t('adsPanel.prompt.targetAudienceLocation', { value: adAudienceLocation || t('adsPanel.prompt.global') }),
+      t('adsPanel.prompt.targetAudienceInterests', { value: adAudienceInterests || t('adsPanel.prompt.general') }),
+      '',
+      t('adsPanel.prompt.campaignSpecsTitle'),
+      t('adsPanel.prompt.platforms', { value: platformsText }),
+      t('adsPanel.prompt.formats', { value: formatsText }),
+      t('adsPanel.prompt.callToAction', {
+        text: adCtaText || t('adsPanel.prompt.learnMore'),
+        link: adCtaLink || t('adsPanel.prompt.na'),
+      }),
+      t('adsPanel.prompt.visualStyle', { value: adVisualStyle }),
+      '',
+      t('adsPanel.prompt.settingsTitle'),
+      t('adsPanel.prompt.numberOfConcepts', { value: adCreativeCount }),
+      t('adsPanel.prompt.translationLanguages', { value: langsText }),
+      '',
+      t('adsPanel.prompt.instructions'),
+      t('adsPanel.prompt.variationsInstruction'),
+    ].join('\n');
 
     onPromptSelect(prompt);
   };
@@ -179,8 +185,8 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
           <Rocket size={24} />
         </div>
         <div>
-          <h3 className="text-lg font-bold text-rose-900">Ad Studio</h3>
-          <p className="text-rose-700 text-sm mt-1">Generate high-converting ads with clear targeting & creative direction.</p>
+          <h3 className="text-lg font-bold text-rose-900">{t('adsPanel.bannerTitle')}</h3>
+          <p className="text-rose-700 text-sm mt-1">{t('adsPanel.bannerDescription')}</p>
         </div>
       </div>
 
@@ -192,26 +198,26 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
               <span className="w-6 h-6 bg-rose-100 text-rose-700 rounded-full flex items-center justify-center text-xs">
                 1
               </span>
-              Strategy & Targeting
+              {t('adsPanel.steps.strategyTargeting')}
             </h3>
 
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs font-semibold text-gray-500 mb-1.5 block">Product landing page URL</label>
+                  <label className="text-xs font-semibold text-gray-500 mb-1.5 block">{t('adsPanel.fields.productUrl')}</label>
                   <Input
                     value={adProductUrl}
                     onChange={(e) => setAdProductUrl(e.target.value)}
-                    placeholder="https://..."
+                    placeholder={t('adsPanel.placeholders.url')}
                     className="focus:ring-2 focus:ring-rose-100 focus:border-rose-300"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-gray-500 mb-1.5 block">Competitor URL</label>
+                  <label className="text-xs font-semibold text-gray-500 mb-1.5 block">{t('adsPanel.fields.competitorUrl')}</label>
                   <Input
                     value={adCompetitorUrl}
                     onChange={(e) => setAdCompetitorUrl(e.target.value)}
-                    placeholder="https://..."
+                    placeholder={t('adsPanel.placeholders.url')}
                     className="focus:ring-2 focus:ring-rose-100 focus:border-rose-300"
                   />
                 </div>
@@ -219,28 +225,28 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
 
               <div className="p-4 bg-gray-50 rounded-lg border border-gray-100">
                 <label className="text-xs font-bold text-gray-600 mb-3 block flex items-center gap-1">
-                  <Users size={14} /> Target audience
+                  <Users size={14} /> {t('adsPanel.fields.targetAudience')}
                 </label>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   <input
                     type="text"
                     value={adAudienceAge}
                     onChange={(e) => setAdAudienceAge(e.target.value)}
-                    placeholder="Age (e.g. 25-45)"
+                    placeholder={t('adsPanel.placeholders.age')}
                     className="px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-rose-300"
                   />
                   <input
                     type="text"
                     value={adAudienceLocation}
                     onChange={(e) => setAdAudienceLocation(e.target.value)}
-                    placeholder="Location (e.g. US, EMEA)"
+                    placeholder={t('adsPanel.placeholders.location')}
                     className="px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-rose-300"
                   />
                   <input
                     type="text"
                     value={adAudienceInterests}
                     onChange={(e) => setAdAudienceInterests(e.target.value)}
-                    placeholder="Interests (e.g. SaaS, Tech)"
+                    placeholder={t('adsPanel.placeholders.interests')}
                     className="px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-rose-300"
                   />
                 </div>
@@ -254,49 +260,49 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
               <span className="w-6 h-6 bg-rose-100 text-rose-700 rounded-full flex items-center justify-center text-xs">
                 2
               </span>
-              Ad specifications
+              {t('adsPanel.steps.adSpecifications')}
             </h3>
 
             <div className="space-y-5">
               <div>
-                <label className="text-xs font-semibold text-gray-500 mb-2 block">Platforms</label>
+                <label className="text-xs font-semibold text-gray-500 mb-2 block">{t('adsPanel.fields.platforms')}</label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {AD_PLATFORMS.map((platform) => (
                     <button
-                      key={platform.name}
+                      key={platform.id}
                       type="button"
                       onClick={() => toggleSingleSelect(adPlatforms, setAdPlatforms, platform.name)}
                       className={cn(
-                        'flex items-center gap-2 p-3 border rounded-lg transition-all text-left',
+                        'flex items-center gap-2 p-3 border rounded-lg transition-all text-left cursor-pointer',
                         adPlatforms.has(platform.name)
                           ? 'border-rose-300 bg-rose-50 ring-1 ring-rose-200'
                           : 'border-gray-200 hover:bg-gray-50',
                       )}
                     >
                       <div className={cn('p-1.5 rounded-md', platform.color, 'bg-opacity-20')}>{platform.icon}</div>
-                      <span className="text-sm font-medium text-gray-700">{platform.name}</span>
+                      <span className="text-sm font-medium text-gray-700">{t(`adsPanel.platforms.${platform.id}` as any)}</span>
                     </button>
                   ))}
                 </div>
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-gray-500 mb-2 block">Format</label>
+                <label className="text-xs font-semibold text-gray-500 mb-2 block">{t('adsPanel.fields.format')}</label>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {AD_FORMATS.map((format) => (
                     <button
-                      key={format.name}
+                      key={format.id}
                       type="button"
                       onClick={() => toggleSingleSelect(adFormats, setAdFormats, format.name)}
                       className={cn(
-                        'flex items-center gap-2 p-2.5 border rounded-lg transition-all text-left',
+                        'flex items-center gap-2 p-2.5 border rounded-lg transition-all text-left cursor-pointer',
                         adFormats.has(format.name)
                           ? 'border-rose-300 bg-rose-50 ring-1 ring-rose-200'
                           : 'border-gray-200 hover:bg-gray-50',
                       )}
                     >
                       <div className="text-gray-400">{format.icon}</div>
-                      <span className="text-xs font-medium text-gray-700 whitespace-nowrap">{format.name}</span>
+                      <span className="text-xs font-medium text-gray-700 whitespace-nowrap">{t(`adsPanel.formats.${format.id}` as any)}</span>
                     </button>
                   ))}
                 </div>
@@ -304,7 +310,7 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
 
               <div className="p-4 bg-gray-50 rounded-lg border border-gray-100">
                 <label className="text-xs font-bold text-gray-600 mb-3 block flex items-center gap-1">
-                  <MousePointerClick size={14} /> Call to action
+                  <MousePointerClick size={14} /> {t('adsPanel.fields.callToAction')}
                 </label>
                 <div className="flex gap-3">
                   <div className="flex-1 relative">
@@ -312,7 +318,7 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
                       type="text"
                       value={adCtaText}
                       onChange={(e) => setAdCtaText(e.target.value)}
-                      placeholder="Button Text (e.g. Sign Up)"
+                      placeholder={t('adsPanel.placeholders.ctaText')}
                       className="w-full pl-8 pr-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-rose-300"
                     />
                     <TypeIcon size={12} className="absolute left-3 top-2.5 text-gray-400" />
@@ -322,7 +328,7 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
                       type="text"
                       value={adCtaLink}
                       onChange={(e) => setAdCtaLink(e.target.value)}
-                      placeholder="Destination Link (e.g. https://...)"
+                      placeholder={t('adsPanel.placeholders.destinationLink')}
                       className="w-full pl-8 pr-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:border-rose-300"
                     />
                     <LinkIcon size={12} className="absolute left-3 top-2.5 text-gray-400" />
@@ -338,14 +344,14 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
               <span className="w-6 h-6 bg-rose-100 text-rose-700 rounded-full flex items-center justify-center text-xs">
                 3
               </span>
-              Creative direction
+              {t('adsPanel.steps.creativeDirection')}
             </h3>
 
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <label className="text-xs font-semibold text-gray-500">Visual style</label>
+                    <label className="text-xs font-semibold text-gray-500">{t('adsPanel.fields.visualStyle')}</label>
                   </div>
                   <div className="relative">
                     <select
@@ -354,8 +360,8 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
                       className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:border-rose-300 appearance-none cursor-pointer"
                     >
                       {AD_VISUAL_STYLES.map((style) => (
-                        <option key={style} value={style}>
-                          {style}
+                        <option key={style.id} value={style.name} className="cursor-pointer">
+                          {t(`adsPanel.visualStyles.${style.id}` as any)}
                         </option>
                       ))}
                     </select>
@@ -365,9 +371,9 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
 
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <label className="text-xs font-semibold text-gray-500">Output volume</label>
+                    <label className="text-xs font-semibold text-gray-500">{t('adsPanel.fields.outputVolume')}</label>
                     <span className="text-xs font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full">
-                      {adCreativeCount} Concepts
+                      {t('adsPanel.outputVolumeConcepts', { count: adCreativeCount })}
                     </span>
                   </div>
                   <input
@@ -383,7 +389,7 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
 
               <div>
                 <label className="text-xs font-semibold text-gray-500 mb-3 block flex items-center gap-1">
-                  <Languages size={14} /> Mass translation
+                  <Languages size={14} /> {t('adsPanel.fields.massTranslation')}
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {TARGET_LANGUAGES.map((lang) => {
@@ -394,13 +400,13 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
                         type="button"
                         onClick={() => toggleSingleLanguage(lang.code)}
                         className={cn(
-                          'text-[11px] font-medium px-3 py-1.5 rounded-full border transition-colors',
+                          'text-[11px] font-medium px-3 py-1.5 rounded-full border transition-colors cursor-pointer',
                           active
                             ? 'bg-rose-600 text-white border-rose-600 shadow-sm'
                             : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300 hover:text-gray-700',
                         )}
                       >
-                        {lang.label}
+                        {t(`adsPanel.languages.${lang.code}` as any)}
                       </button>
                     );
                   })}
@@ -412,9 +418,9 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
           <button
             type="button"
             onClick={handleGeneratePrompt}
-            className="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl shadow-lg shadow-rose-200 transition-all flex items-center justify-center gap-2"
+            className="w-full py-4 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl shadow-lg shadow-rose-200 transition-all flex items-center justify-center gap-2 cursor-pointer"
           >
-            <Sparkles size={18} fill="currentColor" /> Generate concepts ({adCreativeCount})
+            <Sparkles size={18} fill="currentColor" /> {t('adsPanel.generateButton', { count: adCreativeCount })}
           </button>
         </div>
 
@@ -422,23 +428,23 @@ Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) 
         <div className="space-y-6">
           <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl p-6 text-white shadow-lg sticky top-20">
             <h3 className="text-sm font-bold mb-4 flex items-center gap-2 text-yellow-400">
-              <Award size={16} /> Strategy applied
+              <Award size={16} /> {t('adsPanel.strategyAppliedTitle')}
             </h3>
             <p className="text-xs text-slate-300 mb-4">
-              For every concept generated, we will automatically produce three variations.
+              {t('adsPanel.strategyAppliedDescription')}
             </p>
             <div className="space-y-3">
               <div className="bg-white/10 rounded-lg p-3 border border-white/5">
-                <div className="text-xs font-bold text-white mb-1">1. Scarcity &amp; urgency</div>
-                <div className="text-[10px] text-slate-400">FOMO, limited time offers, exclusive access hooks</div>
+                <div className="text-xs font-bold text-white mb-1">{t('adsPanel.variations.1.title')}</div>
+                <div className="text-[10px] text-slate-400">{t('adsPanel.variations.1.description')}</div>
               </div>
               <div className="bg-white/10 rounded-lg p-3 border border-white/5">
-                <div className="text-xs font-bold text-white mb-1">2. Benefit-driven</div>
-                <div className="text-[10px] text-slate-400">Clear value proposition, problem-solution framing</div>
+                <div className="text-xs font-bold text-white mb-1">{t('adsPanel.variations.2.title')}</div>
+                <div className="text-[10px] text-slate-400">{t('adsPanel.variations.2.description')}</div>
               </div>
               <div className="bg-white/10 rounded-lg p-3 border border-white/5">
-                <div className="text-xs font-bold text-white mb-1">3. Social proof</div>
-                <div className="text-[10px] text-slate-400">Testimonials, user numbers, trust indicators</div>
+                <div className="text-xs font-bold text-white mb-1">{t('adsPanel.variations.3.title')}</div>
+                <div className="text-[10px] text-slate-400">{t('adsPanel.variations.3.description')}</div>
               </div>
             </div>
           </div>

@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { PromptExamples } from '@/components/shared/prompt-examples';
+import { useTranslations } from 'next-intl';
 import type { ModePanelProps } from './mode-panel-props';
 import { sunaModes, type SunaSamplePrompt } from '../suna-modes-data';
 
@@ -59,6 +60,8 @@ function getRandomPrompts(prompts: SunaSamplePrompt[], count: number): SunaSampl
 }
 
 export function ImageModePanel({ mode, subType, setSubType, setInitialParameters, onPromptSelect }: ModePanelProps) {
+  const t = useTranslations('dashboard');
+  const tSuna = useTranslations('suna');
   const [model, setModel] = useState<string>('nano-banana-pro');
   const [randomizedPrompts, setRandomizedPrompts] = useState<SunaSamplePrompt[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -69,15 +72,45 @@ export function ImageModePanel({ mode, subType, setSubType, setInitialParameters
 
   const displayedPrompts = randomizedPrompts;
 
+  // Get translated prompts for image mode (preserving thumbnails)
+  const getTranslatedPrompts = (prompts: SunaSamplePrompt[]): SunaSamplePrompt[] => {
+    const maxPrompts = prompts.length;
+    const out: SunaSamplePrompt[] = [];
+
+    for (let index = 0; index < maxPrompts; index++) {
+      const originalPrompt = prompts[index];
+      try {
+        const key = `prompts.image.${index}` as any;
+        const translatedText = tSuna(key);
+        // next-intl returns the key if missing; keep a defensive fallback
+        if (
+          !translatedText ||
+          translatedText === `suna.${key}` ||
+          translatedText.startsWith('suna.prompts.')
+        ) {
+          out.push(originalPrompt);
+        } else {
+          out.push({ text: translatedText, thumbnail: originalPrompt.thumbnail });
+        }
+      } catch {
+        out.push(originalPrompt);
+      }
+    }
+
+    return out;
+  };
+
   useEffect(() => {
     if (!imageMode) return;
-    setRandomizedPrompts(getRandomPrompts(imageMode.samplePrompts, 4));
+    const translatedPrompts = getTranslatedPrompts(imageMode.samplePrompts);
+    setRandomizedPrompts(getRandomPrompts(translatedPrompts, 4));
   }, [imageMode]);
 
   const handleRefreshPrompts = () => {
     if (!imageMode) return;
     setIsRefreshing(true);
-    setRandomizedPrompts(getRandomPrompts(imageMode.samplePrompts, 4));
+    const translatedPrompts = getTranslatedPrompts(imageMode.samplePrompts);
+    setRandomizedPrompts(getRandomPrompts(translatedPrompts, 4));
     setTimeout(() => setIsRefreshing(false), 300);
   };
 
@@ -103,17 +136,17 @@ export function ImageModePanel({ mode, subType, setSubType, setInitialParameters
         <div>
           <h2 className="text-xl font-bold mb-1 flex items-center gap-2">
             <Sparkles size={20} className="text-yellow-300" />
-            Image Studio
+            {t('images.bannerTitle')}
           </h2>
           <p className="text-purple-100 text-sm max-w-md">
-            Generate photorealistic marketing assets, complex diagrams, and text-heavy posters.
+            {t('images.bannerDescription')}
           </p>
         </div>
 
         <div className="w-full md:w-[260px]">
           <Select value={model} onValueChange={setModel}>
             <SelectTrigger className="w-full bg-white/10 text-white border-white/20 cursor-pointer">
-              <SelectValue placeholder="Select model" />
+              <SelectValue placeholder={t('images.selectModelPlaceholder')} />
             </SelectTrigger>
             <SelectContent>
               {modelOptions.map((m) => (
@@ -130,11 +163,21 @@ export function ImageModePanel({ mode, subType, setSubType, setInitialParameters
 
       {imageMode?.options && (
         <div className="space-y-3 animate-in fade-in-0 zoom-in-95 duration-300 delay-75 mb-8">
-          <p className="text-xs text-muted-foreground/60">{imageMode.options.title}</p>
+          <p className="text-xs text-muted-foreground/60">{t('images.styleTitle')}</p>
           <ScrollArea className="w-full">
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 pb-2">
               {imageMode.options.items.map((item) => {
                 const active = subType === item.id;
+                const translatedStyleName = (() => {
+                  try {
+                    const key = `styles.${item.id}` as any;
+                    const translated = tSuna(key);
+                    if (!translated || translated === `suna.${key}` || translated.startsWith('suna.styles.')) return item.name;
+                    return translated;
+                  } catch {
+                    return item.name;
+                  }
+                })();
                 return (
                   <Card
                     key={item.id}
@@ -146,14 +189,14 @@ export function ImageModePanel({ mode, subType, setSubType, setInitialParameters
                     )}
                     onClick={() => {
                       setSubType(item.id);
-                      onPromptSelect(`Generate an image using ${item.name.toLowerCase()} style`, item.id);
+                      onPromptSelect(t('images.generateWithStylePrompt', { style: translatedStyleName }), item.id);
                     }}
                   >
                     <div className="w-full aspect-square bg-gradient-to-br from-muted/50 to-muted rounded-lg border border-border/50 group-hover:border-primary/50 group-hover:scale-105 transition-all duration-200 flex items-center justify-center overflow-hidden relative">
                       {item.image ? (
                         <Image
                           src={item.image}
-                          alt={item.name}
+                          alt={translatedStyleName}
                           fill
                           sizes="(max-width: 640px) 50vw, 25vw"
                           className="object-cover"
@@ -162,7 +205,7 @@ export function ImageModePanel({ mode, subType, setSubType, setInitialParameters
                       ) : null}
                     </div>
                     <span className="text-xs text-center text-muted-foreground group-hover:text-foreground transition-colors duration-200 font-medium">
-                      {item.name}
+                      {translatedStyleName}
                     </span>
                   </Card>
                 );
@@ -177,7 +220,7 @@ export function ImageModePanel({ mode, subType, setSubType, setInitialParameters
         <div className="animate-in fade-in-0 zoom-in-95 duration-300">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <p className="text-xs text-muted-foreground/60">Sample prompts</p>
+              <p className="text-xs text-muted-foreground/60">{t('images.samplePrompts')}</p>
               <Button
                 variant="ghost"
                 size="sm"

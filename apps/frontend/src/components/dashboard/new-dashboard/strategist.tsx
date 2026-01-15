@@ -2,9 +2,11 @@
 
 import React from 'react';
 import { Briefcase, FileText, PenTool, Mail, TrendingUp, ArrowUp } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import type { ModePanelProps } from './mode-panel-props';
 
 export function StrategistModePanel({ onPromptSelect }: ModePanelProps) {
+  const t = useTranslations('dashboard');
   return (
     <div className="max-w-6xl mx-auto px-4 md:px-6 animate-fade-in">
       <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-6 mb-8 flex items-start gap-4">
@@ -12,9 +14,9 @@ export function StrategistModePanel({ onPromptSelect }: ModePanelProps) {
           <Briefcase size={24} />
         </div>
         <div>
-          <h3 className="text-lg font-bold text-emerald-900">Deal Strategist</h3>
+          <h3 className="text-lg font-bold text-emerald-900">{t('strategistPanel.bannerTitle')}</h3>
           <p className="text-emerald-700 text-sm mt-1">
-            Accelerate deal cycles with negotiation plays, contract reviews, and pricing strategy.
+            {t('strategistPanel.bannerDescription')}
           </p>
         </div>
       </div>
@@ -23,80 +25,80 @@ export function StrategistModePanel({ onPromptSelect }: ModePanelProps) {
         <button
           type="button"
           className="bg-white p-5 rounded-xl border border-gray-200 hover:border-emerald-300 cursor-pointer transition-all flex flex-col justify-between text-left"
-          onClick={() => onPromptSelect('Generate a proposal for [Client] with standard pricing...')}
+          onClick={() => onPromptSelect(t('strategistPanel.cards.proposal.prompt'))}
         >
           <div>
             <div className="flex justify-between items-start mb-3">
               <div className="bg-blue-50 w-10 h-10 rounded-lg flex items-center justify-center text-blue-600">
                 <FileText size={20} />
               </div>
-              <span className="text-[10px] font-bold bg-blue-50 text-blue-600 px-2 py-1 rounded">Sales</span>
+              <span className="text-[10px] font-bold bg-blue-50 text-blue-600 px-2 py-1 rounded">{t('tags.sales')}</span>
             </div>
-            <h4 className="font-bold text-gray-800">Smart proposal gen</h4>
-            <p className="text-xs text-gray-500 mt-1">Auto draft + pricing fill.</p>
+            <h4 className="font-bold text-gray-800">{t('strategistPanel.cards.proposal.title')}</h4>
+            <p className="text-xs text-gray-500 mt-1">{t('strategistPanel.cards.proposal.description')}</p>
           </div>
           <div className="mt-4 text-xs font-semibold text-emerald-600 flex items-center gap-1">
-            Draft now <ArrowUp size={12} className="rotate-45" />
+            {t('strategistPanel.cards.proposal.cta')} <ArrowUp size={12} className="rotate-45" />
           </div>
         </button>
 
         <button
           type="button"
           className="bg-white p-5 rounded-xl border border-gray-200 hover:border-emerald-300 cursor-pointer transition-all flex flex-col justify-between text-left"
-          onClick={() => onPromptSelect('Analyze this contract and suggest redlines...')}
+          onClick={() => onPromptSelect(t('strategistPanel.cards.redline.prompt'))}
         >
           <div>
             <div className="flex justify-between items-start mb-3">
               <div className="bg-red-50 w-10 h-10 rounded-lg flex items-center justify-center text-red-600">
                 <PenTool size={20} />
               </div>
-              <span className="text-[10px] font-bold bg-blue-50 text-blue-600 px-2 py-1 rounded">Legal</span>
+              <span className="text-[10px] font-bold bg-blue-50 text-blue-600 px-2 py-1 rounded">{t('tags.legal')}</span>
             </div>
-            <h4 className="font-bold text-gray-800">Redline assistant</h4>
-            <p className="text-xs text-gray-500 mt-1">AI contract review and edits.</p>
+            <h4 className="font-bold text-gray-800">{t('strategistPanel.cards.redline.title')}</h4>
+            <p className="text-xs text-gray-500 mt-1">{t('strategistPanel.cards.redline.description')}</p>
           </div>
           <div className="mt-4 text-xs font-semibold text-emerald-600 flex items-center gap-1">
-            Upload doc <ArrowUp size={12} className="rotate-45" />
+            {t('strategistPanel.cards.redline.cta')} <ArrowUp size={12} className="rotate-45" />
           </div>
         </button>
 
         <button
           type="button"
           className="bg-white p-5 rounded-xl border border-gray-200 hover:border-emerald-300 cursor-pointer transition-all flex flex-col justify-between text-left"
-          onClick={() => onPromptSelect('Draft multi-threaded follow-up emails for the VP and Director...')}
+          onClick={() => onPromptSelect(t('strategistPanel.cards.followUp.prompt'))}
         >
           <div>
             <div className="flex justify-between items-start mb-3">
               <div className="bg-purple-50 w-10 h-10 rounded-lg flex items-center justify-center text-purple-600">
                 <Mail size={20} />
               </div>
-              <span className="text-[10px] font-bold bg-purple-50 text-purple-600 px-2 py-1 rounded">Sales</span>
+              <span className="text-[10px] font-bold bg-purple-50 text-purple-600 px-2 py-1 rounded">{t('tags.sales')}</span>
             </div>
-            <h4 className="font-bold text-gray-800">Multi-thread follow-up</h4>
-            <p className="text-xs text-gray-500 mt-1">Personalized stakeholder emails.</p>
+            <h4 className="font-bold text-gray-800">{t('strategistPanel.cards.followUp.title')}</h4>
+            <p className="text-xs text-gray-500 mt-1">{t('strategistPanel.cards.followUp.description')}</p>
           </div>
           <div className="mt-4 text-xs font-semibold text-emerald-600 flex items-center gap-1">
-            Create seq <ArrowUp size={12} className="rotate-45" />
+            {t('strategistPanel.cards.followUp.cta')} <ArrowUp size={12} className="rotate-45" />
           </div>
         </button>
 
         <button
           type="button"
           className="bg-white p-5 rounded-xl border border-gray-200 hover:border-emerald-300 cursor-pointer transition-all flex flex-col justify-between text-left"
-          onClick={() => onPromptSelect('Analyze account usage for expansion signals...')}
+          onClick={() => onPromptSelect(t('strategistPanel.cards.expansion.prompt'))}
         >
           <div>
             <div className="flex justify-between items-start mb-3">
               <div className="bg-green-50 w-10 h-10 rounded-lg flex items-center justify-center text-green-600">
                 <TrendingUp size={20} />
               </div>
-              <span className="text-[10px] font-bold bg-green-50 text-green-600 px-2 py-1 rounded">CX</span>
+              <span className="text-[10px] font-bold bg-green-50 text-green-600 px-2 py-1 rounded">{t('tags.cx')}</span>
             </div>
-            <h4 className="font-bold text-gray-800">Expansion scout</h4>
-            <p className="text-xs text-gray-500 mt-1">Detect upsell signals and score health.</p>
+            <h4 className="font-bold text-gray-800">{t('strategistPanel.cards.expansion.title')}</h4>
+            <p className="text-xs text-gray-500 mt-1">{t('strategistPanel.cards.expansion.description')}</p>
           </div>
           <div className="mt-4 text-xs font-semibold text-emerald-600 flex items-center gap-1">
-            Find opportunities <ArrowUp size={12} className="rotate-45" />
+            {t('strategistPanel.cards.expansion.cta')} <ArrowUp size={12} className="rotate-45" />
           </div>
         </button>
       </div>

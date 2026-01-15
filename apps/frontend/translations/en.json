@@ -398,6 +398,353 @@
     "explore_agentic_ai_capabilities": "Explore Agentic AI Capabilities",
     "marketing_assets": "Marketing Assets",
     "image": "Image",
+    "images": {
+      "label": "Image",
+      "bannerTitle": "Image Studio",
+      "bannerDescription": "Generate photorealistic marketing assets, complex diagrams, and text-heavy posters.",
+      "selectModelPlaceholder": "Select model",
+      "styleTitle": "Choose a style",
+      "samplePrompts": "Sample prompts",
+      "generateWithStylePrompt": "Generate an image using {style} style"
+    },
+    "videos": {
+      "label": "Video",
+      "bannerTitle": "Video Creator",
+      "bannerDescription": "Create cinematic videos with hyper-real lighting and consistent motion.",
+      "selectModelPlaceholder": "Select model",
+      "styleTitle": "Choose video style",
+      "samplePrompts": "Sample prompts",
+      "generateWithStylePrompt": "Generate a {style} style video"
+    },
+    "tags": {
+      "sales": "Sales",
+      "cx": "CX",
+      "mktg": "MKTG",
+      "ops": "Ops",
+      "hr": "HR",
+      "legal": "Legal"
+    },
+    "aePanel": {
+      "bannerTitle": "Account Executive Agent",
+      "bannerDescription": "Your full-cycle sales assistant for discovery, demos, and handoffs.",
+      "cards": {
+        "discovery": {
+          "title": "Discovery Prep",
+          "description": "Generate targeted questions and research.",
+          "prompt": "Prepare discovery questions for a VP of Sales at a Fintech..."
+        },
+        "handoff": {
+          "title": "Sales → CS Handoff",
+          "description": "Structure deal notes for seamless onboarding.",
+          "prompt": "Create a handoff document for the CSM team..."
+        },
+        "leadFeedback": {
+          "title": "Lead Feedback Loop",
+          "description": "Share insights on lead quality with marketing.",
+          "prompt": "Draft feedback on lead quality for Marketing..."
+        }
+      }
+    },
+    "dataPanel": {
+      "bannerTitle": "Data Analyst Agent",
+      "bannerDescription": "Clean lists, enrich contacts, and analyze CSVs for GTM insights.",
+      "cards": {
+        "leadCleaner": {
+          "title": "Lead list cleaner",
+          "description": "Fix formatting, remove dupes, and standardize fields for CRM import.",
+          "prompt": "Clean this lead list and standardize job titles..."
+        },
+        "lookalikes": {
+          "title": "Lookalike audiences",
+          "description": "Discover new prospects based on your best customers.",
+          "prompt": "Find companies similar to my top 10 customers..."
+        },
+        "ticketAnalysis": {
+          "title": "Ticket analysis",
+          "description": "Identify recurring issues and sentiment from support exports.",
+          "prompt": "Analyze these support tickets for sentiment and recurring issues..."
+        }
+      }
+    },
+    "pipelinePanel": {
+      "bannerTitle": "Pipeline Manager",
+      "bannerDescription": "Forecasting, deal QA, and risk detection.",
+      "cards": {
+        "q4Forecast": {
+          "title": "Q4 Forecast",
+          "description": "Predict revenue and spot deal slippage.",
+          "prompt": "Forecast my Q4 revenue and identify slippage risks..."
+        },
+        "campaignRoi": {
+          "title": "Campaign ROI",
+          "description": "Attribution analysis for recent wins.",
+          "prompt": "Analyze campaign attribution for closed-won deals..."
+        },
+        "churnForecast": {
+          "title": "Churn Forecast",
+          "description": "Predict renewals and at-risk accounts.",
+          "prompt": "Forecast churn risk for the upcoming renewal cohort..."
+        }
+      }
+    },
+    "researchPanel": {
+      "bannerTitle": "Deep Research",
+      "bannerDescription": "Use advanced reasoning to conduct deep market research, analyze competitor strategies, and generate comprehensive reports.",
+      "sectionTitle": "Start new research",
+      "items": {
+        "competitorDeepDive": "Competitor Deep Dive",
+        "marketTrendAnalysis": "Market Trend Analysis",
+        "accountIntelligenceReport": "Account Intelligence Report",
+        "regulatoryImpactStudy": "Regulatory Impact Study"
+      },
+      "promptTemplate": "Conduct a {topic} on..."
+    },
+    "socialSellingPanel": {
+      "bannerTitle": "Social Selling Assistant",
+      "bannerDescription": "Build your personal brand, draft viral hooks, and engage prospects with AI.",
+      "cards": {
+        "viralHook": {
+          "title": "Viral hook generator",
+          "description": "Stop the scroll with AI-crafted openers.",
+          "prompt": "Write a contrarian LinkedIn post hook about..."
+        },
+        "repurpose": {
+          "title": "Content repurposer",
+          "description": "Turn blogs into posts, threads, and carousels.",
+          "prompt": "Repurpose this blog post into a Twitter thread..."
+        },
+        "dmSequence": {
+          "title": "DM sequence writer",
+          "description": "Draft non-salesy outreach messages.",
+          "prompt": "Write a DM sequence for a cold prospect who viewed my profile..."
+        }
+      }
+    },
+    "strategistPanel": {
+      "bannerTitle": "Deal Strategist",
+      "bannerDescription": "Accelerate deal cycles with negotiation plays, contract reviews, and pricing strategy.",
+      "cards": {
+        "proposal": {
+          "title": "Smart proposal gen",
+          "description": "Auto draft + pricing fill.",
+          "cta": "Draft now",
+          "prompt": "Generate a proposal for [Client] with standard pricing..."
+        },
+        "redline": {
+          "title": "Redline assistant",
+          "description": "AI contract review and edits.",
+          "cta": "Upload doc",
+          "prompt": "Analyze this contract and suggest redlines..."
+        },
+        "followUp": {
+          "title": "Multi-thread follow-up",
+          "description": "Personalized stakeholder emails.",
+          "cta": "Create seq",
+          "prompt": "Draft multi-threaded follow-up emails for the VP and Director..."
+        },
+        "expansion": {
+          "title": "Expansion scout",
+          "description": "Detect upsell signals and score health.",
+          "cta": "Find opportunities",
+          "prompt": "Analyze account usage for expansion signals..."
+        }
+      }
+    },
+    "icpPanel": {
+      "bannerTitle": "Territory & Persona",
+      "bannerDescription": "Define ICPs, segment territories, and map buying committees.",
+      "sectionTitle": "Deep segmentation",
+      "cards": {
+        "repAssignment": {
+          "title": "Rep assignment",
+          "description": "Recommend rep coverage based on strengths.",
+          "prompt": "Suggest rep assignments for the West Coast territory based on past performance..."
+        },
+        "quotaModeling": {
+          "title": "Quota modeling",
+          "description": "Optimize targets and analyze capacity gaps.",
+          "prompt": "Model quota capacity for FY24 given current headcount..."
+        },
+        "predictiveHiring": {
+          "title": "Predictive hiring",
+          "description": "Staffing forecast based on growth trajectory.",
+          "prompt": "Create a hiring plan based on pipeline velocity and revenue goals..."
+        },
+        "marketSegmentation": {
+          "title": "Market segmentation",
+          "description": "Refine ICPs and buyer personas.",
+          "prompt": "Define the psychographic profile for our Enterprise segment..."
+        },
+        "customerHealth": {
+          "title": "Customer health profile",
+          "description": "Identify traits of successful long-term clients.",
+          "prompt": "Create a health score profile for our most successful customers..."
+        }
+      }
+    },
+    "websitePanel": {
+      "bannerTitle": "Website",
+      "bannerDescription": "Generate high-converting landing pages and functional web apps with AI.",
+      "sectionTitle": "Template library",
+      "promptTemplate": "Create a {template} for...",
+      "categories": {
+        "marketing": {
+          "title": "Marketing & Campaigns",
+          "items": {
+            "landingPage": "High-Conversion Landing Page",
+            "webinarRegistration": "Webinar Registration Site",
+            "productLaunchCountdown": "Product Launch Countdown",
+            "eventMicrosite": "Event Microsite",
+            "newsletterSignup": "Newsletter Signup Page"
+          }
+        },
+        "corporate": {
+          "title": "Corporate & Brand",
+          "items": {
+            "corporateHomepage": "Modern Corporate Homepage",
+            "aboutLeadership": "About Us & Leadership",
+            "careersCulture": "Careers & Culture Hub",
+            "pressMediaKit": "Press & Media Kit"
+          }
+        },
+        "saas": {
+          "title": "SaaS & Product",
+          "items": {
+            "saasHomepage": "SaaS Product Homepage",
+            "pricingComparison": "Pricing & Plans Comparison",
+            "featureDeepDive": "Feature Deep Dive Page",
+            "docsHelpCenter": "Documentation / Help Center"
+          }
+        },
+        "content": {
+          "title": "Content & Portfolio",
+          "items": {
+            "personalPortfolio": "Personal Brand Portfolio",
+            "agencyShowcase": "Creative Agency Showcase",
+            "consultantBooking": "Consultant Booking Page",
+            "resourceLibraryBlog": "Resource Library / Blog"
+          }
+        }
+      }
+    },
+    "adsPanel": {
+      "bannerTitle": "Ad Studio",
+      "bannerDescription": "Generate high-converting ads with clear targeting & creative direction.",
+      "none": "None",
+      "steps": {
+        "strategyTargeting": "Strategy & Targeting",
+        "adSpecifications": "Ad specifications",
+        "creativeDirection": "Creative direction"
+      },
+      "fields": {
+        "productUrl": "Product landing page URL",
+        "competitorUrl": "Competitor URL",
+        "targetAudience": "Target audience",
+        "platforms": "Platforms",
+        "format": "Format",
+        "callToAction": "Call to action",
+        "visualStyle": "Visual style",
+        "outputVolume": "Output volume",
+        "massTranslation": "Mass translation"
+      },
+      "placeholders": {
+        "url": "https://...",
+        "age": "Age (e.g. 25-45)",
+        "location": "Location (e.g. US, EMEA)",
+        "interests": "Interests (e.g. SaaS, Tech)",
+        "ctaText": "Button Text (e.g. Sign Up)",
+        "destinationLink": "Destination Link (e.g. https://...)"
+      },
+      "platforms": {
+        "googleAds": "Google Ads",
+        "metaAds": "Meta Ads",
+        "linkedin": "LinkedIn",
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "youtube": "YouTube"
+      },
+      "formats": {
+        "singleImage": "Single Image",
+        "carousel": "Carousel",
+        "shortVideo": "Short Video",
+        "story": "Story"
+      },
+      "visualStyles": {
+        "minimalist": "Minimalist",
+        "boldVibrant": "Bold & Vibrant",
+        "professional": "Professional",
+        "playful": "Playful",
+        "luxury": "Luxury",
+        "futuristic": "Futuristic",
+        "handDrawn": "Hand-Drawn",
+        "corporate": "Corporate"
+      },
+      "languages": {
+        "es": "Spanish",
+        "fr": "French",
+        "de": "German",
+        "ja": "Japanese",
+        "pt": "Portuguese",
+        "it": "Italian",
+        "zh": "Chinese",
+        "ko": "Korean",
+        "ar": "Arabic",
+        "nl": "Dutch",
+        "sv": "Swedish",
+        "no": "Norwegian",
+        "da": "Danish",
+        "fi": "Finnish",
+        "hi": "Hindi",
+        "ru": "Russian",
+        "tr": "Turkish",
+        "pl": "Polish",
+        "id": "Indonesian",
+        "th": "Thai",
+        "vi": "Vietnamese",
+        "el": "Greek"
+      },
+      "outputVolumeConcepts": "{count} Concepts",
+      "generateButton": "Generate concepts ({count})",
+      "strategyAppliedTitle": "Strategy applied",
+      "strategyAppliedDescription": "For every concept generated, we will automatically produce three variations.",
+      "variations": {
+        "1": {
+          "title": "1. Scarcity & urgency",
+          "description": "FOMO, limited time offers, exclusive access hooks"
+        },
+        "2": {
+          "title": "2. Benefit-driven",
+          "description": "Clear value proposition, problem-solution framing"
+        },
+        "3": {
+          "title": "3. Social proof",
+          "description": "Testimonials, user numbers, trust indicators"
+        }
+      },
+      "prompt": {
+        "notProvided": "Not provided",
+        "general": "General",
+        "global": "Global",
+        "learnMore": "Learn More",
+        "na": "N/A",
+        "productUrl": "Product URL: {value}",
+        "competitorUrl": "Competitor URL: {value}",
+        "targetAudienceTitle": "Target Audience:",
+        "targetAudienceAge": "- Age: {value}",
+        "targetAudienceLocation": "- Location: {value}",
+        "targetAudienceInterests": "- Interests: {value}",
+        "campaignSpecsTitle": "Campaign Specs:",
+        "platforms": "- Platforms: {value}",
+        "formats": "- Formats: {value}",
+        "callToAction": "- Call to Action: \"{text}\" (Link: {link})",
+        "visualStyle": "- Visual Style: {value}",
+        "settingsTitle": "Settings:",
+        "numberOfConcepts": "- Number of Concepts: {value}",
+        "translationLanguages": "- Translation Languages: {value}",
+        "instructions": "Please generate high-converting ad concepts based on these inputs.",
+        "variationsInstruction": "Ensure you provide 3 distinct copy variations (Scarcity, Benefit, Social Proof) for each concept."
+      }
+    },
     "video_studio": "Video Studio",
     "demos_outreach": "Demos & Outreach",
     "pipeline_manager": "Pipeline Manager",

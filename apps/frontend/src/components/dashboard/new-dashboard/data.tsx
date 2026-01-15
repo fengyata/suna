@@ -2,9 +2,11 @@
 
 import React from 'react';
 import { Table, FileSpreadsheet, Target, LifeBuoy } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import type { ModePanelProps } from './mode-panel-props';
 
 export function DataModePanel({ onPromptSelect }: ModePanelProps) {
+  const t = useTranslations('dashboard');
   return (
     <div className="max-w-6xl mx-auto px-4 md:px-6 animate-fade-in">
       <div className="bg-cyan-50 border border-cyan-100 rounded-xl p-6 mb-8 flex items-start gap-4">
@@ -12,8 +14,8 @@ export function DataModePanel({ onPromptSelect }: ModePanelProps) {
           <Table size={24} />
         </div>
         <div>
-          <h3 className="text-lg font-bold text-cyan-900">Data Analyst Agent</h3>
-          <p className="text-cyan-700 text-sm mt-1">Clean lists, enrich contacts, and analyze CSVs for GTM insights.</p>
+          <h3 className="text-lg font-bold text-cyan-900">{t('dataPanel.bannerTitle')}</h3>
+          <p className="text-cyan-700 text-sm mt-1">{t('dataPanel.bannerDescription')}</p>
         </div>
       </div>
 
@@ -21,46 +23,46 @@ export function DataModePanel({ onPromptSelect }: ModePanelProps) {
         <button
           type="button"
           className="bg-white p-5 rounded-xl border border-gray-200 hover:shadow-md transition-shadow cursor-pointer group text-left"
-          onClick={() => onPromptSelect('Clean this lead list and standardize job titles...')}
+          onClick={() => onPromptSelect(t('dataPanel.cards.leadCleaner.prompt'))}
         >
           <div className="flex items-center justify-between mb-4">
             <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform">
               <FileSpreadsheet size={20} />
             </div>
-            <span className="text-[10px] font-bold bg-blue-50 text-blue-600 px-2 py-1 rounded">Sales</span>
+            <span className="text-[10px] font-bold bg-blue-50 text-blue-600 px-2 py-1 rounded">{t('tags.sales')}</span>
           </div>
-          <h4 className="font-bold text-gray-800 mb-1">Lead list cleaner</h4>
-          <p className="text-xs text-gray-500">Fix formatting, remove dupes, and standardize fields for CRM import.</p>
+          <h4 className="font-bold text-gray-800 mb-1">{t('dataPanel.cards.leadCleaner.title')}</h4>
+          <p className="text-xs text-gray-500">{t('dataPanel.cards.leadCleaner.description')}</p>
         </button>
 
         <button
           type="button"
           className="bg-white p-5 rounded-xl border border-gray-200 hover:shadow-md transition-shadow cursor-pointer group text-left"
-          onClick={() => onPromptSelect('Find companies similar to my top 10 customers...')}
+          onClick={() => onPromptSelect(t('dataPanel.cards.lookalikes.prompt'))}
         >
           <div className="flex items-center justify-between mb-4">
             <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 group-hover:scale-110 transition-transform">
               <Target size={20} />
             </div>
-            <span className="text-[10px] font-bold bg-purple-50 text-purple-600 px-2 py-1 rounded">MKTG</span>
+            <span className="text-[10px] font-bold bg-purple-50 text-purple-600 px-2 py-1 rounded">{t('tags.mktg')}</span>
           </div>
-          <h4 className="font-bold text-gray-800 mb-1">Lookalike audiences</h4>
-          <p className="text-xs text-gray-500">Discover new prospects based on your best customers.</p>
+          <h4 className="font-bold text-gray-800 mb-1">{t('dataPanel.cards.lookalikes.title')}</h4>
+          <p className="text-xs text-gray-500">{t('dataPanel.cards.lookalikes.description')}</p>
         </button>
 
         <button
           type="button"
           className="bg-white p-5 rounded-xl border border-gray-200 hover:shadow-md transition-shadow cursor-pointer group text-left"
-          onClick={() => onPromptSelect('Analyze these support tickets for sentiment and recurring issues...')}
+          onClick={() => onPromptSelect(t('dataPanel.cards.ticketAnalysis.prompt'))}
         >
           <div className="flex items-center justify-between mb-4">
             <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600 group-hover:scale-110 transition-transform">
               <LifeBuoy size={20} />
             </div>
-            <span className="text-[10px] font-bold bg-orange-50 text-orange-600 px-2 py-1 rounded">CX</span>
+            <span className="text-[10px] font-bold bg-orange-50 text-orange-600 px-2 py-1 rounded">{t('tags.cx')}</span>
           </div>
-          <h4 className="font-bold text-gray-800 mb-1">Ticket analysis</h4>
-          <p className="text-xs text-gray-500">Identify recurring issues and sentiment from support exports.</p>
+          <h4 className="font-bold text-gray-800 mb-1">{t('dataPanel.cards.ticketAnalysis.title')}</h4>
+          <p className="text-xs text-gray-500">{t('dataPanel.cards.ticketAnalysis.description')}</p>
         </button>
       </div>
     </div>
