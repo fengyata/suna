@@ -13,6 +13,7 @@ import {
   ProjectLimitError, 
   ThreadLimitError 
 } from '@/lib/api/errors';
+import { postOpenAddonDialogToParent, SUPERAGENT_INSUFFICIENT_CREDITS_EVENT } from '@/lib/error-handler';
 import { useOptimisticFilesStore } from '@/stores/optimistic-files-store';
 import { usePricingModalStore } from '@/stores/pricing-modal-store';
 import { normalizeFilenameToNFC } from '@agentpress/shared';
@@ -78,12 +79,40 @@ export function useOptimisticAgentStart(
   const addOptimisticFiles = useOptimisticFilesStore((state) => state.addFiles);
   const pricingModalStore = usePricingModalStore();
 
+  const isInsufficientCreditsError = useCallback((error: any) => {
+    const code =
+      error?.detail?.error_code ||
+      error?.details?.detail?.error_code ||
+      error?.code;
+    if (code === 'INSUFFICIENT_CREDITS') return true;
+
+    const msg = String(error?.detail?.message || error?.message || '').toLowerCase();
+    return (
+      msg.includes('insufficient credits') ||
+      msg.includes('out of credits') ||
+      msg.includes('no credits') ||
+      msg.includes('billing check failed: insufficient') ||
+      msg.includes('add credits')
+    );
+  }, []);
+
   const clearAgentLimitData = useCallback(() => {
     setAgentLimitData(null);
     setShowAgentLimitBanner(false);
   }, []);
 
   const handleBillingError = useCallback((error: BillingError) => {
+    // For insufficient credits, do NOT open internal pricing modal.
+    // Only ask parent app to open addon dialog (iframe), and keep UI quiet.
+    if (isInsufficientCreditsError(error)) {
+      router.replace(redirectOnError);
+      postOpenAddonDialogToParent();
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent(SUPERAGENT_INSUFFICIENT_CREDITS_EVENT));
+      }
+      return;
+    }
+
     const errorMessage = error.detail?.message?.toLowerCase() || error.message?.toLowerCase() || '';
     const originalMessage = error.detail?.message || error.message || '';
     const isCreditsExhausted = 
@@ -112,7 +141,7 @@ export function useOptimisticAgentStart(
       alertTitle,
       alertSubtitle
     });
-  }, [router, redirectOnError, pricingModalStore]);
+  }, [isInsufficientCreditsError, router, redirectOnError, pricingModalStore]);
 
   const handleAgentRunLimitError = useCallback((error: AgentRunLimitError) => {
     console.log('[OptimisticAgentStart] Caught AgentRunLimitError');
@@ -214,11 +243,13 @@ export function useOptimisticAgentStart(
         setIsStarting(false);
         
         if (error instanceof BillingError || error?.status === 402) {
+          console.log('error instanceof BillingError', error);
           handleBillingError(error as BillingError);
           return;
         }
         
         if (error instanceof AgentRunLimitError) {
+          console.log('error instanceof AgentRunLimitError', error);
           handleAgentRunLimitError(error);
           return;
         }
@@ -227,6 +258,7 @@ export function useOptimisticAgentStart(
         if (error?.detail?.error_code === 'AGENT_RUN_LIMIT_EXCEEDED' || 
             error?.code === 'AGENT_RUN_LIMIT_EXCEEDED' ||
             (error?.status === 402 && error?.detail?.running_count !== undefined)) {
+          console.log('error?.detail?.error_code === AGENT_RUN_LIMIT_EXCEEDED', error);
           const running_thread_ids = error.detail?.running_thread_ids || [];
           const running_count = error.detail?.running_count || 0;
           setAgentLimitData({
@@ -239,15 +271,18 @@ export function useOptimisticAgentStart(
         }
         
         if (error instanceof ProjectLimitError) {
+          console.log('error instanceof ProjectLimitError', error);
           handleProjectLimitError(error);
           return;
         }
         
         if (error instanceof ThreadLimitError) {
+          console.log('error instanceof ThreadLimitError', error);
           handleThreadLimitError(error);
           return;
         }
         
+        console.log('error', error);
         toast.error('Failed to start conversation');
       });
 
