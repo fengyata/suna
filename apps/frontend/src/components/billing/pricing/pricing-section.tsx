@@ -1256,7 +1256,7 @@ export function PricingSection({
       } catch {
         // ignore
       }
-    }, 1000);
+    }, 0);
   }, []);
 
   const isBilling402Alert = useMemo(() => {

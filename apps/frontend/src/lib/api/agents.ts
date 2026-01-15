@@ -28,7 +28,7 @@ function postOpenAddonDialogToParent() {
     } catch {
       // ignore
     }
-  }, 1000);
+  }, 0);
 }
 
 export type AgentRun = {
@@ -478,7 +478,8 @@ export const optimisticAgentStart = async (options: {
       }
       
       if (status === 402) {
-        const errorDetail = response.error.details?.detail || { message: response.error.message || 'Payment required' };
+        const errorDetail = response.error.detail || response.error.details?.detail || { message: response.error.message || 'Payment required' };
+        console.log('errorDetail', response.error.details);
         const parsedError = parseTierRestrictionError({
           status,
           detail: errorDetail,
@@ -526,7 +527,11 @@ export const optimisticAgentStart = async (options: {
 
     return response.data!;
   } catch (error) {
-    if (error instanceof BillingError || error instanceof AgentRunLimitError || error instanceof ProjectLimitError || error instanceof ThreadLimitError) {
+    if (error instanceof BillingError) {
+      postOpenAddonDialogToParent();
+      throw error;
+    }
+    if (error instanceof AgentRunLimitError || error instanceof ProjectLimitError || error instanceof ThreadLimitError) {
       throw error;
     }
 

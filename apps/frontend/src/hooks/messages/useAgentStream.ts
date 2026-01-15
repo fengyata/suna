@@ -13,6 +13,7 @@ import { threadKeys } from '@/hooks/threads/keys';
 import { usePricingModalStore } from '@/stores/pricing-modal-store';
 import { accountStateKeys } from '@/hooks/billing';
 import { clearToolTracking } from './tool-tracking';
+import { postOpenAddonDialogToParent } from '@/lib/error-handler';
 
 export interface UseAgentStreamResult {
   status: string;
@@ -87,6 +88,13 @@ export function useAgentStream(
       messageLower.includes('out of credits') ||
       messageLower.includes('no credits') ||
       messageLower.includes('balance');
+
+    // For insufficient credits, do NOT open internal pricing modal.
+    // Only ask parent app to open addon dialog (iframe) and exit.
+    if (isCreditsExhausted) {
+      postOpenAddonDialogToParent();
+      return;
+    }
     
     const alertTitle = isCreditsExhausted 
       ? 'You ran out of credits'

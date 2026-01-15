@@ -45,7 +45,7 @@ function postOpenAddonDialogToParent() {
     } catch {
       // ignore
     }
-  }, 1000);
+  }, 0);
 }
 
 export interface AgentStreamCallbacks {

@@ -14,6 +14,7 @@ import {
   BillingError 
 } from '@/lib/api/errors';
 import { toast } from '@/lib/toast';
+import { postOpenAddonDialogToParent } from '@/lib/error-handler';
 import { ChatInput, ChatInputHandles } from '@/components/thread/chat-input/chat-input';
 import { SidebarContext } from '@/components/ui/sidebar';
 import { useAgentStream } from '@/hooks/messages';
@@ -164,6 +165,8 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const lastStreamStartedRef = useRef<string | null>(null);
   const pendingMessageRef = useRef<string | null>(null);
+  const shouldClearChatInputOnStreamStartRef = useRef<boolean>(false);
+  const stopStreamingRef = useRef<(() => Promise<void>) | null>(null);
   const chatInputRef = useRef<ChatInputHandles>(null);
 
   const hasActiveSelection = useCallback((): boolean => {
@@ -855,9 +858,11 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
         case 'agent_not_running':
         case 'error':
         case 'failed':
+          setIsSending(false);
           setAgentStatus('idle');
           setAgentRunId(null);
           setAutoOpenedPanel(false);
+          shouldClearChatInputOnStreamStartRef.current = false;
 
           const ENABLE_MESSAGE_QUEUE = false;
           if (ENABLE_MESSAGE_QUEUE && queuedMessages.length > 0) {
@@ -873,6 +878,8 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
 
           break;
         case 'connecting':
+          // Once the stream hook is progressing, submission is no longer pending.
+          setIsSending(false);
           setAgentStatus('connecting');
 
           if (pendingMessageRef.current) {
@@ -897,9 +904,25 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
               }
             }, 100);
           }
+
+          // Clear only after streaming flow has actually started (keeps text/files for 402 retry).
+          if (shouldClearChatInputOnStreamStartRef.current) {
+            chatInputRef.current?.setValue('');
+            chatInputRef.current?.clearUploadedFiles();
+            shouldClearChatInputOnStreamStartRef.current = false;
+          }
           break;
         case 'streaming':
+          // Once we are streaming, submission is no longer pending.
+          setIsSending(false);
           setAgentStatus('running');
+
+          // Some environments may skip `connecting` and go straight to `streaming`.
+          if (shouldClearChatInputOnStreamStartRef.current) {
+            chatInputRef.current?.setValue('');
+            chatInputRef.current?.clearUploadedFiles();
+            shouldClearChatInputOnStreamStartRef.current = false;
+          }
           break;
       }
     },
@@ -920,10 +943,13 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
 
     if (isBillingError) {
       console.error(`[PAGE] Agent stopped due to billing error: ${errorMessage}`);
-      const billingError = new BillingError(402, {
-        message: errorMessage,
-      });
-      openBillingModal(billingError);
+      // Stop current execution and reset UI state, but keep input/files for retry.
+      // Also do NOT open internal billing modal; let parent handle the addon dialog.
+      postOpenAddonDialogToParent();
+      void stopStreamingRef.current?.();
+      setAgentStatus('idle');
+      setAgentRunId(null);
+      setIsSending(false);
       pendingMessageRef.current = null;
       return;
     }
@@ -936,7 +962,7 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
     toast.error(`Stream Error: ${errorMessage}`);
 
     pendingMessageRef.current = null;
-  }, [openBillingModal]);
+  }, [setAgentStatus, setAgentRunId]);
 
   const handleStreamClose = useCallback(() => { }, []);
 
@@ -994,6 +1020,10 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
     derivedAgentId,
   );
 
+  useEffect(() => {
+    stopStreamingRef.current = stopStreaming;
+  }, [stopStreaming]);
+
   const handleSubmitMessage = useCallback(
     async (
       message: string,
@@ -1045,9 +1075,9 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
           url.searchParams.delete('modeStarter');
           window.history.replaceState({}, '', url.pathname + url.search);
         }
-        // Clear input text and uploaded files after successful submission
-        chatInputRef.current?.setValue('');
-        chatInputRef.current?.clearUploadedFiles();
+        // Do NOT clear immediately. Clear only once streaming actually starts (connecting/streaming),
+        // so that if we hit 402/INSUFFICIENT_CREDITS the user can retry without losing text/files.
+        shouldClearChatInputOnStreamStartRef.current = true;
 
         setUserInitiatedRun(true);
       } catch (error) {
@@ -1055,6 +1085,28 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
         pendingMessageRef.current = null;
 
         if (error instanceof BillingError) {
+          // For insufficient credits, do NOT open internal billing modal.
+          // Preserve input/files and just notify parent to open addon dialog.
+          const code = error.detail?.error_code;
+          const lower = String(error.detail?.message || error.message || '').toLowerCase();
+          const isInsufficientCredits =
+            code === 'INSUFFICIENT_CREDITS' ||
+            lower.includes('insufficient credits') ||
+            lower.includes('out of credits') ||
+            lower.includes('no credits') ||
+            lower.includes('add credits') ||
+            lower.includes('billing check failed');
+
+          if (isInsufficientCredits) {
+            shouldClearChatInputOnStreamStartRef.current = false;
+            postOpenAddonDialogToParent();
+            // Hard reset submit/loading and running state (keep input/files for retry).
+            setIsSending(false);
+            setAgentStatus('idle');
+            setAgentRunId(null);
+            return;
+          }
+
           openBillingModal(error);
           return;
         }

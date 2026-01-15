@@ -14,6 +14,7 @@ import { usePricingModalStore } from '@/stores/pricing-modal-store';
 export interface ApiError extends Error {
   status?: number;
   code?: string;
+  detail?: any;
   details?: any;
   response?: Response;
 }
@@ -22,6 +23,38 @@ export interface ErrorContext {
   operation?: string;
   resource?: string;
   silent?: boolean;
+}
+
+export const SUPERAGENT_INSUFFICIENT_CREDITS_EVENT = 'superagent_insufficient_credits';
+
+const addonDialogThrottleMs = 2000;
+let lastAddonDialogPostedAt = 0;
+
+export function postOpenAddonDialogToParent(): boolean {
+  if (typeof window === 'undefined') return false;
+
+  let isEmbedded = false;
+  try {
+    isEmbedded = window.self !== window.top;
+  } catch {
+    // If accessing window.top throws (cross-origin), assume embedded.
+    isEmbedded = true;
+  }
+  if (!isEmbedded) return false;
+
+  const now = Date.now();
+  if (now - lastAddonDialogPostedAt < addonDialogThrottleMs) return true;
+  lastAddonDialogPostedAt = now;
+
+  setTimeout(() => {
+    try {
+      window.parent.postMessage({ type: 'open-addon-dialog' }, '*');
+    } catch {
+      // ignore
+    }
+  }, 0);
+
+  return true;
 }
 
 const getStatusMessage = (status: number): string => {
@@ -120,9 +153,6 @@ const shouldShowError = (error: any, context?: ErrorContext): boolean => {
   if (context?.silent) {
     return false;
   }
-  if (error instanceof BillingError) {
-    return false;
-  }
 
   if (error?.status === 404 && context?.resource) {
     return false;
@@ -213,6 +243,16 @@ export const handleApiError = (error: any, context?: ErrorContext): void => {
   }
 
   if (error instanceof BillingError) {
+    // For insufficient credits (402), prefer asking the parent app to open the addon dialog
+    // when embedded in an iframe, instead of showing the internal pricing intercept modal.
+    const errorCode = error.detail?.error_code;
+    if (error.status === 402 && (errorCode === 'INSUFFICIENT_CREDITS' || !errorCode)) {
+      if (postOpenAddonDialogToParent()) {
+        return;
+      }
+      // If not embedded, fall back to existing pricing modal behavior below.
+    }
+
     // Extract billing error message and determine if credits are exhausted
     const message = error.detail?.message?.toLowerCase() || '';
     const originalMessage = error.detail?.message || '';

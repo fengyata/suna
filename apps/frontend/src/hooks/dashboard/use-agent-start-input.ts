@@ -9,6 +9,7 @@ import { useSunaModePersistence } from '@/stores/suna-modes-store';
 import { useAgents } from '@/hooks/agents/use-agents';
 import { useAuth } from '@/components/AuthProvider';
 import type { ChatInputHandles } from '@/components/thread/chat-input/chat-input';
+import { SUPERAGENT_INSUFFICIENT_CREDITS_EVENT } from '@/lib/error-handler';
 
 const PENDING_PROMPT_KEY = 'pendingAgentPrompt';
 
@@ -114,6 +115,30 @@ export function useAgentStartInput(options: UseAgentStartInputOptions = {}): Use
   const chatInputRef = useRef<ChatInputHandles>(null);
   const prefetchedRouteRef = useRef<string | null>(null);
   const prefetchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // When optimistic start fails in background due to insufficient credits,
+  // `startAgent()` already returned success, so we must reset UI via an event.
+  // Keep prompt/files intact for retry.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const onInsufficientCredits = () => {
+      setIsSubmitting(false);
+      setIsRedirecting(false);
+    };
+
+    window.addEventListener(
+      SUPERAGENT_INSUFFICIENT_CREDITS_EVENT,
+      onInsufficientCredits as EventListener,
+    );
+
+    return () => {
+      window.removeEventListener(
+        SUPERAGENT_INSUFFICIENT_CREDITS_EVENT,
+        onInsufficientCredits as EventListener,
+      );
+    };
+  }, []);
   
   // Agent selection from store
   const {
