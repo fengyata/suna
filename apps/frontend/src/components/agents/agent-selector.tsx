@@ -264,7 +264,7 @@ export const AgentSelector: React.FC<AgentSelectorProps> = ({
           )}
 
           {/* Create Agent Option */}
-          {showCreateOption && (
+          {/* {showCreateOption && (
             <>
               <DropdownMenuSeparator />
               <div className="p-1">
@@ -277,7 +277,7 @@ export const AgentSelector: React.FC<AgentSelectorProps> = ({
                 </DropdownMenuItem>
               </div>
             </>
-          )}
+          )} */}
         </DropdownMenuContent>
       </DropdownMenu>
 
