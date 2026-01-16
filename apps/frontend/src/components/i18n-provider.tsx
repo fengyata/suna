@@ -17,6 +17,9 @@ async function getTranslations(locale: Locale) {
     if (locale === 'en') {
       return defaultTranslations;
     }
+    if(locale === 'zh-cn'){
+      locale = 'zh';
+    }
     return (await import(`../../translations/${locale}.json`)).default;
   } catch (error) {
     console.error(`Failed to load translations for locale ${locale}:`, error);

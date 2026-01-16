@@ -1,0 +1,1609 @@
+{
+  "common": {
+    "cancel": "取消",
+    "save": "儲存",
+    "saving": "正在儲存...",
+    "success": "成功",
+    "done": "完成",
+    "close": "關閉",
+    "ok": "確定",
+    "yes": "是",
+    "no": "否",
+    "delete": "刪除",
+    "edit": "編輯",
+    "search": "搜尋",
+    "loading": "載入中...",
+    "error": "錯誤",
+    "retry": "重試",
+    "send": "發送",
+    "back": "返回",
+    "new": "新增",
+    "create": "建立",
+    "update": "更新",
+    "remove": "移除",
+    "confirm": "確認",
+    "processing": "處理中...",
+    "keep": "保留",
+    "active": "啟用",
+    "inactive": "停用",
+    "next": "下一步",
+    "upgrade": "升級",
+    "basic": "基礎",
+    "tryFree": "立即開始"
+  },
+  "settings": {
+    "title": "設定",
+    "tabs": {
+      "general": "一般",
+      "plan": "方案",
+      "billing": "帳單",
+      "usage": "使用量",
+      "referrals": "推薦計劃",
+      "knowledgeBase": "知識庫",
+      "integrations": "整合",
+      "envManager": "環境變量管理"
+    },
+    "general": {
+      "title": "一般設定",
+      "description": "管理您的帳戶資訊",
+      "profilePicture": {
+        "title": "個人頭像",
+        "upload": "上傳頭像",
+        "hint": "JPG、PNG 或 GIF。最大 5MB。",
+        "invalidType": "請選擇圖片檔案",
+        "tooLarge": "圖片大小必須小於 5MB",
+        "uploadFailed": "頭像上傳失敗"
+      },
+      "name": "姓名",
+      "email": "電子郵件",
+      "namePlaceholder": "輸入您的姓名",
+      "emailCannotChange": "此處無法變更電子郵件",
+      "saveChanges": "儲存變更",
+      "profileUpdated": "個人資料更新成功",
+      "profileUpdateFailed": "個人資料更新失敗",
+      "language": {
+        "title": "語言",
+        "description": "選擇您偏好的語言",
+        "current": "目前語言",
+        "select": "選擇語言"
+      },
+      "deleteAccount": {
+        "title": "刪除帳戶",
+        "description": "永久移除您的帳戶及所有相關數據",
+        "button": "刪除帳戶",
+        "scheduled": "已排定刪除",
+        "scheduledDescription": "您的帳戶將於 {date} 永久刪除。",
+        "canCancel": "您可以在刪除日期前的任何時間取消此請求。",
+        "cancelButton": "取消刪除請求",
+        "dialogTitle": "刪除帳戶",
+        "warning": "此操作在 30 天後將無法撤銷",
+        "whenDelete": "當您刪除帳戶時：",
+        "agentsDeleted": "您所有的 Worker 及其版本將被刪除",
+        "threadsDeleted": "您所有的對話和對談將被刪除",
+        "credentialsRemoved": "您所有的憑證和整合將被移除",
+        "subscriptionCancelled": "您的訂閱將被取消",
+        "billingRemoved": "所有帳單數據將被移除",
+        "scheduled30Days": "您的帳戶已排定在 30 天後刪除",
+        "gracePeriod": "您可以在 30 天的寬限期內隨時取消此請求。30 天後，您的所有數據將被永久刪除且無法恢復。",
+        "chooseDeletionType": "選擇刪除類型：",
+        "gracePeriodOption": "30 天寬限期",
+        "gracePeriodDescription": "您的帳戶將排定在 30 天後刪除。您可以在寬限期內隨時取消此請求。",
+        "immediateOption": "立即刪除",
+        "immediateDescription": "您的帳戶和所有數據將立即永久刪除。此操作無法撤銷。",
+        "warningImmediate": "此操作無法撤銷",
+        "warningGracePeriod": "此操作在 30 天後將無法撤銷",
+        "confirmText": "輸入 delete 以確認",
+        "confirmPlaceholder": "delete",
+        "keepAccount": "保留帳戶",
+        "cancelDeletionTitle": "取消帳戶刪除",
+        "cancelDeletionDescription": "您確定要取消刪除帳戶嗎？您的帳戶和所有數據將被保留。",
+        "cancelDeletion": "取消刪除"
+      }
+    },
+    "referrals": {
+      "title": "推薦計劃",
+      "description": "與朋友分享您的推薦連結，當他們註冊時即可賺取積分。",
+      "creditsPerReferral": "100 積分",
+      "youEarn": "您賺取",
+      "friendGets": "您的朋友獲得",
+      "maxEarnable": "透過推薦可賺取的最高限額：",
+      "maxCredits": "$100 積分",
+      "yourReferralCode": "您的推薦代碼",
+      "referralLink": "推薦連結",
+      "shareYourLink": "分享您的推薦連結",
+      "yourStats": "您的統計數據",
+      "enterCodeDescription": "輸入推薦代碼以賺取積分",
+      "enterCode": "輸入代碼",
+      "refresh": "重新整理",
+      "copyCode": "複製代碼",
+      "copyLink": "複製連結",
+      "share": "分享",
+      "stats": {
+        "totalReferrals": "總推薦人數",
+        "successful": "成功",
+        "creditsEarned": "已賺取積分"
+      },
+      "recentReferrals": "近期推薦",
+      "signupComplete": "註冊完成",
+      "pending": "等待中",
+      "noReferrals": "目前沒有推薦。分享您的推薦連結以開始！",
+      "copied": "已複製！",
+      "codeCopied": "推薦代碼已複製到剪貼簿",
+      "linkCopied": "推薦連結已複製到剪貼簿",
+      "codeRefreshed": "推薦代碼更新成功",
+      "refreshFailed": "推薦代碼更新失敗",
+      "inviteByEmail": "透過電子郵件邀請",
+      "inviteByEmailDescription": "最多添加 3 個電子郵件地址（按 Enter、空格或逗號添加）",
+      "emailAddress": "電子郵件地址",
+      "emailPlaceholder": "輸入電子郵件地址（按 Enter、空格或逗號）",
+      "emailsAdded": "封郵件已添加",
+      "sent": "已發送",
+      "send": "發送",
+      "sending": "發送中...",
+      "sendAllInvites": "發送所有邀請",
+      "allSent": "全部已發送",
+      "emailSent": "推薦邀請已成功發送"
+    },
+    "billing": {
+      "title": "帳單與訂閱",
+      "description": "管理您的積分和訂閱",
+      "totalCredits": "總可用積分",
+      "allCredits": "所有積分",
+      "monthlyCredits": "每月積分",
+      "renewalIn": "{days} {days, plural, one {天} other {天}} 後續約",
+      "noRenewal": "未排定續約",
+      "extraCredits": "額外積分",
+      "nonExpiring": "永久有效",
+      "renews": "續約日期 {date}",
+      "manageSubscription": "管理訂閱",
+      "getAdditionalCredits": "獲取更多積分",
+      "changePlan": "變更方案",
+      "annualCommitment": "年度承諾",
+      "activeUntil": "有效期至 {date}",
+      "subscriptionCancelled": "您的訂閱將於 {date} 取消",
+      "reactivate": "重新啟用",
+      "creditsExplained": "積分說明",
+      "cancelPlan": "取消方案",
+      "reactivateSubscription": "重新啟用訂閱",
+      "reactivating": "正在重新啟用...",
+      "cancelDialogTitle": "取消訂閱",
+      "cancelDialogDescription": "您確定要取消訂閱嗎？您仍可使用至 {date}。",
+      "keepSubscription": "保留訂閱",
+      "cancelling": "正在取消...",
+      "localMode": "本地模式已啟用",
+      "localModeDescription": "此環境中可使用所有進階功能",
+      "insufficientCredits": "積分不足",
+      "insufficientCreditsMessage": "帳單檢查失敗：積分不足。您的餘額為 {balance}。請增加積分以繼續。",
+      "creditsExhausted": "您的積分已用完。請立即升級。",
+      "billingCheckFailed": "帳單檢查失敗。請升級以繼續。",
+      "failedToStartAgent": "無法啟動 Worker {agentName}：{message}"
+    },
+    "usage": {
+      "title": "使用量"
+    },
+    "knowledgeBase": {
+      "opening": "正在開啟知識庫",
+      "redirecting": "正在重新導向至知識庫頁面..."
+    },
+    "integrations": {
+      "opening": "正在開啟整合",
+      "redirecting": "正在重新導向至整合頁面..."
+    },
+    "memory": {
+      "title": "AI 記憶",
+      "description": "自動記住對話中的上下文",
+      "enabled": "已啟用",
+      "disabled": "已停用",
+      "notAvailable": "您目前的方案無法使用記憶功能。請升級至 Plus 或更高方案以啟用自動記憶。",
+      "enableMemory": "啟用記憶",
+      "enableMemoryDescription": "允許 SuperAgent 記住您對話中的資訊",
+      "memoryDisabledByUser": "記憶功能目前已停用。請在上方啟用，以便開始從對話中建立記憶。",
+      "upgradeRequired": "需要升級以使用記憶功能",
+      "clickToUpgrade": "點擊查看方案",
+      "memoryEnabledTooltip": "記憶已啟用",
+      "memoryDisabledTooltip": "記憶已停用",
+      "clickToToggle": "點擊切換",
+      "usage": "記憶使用量",
+      "available": "已有 {count} 條記憶",
+      "noLimit": "無限制",
+      "yourMemories": "您的記憶",
+      "yourMemoriesDescription": "查看並管理 AI 對您的記憶",
+      "clearAll": "全部清除",
+      "deleteAllTitle": "刪除所有記憶？",
+      "deleteAllDescription": "這將永久刪除所有 {count} 條記憶。AI 將不再記住過去對話中的資訊。此操作無法撤銷。",
+      "deleteAllButton": "刪除所有記憶",
+      "noMemoriesYet": "目前尚無記憶",
+      "noMemoriesDescription": "開始對話後，AI 會自動記住關於您的重要資訊",
+      "searchMemories": "搜尋記憶...",
+      "filterByType": "按類型篩選",
+      "allTypes": "所有類型",
+      "personalFacts": "個人事實",
+      "preferences": "偏好設置",
+      "context": "上下文",
+      "conversations": "對話",
+      "noMatchingMemories": "找不到符合的記憶",
+      "adjustFilters": "請嘗試調整篩選條件或搜尋詞",
+      "loadMore": "載入更多",
+      "loading": "正在載入記憶...",
+      "memoryTypes": {
+        "fact": "事實",
+        "preference": "偏好",
+        "context": "上下文",
+        "conversation_summary": "對話"
+      }
+    }
+  },
+  "triggers": {
+    "getStarted": "添加觸發器以開始",
+    "getStartedDescription": "排定觸發器以自動執行操作，並在完成時獲取提醒。",
+    "search": "搜尋",
+    "scheduledTrigger": "排程觸發器",
+    "eventBasedTrigger": "事件驅動觸發器",
+    "chooseAgent": "選擇 Worker",
+    "schedule": "排程",
+    "agentInstructions": "Worker 指令",
+    "agentInstructionsDescription": "為 Worker 自訂提示詞",
+    "assignedAgent": "分配的 Worker",
+    "unknownAgent": "未知 Worker",
+    "technicalDetails": "技術細節",
+    "type": "類型",
+    "provider": "提供商",
+    "created": "建立時間",
+    "lastUpdated": "最後更新",
+    "enable": "啟用",
+    "disable": "停用",
+    "deleteTask": "刪除任務",
+    "deleteTaskDescription": "您確定要刪除「{name}」嗎？此操作無法撤銷，並將停止此任務的所有自動執行。",
+    "taskEnabled": "任務已啟用",
+    "taskDisabled": "任務已停用",
+    "toggleTaskFailed": "切換任務狀態失敗",
+    "taskDeletedSuccess": "任務刪除成功",
+    "deleteTaskFailed": "刪除任務失敗",
+    "taskUpdatedSuccess": "任務更新成功",
+    "updateTaskFailed": "更新任務失敗",
+    "pleaseSelectAgent": "請選擇一個 Worker",
+    "defaultScheduledTriggerName": "排程觸發器",
+    "defaultScheduledTriggerDescription": "自動排程觸發器",
+    "scheduleTriggerUpdated": "排程觸發器更新成功",
+    "scheduleTriggerCreated": "排程觸發器建立成功",
+    "upgradeForMoreScheduledTriggers": "升級以建立更多排程觸發器",
+    "upgradeForMoreAppTriggers": "升級以建立更多應用程式觸發器",
+    "updateScheduleTriggerFailed": "更新排程觸發器失敗",
+    "createScheduleTriggerFailed": "建立排程觸發器失敗",
+    "editScheduledTask": "編輯排程任務",
+    "createScheduledTask": "建立排程任務",
+    "editAppBasedTask": "編輯應用程式任務",
+    "createAppBasedTask": "建立應用程式任務",
+    "updateAgentForTask": "更新此任務的 Worker",
+    "selectAgentForTask": "首先，請選擇處理此任務的 Worker",
+    "createNew": "建立新項",
+    "notConfigured": "未配置",
+    "every15Minutes": "每 15 分鐘",
+    "every30Minutes": "每 30 分鐘",
+    "everyHour": "每小時",
+    "dailyAt9AM": "每天上午 9 點",
+    "weekdaysAt9AM": "工作日上午 9 點",
+    "weeklyOnMonday": "每週一",
+    "monthlyOn1st": "每月 1 號"
+  },
+  "sidebar": {
+    "referAndEarn": "推薦賺積分",
+    "referralShareTitle": "推薦朋友",
+    "referralShareSubtitle": "獲取 400 積分",
+    "new": "新增",
+    "upgrade": "升級",
+    "chats": "對話",
+    "library": "檔案",
+    "triggers": "觸發器",
+    "newChat": "新對話",
+    "newAgent": "新 Worker",
+    "settings": "設定",
+    "logout": "登出",
+    "openMenu": "開啟選單",
+    "expandSidebar": "展開側邊欄 (CMD+B)",
+    "searchChats": "搜尋對話",
+    "searchChatsPlaceholder": "搜尋對話...",
+    "allTriggers": "所有觸發器",
+    "addWorkers": "添加 Worker",
+    "addTrigger": "添加觸發器",
+    "triggerConfig": "觸發器配置",
+    "scheduledTrigger": "排程觸發器",
+    "scheduledTriggerDescription": "排定觸發器在特定時間執行",
+    "eventBasedTrigger": "事件驅動觸發器",
+    "eventBasedTriggerDescription": "建立在事件發生時執行的觸發器",
+    "noChatsFound": "找不到對話",
+    "noConversations": "目前尚無對話",
+    "search": "搜尋",
+    "searchPlaceholder": "搜尋...",
+    "searchResults": "搜尋結果",
+    "recent": "近期",
+    "personalAccount": "個人帳戶",
+    "workspaces": "工作空間",
+    "theme": "主題",
+    "integrations": "整合",
+    "billing": "帳單",
+    "usage": "使用量",
+    "adminPanel": "管理控制台",
+    "apiKeys": "API 金鑰",
+    "envManager": "環境變量管理",
+    "advanced": "進階",
+    "plan": "方案",
+    "knowledgeBase": "知識庫",
+    "conversation": "對話",
+    "conversations": "對話",
+    "startNewChat": "開始新對話",
+    "openInNewTab": "在新分頁開啟",
+    "delete": "刪除",
+    "deleting": "刪除中",
+    "allThreadsLoaded": "所有對話已載入",
+    "myWorkforce": "我的工作團隊",
+    "addTeam": "添加團隊",
+    "selectAll": "全選",
+    "deselectAll": "取消全選",
+    "selectAllConversations": "選擇所有對話",
+    "deselectAllConversations": "取消選擇所有對話",
+    "loadMore": "載入更多",
+    "remaining": "剩餘"
+  },
+  "dashboard": {
+    "title": "儀表板",
+    "welcome": "歡迎",
+    "whatWouldYouLike": "您想完成什麼任務？",
+    "describeWhatYouNeed": "描述您需要幫助的事情...",
+    "usageLimits": "使用限制",
+    "threads": "對話數",
+    "customWorkers": "自訂 Worker",
+    "scheduledTriggers": "排程觸發器",
+    "appTriggers": "應用程式觸發器",
+    "limitsExceeded": "您已達到對話限制。請升級方案以建立更多對話。",
+    "agentInitiatedSuccessfully": "Worker 啟動成功",
+    "aiAssistantReady": "您的 AI 助手已準備就緒",
+    "greetings": {
+      "morning": [
+        "早安！今天有什麼行程？",
+        "早起精神好！我們要建立什麼？",
+        "早安！準備好要開始生產力滿滿的一天了嗎？"
+      ],
+      "afternoon": [
+        "午安！有什麼我可以幫忙的嗎？",
+        "希望您今天過得愉快！接下來要做什麼？"
+      ],
+      "evening": [
+        "晚安！還在辛苦工作嗎？",
+        "晚安！今晚我們要處理什麼？",
+        "晚安！讓我們把事情搞定。"
+      ],
+      "random": [
+        "猜猜誰回來了，又是我",
+        "嘿！SuperAgent 能為您做什麼？",
+        "您想完成什麼任務？",
+        "讓我們建立一些很棒的東西吧",
+        "隨時待命！",
+        "最近在忙什麼？",
+        "為您服務！這次的任務是什麼？",
+        "讓我們創造一些奇蹟吧",
+        "我們要挑戰什麼呢？",
+        "您的願望就是我的指令",
+        "有什麼計畫嗎？",
+        "坐穩了！我們要去哪裡？",
+        "又是新的一天，又有新的挑戰",
+        "在想什麼呢？",
+        "讓我們開始行動吧"
+      ]
+    },
+    "good_morning": "早安",
+    "good_afternoon": "午安",
+    "good_evening": "晚安",
+    "ready_to_accelerate_your_pipeline": "準備好加速您的流程了嗎？選擇一項技能開始吧。",
+    "explore_agentic_ai_capabilities": "探索代理型 AI 的功能",
+    "marketing_assets": "行銷資產",
+    "image": "圖片",
+    "images": {
+      "label": "圖片",
+      "bannerTitle": "圖片工作室",
+      "bannerDescription": "生成照片級的行銷資產、複雜的圖表和文字豐富的海報。",
+      "selectModelPlaceholder": "選擇模型",
+      "styleTitle": "選擇風格",
+      "samplePrompts": "範例提示詞",
+      "generateWithStylePrompt": "使用 {style} 風格生成圖片"
+    },
+    "videos": {
+      "label": "影片",
+      "bannerTitle": "影片創作者",
+      "bannerDescription": "製作具有超真實光影和流暢動作的電影感影片。",
+      "selectModelPlaceholder": "選擇模型",
+      "styleTitle": "選擇影片風格",
+      "samplePrompts": "範例提示詞",
+      "generateWithStylePrompt": "生成一個 {style} 風格的影片"
+    },
+    "tags": {
+      "sales": "銷售",
+      "cx": "客戶體驗",
+      "mktg": "行銷",
+      "ops": "營運",
+      "hr": "人力資源",
+      "legal": "法務"
+    },
+    "aePanel": {
+      "bannerTitle": "客戶經理 Agent",
+      "bannerDescription": "您的全週期銷售助手，負責開發、演示和交接。",
+      "cards": {
+        "discovery": {
+          "title": "開發準備",
+          "description": "生成有針對性的問題和研究。",
+          "prompt": "為金融科技公司的銷售副總裁準備開發問題..."
+        },
+        "handoff": {
+          "title": "銷售 → 客戶成功交接",
+          "description": "整理交易筆記以便順利上線。",
+          "prompt": "為客戶成功團隊建立交接文件..."
+        },
+        "leadFeedback": {
+          "title": "潛在客戶反饋循環",
+          "description": "與行銷部門分享潛在客戶質量的見解。",
+          "prompt": "為行銷部門撰寫關於潛在客戶質量的反饋..."
+        }
+      }
+    },
+    "dataPanel": {
+      "bannerTitle": "數據分析師 Agent",
+      "bannerDescription": "清洗名單、豐富聯絡人，並分析 CSV 以獲取市場洞察。",
+      "cards": {
+        "leadCleaner": {
+          "title": "潛在客戶名單清洗",
+          "description": "修正格式、移除重複項並標準化欄位，以便匯入 CRM。",
+          "prompt": "清洗這份潛在客戶名單並標準化職稱..."
+        },
+        "lookalikes": {
+          "title": "類似受眾",
+          "description": "根據您的最佳客戶發現新潛在客戶。",
+          "prompt": "尋找與我排名前 10 的客戶相似的公司..."
+        },
+        "ticketAnalysis": {
+          "title": "工單分析",
+          "description": "從支援匯出檔案中識別常見問題和情感傾向。",
+          "prompt": "分析這些支援工單的情感傾向和常見問題..."
+        }
+      }
+    },
+    "pipelinePanel": {
+      "bannerTitle": "流程管理者",
+      "bannerDescription": "預測、交易質量檢查和風險偵測。",
+      "cards": {
+        "q4Forecast": {
+          "title": "第四季預測",
+          "description": "預測收入並發現交易延遲風險。",
+          "prompt": "預測我的第四季收入並識別延遲風險..."
+        },
+        "campaignRoi": {
+          "title": "活動投資報酬率",
+          "description": "近期成交項目的歸因分析。",
+          "prompt": "分析近期成交項目的活動歸因..."
+        },
+        "churnForecast": {
+          "title": "流失預測",
+          "description": "預測續約和有風險的帳戶。",
+          "prompt": "預測即將續約群體的流失風險..."
+        }
+      }
+    },
+    "researchPanel": {
+      "bannerTitle": "深度研究",
+      "bannerDescription": "利用進階推理進行深度市場研究、分析競爭對手策略並生成綜合報告。",
+      "sectionTitle": "開始新研究",
+      "items": {
+        "competitorDeepDive": "競爭對手深度解析",
+        "marketTrendAnalysis": "市場趨勢分析",
+        "accountIntelligenceReport": "客戶情報報告",
+        "regulatoryImpactStudy": "法規影響研究"
+      },
+      "promptTemplate": "進行關於 {topic} 的研究..."
+    },
+    "socialSellingPanel": {
+      "bannerTitle": "社群銷售助手",
+      "bannerDescription": "建立個人品牌、撰寫爆紅鉤子，並使用 AI 吸引潛在客戶。",
+      "cards": {
+        "viralHook": {
+          "title": "爆紅鉤子生成器",
+          "description": "用 AI 打造的開場白吸引注意力。",
+          "prompt": "撰寫一篇關於...的反直覺 LinkedIn 貼文開場白。"
+        },
+        "repurpose": {
+          "title": "內容再利用",
+          "description": "將網誌轉化為貼文、對話串和圖卡。",
+          "prompt": "將這篇網誌文章轉化為 Twitter 對話串..."
+        },
+        "dmSequence": {
+          "title": "私訊序列撰寫",
+          "description": "撰寫非銷售性質的開發訊息。",
+          "prompt": "為看過我個人檔案的冷門潛在客戶撰寫私訊序列..."
+        }
+      }
+    },
+    "strategistPanel": {
+      "bannerTitle": "交易策略師",
+      "bannerDescription": "透過談判方案、合約審核和定價策略加速交易週期。",
+      "cards": {
+        "proposal": {
+          "title": "智慧建議書生成",
+          "description": "自動草稿 + 定價填充。",
+          "cta": "立即起草",
+          "prompt": "為 [客戶] 生成一份標準定價的建議書..."
+        },
+        "redline": {
+          "title": "修訂助手",
+          "description": "AI 合約審核與編輯。",
+          "cta": "上傳文件",
+          "prompt": "分析這份合約並提出修訂建議..."
+        },
+        "followUp": {
+          "title": "多線索跟進",
+          "description": "個人化的利益相關者郵件。",
+          "cta": "建立序列",
+          "prompt": "為副總裁和總監撰寫多線索跟進郵件..."
+        },
+        "expansion": {
+          "title": "擴張偵察員",
+          "description": "偵測增購訊號並評分健康狀況。",
+          "cta": "尋找機會",
+          "prompt": "分析帳戶使用情況以尋找擴張訊號..."
+        }
+      }
+    },
+    "icpPanel": {
+      "bannerTitle": "領地與頭像",
+      "bannerDescription": "定義理想客戶畫像 (ICP)、劃分領地並繪製購買委員會圖譜。",
+      "sectionTitle": "深度細分",
+      "cards": {
+        "repAssignment": {
+          "title": "業務分配",
+          "description": "根據優勢推薦業務覆蓋範圍。",
+          "prompt": "根據過去的表現，建議西海岸領地的業務分配..."
+        },
+        "quotaModeling": {
+          "title": "配額建模",
+          "description": "優化目標並分析能力差距。",
+          "prompt": "根據目前的員工人數為 24 財年建立配額模型..."
+        },
+        "predictiveHiring": {
+          "title": "預測性招聘",
+          "description": "基於成長軌跡的人員配置預測。",
+          "prompt": "根據流程速度和收入目標建立招聘計劃..."
+        },
+        "marketSegmentation": {
+          "title": "市場細分",
+          "description": "優化 ICP 和買家畫像。",
+          "prompt": "定義我們企業級細分市場的心理特徵畫像..."
+        },
+        "customerHealth": {
+          "title": "客戶健康概況",
+          "description": "識別成功的長期客戶特徵。",
+          "prompt": "為我們最成功的客戶建立健康評分概況..."
+        }
+      }
+    },
+    "websitePanel": {
+      "bannerTitle": "網站",
+      "bannerDescription": "使用 AI 生成高轉換率的登陸頁面和功能性網頁應用程式。",
+      "sectionTitle": "模板庫",
+      "promptTemplate": "建立一個 {template} 用於...",
+      "categories": {
+        "marketing": {
+          "title": "行銷與活動",
+          "items": {
+            "landingPage": "高轉換率登陸頁面",
+            "webinarRegistration": "研討會註冊網站",
+            "productLaunchCountdown": "產品發佈倒數計時",
+            "eventMicrosite": "活動微型網站",
+            "newsletterSignup": "電子報訂閱頁面"
+          }
+        },
+        "corporate": {
+          "title": "企業與品牌",
+          "items": {
+            "corporateHomepage": "現代企業首頁",
+            "aboutLeadership": "關於我們與領導團隊",
+            "careersCulture": "職業生涯與文化中心",
+            "pressMediaKit": "媒體資料包"
+          }
+        },
+        "saas": {
+          "title": "SaaS 與產品",
+          "items": {
+            "saasHomepage": "SaaS 產品首頁",
+            "pricingComparison": "定價與方案比較",
+            "featureDeepDive": "功能深度介紹頁面",
+            "docsHelpCenter": "文件 / 幫助中心"
+          }
+        },
+        "content": {
+          "title": "內容與作品集",
+          "items": {
+            "personalPortfolio": "個人品牌作品集",
+            "agencyShowcase": "創意代理商展示",
+            "consultantBooking": "顧問預約頁面",
+            "resourceLibraryBlog": "資源庫 / 網誌"
+          }
+        }
+      }
+    },
+    "adsPanel": {
+      "bannerTitle": "廣告工作室",
+      "bannerDescription": "生成具有清晰定位和創意方向的高轉換率廣告。",
+      "none": "無",
+      "steps": {
+        "strategyTargeting": "策略與定位",
+        "adSpecifications": "廣告規格",
+        "creativeDirection": "創意方向"
+      },
+      "fields": {
+        "productUrl": "產品登陸頁面 URL",
+        "competitorUrl": "競爭對手 URL",
+        "targetAudience": "目標受眾",
+        "platforms": "平台",
+        "format": "格式",
+        "callToAction": "行動呼籲",
+        "visualStyle": "視覺風格",
+        "outputVolume": "輸出數量",
+        "massTranslation": "大量翻譯"
+      },
+      "placeholders": {
+        "url": "https://...",
+        "age": "年齡 (例如 25-45)",
+        "location": "地點 (例如 美國, 歐洲)",
+        "interests": "興趣 (例如 SaaS, 科技)",
+        "ctaText": "按鈕文字 (例如 立即註冊)",
+        "destinationLink": "目標連結 (例如 https://...)"
+      },
+      "platforms": {
+        "googleAds": "Google 廣告",
+        "metaAds": "Meta 廣告",
+        "linkedin": "LinkedIn",
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "youtube": "YouTube"
+      },
+      "formats": {
+        "singleImage": "單張圖片",
+        "carousel": "輪播廣告",
+        "shortVideo": "短影片",
+        "story": "限時動態"
+      },
+      "visualStyles": {
+        "minimalist": "極簡主義",
+        "boldVibrant": "大膽鮮豔",
+        "professional": "專業",
+        "playful": "俏皮",
+        "luxury": "奢華",
+        "futuristic": "未來感",
+        "handDrawn": "手繪",
+        "corporate": "企業風格"
+      },
+      "languages": {
+        "es": "西班牙語",
+        "fr": "法語",
+        "de": "德語",
+        "ja": "日語",
+        "pt": "葡萄牙語",
+        "it": "義大利語",
+        "zh": "中文",
+        "ko": "韓語",
+        "ar": "阿拉伯語",
+        "nl": "荷蘭語",
+        "sv": "瑞典語",
+        "no": "挪威語",
+        "da": "丹麥語",
+        "fi": "芬蘭語",
+        "hi": "印地語",
+        "ru": "俄語",
+        "tr": "土耳其語",
+        "pl": "波蘭語",
+        "id": "印尼語",
+        "th": "泰語",
+        "vi": "越南語",
+        "el": "希臘語"
+      },
+      "outputVolumeConcepts": "{count} 個概念",
+      "generateButton": "生成概念 ({count})",
+      "strategyAppliedTitle": "已套用策略",
+      "strategyAppliedDescription": "對於生成的每個概念，我們將自動產生三個變體。",
+      "variations": {
+        "1": {
+          "title": "1. 稀缺性與緊迫感",
+          "description": "FOMO、限時優惠、專屬存取掛鉤"
+        },
+        "2": {
+          "title": "2. 利益導向",
+          "description": "明確的價值主張，問題解決框架"
+        },
+        "3": {
+          "title": "3. 社會證明",
+          "description": "證言、用戶數量、信任指標"
+        }
+      },
+      "prompt": {
+        "notProvided": "未提供",
+        "general": "一般",
+        "global": "全球",
+        "learnMore": "瞭解更多",
+        "na": "不適用",
+        "productUrl": "產品 URL: {value}",
+        "competitorUrl": "競爭對手 URL: {value}",
+        "targetAudienceTitle": "目標受眾:",
+        "targetAudienceAge": "- 年齡: {value}",
+        "targetAudienceLocation": "- 地點: {value}",
+        "targetAudienceInterests": "- 興趣: {value}",
+        "campaignSpecsTitle": "活動規格:",
+        "platforms": "- 平台: {value}",
+        "formats": "- 格式: {value}",
+        "callToAction": "- 行動呼籲: \"{text}\" (連結: {link})",
+        "visualStyle": "- 視覺風格: {value}",
+        "settingsTitle": "設定:",
+        "numberOfConcepts": "- 概念數量: {value}",
+        "translationLanguages": "- 翻譯語言: {value}",
+        "instructions": "請根據這些輸入生成高轉換率的廣告概念。",
+        "variationsInstruction": "確保為每個概念提供 3 個不同的文案變體（稀缺性、利益、社會證明）。"
+      }
+    },
+    "video_studio": "影片工作室",
+    "demos_outreach": "演示與外發",
+    "pipeline_manager": "流程管理者",
+    "forecasting_deal_qa": "預測與交易質量檢查",
+    "account_executive": "客戶經理",
+    "full_cycle_sales_agent": "全週期銷售 Agent",
+    "deal_strategist": "交易策略師",
+    "negotiation_closers": "談判與成交",
+    "data_analyst": "數據分析師",
+    "cleaning_enrichment": "清洗與豐富",
+    "territory_persona": "領地與頭像画",
+    "icp_market_planning": "ICP 與市場規劃",
+    "social_selling": "社群銷售",
+    "brand_content": "品牌與內容",
+    "deep_research": "深度研究",
+    "market_intel_reports": "市場情報與報告",
+    "ad_studio": "廣告工作室",
+    "ads_creative_roi": "廣告與創意投資報酬率",
+    "gtm_decks": "GTM 簡報",
+    "proposals_qbrs": "建議書、季度業務回顧 (QBR)",
+    "landing_pages_sites": "登陸頁面、網站",
+    "website": "網站",
+    "video": "影片",
+    "pipeline": "流程",
+    "account_exec": "客戶經理",
+    "data": "數據",
+    "territory_icp": "領地/ICP",
+    "research": "研究"
+  },
+  "thread": {
+    "integrations": "整合",
+    "connect": "連接",
+    "seeAllIntegrations": "+ 查看所有整合",
+    "connectIntegrations": "連接整合",
+    "adaptive": "適應性",
+    "adaptiveDescription": "具有智慧上下文切換的快速回應",
+    "autonomous": "自主",
+    "autonomousDescription": "用於多步驟問題解決的深度工作模式",
+    "chat": "對話",
+    "chatDescription": "簡單的往返對話",
+    "sampleAnswers": "範例回答",
+    "samplePrompts": "範例提示詞",
+    "waitingForUserResponse": "SuperAgent 將在您回答後繼續自主工作。",
+    "taskCompleted": "任務已完成",
+    "uploadingFiles": "正在上傳 {count} 個檔案...",
+    "uploadingFilesOne": "正在上傳 {count} 個檔案...",
+    "uploadingFilesMany": "正在上傳 {count} 個檔案...",
+    "scrollToBottom": "捲動到底部",
+    "tools": "工具",
+    "instructions": "指令",
+    "knowledge": "知識",
+    "triggers": "觸發器",
+    "agents": "Worker",
+    "superWorker": "超級 Worker",
+    "searchWorkers": "搜尋 Worker...",
+    "myWorkers": "我的 Worker",
+    "running": "執行中",
+    "minimizeToFloatingPreview": "最小化為懸浮預覽",
+    "close": "關閉",
+    "noActionsYet": "SuperAgent 電腦",
+    "workerActionsDescription": "正在啟動",
+    "emptyActionsDescription": "Worker 操作將顯示在此處",
+    "toolIsRunning": "工具正在執行",
+    "toolCurrentlyExecuting": "{toolName} 目前正在執行。完成後結果將顯示在此處。",
+    "thinkingTitle": "思考中",
+    "thinkingDescription": "正在準備執行操作...",
+    "rateThisResult": "評分此結果",
+    "feedbackHelpsImprove": "您的反饋有助於我們改進",
+    "additionalFeedbackOptional": "額外反饋（可選）",
+    "helpKortixImprove": "透過反饋幫助 SuperAgent 改進",
+    "submit": "提交",
+    "submitting": "提交中...",
+    "feedbackSubmittedSuccess": "反饋提交成功",
+    "feedbackSubmitFailed": "提交反饋失敗"
+  },
+  "agents": {
+    "title": "Worker",
+    "create": "建立 Worker",
+    "createNewWorker": "建立新 Worker",
+    "edit": "編輯 Worker",
+    "delete": "刪除 Worker",
+    "name": "名稱",
+    "description": "描述",
+    "model": "模型",
+    "systemPrompt": "系統提示詞",
+    "systemPromptPlaceholder": "定義您的 Worker 應如何表現...",
+    "customizeIcon": "點擊自訂 Worker 圖示"
+  },
+  "home": {
+    "heroPlaceholder": "描述您希望 Worker 完成的任務..."
+  },
+  "showcase": {
+    "title": "SuperAgent: 您的自主 AI Worker",
+    "subtitle": "為複雜任務而生，為一切需求而設計。終極 AI 助手，能處理從簡單請求到超複雜項目的所有事務。",
+    "tryItOut": "立即試用",
+    "kortixComputer": "SuperAgent 電腦",
+    "running": "執行中",
+    "workers": {
+      "images": {
+        "title": "圖片",
+        "description": "按需建立圖片。從產品照片到社群圖形再到完整插圖。調整風格、光影、顏色和佈局，或透過快速編輯和修飾優化現有視覺效果。",
+        "capabilities": {
+          "0": "生成產品照片",
+          "1": "建立社群圖形",
+          "2": "製作插圖",
+          "3": "風格與光影變體",
+          "4": "標誌 / 資產建立",
+          "5": "+ 更多功能"
+        },
+        "imageAlt": "成長非線性圖表示例",
+        "fileType": "圖片"
+      },
+      "slides": {
+        "title": "簡報",
+        "description": "立即建立令人驚豔的簡報。從融資簡報到報告再到培訓材料。調整主題、佈局、內容結構，或透過快速編輯和更新優化現有簡報。",
+        "capabilities": {
+          "0": "融資簡報",
+          "1": "培訓材料",
+          "2": "報告簡報",
+          "3": "主題與佈局變體",
+          "4": "內容結構調整",
+          "5": "+ 更多功能"
+        },
+        "imageAlt": "Nexus 企業自動化平台投影片示例",
+        "fileType": "PPTX"
+      },
+      "data": {
+        "title": "數據",
+        "description": "將原始數據轉化為洞察。從試算表到儀表板再到視覺化。清洗數據集、建立圖表、撰寫報告，或透過快速更新優化現有分析。",
+        "capabilities": {
+          "0": "儀表板",
+          "1": "視覺化",
+          "2": "數據報告",
+          "3": "清洗與整理數據",
+          "4": "生成洞察",
+          "5": "+ 更多功能"
+        },
+        "imageAlt": "財務模型儀表板示例",
+        "fileType": "預覽"
+      },
+      "docs": {
+        "title": "文件",
+        "description": "輕鬆撰寫和編輯文件。從建議書到指南再到內容文章。調整語氣、結構、格式，或透過快速重寫和潤色優化現有文件。",
+        "capabilities": {
+          "0": "建議書",
+          "1": "指南與手冊",
+          "2": "內容文章",
+          "3": "語氣與風格變體",
+          "4": "格式與結構調整",
+          "5": "+ 更多功能"
+        },
+        "imageAlt": "2025 年第三季執行摘要報告示例",
+        "fileType": "PDF"
+      },
+      "research": {
+        "title": "研究",
+        "description": "全面研究主題。從市場趨勢到競爭對手分析再到深度探討。收集來源、綜合發現，或透過快速更新優化現有研究。",
+        "capabilities": {
+          "0": "分析市場趨勢",
+          "1": "競爭對手研究",
+          "2": "深度主題探討",
+          "3": "收集來源",
+          "4": "綜合發現",
+          "5": "+ 更多功能"
+        },
+        "imageAlt": "詳細競爭對手畫像研究示例",
+        "fileType": "PDF"
+      }
+    }
+  },
+  "threads": {
+    "title": "對話",
+    "newThread": "新對話",
+    "sendMessage": "發送訊息",
+    "placeholder": "輸入您的訊息..."
+  },
+  "billing": {
+    "title": "帳單與訂閱",
+    "subscription": "訂閱",
+    "credits": "積分",
+    "popular": "最受歡迎",
+    "creditsExplained": "積分說明",
+    "creditsExhausted": "{time} 後可獲得 +100 積分。立即升級以使用。",
+    "creditsExhaustedRefreshIn": "您的積分已耗盡。它們將在 {time} 後更新",
+    "trialActive": "試用中",
+    "trialBadge": "7 天試用",
+    "currentPlan": "目前方案",
+    "currentBadge": "目前",
+    "scheduled": "已排定",
+    "scheduledBadge": "已排定",
+    "loading": "載入中...",
+    "subscriptionChangeScheduled": "訂閱變更已排定",
+    "planWillChangeOn": "您的方案將於 {date} 變更。",
+    "failedToInitiateSubscription": "初始化訂閱失敗。請重試。",
+    "subscriptionUpgraded": "訂閱已從 {currentPrice} 升級至 {newPrice}",
+    "subscriptionUpdated": "訂閱更新成功",
+    "cannotDowngradeDuringCommitment": "在承諾期內無法降級",
+    "alreadyOnThisPlan": "您已在使用此方案。",
+    "localModeMessage": "正在本地開發模式下執行 - 帳單功能已停用",
+    "holidayPromo": {
+      "badge": "節日特惠",
+      "countdown": "{time} 後結束",
+      "discount": "前 3 個月 5 折優惠",
+      "window": "12 月 24-25 日有效",
+      "headerLine": "使用代碼 {code} 獲得 {discount}",
+      "description": "結帳時使用代碼 {code} 即可享受 {discount}。{window}",
+      "copyCode": "複製代碼",
+      "copied": "已複製",
+      "codeCopied": "{code} 已複製",
+      "copyFailed": "無法複製促銷代碼"
+    },
+    "creditsExplainedPage": {
+      "title": "積分說明",
+      "subtitle": "關於 SuperAgent 積分運作方式的一切須知",
+      "understandingCredits": {
+        "title": "瞭解積分",
+        "description": "積分是 SuperAgent 平台運作的通用貨幣。您的 AI Worker 執行的每一項操作——從分析數據到生成程式碼——都會根據任務的複雜程度和所需的資源消耗積分。"
+      },
+      "howCreditsWork": {
+        "title": "積分如何運作",
+        "description": "積分消耗取決於 AI Worker 使用的資源：",
+        "aiModelUsage": {
+          "title": "AI 模型使用",
+          "description": "積分消耗的主要驅動力",
+          "content": "不同的 AI 模型根據其功能和 Token 使用量有不同的成本。積分消耗包括輸入 Token（您的提示詞和上下文）、輸出 Token（Worker 回應），並因模型層級（Claude、GPT 等）而異。"
+        },
+        "pricingModel": {
+          "title": "定價模型",
+          "description": "AI 模型成本加成 20%",
+          "content": "我們在所有 API 和模型成本上加收 20%，以涵蓋平台基礎設施、安全和持續開發的費用。這種透明的定價確保您清楚支付的每一分錢。"
+        }
+      },
+      "gettingMoreCredits": {
+        "title": "獲取更多積分",
+        "description": "在 SuperAgent 中有幾種獲取積分的方式：",
+        "monthlySubscription": {
+          "title": "月度訂閱積分",
+          "description": "包含在您的付費方案中，每月自動更新。這些是會過期的積分。"
+        },
+        "topUpCredits": {
+          "title": "加購積分",
+          "description": "在需要時購買額外積分。這些積分不會過期，且僅供高級會員使用。"
+        },
+        "promotionalGrants": {
+          "title": "促銷與活動獎勵",
+          "description": "來自特殊活動、促銷或推薦的獎勵積分。這些積分不會過期。"
+        },
+        "refunds": {
+          "title": "退款",
+          "description": "因技術問題或任務失敗而退還的積分。這些積分不會過期。"
+        }
+      },
+      "typesOfCredits": {
+        "title": "積分類型",
+        "description": "SuperAgent 使用兩種類型的積分，讓您在管理使用量時更具彈性：",
+        "expiringCredits": {
+          "title": "會過期的積分",
+          "description": "月度訂閱積分",
+          "content": "這些積分包含在您的付費訂閱中，每月在您的訂閱日自動更新。它們在每個帳單週期結束時過期，並且總是在使用任何不會過期的積分之前先被消耗。"
+        },
+        "nonExpiringCredits": {
+          "title": "不會過期的積分",
+          "description": "永不過期的永久積分",
+          "content": "這些積分永不過期，並會逐月累計。它們包括加購積分、退款和促銷獎勵。不會過期的積分僅在您的會過期積分耗盡後才會使用。"
+        },
+        "creditPriority": {
+          "title": "積分優先順序：",
+          "description": "當您使用 SuperAgent 時，會先消耗會過期的積分。只有在會過期的積分用完後，才會使用不會過期的積分。"
+        }
+      }
+    },
+    "close": "關閉",
+    "cancelScheduledChange": "取消排定的變更",
+    "threadUsage": "對話使用量",
+    "error": "錯誤",
+    "totalUsage": "總使用量",
+    "usage": "使用量",
+    "thread": "對話",
+    "lastUsed": "最後使用時間",
+    "creditsUsed": "已用積分",
+    "creditTransactions": "積分交易記錄",
+    "loadingTransactionHistory": "正在載入您的交易記錄...",
+    "monthly": "按月",
+    "yearly": "按年",
+    "discount": "85 折",
+    "perMonth": "/月",
+    "billedYearly": "按年計費",
+    "downgradePending": "降級處理中",
+    "downgrade": "降級",
+    "switchToLegacyYearly": "切換到舊版年度方案",
+    "confirmDowngradeTitle": "您確定要降級嗎？",
+    "confirmDowngradeDescription": "您即將降級到 {planName} 方案。此變更將在您目前的帳單週期結束時生效。",
+    "confirmDowngrade": "是的，降級",
+    "pickPlan": "選擇適合您的方案。",
+    "reachedLimit": "您已達到限制。",
+    "projectLimit": "專案限制 ({current}/{limit})",
+    "threadLimit": "對話限制 ({current}/{limit})",
+    "workerLimit": "Worker 限制 ({current}/{limit})",
+    "triggerLimit": "觸發器限制 ({current}/{limit})",
+    "getAdditionalCredits": "獲取更多積分",
+    "selectPlan": "選擇方案",
+    "changeScheduled": "變更已排定",
+    "notAvailable": "不可用",
+    "features": {
+      "creditsPerMonth": "每月 {count} 積分",
+      "customWorker": "{count} 個自訂 Worker",
+      "customWorkers": "{count} 個自訂 Worker",
+      "privateProject": "{count} 個私有專案",
+      "privateProjects": "私有專案",
+      "customTrigger": "{count} 個自訂觸發器",
+      "integrations": "100+ 項整合",
+      "premiumAIModels": "進階 AI 模型",
+      "prioritySupport": "優先支援"
+    },
+    "downgradeDialog": {
+      "confirmTitle": "確認方案變更",
+      "confirmSubtitle": "很遺憾看到您離開",
+      "confirmDescription": "您即將切換到 {planName} 方案。此變更將在您目前的帳單週期結束時生效。在那之前，您將保留目前的權益。",
+      "continue": "繼續",
+      "keepCurrentPlan": "保留目前的方案",
+      "feedbackTitle": "幫助我們改進",
+      "feedbackSubtitle": "您的反饋塑造了 SuperAgent 的未來",
+      "whatWouldMakeYouStay": "什麼能讓您留下？",
+      "feedbackPlaceholder": "如果我們可以變更或增加一件事，讓 SuperAgent 對您來說更物有所值，那會是什麼？",
+      "feedbackFooter": "我們的團隊會閱讀每一則回應。您的話語將直接影響我們接下來的開發內容。",
+      "confirmDowngrade": "確認降級",
+      "processing": "處理中...",
+      "pleaseSelectReason": "請選擇原因",
+      "reasons": {
+        "tooExpensive": "對我的需求來說太貴了",
+        "notUsingOften": "我沒有足夠頻繁地使用 SuperAgent",
+        "foundAlternative": "我找到了其他解決方案",
+        "technicalIssues": "我遇到了技術問題",
+        "resultsNotGood": "結果未達到我的預期",
+        "other": "其他原因"
+      }
+    }
+  },
+  "auth": {
+    "haveReferralCode": "有推薦代碼嗎？",
+    "referralCode": "推薦代碼",
+    "enterCode": "輸入代碼",
+    "logIntoAccount": "登入您的帳戶",
+    "createAccount": "建立帳戶",
+    "signInOrCreateAccount": "登入或建立您的 SuperAgent 帳戶",
+    "continueWithGoogle": "使用 Google 繼續",
+    "continueWithGitHub": "使用 GitHub 繼續",
+    "orEmail": "或使用電子郵件",
+    "emailAddress": "電子郵件地址",
+    "password": "密碼",
+    "confirmPassword": "確認您的密碼",
+    "signIn": "登入",
+    "signUp": "註冊",
+    "signingIn": "登入中...",
+    "creatingAccount": "建立帳戶中...",
+    "forgotPassword": "忘記密碼？",
+    "dontHaveAccount": "還沒有帳戶嗎？",
+    "alreadyHaveAccount": "已經有帳戶了嗎？",
+    "acceptPrivacyTerms": "我接受 <privacyPolicy>隱私政策</privacyPolicy> 和 <termsOfService>服務條款</termsOfService>",
+    "privacyPolicy": "隱私政策",
+    "termsOfService": "服務條款",
+    "checkYourEmail": "請檢查您的電子郵件",
+    "confirmationLinkSent": "我們已向您發送重設連結",
+    "clickLinkToActivate": "點擊電子郵件中的連結以啟用您的帳戶。如果您沒有看到郵件，請檢查垃圾郵件資料夾。",
+    "returnToHome": "返回首頁",
+    "backToSignIn": "返回登入",
+    "resetPassword": "重設密碼",
+    "resetPasswordDescription": "輸入您的電子郵件，我們將為您發送重設連結",
+    "sendResetLink": "發送連結",
+    "cancel": "取消",
+    "pleaseEnterValidEmail": "請輸入有效的電子郵件地址",
+    "signInFailed": "登入失敗。請檢查您的憑證。",
+    "signUpFailed": "註冊失敗。請重試。",
+    "sendMagicLink": "發送魔術連結",
+    "sending": "發送中...",
+    "magicLinkSent": "我們已向您發送魔術連結",
+    "magicLinkDescription": "點擊電子郵件中的連結即可登入。連結將在 1 小時後過期。",
+    "magicLinkExplanation": "我們將為您發送一個安全的登入連結。無需密碼。",
+    "magicLinkExpired": "此連結已過期",
+    "magicLinkExpiredDescription": "您點擊的魔術連結已過期。出於安全原因，魔術連結會在 1 小時後過期。",
+    "resendMagicLink": "重新發送魔術連結",
+    "resending": "重新發送中...",
+    "byContinuingYouAgree": "繼續操作即表示您同意我們的 <privacyPolicy>隱私政策</privacyPolicy> 和 <termsOfService>服務條款</termsOfService>",
+    "openProvider": "開啟 {provider}",
+    "didntReceiveEmail": "沒收到電子郵件嗎？",
+    "resend": "重新發送",
+    "alreadySignedIn": "您已登入。無需進一步操作。",
+    "goToDashboard": "前往儀表板",
+    "signInToContinue": "登入以繼續",
+    "signInOrCreateAccountToTalk": "登入或建立帳戶以與 SuperAgent 對話",
+    "orContinueWithEmail": "或使用電子郵件繼續",
+    "signInWithEmail": "使用電子郵件登入",
+    "createNewAccount": "建立新帳戶",
+    "byContinuingYouAgreeSimple": "繼續操作即表示您同意我們的",
+    "phoneVerification": {
+      "title": "驗證您的電話號碼",
+      "titleOtp": "輸入驗證碼",
+      "description": "透過雙因素驗證確保您的帳戶安全",
+      "descriptionOtp": "我們已向您的電話號碼發送驗證碼",
+      "phoneNumber": "電話號碼",
+      "verificationCode": "驗證碼",
+      "enterSixDigitCode": "輸入 6 位驗證碼",
+      "phoneNumberPlaceholder": "輸入您的電話號碼",
+      "sendVerificationCode": "發送驗證碼",
+      "sendingCode": "正在發送驗證碼...",
+      "verifyCode": "驗證代碼",
+      "verifying": "驗證中...",
+      "resendCode": "重新發送代碼",
+      "resendInSeconds": "{seconds} 秒後重新發送",
+      "removePhoneNumber": "移除電話號碼",
+      "codeSentTo": "驗證碼已發送到",
+      "sixDigitCodeHint": "我們將透過簡訊向您發送 6 位數的驗證碼",
+      "pleaseEnterPhoneNumber": "請輸入電話號碼",
+      "pleaseEnterValidPhoneNumber": "請輸入有效的電話號碼",
+      "pleaseEnterSixDigitCode": "請輸入 6 位驗證碼",
+      "verificationCodeSent": "驗證碼已發送到您的手機",
+      "newVerificationCodeSent": "新驗證碼已發送",
+      "phoneNumberVerified": "電話號碼驗證成功！",
+      "phoneNumberRemoved": "電話號碼已移除。您現在可以添加新號碼。",
+      "signOut": "登出",
+      "signingOut": "登出中...",
+      "sending": "發送中..."
+    }
+  },
+  "onboarding": {
+    "welcome": "歡迎",
+    "next": "下一步",
+    "skip": "略過"
+  },
+  "tools": {
+    "executeCommand": "正在執行指令",
+    "checkCommandOutput": "正在檢查指令輸出",
+    "terminateCommand": "正在終止指令",
+    "listCommands": "正在列出指令",
+    "createFile": "正在建立檔案",
+    "deleteFile": "正在刪除檔案",
+    "fullFileRewrite": "正在重寫檔案",
+    "strReplace": "正在編輯文字",
+    "editFile": "正在編輯檔案",
+    "uploadFile": "正在上傳檔案",
+    "createDocument": "正在建立文件",
+    "updateDocument": "正在更新文件",
+    "readDocument": "正在讀取文件",
+    "listDocuments": "正在列出文件",
+    "deleteDocument": "正在刪除文件",
+    "createTasks": "正在建立任務",
+    "updateTasks": "正在更新任務",
+    "browserNavigateTo": "正在導覽至頁面",
+    "browserAct": "正在執行操作",
+    "browserExtractContent": "正在提取內容",
+    "browserScreenshot": "正在擷取螢幕畫面",
+    "executeDataProviderCall": "正在呼叫數據提供商",
+    "getDataProviderEndpoints": "正在獲取端點",
+    "ask": "詢問",
+    "wait": "等待",
+    "complete": "正在完成任務",
+    "crawlWebpage": "正在爬取網頁",
+    "exposePort": "正在暴露端口",
+    "scrapeWebpage": "正在抓取網頁",
+    "webSearch": "正在進行網頁搜尋",
+    "loadImage": "正在載入圖片",
+    "createPresentationOutline": "正在建立簡報大綱",
+    "createPresentation": "正在建立簡報",
+    "presentPresentation": "正在展示",
+    "clearImagesFromContext": "正在從上下文中清除圖片",
+    "imageSearch": "正在搜尋圖片",
+    "createSheet": "正在建立試算表",
+    "updateSheet": "正在更新試算表",
+    "viewSheet": "正在查看試算表",
+    "analyzeSheet": "正在分析試算表",
+    "visualizeSheet": "正在視覺化試算表",
+    "formatSheet": "正在格式化試算表",
+    "updateAgent": "正在更新 Worker",
+    "getCurrentAgentConfig": "正在獲取 Worker 配置",
+    "searchMcpServers": "正在搜尋 MCP 伺服器",
+    "getMcpServerTools": "正在獲取 MCP 伺服器工具",
+    "configureMcpServer": "正在配置 MCP 伺服器",
+    "getPopularMcpServers": "正在獲取熱門 MCP 伺服器",
+    "testMcpServerConnection": "正在測試 MCP 伺服器連接",
+    "listAppEventTriggers": "正在尋找事件觸發器",
+    "createEventTrigger": "正在建立事件觸發器",
+    "getProjectStructure": "正在獲取專案結構",
+    "buildProject": "正在建置專案",
+    "makePhoneCall": "正在撥打電話",
+    "endCall": "正在結束通話",
+    "getCallDetails": "正在獲取通話詳情",
+    "listCalls": "正在列出通話",
+    "monitorCall": "正在監控通話",
+    "waitForCallCompletion": "正在等待完成",
+    "getPaperDetails": "正在獲取論文詳情",
+    "searchAuthors": "正在搜尋作者",
+    "getAuthorDetails": "正在獲取作者詳情",
+    "getAuthorPapers": "正在獲取作者論文",
+    "getPaperCitations": "正在獲取論文引用",
+    "getPaperReferences": "正在獲取論文參考文獻",
+    "paperSearch": "正在搜尋論文",
+    "discoverUserMcpServers": "正在發現工具",
+    "createCredentialProfile": "正在建立設定檔",
+    "getCredentialProfiles": "正在獲取設定檔",
+    "configureProfileForAgent": "正在為 Worker 添加工具",
+    "createNewAgent": "正在建立新 Worker",
+    "searchMcpServersForAgent": "正在搜尋 MCP 伺服器",
+    "createCredentialProfileForAgent": "正在建立憑證設定檔",
+    "discoverMcpToolsForAgent": "正在發現 MCP 工具",
+    "configureAgentIntegration": "正在配置 Worker 整合",
+    "createAgentScheduledTrigger": "正在建立排程觸發器",
+    "listAgentScheduledTriggers": "正在列出 Worker 排程觸發器",
+    "executingTool": "正在執行工具",
+    "toolExecutedSuccessfully": "工具執行成功",
+    "toolExecutionFailed": "工具執行失敗",
+    "input": "輸入",
+    "output": "輸出",
+    "copyFileContent": "複製檔案內容",
+    "fileContentCopied": "檔案內容已複製到剪貼簿",
+    "failedToCopyFileContent": "複製檔案內容失敗",
+    "noContentAvailable": "無可用內容",
+    "noContentDescription": "此工具執行未產生任何可顯示的輸入或輸出內容。",
+    "tool": "工具"
+  },
+  "agentRunLimit": {
+    "gotIt": "知道了",
+    "parallelRunsLimitReached": "已達到並行執行限制",
+    "parallelRunsLimitDescription": "您已達到允許的最大 Worker 並行執行數。",
+    "needMoreParallelRuns": "需要更多並行執行次數嗎？",
+    "upgradeDescription": "升級您的方案以同時執行多個 Worker 並提高生產力。",
+    "upgradePlan": "升級方案",
+    "currentlyRunningAgents": "目前正在執行的 Worker",
+    "loadingThreads": "正在載入對話...",
+    "foundRunningAgents": "發現 {count} 個正在執行的 Worker，但無法載入對話詳情。",
+    "threadIds": "對話 ID: {ids}",
+    "moreRunning": "+{count} 個更多執行中",
+    "whatCanYouDo": "您可以做什麼？",
+    "stopAgentsHint": "點擊停止按鈕以停止正在執行的 Worker",
+    "waitForCompletion": "等待 Worker 自動完成",
+    "upgradeYourPlan": "升級您的方案",
+    "forMoreParallelRuns": "以獲取更多並行執行次數",
+    "stopAgent": "停止 Worker",
+    "stopThisAgent": "停止此 Worker",
+    "openThread": "開啟對話",
+    "agentStoppedSuccessfully": "Worker 已成功停止",
+    "failedToStopAgent": "停止 Worker 失敗",
+    "upgradeToRunMore": "升級以並行執行更多 Worker"
+  },
+  "errors": {
+    "generic": "發生錯誤",
+    "network": "網路錯誤",
+    "unauthorized": "未經授權",
+    "notFound": "找不到內容"
+  },
+  "languages": {
+    "en": "英文",
+    "de": "德文",
+    "it": "義大利文",
+    "zh": "中文",
+    "ja": "日文",
+    "pt": "葡萄牙文",
+    "fr": "法文",
+    "es": "西班牙文"
+  },
+  "notifications": {
+    "title": "通知",
+    "description": "管理您接收通知的方式",
+    "preferences": "通知偏好設定",
+    "channels": "通知管道",
+    "emailNotifications": "電子郵件通知",
+    "emailDescription": "透過電子郵件接收通知",
+    "pushNotifications": "推播通知",
+    "pushDescription": "在您的裝置上接收推播通知",
+    "inAppNotifications": "應用程式內通知",
+    "inAppDescription": "在應用程式內查看通知",
+    "deviceTokens": "已註冊的裝置",
+    "noDevices": "未註冊任何裝置",
+    "settingsUpdated": "通知偏好設定更新成功",
+    "settingsFailed": "更新通知偏好設定失敗",
+    "enableAll": "全部啟用",
+    "disableAll": "全部停用",
+    "saveChanges": "儲存變更"
+  },
+  "suna": {
+    "samplePrompts": "範例提示詞",
+    "chooseStyle": "選擇風格",
+    "chooseTemplate": "選擇模板",
+    "chooseOutputFormat": "選擇輸出格式",
+    "preferredCharts": "偏好的圖表",
+    "whatWouldYouLike": "您想完成什麼任務？",
+    "describeTask": "描述您希望 Worker 完成的任務...",
+    "modes": {
+      "image": "圖片",
+      "slides": "簡報",
+      "data": "數據",
+      "docs": "文件",
+      "canvas": "畫布",
+      "video": "影片",
+      "research": "研究"
+    },
+    "styles": {
+      "photorealistic": "照片級真實",
+      "watercolor": "水彩",
+      "digital-art": "數位藝術",
+      "oil-painting": "油畫",
+      "minimalist": "極簡主義",
+      "isometric": "等距視角",
+      "vintage": "復古",
+      "comic": "漫畫書",
+      "neon": "霓虹",
+      "pastel": "粉彩色",
+      "geometric": "幾何",
+      "abstract": "抽象",
+      "anime": "動漫",
+      "impressionist": "印象派",
+      "surreal": "超現實"
+    },
+    "templates": {
+      "minimalist": {
+        "name": "極簡主義",
+        "description": "簡潔乾淨的設計"
+      },
+      "minimalist_2": {
+        "name": "極簡主義 2",
+        "description": "另一種極簡風格"
+      },
+      "black_and_white_clean": {
+        "name": "黑白風格",
+        "description": "經典單色"
+      },
+      "colorful": {
+        "name": "繽紛色彩",
+        "description": "鮮豔且充滿活力"
+      },
+      "startup": {
+        "name": "新創公司",
+        "description": "動態且創新"
+      },
+      "elevator_pitch": {
+        "name": "電梯簡報",
+        "description": "快速且具影響力"
+      },
+      "portfolio": {
+        "name": "作品集",
+        "description": "展示您的工作"
+      },
+      "textbook": {
+        "name": "教科書",
+        "description": "教育性且結構化"
+      },
+      "architect": {
+        "name": "建築師",
+        "description": "專業且精確"
+      },
+      "hipster": {
+        "name": "文青風格",
+        "description": "現代且時髦"
+      },
+      "green": {
+        "name": "綠色環保",
+        "description": "自然啟發的設計"
+      },
+      "premium_black": {
+        "name": "高級黑",
+        "description": "奢華深色主題"
+      },
+      "premium_green": {
+        "name": "高級綠",
+        "description": "精緻的高雅綠"
+      },
+      "professor_gray": {
+        "name": "教授灰",
+        "description": "學術且博學"
+      },
+      "gamer_gray": {
+        "name": "遊戲玩家灰",
+        "description": "電競風格設計"
+      },
+      "competitor_analysis_blue": {
+        "name": "分析藍",
+        "description": "專注於業務分析"
+      },
+      "numbers_clean": {
+        "name": "簡潔數據",
+        "description": "乾淨的數據視覺化"
+      },
+      "numbers_colorful": {
+        "name": "繽紛數據",
+        "description": "鮮豔的數據呈現"
+      },
+      "prd": {
+        "name": "PRD",
+        "description": "產品需求文件"
+      },
+      "technical": {
+        "name": "技術文件",
+        "description": "技術開發文檔"
+      },
+      "proposal": {
+        "name": "建議書",
+        "description": "業務建議書"
+      },
+      "report": {
+        "name": "報告",
+        "description": "詳細報告格式"
+      },
+      "guide": {
+        "name": "指南",
+        "description": "步驟指南"
+      },
+      "wiki": {
+        "name": "百科",
+        "description": "知識庫文章"
+      },
+      "policy": {
+        "name": "政策",
+        "description": "政策文件"
+      },
+      "meeting-notes": {
+        "name": "會議記錄",
+        "description": "會議紀要"
+      }
+    },
+    "outputFormats": {
+      "spreadsheet": {
+        "name": "試算表",
+        "description": "帶公式的表格"
+      },
+      "dashboard": {
+        "name": "儀表板",
+        "description": "互動式圖表"
+      },
+      "report": {
+        "name": "報告",
+        "description": "帶有視覺效果的分析"
+      },
+      "slides": {
+        "name": "簡報",
+        "description": "簡報格式"
+      }
+    },
+    "charts": {
+      "bar": "條形圖",
+      "line": "折線圖",
+      "pie": "圓餅圖",
+      "scatter": "散佈圖",
+      "heatmap": "熱點圖",
+      "bubble": "氣泡圖",
+      "wordcloud": "文字雲",
+      "stacked": "堆疊條形圖",
+      "area": "面積圖"
+    },
+    "prompts": {
+      "image": {
+        "0": "一隻莊嚴的金雕在日出時分穿梭於霧氣繚繞的山峰，光影效果驚艷",
+        "1": "時尚模特兒的特寫肖像，帶有前衛的妝容、攝影棚光影和高對比度的陰影",
+        "2": "溫馨的北歐風格客廳，配有天然木質家具、室內植物和柔和的晨光",
+        "3": "夜晚的未來感賽博龐克街道市場，帶有霓虹燈招牌、被雨水打濕的路面和全息顯示屏",
+        "4": "大理石表面上的奢華香水瓶優雅產品攝影，帶有柔和的反射",
+        "5": "粉色天空中由繩橋連接的奇幻浮島，雲朵夢幻",
+        "6": "鮮豔花瓣上晨露的宏觀特寫，背景為散景效果",
+        "7": "現代辦公桌配置俯視圖，包括筆記型電腦、咖啡、筆記本和多肉植物",
+        "8": "帶有古老樹木、發光螢火蟲和穿過霧氣的空靈光束的神秘森林小徑",
+        "9": "當代玻璃建築立面的建築細節，帶有幾何圖案和反射",
+        "10": "色彩繽紛的街頭小吃攤，食材豐富，熱氣騰騰，燈光溫暖",
+        "11": "寧靜的日式禪意花園，有耙過的沙子、長滿青苔的石頭和櫻花瓣",
+        "12": "運動員在戲劇性夕陽背景下跳躍的動態動作照，剪影效果",
+        "13": "鄉村農場廚房，有銅鍋、新鮮香草、木製案板和天然質感",
+        "14": "帶有旋轉的金屬金、深藍和翠綠有機圖案的抽象流體藝術"
+      },
+      "slides": {
+        "0": "建立一份 A 輪融資簡報，包含市場規模、成長數據和財務預測",
+        "1": "建立第四季度業務回顧，展示 KPI、成就和戰略舉措",
+        "2": "設計一個包含演示影片和客戶證言的產品發佈簡報",
+        "3": "開發一個解釋我們的價值主張和競爭優勢的銷售賦能簡報",
+        "4": "建立一份投資者更新報告，強調關鍵指標和即將到來的里程碑",
+        "5": "建立一份展示投資報酬率 (ROI) 和成功指標的客戶案例研究簡報",
+        "6": "設計一個涵蓋公司更新和願景的全體會議簡報",
+        "7": "為新產品功能和工作流程開發一個培訓簡報",
+        "8": "建立一個關於擴展工程團隊的會議演講稿",
+        "9": "建立一個帶有戰略建議的董事會會議簡報"
+      },
+      "data": {
+        "0": "建立一個預測不同定價方案下 ARR 增長的財務模型",
+        "1": "建立一個按地區和季度追蹤指標的互動式銷售儀表板",
+        "2": "分析 5 萬條客戶評論並將情感趨勢隨時間的變化視覺化",
+        "3": "設計一個內容日曆，追蹤活動的投資報酬率 (ROI) 和互動圖表",
+        "4": "建立一個展示用戶留存和流失模式的同類群組分析",
+        "5": "建立一個比較頻道表現的行銷歸因模型",
+        "6": "開發一個帶有招聘流程指標和填補職位所需時間分析的招聘追蹤器",
+        "7": "建立一個帶有場景建模的預算規劃試算表",
+        "8": "分析網站流量數據並將轉換漏斗視覺化",
+        "9": "建立一個帶有自動補貨提醒的庫存管理系統"
+      },
+      "docs": {
+        "0": "為 AI 驅動的推薦引擎撰寫一份全面的 PRD",
+        "1": "為可擴展的微服務平台起草一份技術架構文件",
+        "2": "為我們第二季度的產品發佈建立一份市場進入策略文件",
+        "3": "為工程經理開發一個 90 天的入職手冊",
+        "4": "撰寫一份帶有範例和最佳實踐的 API 文件指南",
+        "5": "建立一本涵蓋文化、政策和福利的公司手冊",
+        "6": "起草一份符合 GDPR 和 CCPA 的數據隱私政策",
+        "7": "為 SaaS 企業帳戶開發一份客戶成功手冊",
+        "8": "撰寫一份帶有升級程序的安全事件響應計劃",
+        "9": "為品牌和內容建立一份全面的風格指南"
+      },
+      "canvas": {
+        "0": "在畫布上添加一個帶有未來城市天際線的科技新創公司橫幅",
+        "1": "使用大地色極簡風格在畫布上建立咖啡品牌標誌",
+        "2": "將我的產品照片添加到畫布並移除其背景",
+        "3": "在畫布上使用扁平化圖示設計一個可再生能源資訊圖表",
+        "4": "在畫布上建立一個具有賽博龐克美學的科幻書封",
+        "5": "在畫布上為生產力技巧影片添加一個 YouTube 縮圖",
+        "6": "在畫布上為千禧一代建立一個奢華時尚情緒板",
+        "7": "在畫布上設計一個帶有花卉圖案的優雅婚禮邀請函",
+        "8": "將我的肖像添加到畫布並套用復古電影效果",
+        "9": "在畫布上建立一個具有迷幻風格的音樂節海報"
+      },
+      "video": {
+        "0": "讓我的產品照片在攝影棚光影下平滑旋轉",
+        "1": "將我的肖像轉化為具有鏡頭移動感的電影場景",
+        "2": "生成一個櫻花緩慢落下的寧靜自然影片",
+        "3": "建立抽象的發光粒子以慢動作旋轉在一起",
+        "4": "讓我的產品懸浮並旋轉，帶有柔和的陰影和反射",
+        "5": "為我的肖像添加戲劇性的電影光影和調色",
+        "6": "生成一個飛越霧氣繚繞山峰的平滑無人機鏡頭",
+        "7": "建立一個液態金屬流動成有機形狀的循環影片",
+        "8": "將我的照片背景轉化為帶有光線的水下場景",
+        "9": "生成一個帶有霓虹燈和反射的未來城市景觀影片"
+      },
+      "research": {
+        "0": "分析量子運算的興起趨勢及其潛在的商業應用",
+        "1": "研究 AI 驅動 CRM 領域的前 10 名競爭對手並進行功能比較",
+        "2": "調查在歐盟發佈金融科技應用程式的監管要求",
+        "3": "編寫關於主要市場電動車普及率的市場分析",
+        "4": "研究遠距工作對主要城市商業房地產需求的影響",
+        "5": "研究財星 500 強公司中 Web3 的採用模式",
+        "6": "分析消費者對永續時尚品牌的看法",
+        "7": "調查罕見疾病基因療法的最新進展",
+        "8": "研究成功 D2C 訂閱盒公司的定價策略",
+        "9": "研究 AI 驅動網絡安全解決方案的競爭格局"
+      }
+    }
+  },
+  "announcements": {
+    "memories": {
+      "title": "記憶功能正式推出",
+      "description": "SuperAgent 現在可以記住您在所有對話中的偏好和上下文",
+      "features": {
+        "personalized": {
+          "title": "個人化體驗",
+          "description": "隨著時間推移適應您的工作風格"
+        },
+        "retention": {
+          "title": "上下文保留",
+          "description": "跨對話記住重要細節"
+        },
+        "control": {
+          "title": "掌控權在您手中",
+          "description": "隨時可以關閉或清除記憶"
+        }
+      },
+      "manageButton": "管理記憶",
+      "dismissButton": "知道了"
+    }
+  }
+}
