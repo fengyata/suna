@@ -42,17 +42,13 @@ class MCPAdapter:
     def register_base_tools(self) -> None:
         """Register the base MCP discovery and execution tools."""
         
-        # Register discover_mcp_tools
-        self.toolkit.register_tool_function(
-            self._discover_mcp_tools,
-            name="discover_mcp_tools",
-        )
+        # Register discover_mcp_tools (name is taken from __name__)
+        self._discover_mcp_tools.__name__ = "discover_mcp_tools"
+        self.toolkit.register_tool_function(self._discover_mcp_tools)
         
         # Register execute_mcp_tool
-        self.toolkit.register_tool_function(
-            self._execute_mcp_tool,
-            name="execute_mcp_tool",
-        )
+        self._execute_mcp_tool.__name__ = "execute_mcp_tool"
+        self.toolkit.register_tool_function(self._execute_mcp_tool)
         
         logger.info("Registered MCP base tools: discover_mcp_tools, execute_mcp_tool")
     
@@ -154,19 +150,50 @@ class MCPAdapter:
                     arguments=kwargs,
                 )
             
-            # Set function metadata
+            # Set function metadata (name is taken from __name__)
             tool_wrapper.__name__ = tool_name
             tool_wrapper.__doc__ = tool.get('description', f"Execute MCP tool: {tool_name}")
             
-            # Register with toolkit
+            # Build JSON schema from MCP tool schema
+            json_schema = self._build_json_schema(tool)
+            
+            # Register with toolkit using json_schema parameter
             try:
                 self.toolkit.register_tool_function(
                     tool_wrapper,
-                    name=tool_name,
+                    json_schema=json_schema,
                 )
                 logger.debug(f"Dynamically registered MCP tool: {tool_name}")
             except Exception as e:
                 logger.warning(f"Failed to register MCP tool {tool_name}: {e}")
+    
+    def _build_json_schema(self, tool: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Build JSON schema for an MCP tool.
+        
+        Args:
+            tool: MCP tool definition
+            
+        Returns:
+            OpenAPI-compatible JSON schema
+        """
+        tool_name = tool.get('name', 'unknown')
+        description = tool.get('description', f"Execute MCP tool: {tool_name}")
+        
+        # Extract input schema if available
+        input_schema = tool.get('inputSchema', tool.get('input_schema', {}))
+        
+        return {
+            "type": "function",
+            "function": {
+                "name": tool_name,
+                "description": description,
+                "parameters": input_schema if input_schema else {
+                    "type": "object",
+                    "properties": {},
+                },
+            },
+        }
     
     def get_discovered_tools(self) -> Dict[str, Dict[str, Any]]:
         """Get all discovered MCP tools."""

@@ -6,10 +6,16 @@ and the existing Suna backend infrastructure.
 
 Note: Imports are kept minimal to avoid circular imports and
 allow the module to be imported even if agentscope is not installed.
+
+Important:
+- Importing `core.agentscope_core` should not require `agentscope` to be installed.
+- Accessing AgentScope-backed entrypoints (e.g. `create_agent`, `run_with_agentscope`)
+  will still require `agentscope` at call/import time of the specific submodule.
 """
 
-# Lazy imports - these will only be available when the functions are called
-# This allows the module to be imported without agentscope being installed
+# Lazy exports via __getattr__.
+# Keep this file import-light so `import core.agentscope_core` doesn't eagerly
+# import submodules that depend on the external `agentscope` package.
 
 __all__ = [
     # Agent
@@ -25,9 +31,7 @@ __all__ = [
     'InsufficientCreditsError',
     # Toolkit adapters
     'JITToolkitAdapter',
-    'ExpandMessageAdapter',
 ]
-
 
 def __getattr__(name):
     """Lazy import to avoid loading agentscope at module import time."""
@@ -55,7 +59,4 @@ def __getattr__(name):
     elif name == 'JITToolkitAdapter':
         from core.agentscope_core.toolkit.jit_adapter import JITToolkitAdapter
         return JITToolkitAdapter
-    elif name == 'ExpandMessageAdapter':
-        from core.agentscope_core.toolkit.expand_adapter import ExpandMessageAdapter
-        return ExpandMessageAdapter
     raise AttributeError(f"module 'core.agentscope_core' has no attribute '{name}'")

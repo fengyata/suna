@@ -17,6 +17,26 @@ from agentscope.model import (
 from core.utils.logger import logger
 
 
+def normalize_model_name_for_agentscope(model_name: str) -> str:
+    """
+    Normalize frontend / registry model IDs into provider model names that AgentScope can route correctly.
+
+    This is intentionally AgentScope-specific: AgentScope decides provider by model name prefix
+    (gemini*/claude*), so registry IDs like "kortix/basic" must be mapped.
+    """
+    model_lower = (model_name or "").lower()
+
+    # Business aliases / registry IDs → provider model names
+    alias_map = {
+        # Frontend/registry IDs
+        "kortix/basic": "claude-haiku-4-5",
+        "kortix/power": "claude-sonnet-4-5",
+        "kortix/advanced": "claude-sonnet-4-5",
+    }
+
+    return alias_map.get(model_lower, model_name)
+
+
 def create_agentscope_model(
     model_name: str,
     stream: bool = True,
@@ -36,8 +56,13 @@ def create_agentscope_model(
         An AgentScope model instance
     """
     
+    # Normalize model name so provider routing works correctly
+    normalized_model_name = normalize_model_name_for_agentscope(model_name)
+    if normalized_model_name != model_name:
+        logger.info(f"[AgentScope] Mapped model '{model_name}' -> '{normalized_model_name}'")
+
     # Determine provider from model name
-    model_lower = model_name.lower()
+    model_lower = normalized_model_name.lower()
     
     if model_lower.startswith("gemini"):
         # Google Gemini models
@@ -45,9 +70,9 @@ def create_agentscope_model(
         if not gemini_key:
             raise ValueError("GEMINI_API_KEY or GOOGLE_API_KEY environment variable required")
         
-        logger.info(f"Creating GeminiChatModel for {model_name}")
+        logger.info(f"Creating GeminiChatModel for {normalized_model_name}")
         return GeminiChatModel(
-            model=model_name,
+            model=normalized_model_name,
             api_key=gemini_key,
             stream=stream,
         )
@@ -58,9 +83,9 @@ def create_agentscope_model(
         if not anthropic_key:
             raise ValueError("ANTHROPIC_API_KEY environment variable required")
         
-        logger.info(f"Creating AnthropicChatModel for {model_name}")
+        logger.info(f"Creating AnthropicChatModel for {normalized_model_name}")
         return AnthropicChatModel(
-            model_name=model_name,
+            model_name=normalized_model_name,
             api_key=anthropic_key,
             stream=stream,
         )
@@ -71,9 +96,9 @@ def create_agentscope_model(
         if not openai_key:
             raise ValueError("OPENAI_API_KEY environment variable required")
         
-        logger.info(f"Creating OpenAIChatModel for {model_name}")
+        logger.info(f"Creating OpenAIChatModel for {normalized_model_name}")
         return OpenAIChatModel(
-            model=model_name,
+            model=normalized_model_name,
             api_key=openai_key,
             base_url=base_url,
             stream=stream,

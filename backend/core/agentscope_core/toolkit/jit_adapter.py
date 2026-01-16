@@ -263,45 +263,63 @@ class JITToolkitAdapter:
             tool_class: The tool class for schema extraction
         """
         # Get all methods with openapi_schema decorator
+        # NOTE: @openapi_schema decorator creates 'tool_schemas' attribute (list of ToolSchema)
+        from core.agentpress.tool import SchemaType
+        
         for attr_name in dir(tool_instance):
             if attr_name.startswith('_'):
                 continue
             
             attr = getattr(tool_instance, attr_name)
-            if callable(attr) and hasattr(attr, '_openapi_schema'):
-                schema = attr._openapi_schema
-                func_name = schema.get('function', {}).get('name', attr_name)
-                
-                # Create wrapper function
-                async def tool_wrapper(
-                    _bound_method=attr,
-                    **kwargs
-                ) -> ToolResponse:
-                    try:
-                        result = await _bound_method(**kwargs)
-                        # Convert ToolResult to ToolResponse
-                        if hasattr(result, 'output'):
-                            content = str(result.output)
-                        else:
-                            content = str(result)
-                        return ToolResponse(content=[TextBlock(text=content)])
-                    except Exception as e:
-                        return ToolResponse(
-                            content=[TextBlock(text=f"Error: {str(e)}")],
-                            metadata={"error": True},
-                        )
-                
-                # Set the function name and schema
-                tool_wrapper.__name__ = func_name
-                tool_wrapper.__doc__ = schema.get('function', {}).get('description', '')
-                
-                # Register with toolkit
-                self.toolkit.tools[func_name] = {
-                    'function': tool_wrapper,
-                    'schema': schema,
-                }
-                
+            if not callable(attr) or not hasattr(attr, 'tool_schemas'):
+                continue
+            
+            # Find OpenAPI schema from tool_schemas list
+            schema = None
+            for tool_schema in attr.tool_schemas:
+                if tool_schema.schema_type == SchemaType.OPENAPI:
+                    schema = tool_schema.schema
+                    break
+            
+            if schema is None:
+                continue
+            
+            func_name = schema.get('function', {}).get('name', attr_name)
+            
+            # Create wrapper function
+            async def tool_wrapper(
+                _bound_method=attr,
+                **kwargs
+            ) -> ToolResponse:
+                try:
+                    result = await _bound_method(**kwargs)
+                    # Convert ToolResult to ToolResponse
+                    if hasattr(result, 'output'):
+                        content = str(result.output)
+                    else:
+                        content = str(result)
+                    return ToolResponse(content=[TextBlock(text=content)])
+                except Exception as e:
+                    return ToolResponse(
+                        content=[TextBlock(text=f"Error: {str(e)}")],
+                        metadata={"error": True},
+                    )
+            
+            # Set the function name and docstring
+            tool_wrapper.__name__ = func_name
+            tool_wrapper.__doc__ = schema.get('function', {}).get('description', '')
+            # Set __wrapped__ to the original method for signature extraction
+            tool_wrapper.__wrapped__ = attr
+            
+            # Register with toolkit using correct API
+            try:
+                self.toolkit.register_tool_function(
+                    tool_wrapper,
+                    json_schema=schema,  # Provide schema explicitly
+                )
                 logger.debug(f"[JIT] Registered function: {func_name}")
+            except Exception as e:
+                logger.warning(f"[JIT] Failed to register {func_name}: {e}")
     
     async def _get_tool_guide(self, tool_name: str) -> Optional[str]:
         """

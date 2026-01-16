@@ -23,7 +23,6 @@ from core.agentscope_core.hooks.termination_hooks import TerminationHooks
 from core.agentscope_core.hooks.billing_hooks import BillingHooks
 from core.agentscope_core.toolkit.adapter import ToolkitAdapter
 from core.agentscope_core.toolkit.jit_adapter import JITToolkitAdapter
-from core.agentscope_core.toolkit.expand_adapter import ExpandMessageAdapter
 from core.agentscope_core.model_factory import create_agentscope_model
 from core.agentscope_core.compression_schema import (
     SunaCompressedSummary,
@@ -85,15 +84,10 @@ async def create_agent(
     jit_adapter.register_jit_tools()
     logger.info("Registered JIT initialize_tools function")
     
-    # 2d. Register expand_message tool
-    expand_adapter = ExpandMessageAdapter(
-        toolkit=toolkit,
-        thread_id=config.thread_id,
-        supabase_client=supabase_client,
-    )
-    expand_adapter.register_tools()
+    # NOTE: expand_message is already registered via native ExpandMessageTool
+    # through ToolkitAdapter.register_all_tools() - no need for separate adapter
     
-    # 2e. Restore dynamic tools from previous runs (if not new thread)
+    # 2d. Restore dynamic tools from previous runs (if not new thread)
     if not config.is_new_thread:
         restored = await jit_adapter.restore_dynamic_tools()
         if restored > 0:

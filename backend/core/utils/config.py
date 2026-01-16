@@ -50,7 +50,7 @@ class Configuration:
     AGENT_TOOL_EXECUTION_STRATEGY: str = "parallel"  # "parallel" or "sequential"
     
     # AgentScope Migration Flag
-    USE_AGENTSCOPE: bool = False  # Enable AgentScope-based agent execution (migration in progress)
+    USE_AGENTSCOPE: bool = True  # Enable AgentScope-based agent execution (migration in progress)
     # ============================================
     
     # ===== PRESENCE CONFIGURATION =====

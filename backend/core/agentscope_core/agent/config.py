@@ -26,7 +26,7 @@ class AgentConfig:
     """
     
     thread_id: str
-    model_name: str = "claude-3-5-sonnet-20241022"
+    model_name: str = "claude-sonnet-4-5"
     system_prompt: Optional[str] = None
     max_iters: int = 25
     temperature: float = 0.7

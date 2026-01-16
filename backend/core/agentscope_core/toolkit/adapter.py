@@ -42,9 +42,17 @@ class ToolkitAdapter:
         self.tool_registry = tool_registry
         self._registered_tools: Dict[str, Callable] = {}
     
+    # Tools to exclude from migration (handled by dedicated adapters)
+    # - discover_mcp_tools, execute_mcp_tool: Handled by MCPAdapter (needs independent mcp_wrapper)
+    # - initialize_tools: Handled by JITToolkitAdapter (must add tools to AgentScope Toolkit, not ToolRegistry)
+    EXCLUDED_TOOLS = {'discover_mcp_tools', 'execute_mcp_tool', 'initialize_tools'}
+    
     def register_all_tools(self) -> int:
         """
         Register all tools from the existing registry.
+        
+        Excludes MCP tools (discover_mcp_tools, execute_mcp_tool) which are
+        handled by MCPAdapter with independent mcp_wrapper.
         
         Returns:
             Number of tools registered
@@ -54,6 +62,7 @@ class ToolkitAdapter:
             return 0
         
         count = 0
+        skipped = 0
         available_functions = self.tool_registry.get_available_functions()
         schemas = self.tool_registry.get_openapi_schemas()
         
@@ -66,24 +75,29 @@ class ToolkitAdapter:
                     schema_lookup[name] = schema
         
         for func_name, func in available_functions.items():
+            # Skip MCP tools - they're handled by MCPAdapter
+            if func_name in self.EXCLUDED_TOOLS:
+                logger.debug(f"Skipping {func_name} (handled by MCPAdapter)")
+                skipped += 1
+                continue
+            
             try:
-                # Get description from schema if available
-                schema = schema_lookup.get(func_name, {})
-                description = schema.get('function', {}).get('description', '')
+                # Get the existing OpenAPI schema (already defined via @openapi_schema decorator)
+                schema = schema_lookup.get(func_name)
                 
-                self.register_tool(func_name, func, description=description)
+                self.register_tool(func_name, func, json_schema=schema)
                 count += 1
             except Exception as e:
                 logger.error(f"Failed to register tool {func_name}: {e}")
         
-        logger.info(f"Registered {count} tools with AgentScope Toolkit")
+        logger.info(f"Registered {count} tools with AgentScope Toolkit (skipped {skipped} MCP tools)")
         return count
     
     def register_tool(
         self,
         name: str,
         func: Callable,
-        description: Optional[str] = None,
+        json_schema: Optional[Dict[str, Any]] = None,
     ) -> None:
         """
         Register a single tool with the toolkit.
@@ -91,19 +105,20 @@ class ToolkitAdapter:
         Args:
             name: Tool name
             func: Tool function
-            description: Optional description (extracted from docstring if not provided)
+            json_schema: Existing OpenAPI schema from @openapi_schema decorator
         """
-        # Wrap the function to ensure compatibility
+        # Wrap the function to ensure compatibility (result format conversion)
         wrapped_func = self._wrap_tool_function(name, func)
         
-        # Register with AgentScope
+        # Register with AgentScope using the existing schema directly
+        # This avoids re-inferring parameters from function signature
         self.toolkit.register_tool_function(
             wrapped_func,
-            name=name,
+            json_schema=json_schema,  # Pass the existing schema
         )
         
         self._registered_tools[name] = wrapped_func
-        logger.debug(f"Registered tool: {name}")
+        logger.debug(f"Registered tool: {name} (schema: {'provided' if json_schema else 'inferred'})")
     
     def _wrap_tool_function(
         self,
@@ -143,8 +158,8 @@ class ToolkitAdapter:
             # Preserve function signature and docstring
             async_wrapper.__name__ = name
             async_wrapper.__doc__ = func.__doc__
-            if hasattr(func, '__annotations__'):
-                async_wrapper.__annotations__ = func.__annotations__
+            # KEY: Set __wrapped__ so inspect.signature can extract original parameters
+            async_wrapper.__wrapped__ = func
             
             return async_wrapper
         else:
@@ -159,8 +174,8 @@ class ToolkitAdapter:
             
             sync_wrapper.__name__ = name
             sync_wrapper.__doc__ = func.__doc__
-            if hasattr(func, '__annotations__'):
-                sync_wrapper.__annotations__ = func.__annotations__
+            # KEY: Set __wrapped__ so inspect.signature can extract original parameters
+            sync_wrapper.__wrapped__ = func
             
             return sync_wrapper
     
