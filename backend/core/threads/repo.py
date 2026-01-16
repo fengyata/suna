@@ -445,15 +445,16 @@ async def create_project_and_thread(
     project_name: str,
     thread_name: str = "New Chat",
     status: str = "pending",
-    memory_enabled: Optional[bool] = None
+    memory_enabled: Optional[bool] = None,
+    icon_name: str = "message-circle"
 ) -> Dict[str, Any]:
     from datetime import datetime, timezone
     from core.services.db import execute_one
     
     sql = """
     WITH new_project AS (
-        INSERT INTO projects (project_id, account_id, name, created_at)
-        VALUES (:project_id, :account_id, :project_name, :created_at)
+        INSERT INTO projects (project_id, account_id, name, icon_name, created_at)
+        VALUES (:project_id, :account_id, :project_name, :icon_name, :created_at)
         RETURNING project_id
     )
     INSERT INTO threads (thread_id, project_id, account_id, name, status, memory_enabled, created_at, updated_at)
@@ -472,6 +473,7 @@ async def create_project_and_thread(
         "thread_name": thread_name,
         "status": status,
         "memory_enabled": memory_enabled,
+        "icon_name": icon_name,
         "created_at": now,
         "updated_at": now
     }, commit=True)
