@@ -558,6 +558,7 @@ class ResponseProcessor:
         # Store the complete LiteLLM response object as received
         final_llm_response = None
         first_chunk_time = None
+        previous_chunk_time = None
         last_chunk_time = None
         llm_response_end_saved = False
 
@@ -571,6 +572,11 @@ class ResponseProcessor:
         # CRITICAL: Generate unique ID for THIS specific LLM call (not per thread run)
         llm_response_id = str(uuid.uuid4())
         logger.debug(f"🔵 LLM CALL #{auto_continue_count + 1} starting - llm_response_id: {llm_response_id}")
+
+        # Timing: used for richer error logs/Sentry when streaming fails mid-flight.
+        import time as time_module
+        llm_call_start_mono = time_module.monotonic()
+        llm_call_start_iso = datetime.now(timezone.utc).isoformat()
 
         # Track background DB tasks for cleanup
         background_db_tasks = []
@@ -609,10 +615,10 @@ class ResponseProcessor:
                 "llm_response_id": llm_response_id,
                 "auto_continue_count": auto_continue_count,
                 "model": llm_model,
-                "timestamp": datetime.now(timezone.utc).isoformat()
+                "timestamp": llm_call_start_iso,
             }
             # Yield immediately, save to DB in background (non-blocking)
-            now_llm_start = datetime.now(timezone.utc).isoformat()
+            now_llm_start = llm_call_start_iso
             llm_start_message = {
                 "message_id": None, "thread_id": thread_id, "type": "llm_response_start",
                 "is_llm_message": False,
@@ -696,6 +702,7 @@ class ResponseProcessor:
             # This avoids json.dumps() and datetime.now() calls per chunk
             _chunk_metadata_cached = to_json_string_fast({"stream_status": "chunk", "thread_run_id": thread_run_id})
             _stream_start_time = datetime.now(timezone.utc).isoformat()
+            _stream_start_mono = time_module.monotonic()
             
             llm_ttft_seconds = None  # Actual LLM TTFT from llm.py
             
@@ -725,6 +732,8 @@ class ResponseProcessor:
                 current_time = datetime.now(timezone.utc).timestamp()
                 if first_chunk_time is None:
                     first_chunk_time = current_time
+                if last_chunk_time is not None:
+                    previous_chunk_time = last_chunk_time
                 last_chunk_time = current_time
                 
                 # Log info about chunks periodically for debugging
@@ -1862,7 +1871,42 @@ class ResponseProcessor:
 
         except Exception as e:
             # Use ErrorProcessor for consistent error handling
-            processed_error = ErrorProcessor.process_system_error(e, context={"thread_id": thread_id})
+            exc_iso = datetime.now(timezone.utc).isoformat()
+            try:
+                total_duration_s = max(0.0, time_module.monotonic() - llm_call_start_mono)
+            except Exception:
+                total_duration_s = None
+
+            last_chunk_interval_s = None
+            try:
+                if previous_chunk_time is not None and last_chunk_time is not None:
+                    last_chunk_interval_s = max(0.0, float(last_chunk_time) - float(previous_chunk_time))
+            except Exception:
+                last_chunk_interval_s = None
+
+            processed_error = ErrorProcessor.process_system_error(
+                e,
+                context={
+                    "thread_id": thread_id,
+                    "llm_stage": "response_processor.stream",
+                    "llm_timing": {
+                        "call_start_time": llm_call_start_iso if "llm_call_start_iso" in locals() else None,
+                        "exception_time": exc_iso,
+                        "total_duration_seconds": total_duration_s,
+                        "chunk_count": chunk_count if "chunk_count" in locals() else None,
+                        "first_chunk_time_epoch_s": first_chunk_time,
+                        "previous_chunk_time_epoch_s": previous_chunk_time,
+                        "last_chunk_time_epoch_s": last_chunk_time,
+                        "last_chunk_interval_seconds": last_chunk_interval_s,
+                        "stream_start_time": _stream_start_time if "_stream_start_time" in locals() else None,
+                        "stream_total_duration_seconds": (
+                            max(0.0, time_module.monotonic() - _stream_start_mono)
+                            if "_stream_start_mono" in locals()
+                            else None
+                        ),
+                    },
+                },
+            )
             ErrorProcessor.log_error(processed_error)
             
             # Save and yield error status message

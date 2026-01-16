@@ -41,6 +41,31 @@ def _safe_str(v: Any, max_len: int = 512) -> str:
     return s if len(s) <= max_len else (s[:max_len] + "…")
 
 
+def _sanitize_extra(v: Any, *, max_str_len: int = 2048, max_items: int = 50, _depth: int = 0) -> Any:
+    """
+    Convert arbitrary python objects into a Sentry-friendly, reasonably-sized structure.
+    """
+    if _depth > 6:
+        return _safe_str(v, max_len=max_str_len)
+
+    if v is None or isinstance(v, (bool, int, float, str)):
+        return v if not isinstance(v, str) else _safe_str(v, max_len=max_str_len)
+
+    if isinstance(v, dict):
+        out: Dict[str, Any] = {}
+        for i, (k, val) in enumerate(v.items()):
+            if i >= max_items:
+                out["__truncated__"] = True
+                break
+            out[_safe_str(k, max_len=128)] = _sanitize_extra(val, max_str_len=max_str_len, max_items=max_items, _depth=_depth + 1)
+        return out
+
+    if isinstance(v, (list, tuple)):
+        return [_sanitize_extra(x, max_str_len=max_str_len, max_items=max_items, _depth=_depth + 1) for x in v[:max_items]]
+
+    return _safe_str(v, max_len=max_str_len)
+
+
 def init_backend_sentry() -> None:
     """
     Initialize sentry-sdk for backend.
@@ -214,6 +239,7 @@ def capture_exception(
     llm_stage: Optional[str] = None,
     error_type: Optional[str] = None,
     tags: Optional[Dict[str, Any]] = None,
+    extras: Optional[Dict[str, Any]] = None,
 ) -> Optional[str]:
     """
     Capture an exception to Sentry (no-op when disabled).
@@ -235,6 +261,14 @@ def capture_exception(
             # agent-run errors must have agent_run_id; if missing, keep searchable fallback
             if not _get_ctx().get("agent_run_id"):
                 scope.set_tag("has_agent_run_id", "false")
+
+            if extras and isinstance(extras, dict):
+                for k, v in extras.items():
+                    try:
+                        scope.set_extra(_safe_str(k, max_len=128), _sanitize_extra(v))
+                    except Exception:
+                        # Never fail error reporting due to extra serialization.
+                        pass
         return sentry_sdk.capture_exception(exc)
     except Exception:
         return None
