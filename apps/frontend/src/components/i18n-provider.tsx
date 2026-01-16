@@ -47,6 +47,7 @@ function getStoredLocale(user: User | null): Locale {
   }
   
   // Priority 2: Check cookie (explicit user preference)
+  document.cookie = "locale=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";//清掉旧用户superagent-native.eape.mobi的 locale cookie
   const cookies = document.cookie.split(';');
   const localeCookie = cookies.find(c => c.trim().startsWith('locale='));
   if (localeCookie) {
