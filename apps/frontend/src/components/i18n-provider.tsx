@@ -11,6 +11,7 @@ import type { User } from '@supabase/supabase-js';
 // This prevents the loading spinner from blocking FCP
 import defaultTranslations from '../../translations/en.json';
 type SupportedLocale = Locale | 'ar' | 'da' | 'fi' | 'ko' | 'nl' | 'no' | 'pl' | 'sv' | 'zh-cn' | 'zh-hk';
+const supportedLocales: SupportedLocale[] = ['en', 'de', 'it', 'zh', 'ja', 'pt', 'fr', 'es', 'ar', 'da', 'fi', 'ko', 'nl', 'no', 'pl', 'sv', 'zh-hk'];
 async function getTranslations(locale: SupportedLocale) {
   try {
     // Return cached default translations immediately for English
@@ -41,7 +42,7 @@ function getStoredLocale(user: User | null): Locale {
   
   // Priority 1: Check user profile preference (if authenticated)
   // This ALWAYS takes precedence - user explicitly set it in settings
-  if (user?.user_metadata?.locale && locales.includes(user.user_metadata.locale as Locale)) {
+  if (user?.user_metadata?.locale && supportedLocales.includes(user.user_metadata.locale as Locale)) {
     return user.user_metadata.locale as Locale;
   }
   
@@ -50,14 +51,14 @@ function getStoredLocale(user: User | null): Locale {
   const localeCookie = cookies.find(c => c.trim().startsWith('locale='));
   if (localeCookie) {
     const value = localeCookie.split('=')[1].trim();
-    if (locales.includes(value as Locale)) {
+    if (supportedLocales.includes(value as Locale)) {
       return value as Locale;
     }
   }
   
   // Priority 3: Check localStorage (explicit user preference)
   const stored = localStorage.getItem('locale');
-  if (stored && locales.includes(stored as Locale)) {
+  if (stored && supportedLocales.includes(stored as Locale)) {
     return stored as Locale;
   }
   
@@ -167,7 +168,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     const handleLocaleChange = (e: CustomEvent<Locale>) => {
       const newLocale = e.detail;
       // Use ref to check current locale to avoid stale closure
-      if (newLocale !== localeRef.current && locales.includes(newLocale)) {
+      if (newLocale !== localeRef.current && supportedLocales.includes(newLocale)) {
         loadTranslations(newLocale);
       }
     };
@@ -182,7 +183,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   // Listen for storage changes (when language is changed in another tab/window)
   useEffect(() => {
     const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'locale' && e.newValue && locales.includes(e.newValue as Locale)) {
+      if (e.key === 'locale' && e.newValue && supportedLocales.includes(e.newValue as Locale)) {
         loadTranslations(e.newValue as Locale);
       }
     };
