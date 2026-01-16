@@ -215,6 +215,18 @@ async def _create_agent_run_record(
 # Core Agent Start Logic
 # ============================================================================
 
+def create_thread_name_from_prompt(prompt: str) -> str:
+    """Create thread name from prompt using first 20 characters."""
+    if not prompt or not prompt.strip():
+        return "New Chat"
+    
+    cleaned_prompt = prompt.strip()
+    if len(cleaned_prompt) <= 20:
+        return cleaned_prompt
+    else:
+        return cleaned_prompt[:20] + "..."
+
+
 async def start_agent_run(
     account_id: str,
     prompt: str,
@@ -229,6 +241,7 @@ async def start_agent_run(
     is_optimistic: bool = False,
     emit_timing: bool = False,
     mode: Optional[str] = None,  # Mode: slides, sheets, docs, canvas, video, research
+    use_simple_naming: bool = True,  # 新增参数：是否使用简单命名（默认true）
 ) -> Dict[str, Any]:
     """Start an agent run - core business logic."""
     from core.agents.config import load_agent_config
@@ -279,27 +292,38 @@ async def start_agent_run(
         
         placeholder_name = f"{prompt[:30]}..." if len(prompt) > 30 else prompt
         
+        # 根据标识符选择线程命名方式
+        if use_simple_naming:
+            # 使用简单命名：直接使用prompt前20字符
+            thread_name = create_thread_name_from_prompt(prompt)
+        else:
+            # 使用原有方式：先用默认名称，后续LLM更新
+            thread_name = "New Chat"
+        
         step_start = time.time()
         await threads_repo.create_project_and_thread(
             project_id=project_id,
             thread_id=thread_id,
             account_id=account_id,
             project_name=placeholder_name,
-            thread_name="New Chat",
+            thread_name=thread_name,
             status="pending",
             memory_enabled=memory_enabled
         )
         timing_breakdown["create_project_and_thread_ms"] = round((time.time() - step_start) * 1000, 1)
         
         from core.cache.runtime_cache import set_cached_project_metadata, increment_thread_count_cache
-        from core.utils.thread_name_generator import generate_and_update_thread_name
         
         # Cache project metadata with mode if provided
         project_metadata = {"mode": mode} if mode else {}
         asyncio.create_task(set_cached_project_metadata(project_id, project_metadata))
         asyncio.create_task(generate_and_update_project_name(project_id=project_id, prompt=prompt))
-        if prompt:
+        
+        # 只在非简单命名模式下使用LLM生成线程名称
+        if not use_simple_naming and prompt:
+            from core.utils.thread_name_generator import generate_and_update_thread_name
             asyncio.create_task(generate_and_update_thread_name(thread_id=thread_id, prompt=prompt))
+        
         asyncio.create_task(increment_thread_count_cache(account_id))
         
         if project_id != thread_id:
@@ -466,6 +490,7 @@ async def unified_agent_start(
     optimistic: Optional[str] = Form(None),
     memory_enabled: Optional[str] = Form(None),
     mode: Optional[str] = Form(None),  # Mode: slides, sheets, docs, canvas, video, research
+    use_simple_naming: Optional[str] = Form("true"),  # 新增参数：是否使用简单命名，默认为true
     user_id: str = Depends(verify_and_get_user_id_from_jwt)
 ):
     """Start an agent run. Files must be staged via /files/stage first."""
@@ -502,6 +527,7 @@ async def unified_agent_start(
         model_name = model_manager.resolve_model_id(model_name)
     
     memory_enabled_bool = memory_enabled.lower() == 'true' if memory_enabled else None
+    use_simple_naming_bool = use_simple_naming.lower() == 'true' if use_simple_naming else True
     
     # Check for admin bypass header (for stress testing)
     # Must verify user is super_admin before trusting the header
@@ -539,6 +565,7 @@ async def unified_agent_start(
             skip_limits_check=skip_limits,
             emit_timing=emit_timing,
             mode=mode,
+            use_simple_naming=use_simple_naming_bool,
         )
         
         response = {
