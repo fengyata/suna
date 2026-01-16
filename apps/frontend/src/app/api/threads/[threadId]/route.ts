@@ -75,7 +75,8 @@ export async function DELETE(
   try {
     const result = await deleteThread({ threadId, accountId, projectId: projectId ?? null });
     if (!result.ok) {
-      return corsJson(request, { ok: false }, { status: 200 });
+      const error_code = (result as any)?.error_code;
+      return corsJson(request, { ok: false, ...(typeof error_code === 'number' ? { error_code } : {}) }, { status: 200 });
     }
     return corsJson(request, { ok: true });
   } catch {
