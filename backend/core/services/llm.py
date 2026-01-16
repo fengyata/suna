@@ -19,6 +19,8 @@ from core.agentpress.error_processor import ErrorProcessor
 from pathlib import Path
 from datetime import datetime, timezone
 
+from core.services.llm_timing import LLMTimingContext
+
 litellm.modify_params = True
 litellm.drop_params = True
 
@@ -332,8 +334,19 @@ async def make_llm_api_call(
         params["reasoning_split"] = True
     
     import time as time_module
-    call_start = time_module.monotonic()
-
+    call_start_mono = time_module.monotonic()
+    call_start_utc = datetime.now(timezone.utc)
+    timing_ctx = LLMTimingContext(call_start_mono=call_start_mono, call_start_utc=call_start_utc)
+    
+    try:
+        import psutil
+        cpu_at_start = psutil.cpu_percent(interval=None)
+        mem_at_start = psutil.Process().memory_info().rss / 1024 / 1024
+    except Exception as e:
+        cpu_at_start = None
+        mem_at_start = None
+        logger.warning(f"[LLM] psutil failed: {e}")
+    
     try:
         _save_debug_input(params)
         actual_model = params.get("model", model_name)
@@ -341,6 +354,9 @@ async def make_llm_api_call(
         tool_count = len(params.get("tools", []) or [])
 
         if stream:
+            pre_call_time = time_module.monotonic()
+            logger.info(f"[LLM] ⏰ T+{(pre_call_time - call_start_mono)*1000:.1f}ms: Calling litellm.acompletion()")
+            
             # Direct LiteLLM call - Router removed due to 250+ second delays
             try:
                 from core.services.sentry_service import span as sentry_span
@@ -367,7 +383,8 @@ async def make_llm_api_call(
                 logger.info(f"[LLM] ✅ TTFT={ttft:.2f}s {model_name}")
             
             if hasattr(response, '__aiter__'):
-                return _wrap_streaming_response(response, call_start, model_name, ttft_seconds=ttft)
+                logger.info(f"[LLM] 🎁 Wrapping streaming response (TTFT={ttft:.2f}s)")
+                return _wrap_streaming_response(response, timing_ctx, model_name, ttft_seconds=ttft)
             return response
         else:
             try:
@@ -384,19 +401,37 @@ async def make_llm_api_call(
                     response = await litellm.acompletion(**params)
             else:
                 response = await litellm.acompletion(**params)
-            duration = time_module.monotonic() - call_start
-            logger.info(f"[LLM] ✅ {duration:.2f}s {model_name}")
+            call_duration = time_module.monotonic() - call_start_mono
+            if LLM_DEBUG:
+                logger.info(f"[LLM] completed: {call_duration:.2f}s for {model_name}")
             return response
         
     except Exception as e:
-        total_time = time_module.monotonic() - call_start
-        logger.error(f"[LLM] call error after {total_time:.2f}s for {model_name}: {str(e)[:100]}")
-        processed_error = ErrorProcessor.process_llm_error(e, context={"model": model_name, "llm_stage": "llm.call"})
+        now_mono = time_module.monotonic()
+        timing_ctx.mark_exception(now_mono=now_mono, now_utc=datetime.now(timezone.utc))
+        total_time = now_mono - call_start_mono
+        logger.error(
+            f"[LLM] call error after {total_time:.2f}s for {model_name}: "
+            f"{type(e).__name__} | {str(e)[:800]}"
+        )
+        processed_error = ErrorProcessor.process_llm_error(
+            e,
+            context={
+                "model": model_name,
+                "llm_stage": "llm.call",
+                "llm_timing": timing_ctx.to_dict(),
+            },
+        )
         ErrorProcessor.log_error(processed_error)
-        raise LLMError(processed_error.message)
+        raise LLMError(processed_error.message) from e
 
 
-async def _wrap_streaming_response(response, start_time: float, model_name: str, ttft_seconds: float = None) -> AsyncGenerator:
+async def _wrap_streaming_response(
+    response,
+    timing_ctx: LLMTimingContext,
+    model_name: str,
+    ttft_seconds: float = None,
+) -> AsyncGenerator:
     """Wraps streaming response and yields TTFT metadata as first chunk."""
     import time as time_module
     chunk_count = 0
@@ -421,6 +456,11 @@ async def _wrap_streaming_response(response, start_time: float, model_name: str,
                     recent_gaps_seconds.pop(0)
             last_chunk_at_monotonic = now
             chunk_count += 1
+            try:
+                timing_ctx.mark_chunk(now_mono=time_module.monotonic(), now_utc=datetime.now(timezone.utc))
+            except Exception:
+                # Never break streaming due to telemetry issues.
+                pass
             yield chunk
     except (asyncio.TimeoutError, asyncio.CancelledError, httpx.TimeoutException) as e:
         now = time_module.monotonic()
@@ -431,6 +471,10 @@ async def _wrap_streaming_response(response, start_time: float, model_name: str,
         context_vars = structlog.contextvars.get_contextvars()
         agent_run_id = context_vars.get("agent_run_id")
         thread_id = context_vars.get("thread_id")
+        try:
+            timing_ctx.mark_exception(now_mono=time_module.monotonic(), now_utc=datetime.now(timezone.utc))
+        except Exception:
+            pass
 
         logger.error(
             "[LLM] ⏱️ STREAM TIMEOUT/CANCEL",
@@ -452,13 +496,25 @@ async def _wrap_streaming_response(response, start_time: float, model_name: str,
         ErrorProcessor.log_error(processed_error)
         raise LLMError(processed_error.message)
     except Exception as e:
-        processed_error = ErrorProcessor.process_llm_error(e, context={"model": model_name, "llm_stage": "llm.stream"})
+        try:
+            timing_ctx.mark_exception(now_mono=time_module.monotonic(), now_utc=datetime.now(timezone.utc))
+        except Exception:
+            pass
+
+        processed_error = ErrorProcessor.process_llm_error(
+            e,
+            context={
+                "model": model_name,
+                "llm_stage": "llm.stream",
+                "llm_timing": timing_ctx.to_dict(),
+            },
+        )
         ErrorProcessor.log_error(processed_error)
-        raise LLMError(processed_error.message)
+        raise LLMError(processed_error.message) from e
     finally:
-        duration = time_module.monotonic() - start_time if start_time else 0.0
-        if duration > 0:
-            logger.info(f"[LLM] 🏁 {duration:.2f}s total, {chunk_count} chunks - {model_name}")
+        call_duration = time_module.monotonic() - timing_ctx.call_start_mono if timing_ctx else 0.0
+        if LLM_DEBUG and call_duration > 0:
+            logger.info(f"[LLM] stream completed: {call_duration:.2f}s, {chunk_count} chunks for {model_name}")
 
 setup_api_keys()
 logger.info(f"[LLM] ✅ Module initialized (DIRECT MODE): retries={litellm.num_retries}, timeout={litellm.request_timeout}s, stream_timeout={litellm.stream_timeout}s")

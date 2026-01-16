@@ -232,6 +232,29 @@ class ErrorProcessor:
         log_func = getattr(logger, level, logger.error)
         
         log_message = f"[{processed_error.error_type.upper()}] {processed_error.message}"
+
+        # Optional timing summary (kept out of user-facing message; logs + Sentry only)
+        try:
+            ctx = processed_error.context if isinstance(processed_error.context, dict) else None
+            llm_timing = (ctx or {}).get("llm_timing") if ctx else None
+            if isinstance(llm_timing, dict):
+                td = llm_timing.get("total_duration_seconds")
+                gap = llm_timing.get("last_chunk_interval_seconds")
+                chunks = llm_timing.get("chunk_count")
+                stage = (ctx or {}).get("llm_stage")
+                summary_parts = []
+                if stage:
+                    summary_parts.append(f"stage={stage}")
+                if td is not None:
+                    summary_parts.append(f"duration_s={td}")
+                if gap is not None:
+                    summary_parts.append(f"last_chunk_gap_s={gap}")
+                if chunks is not None:
+                    summary_parts.append(f"chunks={chunks}")
+                if summary_parts:
+                    log_message = f"{log_message} | llm_timing: " + ", ".join(summary_parts)
+        except Exception:
+            pass
         
         # NEVER pass exc_info to structlog - it causes concatenation errors with complex exceptions
         # Instead, log the error details safely
@@ -253,11 +276,24 @@ class ErrorProcessor:
         if processed_error.original_error:
             try:
                 from core.services.sentry_service import capture_exception
+                extras = None
+                if isinstance(processed_error.context, dict):
+                    # Keep structured context in Sentry extras for debugging.
+                    extras = {
+                        "processed_error_type": processed_error.error_type,
+                        "llm_stage": processed_error.context.get("llm_stage"),
+                        "model": processed_error.context.get("model"),
+                        "thread_id": processed_error.context.get("thread_id"),
+                        "llm_timing": processed_error.context.get("llm_timing"),
+                        "context": processed_error.context,
+                        "litellm_exceptions_imported": LITELLM_IMPORTED,
+                    }
                 capture_exception(
                     processed_error.original_error,
                     llm_stage=(processed_error.context or {}).get("llm_stage") if isinstance(processed_error.context, dict) else None,
                     error_type=processed_error.error_type,
                     tags={"processed_error_type": processed_error.error_type},
+                    extras=extras,
                 )
             except Exception:
                 pass
