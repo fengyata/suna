@@ -104,6 +104,8 @@ if os.getenv("BRAINTRUST_API_KEY"):
 else:
     litellm.callbacks = [_timing_callback]
 
+LLM_DEBUG = True # add
+
 class LLMError(Exception):
     pass
 
@@ -372,7 +374,7 @@ async def make_llm_api_call(
                     response = await litellm.acompletion(**params)
             else:
                 response = await litellm.acompletion(**params)
-            ttft = time_module.monotonic() - call_start
+            ttft = time_module.monotonic() - call_start_mono
             
             # Log TTFT with severity based on duration
             if ttft > 30.0:
