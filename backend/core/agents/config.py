@@ -125,14 +125,36 @@ async def load_agent_config(
                 agent_config = cached_config
                 logger.info(f"⏱️ [AGENT CONFIG] version-specific cache hit (v{version_number}): {(time.time() - t_cache) * 1000:.1f}ms (CACHE HIT)")
             else:
-                # Step 4: Cache miss - load from DB and auto-cache
-                logger.info(f"⏱️ [AGENT CONFIG] Cache miss for v{version_number}, loading from DB and caching...")
+                # Step 4: Cache miss - load version directly from DB and auto-cache
+                logger.info(f"⏱️ [AGENT CONFIG] Cache miss for v{version_number}, loading version from DB and caching...")
                 t_db = time.time()
-                from core.agents.agent_loader import get_agent_loader
-                loader = await get_agent_loader()
-                user_id_for_load = account_id or user_id or agent_id
-                agent_data = await loader.load_agent(agent_id, user_id_for_load, load_config=True)
-                agent_config = agent_data.to_dict()
+                
+                # Get version data directly using version_id
+                version_data = await versioning_repo.get_agent_version_by_id(agent_id, version_id)
+                
+                if not version_data:
+                    logger.error(f"[AGENT CONFIG] Version {version_id} not found for agent {agent_id}")
+                    return None
+                
+                # Extract config from version data
+                config = version_data.get('config', {})
+                tools = config.get('tools', {})
+                
+                agent_config = {
+                    'agent_id': agent_id,
+                    'system_prompt': config.get('system_prompt', ''),
+                    'model': config.get('model'),
+                    'configured_mcps': tools.get('mcp', []),
+                    'custom_mcps': tools.get('custom_mcp', []),
+                    'agentpress_tools': tools.get('agentpress', {}),
+                    'triggers': config.get('triggers', []),
+                    'version_id': version_id,
+                    'version_number': version_number,
+                    'version_name': version_data.get('version_name', f'v{version_number}'),
+                    'centrally_managed': False,
+                    'is_suna_default': False,
+                    'restrictions': {}
+                }
                 
                 # Auto-cache the loaded config with version-specific key
                 try:
