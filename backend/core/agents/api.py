@@ -215,18 +215,6 @@ async def _create_agent_run_record(
 # Core Agent Start Logic
 # ============================================================================
 
-def create_thread_name_from_prompt(prompt: str) -> str:
-    """Create thread name from prompt using first 20 characters."""
-    if not prompt or not prompt.strip():
-        raise HTTPException(status_code=400, detail="Prompt cannot be empty")
-    
-    cleaned_prompt = prompt.strip()
-    if len(cleaned_prompt) <= 20:
-        return cleaned_prompt
-    else:
-        return cleaned_prompt[:20] + "..."
-
-
 async def start_agent_run(
     account_id: str,
     prompt: str,
@@ -289,8 +277,6 @@ async def start_agent_run(
         if not thread_id:
             thread_id = str(uuid.uuid4())
         
-        # Use prompt for both project and thread names
-        thread_name = create_thread_name_from_prompt(prompt)
         placeholder_name = f"{prompt[:30]}..." if len(prompt) > 30 else prompt
         
         step_start = time.time()
@@ -299,19 +285,21 @@ async def start_agent_run(
             thread_id=thread_id,
             account_id=account_id,
             project_name=placeholder_name,
-            thread_name=thread_name,
+            thread_name="New Chat",
             status="pending",
             memory_enabled=memory_enabled
         )
         timing_breakdown["create_project_and_thread_ms"] = round((time.time() - step_start) * 1000, 1)
         
         from core.cache.runtime_cache import set_cached_project_metadata, increment_thread_count_cache
+        from core.utils.thread_name_generator import generate_and_update_thread_name
         
         # Cache project metadata with mode if provided
         project_metadata = {"mode": mode} if mode else {}
         asyncio.create_task(set_cached_project_metadata(project_id, project_metadata))
         asyncio.create_task(generate_and_update_project_name(project_id=project_id, prompt=prompt))
-        # Removed LLM thread naming task - using direct naming instead
+        if prompt:
+            asyncio.create_task(generate_and_update_thread_name(thread_id=thread_id, prompt=prompt))
         asyncio.create_task(increment_thread_count_cache(account_id))
         
         if project_id != thread_id:
@@ -491,18 +479,21 @@ async def unified_agent_start(
         target_id = thread_id or project_id or str(uuid.uuid4())
         staged_files_data = await get_staged_files_for_thread(file_ids, user_id, target_id)
     
-    # Validation - prompt is always required
-    if not prompt or not prompt.strip():
-        raise HTTPException(status_code=400, detail="Prompt is required")
-    
+    # Validation
     if is_optimistic:
         if not thread_id or not project_id:
             raise HTTPException(status_code=400, detail="thread_id and project_id required for optimistic mode")
+        # Allow empty prompt if file_ids provided (file-only submission)
+        if (not prompt or not prompt.strip()) and not file_ids:
+            raise HTTPException(status_code=400, detail="prompt or file_ids required for optimistic mode")
         try:
             uuid.UUID(thread_id)
             uuid.UUID(project_id)
         except ValueError:
             raise HTTPException(status_code=400, detail="Invalid UUID format")
+    
+    if not is_optimistic and not thread_id and (not prompt or not prompt.strip()) and not file_ids:
+        raise HTTPException(status_code=400, detail="prompt or file_ids required when creating new thread")
     
     # Resolve model
     if model_name is None:
