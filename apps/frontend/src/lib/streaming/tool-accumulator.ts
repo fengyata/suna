@@ -32,6 +32,8 @@ export function accumulateToolCallDeltas(
           index: tc.index,
         },
         chunks: [],
+        fullArguments: '',
+        lastSequence: -1,
       };
       accumulator.accumulatedToolCalls.set(toolCallId, accumulated);
     }
@@ -44,16 +46,36 @@ export function accumulateToolCallDeltas(
     }
     
     if (tc.is_delta && tc.arguments_delta) {
-      const existingIndex = accumulated.chunks.findIndex(c => c.sequence === sequence);
-      if (existingIndex >= 0) {
-        accumulated.chunks[existingIndex].delta = tc.arguments_delta;
-      } else {
+      // Fast path: sequence is strictly increasing
+      if (sequence > accumulated.lastSequence) {
+        accumulated.fullArguments += tc.arguments_delta;
+        accumulated.lastSequence = sequence;
         accumulated.chunks.push({ sequence, delta: tc.arguments_delta });
+      } else {
+        // Slow path: out-of-order or duplicate sequence
+        const existingIndex = accumulated.chunks.findIndex(c => c.sequence === sequence);
+        if (existingIndex >= 0) {
+          // If content changed for some reason, we need to rebuild
+          if (accumulated.chunks[existingIndex].delta !== tc.arguments_delta) {
+            accumulated.chunks[existingIndex].delta = tc.arguments_delta;
+            accumulated.fullArguments = accumulated.chunks
+              .sort((a, b) => a.sequence - b.sequence)
+              .map(c => c.delta)
+              .join('');
+          }
+        } else {
+          // Out of order chunk
+          accumulated.chunks.push({ sequence, delta: tc.arguments_delta });
+          accumulated.chunks.sort((a, b) => a.sequence - b.sequence);
+          accumulated.fullArguments = accumulated.chunks.map(c => c.delta).join('');
+          accumulated.lastSequence = accumulated.chunks[accumulated.chunks.length - 1].sequence;
+        }
       }
-      accumulated.chunks.sort((a, b) => a.sequence - b.sequence);
     } else if (tc.arguments) {
       const argsStr = typeof tc.arguments === 'string' ? tc.arguments : JSON.stringify(tc.arguments);
       accumulated.chunks = [{ sequence, delta: argsStr }];
+      accumulated.fullArguments = argsStr;
+      accumulated.lastSequence = sequence;
     }
   }
 }
@@ -64,11 +86,6 @@ export function reconstructToolCalls(
   const allReconstructedToolCalls = Array.from(accumulator.accumulatedToolCalls.values())
     .sort((a, b) => (a.metadata.index ?? 0) - (b.metadata.index ?? 0))
     .map(accumulated => {
-      let mergedArgs = '';
-      for (const chunk of accumulated.chunks) {
-        mergedArgs += chunk.delta;
-      }
-      
       const toolCallId = accumulated.metadata.tool_call_id;
       const isCompleted = accumulator.completedToolCallIds.has(toolCallId);
       const toolResult = accumulator.toolResults.get(toolCallId);
@@ -77,8 +94,8 @@ export function reconstructToolCalls(
         tool_call_id: toolCallId,
         function_name: accumulated.metadata.function_name,
         index: accumulated.metadata.index,
-        arguments: mergedArgs,
-        rawArguments: mergedArgs,
+        arguments: accumulated.fullArguments,
+        rawArguments: accumulated.fullArguments,
         is_delta: false,
         completed: isCompleted,
         tool_result: toolResult 

@@ -93,6 +93,12 @@ export function useAgentStream(
   const pendingChunksRef = useRef<Array<{ content: string; sequence: number }>>([]);
   const rafIdRef = useRef<number | null>(null);
   
+  const pendingReasoningRef = useRef<string[]>([]);
+  const reasoningRafIdRef = useRef<number | null>(null);
+  
+  const toolCallIdleIdRef = useRef<number | null>(null);
+  const pendingToolCallMessageRef = useRef<any | null>(null);
+  
   const toolCallThrottleRef = useRef<{
     lastUpdate: number;
     pendingUpdate: UnifiedMessage | null;
@@ -130,6 +136,16 @@ export function useAgentStream(
       if (rafIdRef.current) {
         cancelAnimationFrame(rafIdRef.current);
       }
+      if (reasoningRafIdRef.current) {
+        cancelAnimationFrame(reasoningRafIdRef.current);
+      }
+      if (toolCallIdleIdRef.current !== null && typeof window !== 'undefined') {
+        if ('cancelIdleCallback' in window) {
+          (window as any).cancelIdleCallback(toolCallIdleIdRef.current);
+        } else {
+          (window as any).clearTimeout(toolCallIdleIdRef.current);
+        }
+      }
       if (toolCallThrottleRef.current.timeoutId) {
         clearTimeout(toolCallThrottleRef.current.timeoutId);
       }
@@ -162,6 +178,18 @@ export function useAgentStream(
     rafIdRef.current = null;
   }, []);
   
+  const flushPendingReasoning = useCallback(() => {
+    if (!isMountedRef.current) return;
+    
+    if (pendingReasoningRef.current.length > 0) {
+      const reasoningToAdd = pendingReasoningRef.current.join('');
+      pendingReasoningRef.current = [];
+      setReasoningContent(prev => prev + reasoningToAdd);
+    }
+    
+    reasoningRafIdRef.current = null;
+  }, []);
+  
   const addTextChunk = useCallback((content: string, sequence: number) => {
     pendingChunksRef.current.push({ content, sequence });
     
@@ -169,6 +197,46 @@ export function useAgentStream(
       rafIdRef.current = requestAnimationFrame(flushPendingChunks);
     }
   }, [flushPendingChunks]);
+  
+  const addReasoningChunk = useCallback((content: string) => {
+    pendingReasoningRef.current.push(content);
+    
+    if (!reasoningRafIdRef.current) {
+      reasoningRafIdRef.current = requestAnimationFrame(flushPendingReasoning);
+    }
+  }, [flushPendingReasoning]);
+
+  const processToolCallUpdate = useCallback(() => {
+    if (!isMountedRef.current || !pendingToolCallMessageRef.current) {
+      toolCallIdleIdRef.current = null;
+      return;
+    }
+
+    const message = pendingToolCallMessageRef.current;
+    pendingToolCallMessageRef.current = null;
+    toolCallIdleIdRef.current = null;
+
+    // Perform the expensive reconstruction and message creation in idle time
+    const reconstructed = reconstructToolCalls(accumulatorRef.current);
+    const updatedMessage = createMessageWithToolCalls(message, reconstructed);
+    
+    setToolCall(updatedMessage);
+    callbacksRef.current.onToolCallChunk?.(updatedMessage);
+  }, []);
+
+  const scheduleToolCallUpdate = useCallback((message: any) => {
+    pendingToolCallMessageRef.current = message;
+    
+    if (toolCallIdleIdRef.current === null) {
+      if (typeof window !== 'undefined') {
+        if ('requestIdleCallback' in window) {
+          toolCallIdleIdRef.current = (window as any).requestIdleCallback(processToolCallUpdate, { timeout: 100 });
+        } else {
+          toolCallIdleIdRef.current = (window as any).setTimeout(processToolCallUpdate, 16);
+        }
+      }
+    }
+  }, [processToolCallUpdate]);
   
   const updateToolCall = useCallback((message: UnifiedMessage) => {
     const now = performance.now();
@@ -210,10 +278,26 @@ export function useAgentStream(
     setError(null);
     clearAccumulator(accumulatorRef.current);
     pendingChunksRef.current = [];
+    pendingReasoningRef.current = [];
+    pendingToolCallMessageRef.current = null;
     
     if (rafIdRef.current) {
       cancelAnimationFrame(rafIdRef.current);
       rafIdRef.current = null;
+    }
+
+    if (reasoningRafIdRef.current) {
+      cancelAnimationFrame(reasoningRafIdRef.current);
+      reasoningRafIdRef.current = null;
+    }
+
+    if (toolCallIdleIdRef.current !== null && typeof window !== 'undefined') {
+      if ('cancelIdleCallback' in window) {
+        (window as any).cancelIdleCallback(toolCallIdleIdRef.current);
+      } else {
+        (window as any).clearTimeout(toolCallIdleIdRef.current);
+      }
+      toolCallIdleIdRef.current = null;
     }
     
     if (toolCallThrottleRef.current.timeoutId) {
@@ -239,6 +323,11 @@ export function useAgentStream(
     }
 
     flushPendingChunks();
+    flushPendingReasoning();
+    
+    if (pendingToolCallMessageRef.current) {
+      processToolCallUpdate();
+    }
 
     setStatus(finalStatus);
     callbacksRef.current.onStatusChange?.(finalStatus);
@@ -290,7 +379,7 @@ export function useAgentStream(
     if (threadIdRef.current !== threadId) return;
     
     const processed = processStreamData(rawData, accumulatorRef.current);
-    
+    console.log('processed','----', processed.type,'-------', processed);
     switch (processed.type) {
       case 'text_chunk':
         if (processed.content) {
@@ -304,17 +393,16 @@ export function useAgentStream(
       
       case 'reasoning_chunk':
         if (processed.content) {
-          setReasoningContent(prev => prev + processed.content);
+          addReasoningChunk(processed.content);
         }
         break;
       
       case 'tool_call_chunk':
-        if (processed.toolCalls && processed.message) {
-          const updatedMessage = createMessageWithToolCalls(processed.message, processed.toolCalls);
-          updateToolCall(updatedMessage);
+        if (processed.message) {
+          scheduleToolCallUpdate(processed.message);
         }
         if (processed.content) {
-          setReasoningContent(prev => prev + processed.content);
+          addReasoningChunk(processed.content);
         }
         break;
       
@@ -326,6 +414,10 @@ export function useAgentStream(
       
       case 'message_complete':
         flushPendingChunks();
+        flushPendingReasoning();
+        if (pendingToolCallMessageRef.current) {
+          processToolCallUpdate();
+        }
         setTextChunks([]);
         setToolCall(null);
         clearAccumulator(accumulatorRef.current);
