@@ -706,9 +706,24 @@ const AssistantGroupRow = memo(function AssistantGroupRow({
   const showLoader = useMemo(() => {
     if (!isLastGroup || readOnly) return false;
     if (agentStatus !== "running" && agentStatus !== "connecting") return false;
-    if (streamingTextContent || streamingToolCall) return false;
-    // Don't show loader if we have ask/complete text
+
+    // If we have a dedicated tool call object, it will handle its own loader/UI
+    if (streamingToolCall) return false;
+
+    // If we have ask/complete text (special tools rendered as text), don't show the big loader
     if (askCompleteText) return false;
+
+    // Check if the current streaming text already contains a tool-calling tag.
+    // If it does, ShowToolStream will handle the "Using Tool" indicator.
+    const hasToolTagInText =
+      displayStreamingText &&
+      (Array.from(HIDE_STREAMING_XML_TAGS).some((tag) => {
+        if (tag === "ask" || tag === "complete") return false;
+        return displayStreamingText.includes(`<${tag}`);
+      }) ||
+        displayStreamingText.includes("<function_calls>"));
+    if (hasToolTagInText) return false;
+
     if (streamHookStatus !== "streaming" && streamHookStatus !== "connecting")
       return false;
 
