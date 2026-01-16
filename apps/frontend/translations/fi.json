@@ -1,0 +1,1609 @@
+{
+  "common": {
+    "cancel": "Peruuta",
+    "save": "Tallenna",
+    "saving": "Tallennetaan...",
+    "success": "Valmis",
+    "done": "Valmis",
+    "close": "Sulje",
+    "ok": "OK",
+    "yes": "Kyllä",
+    "no": "Ei",
+    "delete": "Poista",
+    "edit": "Muokkaa",
+    "search": "Hae",
+    "loading": "Ladataan...",
+    "error": "Virhe",
+    "retry": "Yritä uudelleen",
+    "send": "Lähetä",
+    "back": "Takaisin",
+    "new": "Uusi",
+    "create": "Luo",
+    "update": "Päivitä",
+    "remove": "Poista",
+    "confirm": "Vahvista",
+    "processing": "Käsitellään...",
+    "keep": "Pidä",
+    "active": "Aktiivinen",
+    "inactive": "Ei käytössä",
+    "next": "Seuraava",
+    "upgrade": "Päivitä",
+    "basic": "Perus",
+    "tryFree": "Aloita"
+  },
+  "settings": {
+    "title": "Asetukset",
+    "tabs": {
+      "general": "Yleiset",
+      "plan": "Tilaus",
+      "billing": "Laskutus",
+      "usage": "Käyttö",
+      "referrals": "Suosittelut",
+      "knowledgeBase": "Tietopankki",
+      "integrations": "Integraatiot",
+      "envManager": "Ympäristönhallinta"
+    },
+    "general": {
+      "title": "Yleiset asetukset",
+      "description": "Hallitse tilitietojasi",
+      "profilePicture": {
+        "title": "Profiilikuva",
+        "upload": "Lataa kuva",
+        "hint": "JPG, PNG tai GIF. Max 5MB.",
+        "invalidType": "Valitse kuvatiedosto",
+        "tooLarge": "Kuvan on oltava alle 5MB",
+        "uploadFailed": "Profiilikuvan lataus epäonnistui"
+      },
+      "name": "Nimi",
+      "email": "Sähköposti",
+      "namePlaceholder": "Kirjoita nimesi",
+      "emailCannotChange": "Sähköpostia ei voi muuttaa täältä",
+      "saveChanges": "Tallenna muutokset",
+      "profileUpdated": "Profiili päivitetty",
+      "profileUpdateFailed": "Profiilin päivitys epäonnistui",
+      "language": {
+        "title": "Kieli",
+        "description": "Valitse haluamasi kieli",
+        "current": "Nykyinen kieli",
+        "select": "Valitse kieli"
+      },
+      "deleteAccount": {
+        "title": "Poista tili",
+        "description": "Poista tilisi ja kaikki siihen liittyvät tiedot pysyvästi",
+        "button": "Poista tili",
+        "scheduled": "Poisto ajastettu",
+        "scheduledDescription": "Tilisi poistetaan pysyvästi {date}.",
+        "canCancel": "Voit peruuttaa tämän pyynnön milloin tahansa ennen poistopäivää.",
+        "cancelButton": "Peruuta poistopyyntö",
+        "dialogTitle": "Poista tili",
+        "warning": "Tätä toimintoa ei voi peruuttaa 30 päivän jälkeen",
+        "whenDelete": "Kun poistat tilisi:",
+        "agentsDeleted": "Kaikki Workerit ja niiden versiot poistetaan",
+        "threadsDeleted": "Kaikki keskustelut ja istunnot poistetaan",
+        "credentialsRemoved": "Kaikki tunnistetiedot ja integraatiot poistetaan",
+        "subscriptionCancelled": "Tilauksesi peruutetaan",
+        "billingRemoved": "Kaikki laskutustiedot poistetaan",
+        "scheduled30Days": "Tilisi on ajastettu poistettavaksi 30 päivän kuluttua",
+        "gracePeriod": "Voit peruuttaa tämän pyynnön milloin tahansa 30 päivän harkinta-ajan kuluessa. 30 päivän jälkeen kaikki tietosi poistetaan pysyvästi, eikä niitä voida palauttaa.",
+        "chooseDeletionType": "Valitse poistotyyppi:",
+        "gracePeriodOption": "30 päivän harkinta-aika",
+        "gracePeriodDescription": "Tilisi poistetaan 30 päivän kuluttua. Voit peruuttaa pyynnön milloin tahansa harkinta-ajan aikana.",
+        "immediateOption": "Välitön poisto",
+        "immediateDescription": "Tilisi ja kaikki tiedot poistetaan pysyvästi välittömästi. Tätä toimintoa ei voi peruuttaa.",
+        "warningImmediate": "Tätä toimintoa ei voi peruuttaa",
+        "warningGracePeriod": "Tätä toimintoa ei voi peruuttaa 30 päivän jälkeen",
+        "confirmText": "Kirjoita delete vahvistaaksesi",
+        "confirmPlaceholder": "delete",
+        "keepAccount": "Pidä tili",
+        "cancelDeletionTitle": "Peruuta tilin poisto",
+        "cancelDeletionDescription": "Oletko varma, että haluat peruuttaa tilisi poiston? Tilisi ja kaikki tiedot säilytetään.",
+        "cancelDeletion": "Peruuta poisto"
+      }
+    },
+    "referrals": {
+      "title": "Suositteluohjelma",
+      "description": "Jaa suosittelulinkkisi ystävillesi ja ansaitse krediittejä, kun he rekisteröityvät.",
+      "creditsPerReferral": "100 krediittiä",
+      "youEarn": "Sinä ansaitset",
+      "friendGets": "Ystäväsi saa",
+      "maxEarnable": "Suositteluilla ansaittava enimmäismäärä:",
+      "maxCredits": "$100 krediitteinä",
+      "yourReferralCode": "Suosittelukoodisi",
+      "referralLink": "Suosittelulinkki",
+      "shareYourLink": "Jaa linkkisi",
+      "yourStats": "Tilastosi",
+      "enterCodeDescription": "Syötä suosittelukoodi ansaitaksesi krediittejä",
+      "enterCode": "Syötä koodi",
+      "refresh": "Päivitä",
+      "copyCode": "Kopioi koodi",
+      "copyLink": "Kopioi linkki",
+      "share": "Jaa",
+      "stats": {
+        "totalReferrals": "Suosittelut yhteensä",
+        "successful": "Onnistuneet",
+        "creditsEarned": "Anstaitut krediitit"
+      },
+      "recentReferrals": "Viimeisimmät suosittelut",
+      "signupComplete": "Rekisteröityminen valmis",
+      "pending": "Odottaa",
+      "noReferrals": "Ei vielä suositteluja. Jaa linkkisi aloittaaksesi!",
+      "copied": "Kopioitu!",
+      "codeCopied": "Suosittelukoodi kopioitu leikepöydälle",
+      "linkCopied": "Suosittelulinkki kopioitu leikepöydälle",
+      "codeRefreshed": "Suosittelukoodi päivitetty",
+      "refreshFailed": "Suosittelukoodin päivitys epäonnistui",
+      "inviteByEmail": "Kutsu sähköpostilla",
+      "inviteByEmailDescription": "Lisää enintään 3 sähköpostiosoitetta (paina Enter, välilyönti tai pilkku lisätäksesi)",
+      "emailAddress": "Sähköpostiosoite",
+      "emailPlaceholder": "Syötä sähköpostiosoitteet (Enter, välilyönti tai pilkku)",
+      "emailsAdded": "Sähköpostiosoitteet lisätty",
+      "sent": "Lähetetty",
+      "send": "Lähetä",
+      "sending": "Lähetetään...",
+      "sendAllInvites": "Lähetä kaikki kutsut",
+      "allSent": "Kaikki lähetetty",
+      "emailSent": "Suosittelukutsu lähetetty"
+    },
+    "billing": {
+      "title": "Laskutus ja tilaus",
+      "description": "Hallitse krediittejäsi ja tilaustasi",
+      "totalCredits": "Krediittejä yhteensä",
+      "allCredits": "Kaikki krediitit",
+      "monthlyCredits": "Kuukausittaiset krediitit",
+      "renewalIn": "Uusiutuu {days} {days, plural, one {päivän} other {päivän}} kuluttua",
+      "noRenewal": "Ei ajastettua uusiutumista",
+      "extraCredits": "Lisäkrediitit",
+      "nonExpiring": "Ei vanhene",
+      "renews": "Uusiutuu {date}",
+      "manageSubscription": "Hallitse tilausta",
+      "getAdditionalCredits": "Hanki lisäkrediittejä",
+      "changePlan": "Vaihda tilausta",
+      "annualCommitment": "Vuosisitoutuminen",
+      "activeUntil": "Aktiivinen {date} asti",
+      "subscriptionCancelled": "Tilauksesi päättyy {date}",
+      "reactivate": "Aktivoi uudelleen",
+      "creditsExplained": "Tietoa krediiteistä",
+      "cancelPlan": "Peruuta tilaus",
+      "reactivateSubscription": "Aktivoi tilaus uudelleen",
+      "reactivating": "aktivoidaan uudelleen...",
+      "cancelDialogTitle": "Peruuta tilaus",
+      "cancelDialogDescription": "Oletko varma, että haluat peruuttaa tilauksesi? Sinulla on edelleen pääsy {date} asti.",
+      "keepSubscription": "Pidä tilaus",
+      "cancelling": "Peruutetaan...",
+      "localMode": "Paikallinen tila päällä",
+      "localModeDescription": "Kaikki premium-ominaisuudet ovat käytettävissä tässä ympäristössä",
+      "insufficientCredits": "Riittämättömästi krediittejä",
+      "insufficientCreditsMessage": "Laskutustarkistus epäonnistui: Riittämättömästi krediittejä. Saldosi on {balance}. Lisää krediittejä jatkaaksesi.",
+      "creditsExhausted": "Krediittisi ovat loppuneet. Päivitä nyt.",
+      "billingCheckFailed": "Laskutustarkistus epäonnistui. Päivitä jatkaaksesi.",
+      "failedToStartAgent": "Workerin {agentName} käynnistys epäonnistui: {message}"
+    },
+    "usage": {
+      "title": "Käyttö"
+    },
+    "knowledgeBase": {
+      "opening": "Avataan tietopankkia",
+      "redirecting": "Uudelleenohjataan tietopankkisivulle..."
+    },
+    "integrations": {
+      "opening": "Avataan integraatioita",
+      "redirecting": "Uudelleenohjataan integraatiosivulle..."
+    },
+    "memory": {
+      "title": "AI-muisti",
+      "description": "Muista konteksti automaattisesti keskustelujen välillä",
+      "enabled": "Päällä",
+      "disabled": "Pois päältä",
+      "notAvailable": "Muisti ei ole käytettävissä nykyisessä tilauksessasi. Päivitä Plus-tasolle tai korkeammalle ottaaksesi automaattisen muistin käyttöön.",
+      "enableMemory": "Ota muisti käyttöön",
+      "enableMemoryDescription": "Anna SuperAgentin muistaa tietoja keskusteluistasi",
+      "memoryDisabledByUser": "Muisti on tällä hetkellä poissa käytöstä. Ota se käyttöön ylhäältä alkaaksesi kerryttää muistoja keskusteluistasi.",
+      "upgradeRequired": "Muisti vaatii päivityksen",
+      "clickToUpgrade": "Klikkaa nähdäksesi tilaukset",
+      "memoryEnabledTooltip": "Muisti päällä",
+      "memoryDisabledTooltip": "Muisti pois päältä",
+      "clickToToggle": "Klikkaa vaihtaaksesi",
+      "usage": "Muistin käyttö",
+      "available": "{count} muistoa käytettävissä",
+      "noLimit": "Ei rajoitusta",
+      "yourMemories": "Muistosi",
+      "yourMemoriesDescription": "Tarkastele ja hallitse, mitä AI muistaa sinusta",
+      "clearAll": "Tyhjennä kaikki",
+      "deleteAllTitle": "Poistetaanko kaikki muistot?",
+      "deleteAllDescription": "Tämä poistaa kaikki {count} muistoasi pysyvästi. AI ei enää muista tietoja aiemmista keskusteluista. Tätä toimintoa ei voi peruuttaa.",
+      "deleteAllButton": "Poista kaikki muistot",
+      "noMemoriesYet": "Ei vielä muistoja",
+      "noMemoriesDescription": "Aloita keskustelu, niin AI muistaa automaattisesti tärkeitä tietoja sinusta",
+      "searchMemories": "Hae muistoista...",
+      "filterByType": "Suodata tyypin mukaan",
+      "allTypes": "Kaikki tyypit",
+      "personalFacts": "Henkilökohtaiset faktat",
+      "preferences": "Mieltymykset",
+      "context": "Konteksti",
+      "conversations": "Keskustelut",
+      "noMatchingMemories": "Hakuasi vastaavia muistoja ei löytynyt",
+      "adjustFilters": "Kokeile muuttaa suodattimia tai hakua",
+      "loadMore": "Lataa lisää",
+      "loading": "Ladataan muistoja...",
+      "memoryTypes": {
+        "fact": "Fakta",
+        "preference": "Mieltymys",
+        "context": "Konteksti",
+        "conversation_summary": "Keskustelu"
+      }
+    }
+  },
+  "triggers": {
+    "getStarted": "Aloita lisäämällä triggeri",
+    "getStartedDescription": "Ajasta triggeri automatisoidaksesi toimintoja ja saadaksesi muistutuksia niiden valmistumisesta.",
+    "search": "Hae",
+    "scheduledTrigger": "Ajastettu triggeri",
+    "eventBasedTrigger": "Tapahtumapohjainen triggeri",
+    "chooseAgent": "Valitse Worker",
+    "schedule": "Aikataulu",
+    "agentInstructions": "Workerin ohjeet",
+    "agentInstructionsDescription": "Mukautettu kehote Workerille",
+    "assignedAgent": "Määritetty Worker",
+    "unknownAgent": "Tuntematon Worker",
+    "technicalDetails": "Tekniset tiedot",
+    "type": "Tyyppi",
+    "provider": "Tarjoaja",
+    "created": "Luotu",
+    "lastUpdated": "Viimeksi päivitetty",
+    "enable": "Ota käyttöön",
+    "disable": "Poista käytöstä",
+    "deleteTask": "Poista tehtävä",
+    "deleteTaskDescription": "Haluatko varmasti poistaa tehtävän \"{name}\"? Tätä ei voi peruuttaa ja se pysäyttää kaikki tämän tehtävän automaattiset suoritukset.",
+    "taskEnabled": "Tehtävä otettu käyttöön",
+    "taskDisabled": "Tehtävä poistettu käytöstä",
+    "toggleTaskFailed": "Tehtävän tilan vaihtaminen epäonnistui",
+    "taskDeletedSuccess": "Tehtävä poistettu",
+    "deleteTaskFailed": "Tehtävän poistaminen epäonnistui",
+    "taskUpdatedSuccess": "Tehtävä päivitetty",
+    "updateTaskFailed": "Tehtävän päivittäminen epäonnistui",
+    "pleaseSelectAgent": "Valitse Worker",
+    "defaultScheduledTriggerName": "Ajastettu triggeri",
+    "defaultScheduledTriggerDescription": "Automaattisesti ajastettu triggeri",
+    "scheduleTriggerUpdated": "Ajastettu triggeri päivitetty",
+    "scheduleTriggerCreated": "Ajastettu triggeri luotu",
+    "upgradeForMoreScheduledTriggers": "Päivitä luodaksesi lisää ajastettuja triggereitä",
+    "upgradeForMoreAppTriggers": "Päivitä luodaksesi lisää sovelluspohjaisia triggereitä",
+    "updateScheduleTriggerFailed": "Ajastetun triggerin päivitys epäonnistui",
+    "createScheduleTriggerFailed": "Ajastetun triggerin luonti epäonnistui",
+    "editScheduledTask": "Muokkaa ajastettua tehtävää",
+    "createScheduledTask": "Luo ajastettu tehtävä",
+    "editAppBasedTask": "Muokkaa sovelluspohjaista tehtävää",
+    "createAppBasedTask": "Luo sovelluspohjainen tehtävä",
+    "updateAgentForTask": "Päivitä Worker tälle tehtävälle",
+    "selectAgentForTask": "Valitse ensin, mikä Worker hoitaa tämän tehtävän",
+    "createNew": "Luo uusi",
+    "notConfigured": "Ei määritetty",
+    "every15Minutes": "15 minuutin välein",
+    "every30Minutes": "30 minuutin välein",
+    "everyHour": "Tunneittain",
+    "dailyAt9AM": "Päivittäin klo 09:00",
+    "weekdaysAt9AM": "Arkipäivisin klo 09:00",
+    "weeklyOnMonday": "Viikoittain maanantaisin",
+    "monthlyOn1st": "Kuukausittain 1. päivä"
+  },
+  "sidebar": {
+    "referAndEarn": "Suosittele ja ansaitse",
+    "referralShareTitle": "Suosittele ystäville",
+    "referralShareSubtitle": "Saat 400 krediittiä",
+    "new": "Uusi",
+    "upgrade": "Päivitä",
+    "chats": "Chatit",
+    "library": "Tiedostot",
+    "triggers": "Triggerit",
+    "newChat": "Uusi chatti",
+    "newAgent": "Uusi Worker",
+    "settings": "Asetukset",
+    "logout": "Kirjaudu ulos",
+    "openMenu": "Avaa valikko",
+    "expandSidebar": "Laajenna sivupalkki (CMD+B)",
+    "searchChats": "Hae chateista",
+    "searchChatsPlaceholder": "Hae chateista...",
+    "allTriggers": "Kaikki triggerit",
+    "addWorkers": "Lisää Workereita",
+    "addTrigger": "Lisää triggeri",
+    "triggerConfig": "Triggerin asetukset",
+    "scheduledTrigger": "Ajastettu triggeri",
+    "scheduledTriggerDescription": "Ajasta triggeri suoritettavaksi tiettynä aikana",
+    "eventBasedTrigger": "Tapahtumapohjainen triggeri",
+    "eventBasedTriggerDescription": "Luo triggeri suoritettavaksi tapahtuman tapahtuessa",
+    "noChatsFound": "Chatteja ei löytynyt",
+    "noConversations": "Ei vielä keskusteluja",
+    "search": "Hae",
+    "searchPlaceholder": "Hae...",
+    "searchResults": "Hakutulokset",
+    "recent": "Viimeisimmät",
+    "personalAccount": "Henkilökohtainen tili",
+    "workspaces": "Työtilat",
+    "theme": "Teema",
+    "integrations": "Integraatiot",
+    "billing": "Laskutus",
+    "usage": "Käyttö",
+    "adminPanel": "Ylläpitopaneeli",
+    "apiKeys": "API-avaimet",
+    "envManager": "Ympäristönhallinta",
+    "advanced": "Lisäasetukset",
+    "plan": "Tilaus",
+    "knowledgeBase": "Tietopankki",
+    "conversation": "Keskustelu",
+    "conversations": "Keskustelut",
+    "startNewChat": "Aloita uusi chatti",
+    "openInNewTab": "Avaa uudessa välilehdessä",
+    "delete": "Poista",
+    "deleting": "Poistetaan",
+    "allThreadsLoaded": "Kaikki keskustelut ladattu",
+    "myWorkforce": "Työvoimani",
+    "addTeam": "Lisää tiimi",
+    "selectAll": "Valitse kaikki",
+    "deselectAll": "Poista valinnat",
+    "selectAllConversations": "Valitse kaikki keskustelut",
+    "deselectAllConversations": "Poista kaikkien keskustelujen valinta",
+    "loadMore": "Lataa lisää",
+    "remaining": "Jäljellä"
+  },
+  "dashboard": {
+    "title": "Hallintapaneeli",
+    "welcome": "Tervetuloa",
+    "whatWouldYouLike": "Mitä haluaisit tehdä?",
+    "describeWhatYouNeed": "Kuvaile mihin tarvitset apua...",
+    "usageLimits": "Käyttörajat",
+    "threads": "Keskustelut",
+    "customWorkers": "Omat Workerit",
+    "scheduledTriggers": "Ajastetut triggerit",
+    "appTriggers": "Sovellustriggerit",
+    "limitsExceeded": "Olet saavuttanut keskustelurajasi. Päivitä tilauksesi luodaksesi lisää keskusteluja.",
+    "agentInitiatedSuccessfully": "Worker käynnistetty",
+    "aiAssistantReady": "AI-avustajasi on valmis auttamaan",
+    "greetings": {
+      "morning": [
+        "Huomenta! Mitä suunnitelmia tälle päivälle?",
+        "Hyvää huomenta! Mitä rakennamme tänään?",
+        "Huomenta! Valmiina tuottavaan päivään?"
+      ],
+      "afternoon": [
+        "Päivää! Miten voin auttaa?",
+        "Toivottavasti päiväsi sujuu hyvin! Mitä seuraavaksi?"
+      ],
+      "evening": [
+        "Iltaa! Vieläkö painat hommia?",
+        "Hyvää iltaa! Mitä työstämme tänä iltana?",
+        "Iltaa! Saadaanpa asioita aikaan."
+      ],
+      "random": [
+        "Arvaa kuka on täällä taas!",
+        "Hei! Mitä SuperAgent voi tehdä puolestasi?",
+        "Mitä haluat saada tehdyksi?",
+        "Rakennetaan jotain mahtavaa!",
+        "Valmiina kun sinäkin!",
+        "Mitä kuuluu?",
+        "Palveluksessasi! Mikä on tehtävä?",
+        "Luodaanpa jotain upeaa!",
+        "Mikä haaste otetaan työn alle tänään?",
+        "Toiveesi on käskyni",
+        "Mikä on suunnitelma?",
+        "Vyöt kiinni! Minne mennään?",
+        "Uusi päivä, uusi projekti",
+        "Mitä mielessäsi on?",
+        "Laitetaan homma käyntiin"
+      ]
+    },
+    "good_morning": "Hyvää huomenta",
+    "good_afternoon": "Hyvää päivää",
+    "good_evening": "Hyvää iltaa",
+    "ready_to_accelerate_your_pipeline": "Valmiina nopeuttamaan prosessiasi? Valitse taito aloittaaksesi.",
+    "explore_agentic_ai_capabilities": "Tutustu agenttisen AI:n mahdollisuuksiin",
+    "marketing_assets": "Markkinointimateriaali",
+    "image": "Kuva",
+    "images": {
+      "label": "Kuva",
+      "bannerTitle": "Kuva-studio",
+      "bannerDescription": "Luo fotorealistista markkinointimateriaalia, monimutkaisia infograafeja ja julisteita täynnä tekstiä.",
+      "selectModelPlaceholder": "Valitse malli",
+      "styleTitle": "Valitse tyyli",
+      "samplePrompts": "Esimerkkejä",
+      "generateWithStylePrompt": "Luo kuva tyylillä {style}"
+    },
+    "videos": {
+      "label": "Video",
+      "bannerTitle": "Video-generaattori",
+      "bannerDescription": "Luo elokuvallisia videoita ultrarealistisella valaistuksella ja sulavilla liikkeillä.",
+      "selectModelPlaceholder": "Valitse malli",
+      "styleTitle": "Valitse videotyyli",
+      "samplePrompts": "Esimerkkejä",
+      "generateWithStylePrompt": "Luo video tyylillä {style}"
+    },
+    "tags": {
+      "sales": "Myynti",
+      "cx": "Asiakaskokemus",
+      "mktg": "Markkinointi",
+      "ops": "Toiminnot",
+      "hr": "Henkilöstö",
+      "legal": "Lakiasiat"
+    },
+    "aePanel": {
+      "bannerTitle": "Account Executive -agentti",
+      "bannerDescription": "Myyntiavustaja koko prosessiin kartoituksesta demoon ja luovutukseen.",
+      "cards": {
+        "discovery": {
+          "title": "Kartoituksen valmistelu",
+          "description": "Luo kohdennettuja kysymyksiä ja taustatutkimusta.",
+          "prompt": "Valmistele kartoituskysymyksiä fintech-yrityksen myyntijohtajalle..."
+        },
+        "handoff": {
+          "title": "Myynti → CS luovutus",
+          "description": "Strukturoi kaupan muistiinpanot sujuvaa siirtoa varten.",
+          "prompt": "Luo luovutusdokumentti Customer Success -tiimille..."
+        },
+        "leadFeedback": {
+          "title": "Lead-palautesykli",
+          "description": "Jaa havaintoja leadien laadusta markkinoinnille.",
+          "prompt": "Kirjoita palautetta leadien laadusta markkinoinnille..."
+        }
+      }
+    },
+    "dataPanel": {
+      "bannerTitle": "Data-analyytikko-agentti",
+      "bannerDescription": "Siivoa listoja, rikasta kontakteja ja analysoi CSV-tiedostoja markkinatiedon saamiseksi.",
+      "cards": {
+        "leadCleaner": {
+          "title": "Lead-listan siivoaja",
+          "description": "Korjaa muotoilut, poista duplikaatit ja standardisoi kentät CRM-tuontia varten.",
+          "prompt": "Siivoa tämä lead-lista ja standardisoi työnimikkeet..."
+        },
+        "lookalikes": {
+          "title": "Lookalike-kohderyhmät",
+          "description": "Löydä uusia prospekteja parhaiden asiakkaittesi perusteella.",
+          "prompt": "Etsi yrityksiä, jotka muistuttavat 10 parasta asiakastani..."
+        },
+        "ticketAnalysis": {
+          "title": "Tiketti-analyysi",
+          "description": "Tunnista toistuvat ongelmat ja sävyt tukipyyntövienneistä.",
+          "prompt": "Analysoi nämä tukitiketit sävyn ja toistuvien ongelmien osalta..."
+        }
+      }
+    },
+    "pipelinePanel": {
+      "bannerTitle": "Prosessinhallinta",
+      "bannerDescription": "Ennusteet, kauppojen laadunvarmistus ja riskien tunnistus.",
+      "cards": {
+        "q4Forecast": {
+          "title": "Q4-ennuste",
+          "description": "Ennusta liikevaihtoa ja tunnista pysähtyneet kaupat.",
+          "prompt": "Ennusta Q4-liikevaihtoa ja tunnista riskit pysähtyneissä kaupoissa..."
+        },
+        "campaignRoi": {
+          "title": "Kampanjan ROI",
+          "description": "Attribuutioanalyysi viimeisimmistä onnistumisista.",
+          "prompt": "Analysoi kampanja-attribuutiota voitetuissa kaupoissa..."
+        },
+        "churnForecast": {
+          "title": "Churn-ennuste",
+          "description": "Ennusta uusiutumisia ja riskiasiakkaita.",
+          "prompt": "Ennusta poistumariskejä tulevassa uusiutumisryhmässä..."
+        }
+      }
+    },
+    "researchPanel": {
+      "bannerTitle": "Syväluotaava tutkimus",
+      "bannerDescription": "Käytä edistynyttä päättelyä syvälliseen markkinatutkimukseen, kilpailija-analyysiin ja kattavien raporttien luomiseen.",
+      "sectionTitle": "Aloita uusi tutkimus",
+      "items": {
+        "competitorDeepDive": "Kilpailija-syväluotaus",
+        "marketTrendAnalysis": "Markkinatrendien analyysi",
+        "accountIntelligenceReport": "Asiakastieto-raportti",
+        "regulatoryImpactStudy": "Sääntelyvaikutusten arviointi"
+      },
+      "promptTemplate": "Suorita {topic} aiheesta..."
+    },
+    "socialSellingPanel": {
+      "bannerTitle": "Social Selling -avustaja",
+      "bannerDescription": "Rakenna henkilöbrändiäsi, kirjoita koukuttavia aloituksia ja osallista prospekteja AI:n avulla.",
+      "cards": {
+        "viralHook": {
+          "title": "Viraali-aloitusten luoja",
+          "description": "Vangitse huomio AI-suunnitelluilla aloituksilla.",
+          "prompt": "Kirjoita aloitus LinkedIn-postaukseen aiheesta..."
+        },
+        "repurpose": {
+          "title": "Sisällön kierrätys",
+          "description": "Muuta blogit postauksiksi, ketjuiksi ja karuselleiksi.",
+          "prompt": "Muuta tämä blogiartikkeli Twitter-ketjuksi..."
+        },
+        "dmSequence": {
+          "title": "DM-sarjan kirjoittaja",
+          "description": "Kirjoita viestejä, jotka eivät tunnu myynniltä.",
+          "prompt": "Kirjoita DM-sarja prospektille, joka on katsonut profiiliani..."
+        }
+      }
+    },
+    "strategistPanel": {
+      "bannerTitle": "Kauppastrategi",
+      "bannerDescription": "Nopeuta kauppasyklejä neuvottelusuunnitelmilla, sopimusten tarkastuksella ja hinnoittelustrategialla.",
+      "cards": {
+        "proposal": {
+          "title": "Älykäs ehdotusten luonti",
+          "description": "Automaattinen luonnostelu + hinnoittelu.",
+          "cta": "Luo luonnos nyt",
+          "prompt": "Luo ehdotus asiakkaalle [Customer] vakiohinnoittelulla..."
+        },
+        "redline": {
+          "title": "Tarkastusavustaja",
+          "description": "AI-pohjainen sopimustarkastus ja muutosehdotukset.",
+          "cta": "Lataa dokumentti",
+          "prompt": "Analysoi tämä sopimus ja ehdota muutoksia..."
+        },
+        "followUp": {
+          "title": "Monikanavainen seuranta",
+          "description": "Yksilölliset sähköpostit eri sidosryhmille.",
+          "cta": "Luo sarja",
+          "prompt": "Kirjoita monikanavaiset seurannat varajohtajalle ja päällikölle..."
+        },
+        "expansion": {
+          "title": "Lisämyynnin etsijä",
+          "description": "Tunnista lisämyyntisignaalit ja asiakkaan tila.",
+          "cta": "Etsi mahdollisuuksia",
+          "prompt": "Analysoi tilin käyttöä lisämyyntisignaalien varalta..."
+        }
+      }
+    },
+    "icpPanel": {
+      "bannerTitle": "Alue ja tunnettuus",
+      "bannerDescription": "Määrittele ICP, segmentoi alueet ja kartoita päättäjät.",
+      "sectionTitle": "Syvä segmentointi",
+      "cards": {
+        "repAssignment": {
+          "title": "Myyjien määritys",
+          "description": "Suositeltu myyjien jako vahvuuksien perusteella.",
+          "prompt": "Ehdota myyjien jakoa länsirannikon alueelle aiempien tulosten perusteella..."
+        },
+        "quotaModeling": {
+          "title": "Kiintiömallinnus",
+          "description": "Optimoi tavoitteet ja analysoi kapasiteettia.",
+          "prompt": "Mallinna kiintiökapasiteettia vuodelle 2024 nykyisellä henkilöstöllä..."
+        },
+        "predictiveHiring": {
+          "title": "Ennakoiva rekrytointi",
+          "description": "Rekrytointiennusteet kasvuputken perusteella.",
+          "prompt": "Luo rekrytointisuunnitelma perustuen prosessin nopeuteen ja tavoitteisiin..."
+        },
+        "marketSegmentation": {
+          "title": "Markkinasegmentointi",
+          "description": "Tarkenna ICP:itä ja ostajapersoonia.",
+          "prompt": "Määrittele psykografinen profiili yrityssegmentillemme..."
+        },
+        "customerHealth": {
+          "title": "Asiakkaiden kunto-profiili",
+          "description": "Tunnista pitkäaikaisten menestysasiakkaiden piirteet.",
+          "prompt": "Luo terveyspisteytysprofiili menestyneimmille asiakkaillemme..."
+        }
+      }
+    },
+    "websitePanel": {
+      "bannerTitle": "Verkkosivusto",
+      "bannerDescription": "Luo korkean konversion laskeutumissivuja ja toimivia verkkosovelluksia AI:n avulla.",
+      "sectionTitle": "Mallikirjasto",
+      "promptTemplate": "Luo {template} aiheesta...",
+      "categories": {
+        "marketing": {
+          "title": "Markkinointi ja kampanjat",
+          "items": {
+            "landingPage": "Konvertoiva laskeutumissivu",
+            "webinarRegistration": "Webinaarin rekisteröitymissivu",
+            "productLaunchCountdown": "Tuotelanseerauksen lähtölaskenta",
+            "eventMicrosite": "Tapahtuman mikrosivusto",
+            "newsletterSignup": "Uutiskirjeen tilaussivu"
+          }
+        },
+        "corporate": {
+          "title": "Yritys ja brändäys",
+          "items": {
+            "corporateHomepage": "Moderni yrityksen kotisivu",
+            "aboutLeadership": "Tietoa meistä ja johtoryhmä",
+            "careersCulture": "Ura ja kulttuuri -keskus",
+            "pressMediaKit": "Lehdistö ja mediapaketti"
+          }
+        },
+        "saas": {
+          "title": "SaaS ja tuote",
+          "items": {
+            "saasHomepage": "SaaS-tuotesivu",
+            "pricingComparison": "Hinnoittelu ja tilausvaihtoehdot",
+            "featureDeepDive": "Ominaisuuksien esittelysivu",
+            "docsHelpCenter": "Dokumentaatio / Ohjekeskus"
+          }
+        },
+        "content": {
+          "title": "Sisältö ja portfolio",
+          "items": {
+            "personalPortfolio": "Henkilökohtainen portfolio",
+            "agencyShowcase": "Toimiston näyttelysivu",
+            "consultantBooking": "Konsultin varaussivu",
+            "resourceLibraryBlog": "Resurssikirjasto / Blogi"
+          }
+        }
+      }
+    },
+    "adsPanel": {
+      "bannerTitle": "Mainos-studio",
+      "bannerDescription": "Luo konvertoivia mainoksia tarkalla kohdennuksella ja luovalla suuntauksella.",
+      "none": "Ei mitään",
+      "steps": {
+        "strategyTargeting": "Strategia ja kohdennus",
+        "adSpecifications": "Mainoksen tiedot",
+        "creativeDirection": "Luova suuntaus"
+      },
+      "fields": {
+        "productUrl": "Tuotteen laskeutumissivun URL",
+        "competitorUrl": "Kilpailijan URL",
+        "targetAudience": "Kohderyhmä",
+        "platforms": "Alustat",
+        "format": "Muoto",
+        "callToAction": "Toimintakehote",
+        "visualStyle": "Visuaalinen tyyli",
+        "outputVolume": "Määrä",
+        "massTranslation": "Massakäännös"
+      },
+      "placeholders": {
+        "url": "https://...",
+        "age": "Ikä (esim. 25-45)",
+        "location": "Sijainti (esim. Suomi, Eurooppa)",
+        "interests": "Kiinnostuksen kohteet (esim. SaaS, Tekniikka)",
+        "ctaText": "Painikkeen teksti (esim. Rekisteröidy nyt)",
+        "destinationLink": "Kohdelinkki (esim. https://...)"
+      },
+      "platforms": {
+        "googleAds": "Google Ads",
+        "metaAds": "Meta Ads",
+        "linkedin": "LinkedIn",
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "youtube": "YouTube"
+      },
+      "formats": {
+        "singleImage": "Yksittäinen kuva",
+        "carousel": "Karuselli",
+        "shortVideo": "Lyhyt video",
+        "story": "Tarina"
+      },
+      "visualStyles": {
+        "minimalist": "Minimalistinen",
+        "boldVibrant": "Rohkea ja eloisa",
+        "professional": "Ammattimainen",
+        "playful": "Leikkisä",
+        "luxury": "Ylellinen",
+        "futuristic": "Futuristinen",
+        "handDrawn": "Käsin piirretty",
+        "corporate": "Yritysmäinen"
+      },
+      "languages": {
+        "es": "Espanja",
+        "fr": "Ranska",
+        "de": "Saksa",
+        "ja": "Japani",
+        "pt": "Portugali",
+        "it": "Italia",
+        "zh": "Kiina",
+        "ko": "Korea",
+        "ar": "Arabia",
+        "nl": "Hollanti",
+        "sv": "Ruotsi",
+        "no": "Norja",
+        "da": "Tanska",
+        "fi": "Suomi",
+        "hi": "Hindi",
+        "ru": "Venäjä",
+        "tr": "Turkki",
+        "pl": "Puola",
+        "id": "Indonesia",
+        "th": "Thai",
+        "vi": "Vietnam",
+        "el": "Kreikka"
+      },
+      "outputVolumeConcepts": "{count} konseptia",
+      "generateButton": "Luo konseptit ({count})",
+      "strategyAppliedTitle": "Strategia sovellettu",
+      "strategyAppliedDescription": "Jokaisesta luodusta konseptista tuotamme automaattisesti kolme versiota.",
+      "variations": {
+        "1": {
+          "title": "1. Niukkuus ja kiire",
+          "description": "FOMO, rajoitetut tarjoukset, eksklusiiviset koukut"
+        },
+        "2": {
+          "title": "2. Hyötylähtöinen",
+          "description": "Selkeä arvolupaus, ongelma-ratkaisu-kehystys"
+        },
+        "3": {
+          "title": "3. Sosiaalinen todiste",
+          "description": "Suositukset, käyttäjämäärät, luottamusindikaattorit"
+        }
+      },
+      "prompt": {
+        "notProvided": "Ei annettu",
+        "general": "Yleinen",
+        "global": "Globaali",
+        "learnMore": "Lue lisää",
+        "na": "N/A",
+        "productUrl": "Tuotteen URL: {value}",
+        "competitorUrl": "Kilpailijan URL: {value}",
+        "targetAudienceTitle": "Kohderyhmä:",
+        "targetAudienceAge": "- Ikä: {value}",
+        "targetAudienceLocation": "- Sijainti: {value}",
+        "targetAudienceInterests": "- Kiinnostukset: {value}",
+        "campaignSpecsTitle": "Mainoksen tiedot:",
+        "platforms": "- Alustat: {value}",
+        "formats": "- Muodot: {value}",
+        "callToAction": "- Toimintakehote: \"{text}\" (Linkki: {link})",
+        "visualStyle": "- Visuaalinen tyyli: {value}",
+        "settingsTitle": "Asetukset:",
+        "numberOfConcepts": "- Konseptien määrä: {value}",
+        "translationLanguages": "- Käännöskielet: {value}",
+        "instructions": "Luo konvertoivia mainoskonsepteja näiden tietojen perusteella.",
+        "variationsInstruction": "Varmista, että tarjoat 3 erilaista tekstiversiota (Niukkuus, Hyöty, Sosiaalinen todiste) per konsepti."
+      }
+    },
+    "video_studio": "Video-studio",
+    "demos_outreach": "Demot ja yhteydenotot",
+    "pipeline_manager": "Prosessinhallinta",
+    "forecasting_deal_qa": "Ennusteet ja laadunvarmistus",
+    "account_executive": "Account Executive",
+    "full_cycle_sales_agent": "Koko myyntisyklin agentti",
+    "deal_strategist": "Kauppastrategi",
+    "negotiation_closers": "Neuvottelu ja päättäminen",
+    "data_analyst": "Data-analyytikko",
+    "cleaning_enrichment": "Siivous ja rikastus",
+    "territory_persona": "Alue ja persoona",
+    "icp_market_planning": "ICP ja markkinasuunnittelu",
+    "social_selling": "Social Selling",
+    "brand_content": "Brändi ja sisältö",
+    "deep_research": "Syväluotaava tutkimus",
+    "market_intel_reports": "Markkinatiedot ja raportit",
+    "ad_studio": "Mainos-studio",
+    "ads_creative_roi": "Mainokset ja luova ROI",
+    "gtm_decks": "GTM-materiaalit",
+    "proposals_qbrs": "Ehdotukset, QBR:t",
+    "landing_pages_sites": "Laskeutumissivut, sivustot",
+    "website": "Verkkosivusto",
+    "video": "Video",
+    "pipeline": "Prosessi",
+    "account_exec": "Account Exec",
+    "data": "Data",
+    "territory_icp": "Alue/ICP",
+    "research": "Tutkimus"
+  },
+  "thread": {
+    "integrations": "Integraatiot",
+    "connect": "Yhdistä",
+    "seeAllIntegrations": "+ Näytä kaikki integraatiot",
+    "connectIntegrations": "Yhdistä integraatioita",
+    "adaptive": "Adaptiivinen",
+    "adaptiveDescription": "Nopeat vastaukset älykkäällä kontekstin vaihdolla",
+    "autonomous": "Autonominen",
+    "autonomousDescription": "Syvän työn tila monivaiheiseen ongelmanratkaisuun",
+    "chat": "Chatti",
+    "chatDescription": "Yksinkertainen keskustelu edestakaisin",
+    "sampleAnswers": "Esimerkkivastaukset",
+    "samplePrompts": "Esimerkkejä",
+    "waitingForUserResponse": "SuperAgent jatkaa autonomisesti vastauksesi jälkeen.",
+    "taskCompleted": "Tehtävä valmis",
+    "uploadingFiles": "Ladataan {count} {count, plural, one {tiedostoa} other {tiedostoa}}...",
+    "uploadingFilesOne": "Ladataan 1 tiedosto...",
+    "uploadingFilesMany": "Ladataan {count} tiedostoa...",
+    "scrollToBottom": "Vieritä alas",
+    "tools": "Työkalut",
+    "instructions": "Ohjeet",
+    "knowledge": "Tieto",
+    "triggers": "Triggerit",
+    "agents": "Workerit",
+    "superWorker": "Super Worker",
+    "searchWorkers": "Hae Workereita...",
+    "myWorkers": "Omat Workerit",
+    "running": "Käynnissä",
+    "minimizeToFloatingPreview": "Pienennä leijuvaksi esikatseluksi",
+    "close": "Sulje",
+    "noActionsYet": "SuperAgent-tietokone",
+    "workerActionsDescription": "Käynnistys",
+    "emptyActionsDescription": "Workerin toiminnot näkyvät tässä",
+    "toolIsRunning": "Työkalu on käynnissä",
+    "toolCurrentlyExecuting": "{toolName} suoritetaan parhaillaan. Tulokset näkyvät tässä, kun se on valmis.",
+    "thinkingTitle": "Ajatellaan",
+    "thinkingDescription": "Valmistaudutaan suorittamaan toimintoja...",
+    "rateThisResult": "Arvioi tämä tulos",
+    "feedbackHelpsImprove": "Palautteesi auttaa meitä parantamaan",
+    "additionalFeedbackOptional": "Lisäpalaute (valinnainen)",
+    "helpKortixImprove": "Auta SuperAgentia parantamaan antamalla palautetta",
+    "submit": "Lähetä",
+    "submitting": "Lähetetään...",
+    "feedbackSubmittedSuccess": "Palaute lähetetty",
+    "feedbackSubmitFailed": "Palautteen lähettäminen epäonnistui"
+  },
+  "agents": {
+    "title": "Workerit",
+    "create": "Luo Worker",
+    "createNewWorker": "Luo uusi Worker",
+    "edit": "Muokkaa Workeria",
+    "delete": "Poista Worker",
+    "name": "Nimi",
+    "description": "Kuvaus",
+    "model": "Malli",
+    "systemPrompt": "System Prompt",
+    "systemPromptPlaceholder": "Määrittele miten Workerisi tulisi käyttäytyä...",
+    "customizeIcon": "Klikkaa muokataksesi Workerin kuvaketta"
+  },
+  "home": {
+    "heroPlaceholder": "Kuvaile tehtävä, jonka haluat Workerisi suorittavan..."
+  },
+  "showcase": {
+    "title": "SuperAgent: Autonominen AI-työvoimasi",
+    "subtitle": "Rakennettu monimutkaisuuteen, suunniteltu kaikkeen. Ultimaattinen AI-avustaja, joka hoitaa kaiken – yksinkertaisista pyynnöistä ultra-monimutkaisiin projekteihin.",
+    "tryItOut": "Kokeile nyt",
+    "kortixComputer": "SuperAgent-tietokone",
+    "running": "Käynnissä",
+    "workers": {
+      "images": {
+        "title": "Kuvat",
+        "description": "Luo kuvia tarpeen mukaan. Tuotekuvista some-grafiikkaan ja täydellisiin kuvituksiin. Säädä tyyliä, valaistusta, värejä ja komposition tai parantele olemassa olevia kuvia nopeilla muokkauksilla.",
+        "capabilities": {
+          "0": "Luo tuotekuvia",
+          "1": "Luo some-grafiikkaa",
+          "2": "Luo kuvituksia",
+          "3": "Tyyli- ja valovariaatiot",
+          "4": "Logon / materiaalin luonti",
+          "5": "+ Paljon muuta"
+        },
+        "imageAlt": "Esimerkki epälineaarisesta kasvukäyrästä",
+        "fileType": "KUVA"
+      },
+      "slides": {
+        "title": "Slide-esitykset",
+        "description": "Luo upeita esityksiä hetkessä. Pitch deckeistä raportteihin ja koulutusmateriaaleihin. Säädä teemoja, asetteluja ja sisältörakennetta tai hienosäädä olemassa olevia esityksiä nopeilla muokkauksilla.",
+        "capabilities": {
+          "0": "Pitch Deckit",
+          "1": "Koulutusmateriaalit",
+          "2": "Raportit",
+          "3": "Teema- ja asetteluvaihtoehdot",
+          "4": "Sisällön uudelleenjärjestely",
+          "5": "+ Paljon muuta"
+        },
+        "imageAlt": "Esimerkki slidestä Nexus Enterprise Automation -alustalta",
+        "fileType": "PPTX"
+      },
+      "data": {
+        "title": "Data",
+        "description": "Muuta raakadata näkemyksiksi. Taulukoista hallintapaneeleihin ja visualisointeihin. Siivoa tietoaineistoja, luo kaavioita, rakenna raportteja tai hienosäädä analyyseja nopeilla päivityksillä.",
+        "capabilities": {
+          "0": "Hallintapaneelit",
+          "1": "Visualisoinnit",
+          "2": "Dataraportointi",
+          "3": "Siivous ja järjestely",
+          "4": "Näkemyksien luonti",
+          "5": "+ Paljon muuta"
+        },
+        "imageAlt": "Esimerkki talousmallin hallintapaneelista",
+        "fileType": "ESIKATSELU"
+      },
+      "docs": {
+        "title": "Dokumentit",
+        "description": "Kirjoita ja muokkaa dokumentteja vaivatta. Ehdotuksista oppaisiin ja sisältöihin. Säädä sävyä, rakennetta ja muotoilua tai parantele olemassa olevia dokumentteja nopeilla uudelleenkirjoituksilla ja viimeistelyllä.",
+        "capabilities": {
+          "0": "Ehdotukset",
+          "1": "Oppaat ja ohjeet",
+          "2": "Sisällöt",
+          "3": "Sävy- ja tyylivaihtoehdot",
+          "4": "Muotoilu ja rakenteen muutos",
+          "5": "+ Paljon muuta"
+        },
+        "imageAlt": "Esimerkki Q3 2025 Executive Summary -raportista",
+        "fileType": "PDF"
+      },
+      "research": {
+        "title": "Tutkimus",
+        "description": "Tutki aiheita perusteellisesti. Markkinatrendeistä kilpailija-analyysiin ja syväluotauksiin. Kerää lähteitä, luonnostele johtopäätöksiä tai päivitä olemassa olevaa tutkimusta nopeasti.",
+        "capabilities": {
+          "0": "Markkinatrendien analyysi",
+          "1": "Kilpailijatutkimus",
+          "2": "Syvällinen aihetutkimus",
+          "3": "Lähdeaineiston keruu",
+          "4": "Johtopäätösten luonnostelu",
+          "5": "+ Paljon muuta"
+        },
+        "imageAlt": "Esimerkki yksityiskohtaisista kilpailijaprofiileista",
+        "fileType": "PDF"
+      }
+    }
+  },
+  "threads": {
+    "title": "Keskustelut",
+    "newThread": "Uusi keskustelu",
+    "sendMessage": "Lähetä viesti",
+    "placeholder": "Kirjoita viestisi..."
+  },
+  "billing": {
+    "title": "Laskutus ja tilaus",
+    "subscription": "Tilaus",
+    "credits": "Krediitit",
+    "popular": "Suosittu",
+    "creditsExplained": "Tietoa krediiteistä",
+    "creditsExhausted": "+100 krediittiä {time} kuluttua. Päivitä käyttääksesi nyt.",
+    "creditsExhaustedRefreshIn": "Krediittisi ovat loppuneet. Ne uusiutuvat {time} kuluttua",
+    "trialActive": "Kokeilujakso aktiivinen",
+    "trialBadge": "7 päivän kokeilu",
+    "currentPlan": "Nykyinen tilaus",
+    "currentBadge": "Nykyinen",
+    "scheduled": "Ajastettu",
+    "scheduledBadge": "Ajastettu",
+    "loading": "Ladataan...",
+    "subscriptionChangeScheduled": "Tilauksen muutos ajastettu",
+    "planWillChangeOn": "Tilauksesi muuttuu {date}.",
+    "failedToInitiateSubscription": "Tilauksen aloitus epäonnistui. Yritä uudelleen.",
+    "subscriptionUpgraded": "Tilaus päivitetty hinnasta {currentPrice} hintaan {newPrice}",
+    "subscriptionUpdated": "Tilaus päivitetty",
+    "cannotDowngradeDuringCommitment": "Tilausta ei voi laskea sitoutumisjakson aikana",
+    "alreadyOnThisPlan": "Sinulla on jo tämä tilaus.",
+    "localModeMessage": "Käytössä paikallinen kehitystila – laskutusominaisuudet pois käytöstä",
+    "holidayPromo": {
+      "badge": "Joulutarjous",
+      "countdown": "Päättyy {time} kuluttua",
+      "discount": "50 % alennus ensimmäisestä 3 kuukaudesta",
+      "window": "Voimassa 24.–25. joulukuuta",
+      "headerLine": "Käytä koodia {code} saadaksesi {discount}",
+      "description": "Käytä koodia {code} kassalla saadaksesi {discount}. {window}",
+      "copyCode": "Kopioi koodi",
+      "copied": "Kopioitu",
+      "codeCopied": "Kopioitu {code}",
+      "copyFailed": "Kupongin kopiointi epäonnistui"
+    },
+    "creditsExplainedPage": {
+      "title": "Tietoa krediiteistä",
+      "subtitle": "Kaikki mitä sinun tarvitsee tietää krediittien toiminnasta SuperAgentissa",
+      "understandingCredits": {
+        "title": "Krediittien ymmärtäminen",
+        "description": "Krediitit toimivat SuperAgent-alustan yleisenä valuuttana. Jokainen AI-workerin suorittama toiminto – data-analyysistä koodin luomiseen – kuluttaa krediittejä tehtävän monimutkaisuuden ja vaadittujen resurssien mukaan."
+      },
+      "howCreditsWork": {
+        "title": "Miten krediitit toimivat",
+        "description": "Krediittejä kulutetaan AI-workerien käyttämien resurssien mukaan:",
+        "aiModelUsage": {
+          "title": "AI-mallien käyttö",
+          "description": "Krediittien kulutuksen suurin tekijä",
+          "content": "Eri AI-malleilla on eri hinnat niiden kyvykkyyksien ja token-käytön mukaan. Krediittejä kuluu syötteistä (kehotteesi ja konteksti), tuotoksista (workerin vastaus) ja hinta vaihtelee mallityypin mukaan (Claude, GPT jne.)."
+        },
+        "pricingModel": {
+          "title": "Hinnoittelumalli",
+          "description": "20 % lisämaksu AI-mallien kuluihin",
+          "content": "Lisäämme 20 %:n marginaalin kaikkiin API- ja mallikustannuksiin kattaaksemme alustan infrastruktuurin, turvallisuuden ja jatkuvan kehityksen. Tämä läpinäkyvä hinnoittelu varmistaa, että tiedät tarkalleen, mistä maksat."
+        }
+      },
+      "gettingMoreCredits": {
+        "title": "Lisää krediittejä",
+        "description": "SuperAgentissa on useita tapoja saada krediittejä:",
+        "monthlySubscription": {
+          "title": "Kuukausittaiset tilauskrediitit",
+          "description": "Sisältyy maksulliseen tilaukseesi ja uusiutuu automaattisesti joka kuukausi. Näillä krediiteillä on vanhentumispäivä."
+        },
+        "topUpCredits": {
+          "title": "Osta lisää krediittejä",
+          "description": "Osta lisäkrediittejä tarpeen mukaan. Nämä eivät vanhene ja ovat saatavilla premium-jäsenille."
+        },
+        "promotionalGrants": {
+          "title": "Kampanjat ja tapahtumat",
+          "description": "Bonuskrediitit erityistapahtumista, kampanjoista tai suositteluista. Nämä krediitit eivät vanhene."
+        },
+        "refunds": {
+          "title": "Hyvitykset",
+          "description": "Teknisten ongelmien tai epäonnistuneiden tehtävien vuoksi hyvitetyt krediitit. Nämä eivät vanhene."
+        }
+      },
+      "typesOfCredits": {
+        "title": "Krediittityypit",
+        "description": "SuperAgent käyttää kahdenlaisia krediittejä antaakseen joustavuutta käytön hallintaan:",
+        "expiringCredits": {
+          "title": "Vanhentuvat krediitit",
+          "description": "Kuukausittaiset tilauskrediitit",
+          "content": "Nämä krediitit sisältyvät maksulliseen tilaukseesi ja uusiutuvat automaattisesti joka kuukausi tilauspäivänäsi. Ne vanhenevat laskutusjakson lopussa ja ne käytetään aina ensin ennen vanhentumattomia krediittejä."
+        },
+        "nonExpiringCredits": {
+          "title": "Vanhentumattomat krediitit",
+          "description": "Pysyvät krediitit, jotka eivät koskaan vanhene",
+          "content": "Nämä krediitit eivät koskaan vanhene ja siirtyvät kuukaudesta toiseen. Tähän kuuluvat ostetut lisäkrediitit, hyvitykset ja kampanjakrediitit. Vanhentumattomia krediittejä käytetään vasta, kun vanhentuvat krediitit on käytetty loppuun."
+        },
+        "creditPriority": {
+          "title": "Käyttöjärjestys:",
+          "description": "Käyttäessäsi SuperAgentia vanhentuvat krediitit käytetään aina ensin. Vasta kun ne ovat loppuneet, aletaan käyttää vanhentumattomia krediittejäsi."
+        }
+      }
+    },
+    "close": "Sulje",
+    "cancelScheduledChange": "Peruuta ajastettu muutos",
+    "threadUsage": "Keskustelun käyttö",
+    "error": "Virhe",
+    "totalUsage": "Kokonaiskäyttö",
+    "usage": "Käyttö",
+    "thread": "Keskustelu",
+    "lastUsed": "Viimeksi käytetty",
+    "creditsUsed": "Käytetyt krediitit",
+    "creditTransactions": "Krediittitapahtumat",
+    "loadingTransactionHistory": "Ladataan tapahtumahistoriaa...",
+    "monthly": "Kuukausittain",
+    "yearly": "Vuosittain",
+    "discount": "15 % alennus",
+    "perMonth": "/kk",
+    "billedYearly": "Laskutetaan vuosittain",
+    "downgradePending": "Tason lasku odottaa",
+    "downgrade": "Laske tasoa",
+    "switchToLegacyYearly": "Vaihda Legacy Yearly -tilaukseen",
+    "confirmDowngradeTitle": "Haluatko varmasti laskea tilaustasi?",
+    "confirmDowngradeDescription": "Olet laskemassa tilaustasi tasolle {planName}. Tämä muutos tulee voimaan nykyisen laskutusjakson lopussa.",
+    "confirmDowngrade": "Kyllä, laske tilausta",
+    "pickPlan": "Valitse sinulle sopiva tilaus.",
+    "reachedLimit": "Olet saavuttanut rajasi.",
+    "projectLimit": "Projektiraja ({current}/{limit})",
+    "threadLimit": "Keskusteluraja ({current}/{limit})",
+    "workerLimit": "Worker-raja ({current}/{limit})",
+    "triggerLimit": "Trigger-raja ({current}/{limit})",
+    "getAdditionalCredits": "Hanki lisäkrediittejä",
+    "selectPlan": "Valitse tilaus",
+    "changeScheduled": "Muutos ajastettu",
+    "notAvailable": "Ei saatavilla",
+    "features": {
+      "creditsPerMonth": "{count} krediittiä/kk",
+      "customWorker": "{count} oma Worker",
+      "customWorkers": "{count} omaa Workeria",
+      "privateProject": "{count} yksityinen projekti",
+      "privateProjects": "Yksityiset projektit",
+      "customTrigger": "{count} oma triggeri",
+      "integrations": "100+ integraatiota",
+      "premiumAIModels": "Premium AI-mallit",
+      "prioritySupport": "Priorisoitu tuki"
+    },
+    "downgradeDialog": {
+      "confirmTitle": "Vahvista tilauksen muutos",
+      "confirmSubtitle": "Olemme pahoillamme, että lähdet",
+      "confirmDescription": "Olet vaihtamassa tilausta tasolle {planName}. Muutos tulee voimaan nykyisen laskutusjakson lopussa. Siihen asti säilytät nykyiset etusi.",
+      "continue": "Jatka",
+      "keepCurrentPlan": "Pidä nykyinen tilaus",
+      "feedbackTitle": "Auta meitä parantamaan",
+      "feedbackSubtitle": "Palautteesi muovaa SuperAgentin tulevaisuutta",
+      "whatWouldMakeYouStay": "Mikä saisi sinut pysymään?",
+      "feedbackPlaceholder": "Jos olisi yksi asia, jonka voisimme muuttaa tai lisätä tehdäksemme SuperAgentista sinulle sopivan, mikä se olisi?",
+      "feedbackFooter": "Tiimimme lukee jokaisen vastauksen. Sanasi vaikuttavat suoraan siihen, mitä rakennamme seuraavaksi.",
+      "confirmDowngrade": "Vahvista tason lasku",
+      "processing": "Käsitellään...",
+      "pleaseSelectReason": "Valitse syy",
+      "reasons": {
+        "tooExpensive": "Se on liian kallis tarpeisiini",
+        "notUsingOften": "En käytä SuperAgentia tarpeeksi usein",
+        "foundAlternative": "Löysin toisen ratkaisun",
+        "technicalIssues": "Kohtasin teknisiä ongelmia",
+        "resultsNotGood": "Tulokset eivät vastanneet odotuksiani",
+        "other": "Muu syy"
+      }
+    }
+  },
+  "auth": {
+    "haveReferralCode": "Onko sinulla suosittelukoodi?",
+    "referralCode": "Suosittelukoodi",
+    "enterCode": "Syötä koodi",
+    "logIntoAccount": "Kirjaudu tilillesi",
+    "createAccount": "Luo tili",
+    "signInOrCreateAccount": "Kirjaudu sisään tai luo SuperAgent-tili",
+    "continueWithGoogle": "Jatka Googlella",
+    "continueWithGitHub": "Jatka GitHubilla",
+    "orEmail": "Tai sähköpostilla",
+    "emailAddress": "Sähköpostiosoite",
+    "password": "Salasana",
+    "confirmPassword": "Vahvista salasana",
+    "signIn": "Kirjaudu sisään",
+    "signUp": "Rekisteröidy",
+    "signingIn": "Kirjaudutaan...",
+    "creatingAccount": "Luodaan tiliä...",
+    "forgotPassword": "Unohditko salasanan?",
+    "dontHaveAccount": "Eikö sinulla ole tiliä?",
+    "alreadyHaveAccount": "Onko sinulla jo tili?",
+    "acceptPrivacyTerms": "Hyväksyn <privacyPolicy>tietosuojaselosteen</privacyPolicy> ja <termsOfService>käyttöehdot</termsOfService>",
+    "privacyPolicy": "Tietosuojaseloste",
+    "termsOfService": "Käyttöehdot",
+    "checkYourEmail": "Tarkista sähköpostisi",
+    "confirmationLinkSent": "Olemme lähettäneet palautuslinkin osoitteeseen",
+    "clickLinkToActivate": "Klikkaa sähköpostissa olevaa linkkiä aktivoidaksesi tilisi. Jos et näe viestiä, tarkista roskapostikansio.",
+    "returnToHome": "Palaa etusivulle",
+    "backToSignIn": "Takaisin kirjautumiseen",
+    "resetPassword": "Nollaa salasana",
+    "resetPasswordDescription": "Syötä sähköpostisi, niin lähetämme palautuslinkin",
+    "sendResetLink": "Lähetä linkki",
+    "cancel": "Peruuta",
+    "pleaseEnterValidEmail": "Syötä voimassa oleva sähköpostiosoite",
+    "signInFailed": "Kirjautuminen epäonnistui. Tarkista tietosi.",
+    "signUpFailed": "Rekisteröityminen epäonnistui. Yritä uudelleen.",
+    "sendMagicLink": "Lähetä Magic Link",
+    "sending": "Lähetetään...",
+    "magicLinkSent": "Olemme lähettäneet Magic Linkin osoitteeseen",
+    "magicLinkDescription": "Klikkaa sähköpostissasi olevaa linkkiä kirjautuaksesi sisään. Linkki vanhenee 1 tunnin kuluttua.",
+    "magicLinkExplanation": "Lähetämme sinulle turvallisen linkin kirjautumista varten. Salasanaa ei tarvita.",
+    "magicLinkExpired": "Linkki on vanhentunut",
+    "magicLinkExpiredDescription": "Klikkaamasi Magic Link on vanhentunut. Magic Linkit vanhenevat tunnin kuluttua turvallisuussyistä.",
+    "resendMagicLink": "Lähetä Magic Link uudelleen",
+    "resending": "Lähetetään uudelleen...",
+    "byContinuingYouAgree": "Jatkamalla hyväksyt <privacyPolicy>tietosuojaselosteen</privacyPolicy> ja <termsOfService>käyttöehdot</termsOfService>",
+    "openProvider": "Avaa {provider}",
+    "didntReceiveEmail": "Etkö saanut sähköpostia?",
+    "resend": "Lähetä uudelleen",
+    "alreadySignedIn": "Olet jo kirjautunut sisään. Toimenpiteitä ei tarvita.",
+    "goToDashboard": "Siirry hallintapaneeliin",
+    "signInToContinue": "Kirjaudu sisään jatkaaksesi",
+    "signInOrCreateAccountToTalk": "Kirjaudu sisään tai luo tili keskustellaksesi SuperAgentin kanssa",
+    "orContinueWithEmail": "Tai jatka sähköpostilla",
+    "signInWithEmail": "Kirjaudu sähköpostilla",
+    "createNewAccount": "Luo uusi tili",
+    "byContinuingYouAgreeSimple": "Jatkamalla hyväksyt meidän",
+    "phoneVerification": {
+      "title": "Vahvista puhelinnumerosi",
+      "titleOtp": "Syötä vahvistuskoodi",
+      "description": "Suojaa tilisi kaksivaiheisella tunnistautumisella",
+      "descriptionOtp": "Olemme lähettäneet koodin puhelinnumeroosi",
+      "phoneNumber": "Puhelinnumero",
+      "verificationCode": "Vahvistuskoodi",
+      "enterSixDigitCode": "Syötä 6-numeroinen koodi",
+      "phoneNumberPlaceholder": "Syötä puhelinnumerosi",
+      "sendVerificationCode": "Lähetä vahvistuskoodi",
+      "sendingCode": "Lähetetään koodia...",
+      "verifyCode": "Vahvista koodi",
+      "verifying": "Vahvistetaan...",
+      "resendCode": "Lähetä koodi uudelleen",
+      "resendInSeconds": "Lähetä uudelleen {seconds} s kuluttua",
+      "removePhoneNumber": "Poista puhelinnumero",
+      "codeSentTo": "Vahvistuskoodi lähetetty numeroon",
+      "sixDigitCodeHint": "Lähetämme sinulle 6-numeroisen vahvistuskoodin tekstiviestillä",
+      "pleaseEnterPhoneNumber": "Syötä puhelinnumero",
+      "pleaseEnterValidPhoneNumber": "Syötä voimassa oleva puhelinnumero",
+      "pleaseEnterSixDigitCode": "Syötä 6-numeroinen koodi",
+      "verificationCodeSent": "Vahvistuskoodi lähetetty puhelimeesi",
+      "newVerificationCodeSent": "Uusi vahvistuskoodi lähetetty",
+      "phoneNumberVerified": "Puhelinnumero vahvistettu!",
+      "phoneNumberRemoved": "Puhelinnumero poistettu. Voit nyt lisätä uuden numeron.",
+      "signOut": "Kirjaudu ulos",
+      "signingOut": "Kirjaudutaan ulos...",
+      "sending": "Lähetetään..."
+    }
+  },
+  "onboarding": {
+    "welcome": "Tervetuloa",
+    "next": "Seuraava",
+    "skip": "Ohita"
+  },
+  "tools": {
+    "executeCommand": "Suorita komento",
+    "checkCommandOutput": "Tarkista komennon tuloste",
+    "terminateCommand": "Lopeta komento",
+    "listCommands": "Listaa komennot",
+    "createFile": "Luo tiedosto",
+    "deleteFile": "Poista tiedosto",
+    "fullFileRewrite": "Kirjoita tiedosto uudelleen",
+    "strReplace": "Muokkaa tekstiä",
+    "editFile": "Muokkaa tiedostoa",
+    "uploadFile": "Lataa tiedosto",
+    "createDocument": "Luo dokumentti",
+    "updateDocument": "Päivitä dokumentti",
+    "readDocument": "Lue dokumentti",
+    "listDocuments": "Listaa dokumentit",
+    "deleteDocument": "Poista dokumentti",
+    "createTasks": "Luo tehtäviä",
+    "updateTasks": "Päivitä tehtäviä",
+    "browserNavigateTo": "Siirry sivulle",
+    "browserAct": "Suorita toiminto",
+    "browserExtractContent": "Pura sisältö",
+    "browserScreenshot": "Ota kuvakaappaus",
+    "executeDataProviderCall": "Kutsu datantarjoajaa",
+    "getDataProviderEndpoints": "Hae päätepisteet",
+    "ask": "Kysy",
+    "wait": "Odota",
+    "complete": "Suorita tehtävä loppuun",
+    "crawlWebpage": "Crawl:aa verkkosivu",
+    "exposePort": "Exposoi portti",
+    "scrapeWebpage": "Scrape:aa verkkosivu",
+    "webSearch": "Verkkohaku",
+    "loadImage": "Lataa kuva",
+    "createPresentationOutline": "Luo esityksen runko",
+    "createPresentation": "Luo esitys",
+    "presentPresentation": "Esitä",
+    "clearImagesFromContext": "Tyhjennä kuvat kontekstista",
+    "imageSearch": "Kuvahaku",
+    "createSheet": "Luo taulukko",
+    "updateSheet": "Päivitä taulukko",
+    "viewSheet": "Näytä taulukko",
+    "analyzeSheet": "Analysoi taulukko",
+    "visualizeSheet": "Visualisoi taulukko",
+    "formatSheet": "Muotoile taulukko",
+    "updateAgent": "Päivitä Worker",
+    "getCurrentAgentConfig": "Hae nykyinen Workerin konfiguraatio",
+    "searchMcpServers": "Hae MCP-palvelimia",
+    "getMcpServerTools": "Hae työkalut MCP-palvelimelta",
+    "configureMcpServer": "Määritä MCP-palvelin",
+    "getPopularMcpServers": "Hae suositut MCP-palvelimet",
+    "testMcpServerConnection": "Testaa MCP-palvelimen yhteys",
+    "listAppEventTriggers": "Etsi tapahtumatriggerit",
+    "createEventTrigger": "Luo tapahtumatriggeri",
+    "getProjectStructure": "Hae projektin rakenne",
+    "buildProject": "Rakenna projekti",
+    "makePhoneCall": "Soita puhelu",
+    "endCall": "Lopeta puhelu",
+    "getCallDetails": "Hae puhelun tiedot",
+    "listCalls": "Listaa puhelut",
+    "monitorCall": "Valvo puhelua",
+    "waitForCallCompletion": "Odota valmistumista",
+    "getPaperDetails": "Hae artikkelin tiedot",
+    "searchAuthors": "Hae kirjoittajia",
+    "getAuthorDetails": "Hae kirjoittajan tiedot",
+    "getAuthorPapers": "Hae kirjoittajan artikkelit",
+    "getPaperCitations": "Hae artikkelin viittaukset",
+    "getPaperReferences": "Hae artikkelin lähteet",
+    "paperSearch": "Artikkelihaku",
+    "discoverUserMcpServers": "Löydä työkaluja",
+    "createCredentialProfile": "Luo profiili",
+    "getCredentialProfiles": "Hae profiilit",
+    "configureProfileForAgent": "Lisää työkaluja Workerille",
+    "createNewAgent": "Luo uusi Worker",
+    "searchMcpServersForAgent": "Hae MCP-palvelimia",
+    "createCredentialProfileForAgent": "Luo tunnistetietoprofiili",
+    "discoverMcpToolsForAgent": "Löydä MCP-työkaluja",
+    "configureAgentIntegration": "Määritä Workerin integraatio",
+    "createAgentScheduledTrigger": "Luo ajastettu triggeri",
+    "listAgentScheduledTriggers": "Listaa Workerin ajastetut triggerit",
+    "executingTool": "Suoritetaan työkalua",
+    "toolExecutedSuccessfully": "Työkalu suoritettu onnistuneesti",
+    "toolExecutionFailed": "Työkalun suoritus epäonnistui",
+    "input": "Syöte",
+    "output": "Tuloste",
+    "copyFileContent": "Kopioi tiedoston sisältö",
+    "fileContentCopied": "Tiedoston sisältö kopioitu leikepöydälle",
+    "failedToCopyFileContent": "Tiedoston sisällön kopiointi epäonnistui",
+    "noContentAvailable": "Sisältöä ei saatavilla",
+    "noContentDescription": "Tämä työkalun suoritus ei tuottanut näytettävää syötettä tai tulostetta.",
+    "tool": "Työkalu"
+  },
+  "agentRunLimit": {
+    "gotIt": "Selvä",
+    "parallelRunsLimitReached": "Rinnakkaisten suoritusten raja saavutettu",
+    "parallelRunsLimitDescription": "Olet saavuttanut rinnakkaisten Worker-suoritusten enimmäismäärän.",
+    "needMoreParallelRuns": "Tarvitsetko lisää rinnakkaisia suorituksia?",
+    "upgradeDescription": "Päivitä tilauksesi suorittaaksesi useita Workereita samanaikaisesti ja parantaaksesi tuottavuuttasi.",
+    "upgradePlan": "Päivitä tilaus",
+    "currentlyRunningAgents": "Tällä hetkellä käynnissä olevat Workerit",
+    "loadingThreads": "Ladataan keskusteluja...",
+    "foundRunningAgents": "Löydettiin {count} käynnissä olevaa Workeria, mutta keskustelun tietoja ei voitu ladata.",
+    "threadIds": "Keskustelu-ID:t: {ids}",
+    "moreRunning": "+{count} muuta käynnissä",
+    "whatCanYouDo": "Mitä voit tehdä?",
+    "stopAgentsHint": "Klikkaa pysäytyspainiketta lopettaaksesi käynnissä olevat Workerit",
+    "waitForCompletion": "Odota, että Worker valmistuu automaattisesti",
+    "upgradeYourPlan": "Päivitä tilauksesi",
+    "forMoreParallelRuns": "saadaksesi lisää rinnakkaisia suorituksia",
+    "stopAgent": "Pysäytä Worker",
+    "stopThisAgent": "Pysäytä tämä Worker",
+    "openThread": "Avaa keskustelu",
+    "agentStoppedSuccessfully": "Worker pysäytetty",
+    "failedToStopAgent": "Workerin pysäytys epäonnistui",
+    "upgradeToRunMore": "Päivitä suorittaaksesi useampia Workereita rinnakkain"
+  },
+  "errors": {
+    "generic": "Jokin meni vikaan",
+    "network": "Verkkovirhe",
+    "unauthorized": "Ei käyttöoikeutta",
+    "notFound": "Ei löytynyt"
+  },
+  "languages": {
+    "en": "Englanti",
+    "de": "Saksa",
+    "it": "Italia",
+    "zh": "Kiina",
+    "ja": "Japani",
+    "pt": "Portugali",
+    "fr": "Ranska",
+    "es": "Espanja"
+  },
+  "notifications": {
+    "title": "Ilmoitukset",
+    "description": "Hallitse ilmoitusten vastaanottamista",
+    "preferences": "Ilmoitusasetukset",
+    "channels": "Ilmoituskanavat",
+    "emailNotifications": "Sähköposti-ilmoitukset",
+    "emailDescription": "Vastaanota ilmoituksia sähköpostitse",
+    "pushNotifications": "Push-ilmoitukset",
+    "pushDescription": "Vastaanota push-ilmoituksia laitteeseesi",
+    "inAppNotifications": "Sovelluksen sisäiset ilmoitukset",
+    "inAppDescription": "Näytä ilmoitukset sovelluksessa",
+    "deviceTokens": "Rekisteröidyt laitteet",
+    "noDevices": "Ei rekisteröityjä laitteita",
+    "settingsUpdated": "Ilmoitusasetukset päivitetty",
+    "settingsFailed": "Ilmoitusasetusten päivitys epäonnistui",
+    "enableAll": "Ota kaikki käyttöön",
+    "disableAll": "Poista kaikki käytöstä",
+    "saveChanges": "Tallenna muutokset"
+  },
+  "suna": {
+    "samplePrompts": "Esimerkkejä",
+    "chooseStyle": "Valitse tyyli",
+    "chooseTemplate": "Valitse malli",
+    "chooseOutputFormat": "Valitse muoto",
+    "preferredCharts": "Suosikkikaaviot",
+    "whatWouldYouLike": "Mitä haluaisit tehdä?",
+    "describeTask": "Kuvaile tehtävä, jonka haluat Workerisi suorittavan...",
+    "modes": {
+      "image": "Kuva",
+      "slides": "Slide-esitykset",
+      "data": "Data",
+      "docs": "Dokumentit",
+      "canvas": "Canvas",
+      "video": "Video",
+      "research": "Tutkimus"
+    },
+    "styles": {
+      "photorealistic": "Fotorealistinen",
+      "watercolor": "Vesiväri",
+      "digital-art": "Digitaalinen taide",
+      "oil-painting": "Öljyväri",
+      "minimalist": "Minimalistinen",
+      "isometric": "Isometrinen",
+      "vintage": "Vintage",
+      "comic": "Sarjakuva",
+      "neon": "Neon",
+      "pastel": "Pastelli",
+      "geometric": "Geometrinen",
+      "abstract": "Abstrakti",
+      "anime": "Anime",
+      "impressionist": "Impressionistinen",
+      "surreal": "Surrealistinen"
+    },
+    "templates": {
+      "minimalist": {
+        "name": "Minimalistinen",
+        "description": "Puhdas ja yksinkertainen muotoilu"
+      },
+      "minimalist_2": {
+        "name": "Minimalistinen 2",
+        "description": "Vaihtoehtoinen yksinkertainen tyyli"
+      },
+      "black_and_white_clean": {
+        "name": "Mustavalkoinen",
+        "description": "Klassinen monokromaattinen"
+      },
+      "colorful": {
+        "name": "Värikäs",
+        "description": "Eloisa ja energinen"
+      },
+      "startup": {
+        "name": "Startup",
+        "description": "Dynaaminen ja innovatiivinen"
+      },
+      "elevator_pitch": {
+        "name": "Elevator Pitch",
+        "description": "Nopea ja iskevä"
+      },
+      "portfolio": {
+        "name": "Portfolio",
+        "description": "Esittele työsi"
+      },
+      "textbook": {
+        "name": "Oppikirja",
+        "description": "Opetuksellinen ja strukturoitu"
+      },
+      "architect": {
+        "name": "Arkkitehti",
+        "description": "Ammattimainen ja tarkka"
+      },
+      "hipster": {
+        "name": "Hipster",
+        "description": "Moderni ja trendikäs"
+      },
+      "green": {
+        "name": "Vihreä",
+        "description": "Luonnon inspiroima muotoilu"
+      },
+      "premium_black": {
+        "name": "Premium musta",
+        "description": "Ylellinen tumma ulkoasu"
+      },
+      "premium_green": {
+        "name": "Premium vihreä",
+        "description": "Hienostunut vihreä"
+      },
+      "professor_gray": {
+        "name": "Professori harmaa",
+        "description": "Akateeminen ja tieteellinen"
+      },
+      "gamer_gray": {
+        "name": "Gamer harmaa",
+        "description": "Pelimaailman inspiroima muotoilu"
+      },
+      "competitor_analysis_blue": {
+        "name": "Analyysinsininen",
+        "description": "Keskittyy liiketoiminta-analyysiin"
+      },
+      "numbers_clean": {
+        "name": "Numerot selkeä",
+        "description": "Puhdas datan visualisointi"
+      },
+      "numbers_colorful": {
+        "name": "Numerot värikäs",
+        "description": "Eloisa datan esittäminen"
+      },
+      "prd": {
+        "name": "PRD",
+        "description": "Tuotevaatimusmäärittely"
+      },
+      "technical": {
+        "name": "Tekninen",
+        "description": "Tekninen dokumentaatio"
+      },
+      "proposal": {
+        "name": "Ehdotus",
+        "description": "Liiketoiminta-ehdotus"
+      },
+      "report": {
+        "name": "Raportti",
+        "description": "Yksityiskohtainen raporttimuoto"
+      },
+      "guide": {
+        "name": "Opas",
+        "description": "Vaiheittainen ohjeistus"
+      },
+      "wiki": {
+        "name": "Wiki",
+        "description": "Tietopankki-artikkeli"
+      },
+      "policy": {
+        "name": "Käytäntö",
+        "description": "Käytäntödokumentti"
+      },
+      "meeting-notes": {
+        "name": "Muistiinpanot",
+        "description": "Kokousmuistiinpanot"
+      }
+    },
+    "outputFormats": {
+      "spreadsheet": {
+        "name": "Taulukko",
+        "description": "Taulukko kaavoilla"
+      },
+      "dashboard": {
+        "name": "Hallintapaneeli",
+        "description": "Interaktiiviset kaaviot"
+      },
+      "report": {
+        "name": "Raportti",
+        "description": "Analyysi visualisoinneilla"
+      },
+      "slides": {
+        "name": "Slide-esitykset",
+        "description": "Esitysmuoto"
+      }
+    },
+    "charts": {
+      "bar": "Palkki",
+      "line": "Viiva",
+      "pie": "Piirakka",
+      "scatter": "Hajonta",
+      "heatmap": "Lämpökartta",
+      "bubble": "Kupla",
+      "wordcloud": "Sananpilvi",
+      "stacked": "Pinottu palkki",
+      "area": "Alue"
+    },
+    "prompts": {
+      "image": {
+        "0": "Majesteettinen maakotka liitämässä usvaisten vuorenhuippujen yllä auringonnousun aikaan, dramaattinen valaistus",
+        "1": "Lähikuva mallista avantgarde-meikissä, studiovalaistus, korkean kontrastin varjot",
+        "2": "Viihtyisä skandinaavinen olohuone, jossa on puiset huonekalut, viherkasveja ja pehmeää aamun auringonvaloa",
+        "3": "Futuristinen cyberpunk-katumarkkina yöllä, neonkylttejä, sateen kastelema asfaltti ja hologramminäyttöjä",
+        "4": "Tyylikäs tuotekuva ylellisestä hajuvesipullosta marmoripinnalla, pehmeät heijastukset",
+        "5": "Siroja kelluvia saaria, jotka on yhdistetty köysisilloilla, pastellisävyinen taivas ja unelmoivat pilvet",
+        "6": "Makrolähikuva aamukasteesta eloisilla kukan terälehdillä, bokeh-tausta",
+        "7": "Moderni työpiste, jossa on kannettava tietokone, kahvia, muistikirja ja mehikasveja ylhäältä kuvattuna",
+        "8": "Salaperäinen metsäpolku muinaisten puiden katveessa, hehkuvia tulikärpäsiä ja eteerisiä valonsäteitä usvan läpi",
+        "9": "Arkkitehtoninen yksityiskohta modernista lasijulkisivusta, geometrisia kuvioita ja heijastuksia",
+        "10": "Vilkas katuruokakoju, värikkäitä aineksia, nousevaa höyryä ja lämmin tunnelmavalaistus",
+        "11": "Rauhallinen japanilainen zen-puutarha, haravoitua hiekkaa, sammaleisia kiviä ja kirsikankukkia",
+        "12": "Dynaaminen toimintakuva urheilijasta kesken hypyn dramaattista auringonlaskua vasten, siluettiefekti",
+        "13": "Maalaistyylinen keittiö, kuparipannuja, tuoreita yrttejä, puisia leikkuulautoja ja luonnollisia tekstuureja",
+        "14": "Abstrakti nestemäinen taideteos, jossa on pyörivää metallista kultaa, syvää sinistä ja smaragdinvihreitä orgaanisia kuvioita"
+      },
+      "slides": {
+        "0": "Luo Series A -pitch deck, jossa on markkinoiden koko, vetoapu ja taloudelliset ennusteet",
+        "1": "Rakenna Q4-liiketoimintakatsaus, jossa on KPI:t, onnistumiset ja strategiset aloitteet",
+        "2": "Suunnittele tuotelanseerausesitys, jossa on demovideoita ja asiakaskertomuksia",
+        "3": "Kehitä sales enablement -esitys, joka selittää arvolupauksemme ja kilpailuetumme",
+        "4": "Luo sijoittajapäivitys, joka korostaa tärkeitä mittareita ja tulevia virstanpylväitä",
+        "5": "Rakenna asiakascase-esitys, joka osoittaa ROI:n ja menestystekijät",
+        "6": "Suunnittele All-Hands-esitys, joka kattaa yrityksen päivitykset ja vision",
+        "7": "Kehitä koulutusmateriaali uusille tuoteominaisuuksille ja työnkuluille",
+        "8": "Luo konferenssiesitelmä insinööritiimien skaalaamisesta",
+        "9": "Rakenna hallituksen kokousmateriaali strategisilla suosituksilla"
+      },
+      "data": {
+        "0": "Rakenna talousmalli, joka ennustaa ARR-kasvua eri hinnoitteluskenaarioilla",
+        "1": "Luo interaktiivinen myyntihallintapaneeli, joka seuraa mittareita alueittain ja neljänneksittäin",
+        "2": "Analysoi 50 000 asiakasarvostelua ja visualisoi sävytrendit ajan mittaan",
+        "3": "Suunnittele sisältökalenteri, joka seuraa kampanjoita ROI- ja sitoutumiskaavioilla",
+        "4": "Rakenna kohorttianalyysi, joka näyttää käyttäjien pysyvyyden ja poistuman",
+        "5": "Luo markkinoinnin attribuutiomalli, joka vertailee kanavien suorituskykyä",
+        "6": "Kehitä rekrytointiseuranta, jossa on prosessimittarit ja täyttöaika-analyysi",
+        "7": "Rakenna budjetin suunnittelutaulukko skenaariomallinnuksella",
+        "8": "Analysoi verkkoliikennedataa ja visualisoi konversiosuppilot",
+        "9": "Luo varastonhallintajärjestelmä automaattisilla täydennyshälytyksillä"
+      },
+      "docs": {
+        "0": "Kirjoita kattava PRD AI-pohjaiselle suosittelukoneelle",
+        "1": "Laadi tekninen arkkitehtuuridokumentti skaalautuvalle mikropalvelualustalle",
+        "2": "Luo Go-To-Market-strategiadokumentti Q2-tuotelanseerauksellemme",
+        "3": "Kehitä 90 päivän onboarding-opas insinööripäälliköille",
+        "4": "Kirjoita API-dokumentaatio-opas esimerkeillä ja parhailla käytännöillä",
+        "5": "Luo työntekijän käsikirja, joka kattaa kulttuurin, käytännöt ja edut",
+        "6": "Laadi tietosuojaseloste, joka on GDPR- ja CCPA-yhteensopiva",
+        "7": "Kehitä asiakasmenestyksen playbook yritysasiakkaille",
+        "8": "Kirjoita tietoturvaloukkausten reagointisuunnitelma ja eskalointimenettelyt",
+        "9": "Luo kattava brändi- ja tyyliopas"
+      },
+      "canvas": {
+        "0": "Lisää tech startup -banneri kankaalle, jossa on futuristinen horisontti",
+        "1": "Luo kahvibrändin logo kankaalle minimalistisella, maanläheisellä tyylillä",
+        "2": "Lisää tuotekuvani kankaalle ja poista tausta",
+        "3": "Suunnittele uusiutuvan energian infograafi kankaalle tasaisilla ikoneilla",
+        "4": "Luo scifi-kirjan kansi kankaalle cyberpunk-estetiikalla",
+        "5": "Lisää YouTube-pikkukuva kankaalle tuottavuusvinkkejä sisältävälle videolle",
+        "6": "Rakenna moodboard ylellistä muotia varten kankaalle milleniaaleille",
+        "7": "Suunnittele tyylikäs hääkutsu kankaalle kukkakuvioilla",
+        "8": "Lisää portrettini kankaalle ja käytä vintage-elokuvatehostetta",
+        "9": "Luo musiikkifestivaalijuliste kankaalle psykedeelisellä tunnelmalla"
+      },
+      "video": {
+        "0": "Animoi tuotekuvani pyörimään pehmeästi studiovalaistuksessa",
+        "1": "Muuta portrettini elokuvalliseksi kohtaukseksi kameran liikkeellä",
+        "2": "Luo rauhallinen luontovideo kirsikankukista, jotka putoavat hitaasti",
+        "3": "Luo abstrakteja hehkuvia partikkeleita, jotka pyörivät yhteen hidastettuna",
+        "4": "Laita tuotteeni leijumaan ja pyörimään pehmeillä varjoilla ja heijastuksilla",
+        "5": "Lisää dramaattinen elokuvallinen valaistus ja värikäsittely portrettiini",
+        "6": "Luo pehmeä drone-kuva, joka lentää usvaisten vuorenhuippujen läpi",
+        "7": "Luo videoluuppi nestemäisestä metallista, joka virtaa orgaanisissa muodoissa",
+        "8": "Vaihda valokuvani tausta vedenalaiseksi kohtaukseksi, jossa on valonsäteitä",
+        "9": "Luo video futuristisesta kaupunkimaisemasta neonvaloilla ja heijastuksilla"
+      },
+      "research": {
+        "0": "Analysoi nousevia trendejä kvanttilaskennassa ja mahdollisia liiketoimintasovelluksia",
+        "1": "Tutki 10 parasta kilpailijaa AI-pohjaisissa CRM-järjestelmissä ominaisuusvertailulla",
+        "2": "Tutki sääntelyvaatimuksia fintech-sovelluksen lanseeraamiseksi EU:ssa",
+        "3": "Kokoa markkina-analyysi sähköautojen käyttöönotosta avainmarkkinoilla",
+        "4": "Tutki etätyön vaikutusta liiketilojen kysyntään suurkaupungeissa",
+        "5": "Tutki Web3:n käyttöönottoa Fortune 500 -yrityksissä",
+        "6": "Analysoi kuluttajien suhtautumista kestäviin muotibrändeihin",
+        "7": "Tutki uusimpia läpimurtoja harvinaisten sairauksien geeniterapiassa",
+        "8": "Tutki hinnoittelustrategioita menestyneissä D2C-tilauslaatikkoyrityksissä",
+        "9": "Tutki kilpailukenttää AI-pohjaisissa kyberturvallisuusratkaisuissa"
+      }
+    }
+  },
+  "announcements": {
+    "memories": {
+      "title": "Esittelyssä Memories",
+      "description": "SuperAgent muistaa nyt mieltymyksesi ja kontekstisi kaikissa keskusteluissa",
+      "features": {
+        "personalized": {
+          "title": "Yksilöllinen kokemus",
+          "description": "Mukautuu työskentelytapaasi ajan myötä"
+        },
+        "retention": {
+          "title": "Kontekstin säilyttäminen",
+          "description": "Tärkeät yksityiskohdat muistetaan chatien välillä"
+        },
+        "control": {
+          "title": "Sinä hallitset",
+          "description": "Ota Memories pois käytöstä tai tyhjennä se milloin vain"
+        }
+      },
+      "manageButton": "Hallitse Memories-toimintoa",
+      "dismissButton": "Selvä"
+    }
+  }
+}

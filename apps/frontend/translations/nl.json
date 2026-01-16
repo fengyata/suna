@@ -1,0 +1,1609 @@
+{
+  "common": {
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "saving": "Opslaan...",
+    "success": "Succes",
+    "done": "Klaar",
+    "close": "Sluiten",
+    "ok": "OK",
+    "yes": "Ja",
+    "no": "Nee",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "search": "Zoeken",
+    "loading": "Laden...",
+    "error": "Fout",
+    "retry": "Opnieuw proberen",
+    "send": "Verzenden",
+    "back": "Terug",
+    "new": "Nieuw",
+    "create": "Aanmaken",
+    "update": "Bijwerken",
+    "remove": "Verwijderen",
+    "confirm": "Bevestigen",
+    "processing": "Verwerken...",
+    "keep": "Behouden",
+    "active": "Actief",
+    "inactive": "Inactief",
+    "next": "Volgende",
+    "upgrade": "Upgraden",
+    "basic": "Basis",
+    "tryFree": "Aan de slag"
+  },
+  "settings": {
+    "title": "Instellingen",
+    "tabs": {
+      "general": "Algemeen",
+      "plan": "Abonnement",
+      "billing": "Facturering",
+      "usage": "Verbruik",
+      "referrals": "Verwijzingen",
+      "knowledgeBase": "Kennisbank",
+      "integrations": "Integraties",
+      "envManager": "Omgevingsbeheer"
+    },
+    "general": {
+      "title": "Algemene instellingen",
+      "description": "Beheer je accountgegevens",
+      "profilePicture": {
+        "title": "Profielfoto",
+        "upload": "Foto uploaden",
+        "hint": "JPG, PNG of GIF. Maximaal 5MB.",
+        "invalidType": "Selecteer een afbeeldingsbestand",
+        "tooLarge": "Afbeelding moet kleiner zijn dan 5MB",
+        "uploadFailed": "Uploaden profielfoto mislukt"
+      },
+      "name": "Naam",
+      "email": "E-mail",
+      "namePlaceholder": "Voer je naam in",
+      "emailCannotChange": "E-mail kan hier niet worden gewijzigd",
+      "saveChanges": "Wijzigingen opslaan",
+      "profileUpdated": "Profiel succesvol bijgewerkt",
+      "profileUpdateFailed": "Bijwerken profiel mislukt",
+      "language": {
+        "title": "Taal",
+        "description": "Kies je voorkeurstaal",
+        "current": "Huidige taal",
+        "select": "Selecteer taal"
+      },
+      "deleteAccount": {
+        "title": "Account verwijderen",
+        "description": "Verwijder je account en alle bijbehorende gegevens definitief",
+        "button": "Account verwijderen",
+        "scheduled": "Verwijdering gepland",
+        "scheduledDescription": "Je account wordt definitief verwijderd op {date}.",
+        "canCancel": "Je kunt dit verzoek op elk moment voor de verwijderingsdatum annuleren.",
+        "cancelButton": "Verwijderingsverzoek annuleren",
+        "dialogTitle": "Account verwijderen",
+        "warning": "Deze actie kan na 30 dagen niet ongedaan worden gemaakt",
+        "whenDelete": "Wanneer je je account verwijdert:",
+        "agentsDeleted": "Alle Workers en hun versies worden verwijderd",
+        "threadsDeleted": "Alle gesprekken en sessies worden verwijderd",
+        "credentialsRemoved": "Alle inloggegevens en integraties worden verwijderd",
+        "subscriptionCancelled": "Je abonnement wordt opgezegd",
+        "billingRemoved": "Alle factureringsgegevens worden verwijderd",
+        "scheduled30Days": "Je account wordt over 30 dagen verwijderd",
+        "gracePeriod": "Je kunt dit verzoek op elk moment tijdens de bedenktijd van 30 dagen annuleren. Na 30 dagen worden al je gegevens definitief verwijderd en kunnen ze niet worden hersteld.",
+        "chooseDeletionType": "Kies type verwijdering:",
+        "gracePeriodOption": "30 dagen bedenktijd",
+        "gracePeriodDescription": "Je account wordt over 30 dagen verwijderd. Je kunt dit verzoek op elk moment tijdens de bedenktijd annuleren.",
+        "immediateOption": "Onmiddellijke verwijdering",
+        "immediateDescription": "Je account en alle gegevens worden onmiddellijk definitief verwijderd. Deze actie kan niet ongedaan worden gemaakt.",
+        "warningImmediate": "Deze actie kan niet ongedaan worden gemaakt",
+        "warningGracePeriod": "Deze actie kan na 30 dagen niet ongedaan worden gemaakt",
+        "confirmText": "Typ delete om te bevestigen",
+        "confirmPlaceholder": "delete",
+        "keepAccount": "Account behouden",
+        "cancelDeletionTitle": "Accountverwijdering annuleren",
+        "cancelDeletionDescription": "Weet je zeker dat je de verwijdering van je account wilt annuleren? Je account en alle gegevens blijven behouden.",
+        "cancelDeletion": "Verwijdering annuleren"
+      }
+    },
+    "referrals": {
+      "title": "Verwijzingsprogramma",
+      "description": "Deel je verwijzingslink met vrienden en verdien tegoed wanneer ze zich aanmelden.",
+      "creditsPerReferral": "100 credits",
+      "youEarn": "Jij verdient",
+      "friendGets": "Je vriend krijgt",
+      "maxEarnable": "Maximaal verdienbaar via verwijzingen:",
+      "maxCredits": "$100 aan credits",
+      "yourReferralCode": "Je verwijzingscode",
+      "referralLink": "Verwijzingslink",
+      "shareYourLink": "Deel je link",
+      "yourStats": "Je statistieken",
+      "enterCodeDescription": "Voer een verwijzingscode in om credits te verdienen",
+      "enterCode": "Code invoeren",
+      "refresh": "Vernieuwen",
+      "copyCode": "Code kopiëren",
+      "copyLink": "Link kopiëren",
+      "share": "Delen",
+      "stats": {
+        "totalReferrals": "Totaal aantal verwijzingen",
+        "successful": "Succesvol",
+        "creditsEarned": "Verdiende credits"
+      },
+      "recentReferrals": "Recente verwijzingen",
+      "signupComplete": "Aanmelding voltooid",
+      "pending": "In afwachting",
+      "noReferrals": "Nog geen verwijzingen. Deel je link om te beginnen!",
+      "copied": "Gekopieerd!",
+      "codeCopied": "Verwijzingscode naar klembord gekopieerd",
+      "linkCopied": "Verwijzingslink naar klembord gekopieerd",
+      "codeRefreshed": "Verwijzingscode succesvol vernieuwd",
+      "refreshFailed": "Vernieuwen verwijzingscode mislukt",
+      "inviteByEmail": "Uitnodigen via e-mail",
+      "inviteByEmailDescription": "Voeg tot 3 e-mailadressen toe (druk op Enter, spatie of komma om toe te voegen)",
+      "emailAddress": "E-mailadres",
+      "emailPlaceholder": "Voer e-mailadressen in (Enter, spatie of komma)",
+      "emailsAdded": "Toegevoegde e-mails",
+      "sent": "Verzonden",
+      "send": "Verzenden",
+      "sending": "Verzenden...",
+      "sendAllInvites": "Alle uitnodigingen verzenden",
+      "allSent": "Alles verzonden",
+      "emailSent": "Verwijzingsuitnodiging succesvol verzonden"
+    },
+    "billing": {
+      "title": "Facturering & Abonnement",
+      "description": "Beheer je tegoed en abonnement",
+      "totalCredits": "Totaal beschikbaar tegoed",
+      "allCredits": "Alle credits",
+      "monthlyCredits": "Maandelijkse credits",
+      "renewalIn": "Vernieuwing over {days} {days, plural, one {dag} other {dagen}}",
+      "noRenewal": "Geen geplande vernieuwing",
+      "extraCredits": "Extra credits",
+      "nonExpiring": "Verloopt niet",
+      "renews": "Vernieuwt op {date}",
+      "manageSubscription": "Abonnement beheren",
+      "getAdditionalCredits": "Extra credits verkrijgen",
+      "changePlan": "Abonnement wijzigen",
+      "annualCommitment": "Jaarlijkse verplichting",
+      "activeUntil": "Actief tot {date}",
+      "subscriptionCancelled": "Je abonnement wordt opgezegd op {date}",
+      "reactivate": "Reactiveren",
+      "creditsExplained": "Uitleg over credits",
+      "cancelPlan": "Abonnement opzeggen",
+      "reactivateSubscription": "Abonnement reactiveren",
+      "reactivating": "Reactiveren...",
+      "cancelDialogTitle": "Abonnement opzeggen",
+      "cancelDialogDescription": "Weet je zeker dat je je abonnement wilt opzeggen? Je behoudt toegang tot {date}.",
+      "keepSubscription": "Abonnement behouden",
+      "cancelling": "Opzeggen...",
+      "localMode": "Lokale modus actief",
+      "localModeDescription": "Alle premium functies zijn beschikbaar in deze omgeving",
+      "insufficientCredits": "Onvoldoende credits",
+      "insufficientCreditsMessage": "Facturering controle mislukt: Onvoldoende credits. Je saldo is {balance}. Voeg credits toe om door te gaan.",
+      "creditsExhausted": "Je credits zijn op. Upgrade nu.",
+      "billingCheckFailed": "Facturering controle mislukt. Upgrade om door te gaan.",
+      "failedToStartAgent": "Starten van worker {agentName} mislukt: {message}"
+    },
+    "usage": {
+      "title": "Verbruik"
+    },
+    "knowledgeBase": {
+      "opening": "Kennisbank openen",
+      "redirecting": "Doorsturen naar kennisbank pagina..."
+    },
+    "integrations": {
+      "opening": "Integraties openen",
+      "redirecting": "Doorsturen naar integraties pagina..."
+    },
+    "memory": {
+      "title": "AI Geheugen",
+      "description": "Onthoud automatisch context over gesprekken heen",
+      "enabled": "Ingeschakeld",
+      "disabled": "Uitgeschakeld",
+      "notAvailable": "Geheugen is niet beschikbaar in je huidige abonnement. Upgrade naar Plus of hoger om automatisch geheugen in te schakelen.",
+      "enableMemory": "Geheugen inschakelen",
+      "enableMemoryDescription": "Sta SuperAgent toe om informatie uit je gesprekken te onthouden",
+      "memoryDisabledByUser": "Geheugen is momenteel uitgeschakeld. Schakel het hierboven in om te beginnen met het opbouwen van herinneringen uit je gesprekken.",
+      "upgradeRequired": "Upgrade vereist voor Geheugen",
+      "clickToUpgrade": "Klik om abonnementen te bekijken",
+      "memoryEnabledTooltip": "Geheugen ingeschakeld",
+      "memoryDisabledTooltip": "Geheugen uitgeschakeld",
+      "clickToToggle": "Klik om te schakelen",
+      "usage": "Geheugengebruik",
+      "available": "{count} herinneringen beschikbaar",
+      "noLimit": "Geen limiet",
+      "yourMemories": "Je herinneringen",
+      "yourMemoriesDescription": "Bekijk en beheer wat de AI over je onthoudt",
+      "clearAll": "Alles wissen",
+      "deleteAllTitle": "Alle herinneringen verwijderen?",
+      "deleteAllDescription": "Dit verwijdert al je {count} herinneringen definitief. De AI zal geen informatie meer onthouden uit eerdere gesprekken. Deze actie kan niet ongedaan worden gemaakt.",
+      "deleteAllButton": "Alle herinneringen verwijderen",
+      "noMemoriesYet": "Nog geen herinneringen",
+      "noMemoriesDescription": "Start een gesprek en de AI zal automatisch belangrijke informatie over je onthouden",
+      "searchMemories": "Herinneringen zoeken...",
+      "filterByType": "Filteren op type",
+      "allTypes": "Alle types",
+      "personalFacts": "Persoonlijke feiten",
+      "preferences": "Voorkeuren",
+      "context": "Context",
+      "conversations": "Gesprekken",
+      "noMatchingMemories": "Geen overeenkomende herinneringen gevonden",
+      "adjustFilters": "Probeer je filters of zoekopdracht aan te passen",
+      "loadMore": "Meer laden",
+      "loading": "Herinneringen laden...",
+      "memoryTypes": {
+        "fact": "Feit",
+        "preference": "Voorkeur",
+        "context": "Context",
+        "conversation_summary": "Gesprek"
+      }
+    }
+  },
+  "triggers": {
+    "getStarted": "Begin met het toevoegen van een trigger",
+    "getStartedDescription": "Plan een trigger om acties te automatiseren en herinneringen te ontvangen wanneer ze voltooid zijn.",
+    "search": "Zoeken",
+    "scheduledTrigger": "Geplande trigger",
+    "eventBasedTrigger": "Event-gebaseerde trigger",
+    "chooseAgent": "Kies worker",
+    "schedule": "Schema",
+    "agentInstructions": "Worker instructies",
+    "agentInstructionsDescription": "Aangepaste prompt voor de worker",
+    "assignedAgent": "Toegewezen worker",
+    "unknownAgent": "Onbekende worker",
+    "technicalDetails": "Technische details",
+    "type": "Type",
+    "provider": "Provider",
+    "created": "Aangemaakt",
+    "lastUpdated": "Laatst bijgewerkt",
+    "enable": "Inschakelen",
+    "disable": "Uitschakelen",
+    "deleteTask": "Taak verwijderen",
+    "deleteTaskDescription": "Weet je zeker dat je \"{name}\" wilt verwijderen? Dit kan niet ongedaan worden gemaakt en zal alle geautomatiseerde runs voor deze taak stoppen.",
+    "taskEnabled": "Taak ingeschakeld",
+    "taskDisabled": "Taak uitgeschakeld",
+    "toggleTaskFailed": "Schakelen taakstatus mislukt",
+    "taskDeletedSuccess": "Taak succesvol verwijderd",
+    "deleteTaskFailed": "Verwijderen taak mislukt",
+    "taskUpdatedSuccess": "Taak succesvol bijgewerkt",
+    "updateTaskFailed": "Bijwerken taak mislukt",
+    "pleaseSelectAgent": "Selecteer een worker",
+    "defaultScheduledTriggerName": "Geplande trigger",
+    "defaultScheduledTriggerDescription": "Automatisch geplande trigger",
+    "scheduleTriggerUpdated": "Geplande trigger succesvol bijgewerkt",
+    "scheduleTriggerCreated": "Geplande trigger succesvol aangemaakt",
+    "upgradeForMoreScheduledTriggers": "Upgrade om meer geplande triggers aan te maken",
+    "upgradeForMoreAppTriggers": "Upgrade om meer app-gebaseerde triggers aan te maken",
+    "updateScheduleTriggerFailed": "Bijwerken geplande trigger mislukt",
+    "createScheduleTriggerFailed": "Aanmaken geplande trigger mislukt",
+    "editScheduledTask": "Geplande taak bewerken",
+    "createScheduledTask": "Geplande taak aanmaken",
+    "editAppBasedTask": "App-gebaseerde taak bewerken",
+    "createAppBasedTask": "App-gebaseerde taak aanmaken",
+    "updateAgentForTask": "Worker bijwerken voor deze taak",
+    "selectAgentForTask": "Selecteer eerst welke worker deze taak moet afhandelen",
+    "createNew": "Nieuwe aanmaken",
+    "notConfigured": "Niet geconfigureerd",
+    "every15Minutes": "Elke 15 minuten",
+    "every30Minutes": "Elke 30 minuten",
+    "everyHour": "Elk uur",
+    "dailyAt9AM": "Dagelijks om 09:00",
+    "weekdaysAt9AM": "Werkdagen om 09:00",
+    "weeklyOnMonday": "Wekelijks op maandag",
+    "monthlyOn1st": "Maandelijks op de 1e"
+  },
+  "sidebar": {
+    "referAndEarn": "Verwijs & Verdien",
+    "referralShareTitle": "Vrienden verwijzen",
+    "referralShareSubtitle": "Ontvang 400 credits",
+    "new": "Nieuw",
+    "upgrade": "Upgrade",
+    "chats": "Chats",
+    "library": "Bestanden",
+    "triggers": "Triggers",
+    "newChat": "Nieuwe chat",
+    "newAgent": "Nieuwe worker",
+    "settings": "Instellingen",
+    "logout": "Uitloggen",
+    "openMenu": "Menu openen",
+    "expandSidebar": "Zijbalk uitvouwen (CMD+B)",
+    "searchChats": "Chats zoeken",
+    "searchChatsPlaceholder": "Chats zoeken...",
+    "allTriggers": "Alle triggers",
+    "addWorkers": "Workers toevoegen",
+    "addTrigger": "Trigger toevoegen",
+    "triggerConfig": "Trigger configuratie",
+    "scheduledTrigger": "Geplande trigger",
+    "scheduledTriggerDescription": "Plan een trigger om op een specifiek tijdstip te draaien",
+    "eventBasedTrigger": "Event-gebaseerde trigger",
+    "eventBasedTriggerDescription": "Maak een trigger aan om te draaien wanneer een event plaatsvindt",
+    "noChatsFound": "Geen chats gevonden",
+    "noConversations": "Nog geen gesprekken",
+    "search": "Zoeken",
+    "searchPlaceholder": "Zoeken...",
+    "searchResults": "Zoekresultaten",
+    "recent": "Recent",
+    "personalAccount": "Persoonlijk account",
+    "workspaces": "Werkruimtes",
+    "theme": "Thema",
+    "integrations": "Integraties",
+    "billing": "Facturering",
+    "usage": "Verbruik",
+    "adminPanel": "Beheerderspaneel",
+    "apiKeys": "API-sleutels",
+    "envManager": "Omgevingsbeheer",
+    "advanced": "Geavanceerd",
+    "plan": "Abonnement",
+    "knowledgeBase": "Kennisbank",
+    "conversation": "Gesprek",
+    "conversations": "Gesprekken",
+    "startNewChat": "Nieuwe chat starten",
+    "openInNewTab": "Openen in nieuw tabblad",
+    "delete": "Verwijderen",
+    "deleting": "Verwijderen",
+    "allThreadsLoaded": "Alle gesprekken geladen",
+    "myWorkforce": "Mijn personeel",
+    "addTeam": "Team toevoegen",
+    "selectAll": "Alles selecteren",
+    "deselectAll": "Alles deselecteren",
+    "selectAllConversations": "Alle gesprekken selecteren",
+    "deselectAllConversations": "Alle gesprekken deselecteren",
+    "loadMore": "Meer laden",
+    "remaining": "Resterend"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welkom",
+    "whatWouldYouLike": "Wat wil je bereiken?",
+    "describeWhatYouNeed": "Beschrijf waar je hulp bij nodig hebt...",
+    "usageLimits": "Verbruikslimieten",
+    "threads": "Gesprekken",
+    "customWorkers": "Aangepaste workers",
+    "scheduledTriggers": "Geplande triggers",
+    "appTriggers": "App triggers",
+    "limitsExceeded": "Je hebt je gesprekslimiet bereikt. Upgrade je abonnement om meer gesprekken aan te maken.",
+    "agentInitiatedSuccessfully": "Worker succesvol gestart",
+    "aiAssistantReady": "Je AI-assistent is klaar om te helpen",
+    "greetings": {
+      "morning": [
+        "Goedemorgen! Wat staat er vandaag op de planning?",
+        "Goedemorgen! Wat gaan we vandaag bouwen?",
+        "Goedemorgen! Klaar om productief te zijn?"
+      ],
+      "afternoon": [
+        "Goedemiddag! Hoe kan ik helpen?",
+        "Ik hoop dat je dag goed verloopt! Wat is de volgende stap?"
+      ],
+      "evening": [
+        "Goedenavond! Nog hard aan het werk?",
+        "Goedenavond! Waar gaan we vanavond aan werken?",
+        "Goedenavond! Laten we dingen gedaan krijgen."
+      ],
+      "random": [
+        "Raad eens wie er terug is, ik ben er",
+        "Hallo! Wat kan SuperAgent voor je doen?",
+        "Wat wil je gedaan krijgen?",
+        "Laten we iets geweldigs bouwen",
+        "Klaar wanneer jij dat bent!",
+        "Wat is er aan de hand?",
+        "Tot je dienst! Wat is de taak?",
+        "Laten we wat magie laten gebeuren",
+        "Welke uitdaging gaan we vandaag aan?",
+        "Jouw wens is mijn bevel",
+        "Wat is het plan?",
+        "Maak je borst maar nat! Waar gaan we heen?",
+        "Nieuwe dag, nieuw project",
+        "Wat heb je in gedachten?",
+        "Laten we beginnen met de show"
+      ]
+    },
+    "good_morning": "Goedemorgen",
+    "good_afternoon": "Goedemiddag",
+    "good_evening": "Goedenavond",
+    "ready_to_accelerate_your_pipeline": "Klaar om je proces te versnellen? Kies een vaardigheid om te beginnen.",
+    "explore_agentic_ai_capabilities": "Verken Agentic AI mogelijkheden",
+    "marketing_assets": "Marketingmateriaal",
+    "image": "Afbeelding",
+    "images": {
+      "label": "Afbeelding",
+      "bannerTitle": "Image Studio",
+      "bannerDescription": "Genereer fotorealistisch marketingmateriaal, complexe infographics en posters vol tekst.",
+      "selectModelPlaceholder": "Selecteer model",
+      "styleTitle": "Kies stijl",
+      "samplePrompts": "Voorbeeld prompts",
+      "generateWithStylePrompt": "Genereer afbeelding met {style} stijl"
+    },
+    "videos": {
+      "label": "Video",
+      "bannerTitle": "Video Generator",
+      "bannerDescription": "Creëer cinematografische video's met ultra-realistische belichting en consistente beweging.",
+      "selectModelPlaceholder": "Selecteer model",
+      "styleTitle": "Kies videostijl",
+      "samplePrompts": "Voorbeeld prompts",
+      "generateWithStylePrompt": "Genereer video met {style} stijl"
+    },
+    "tags": {
+      "sales": "Verkoop",
+      "cx": "Klantervaring",
+      "mktg": "Marketing",
+      "ops": "Operations",
+      "hr": "HR",
+      "legal": "Juridisch"
+    },
+    "aePanel": {
+      "bannerTitle": "Account Executive Agent",
+      "bannerDescription": "Full-cycle verkoopassistent voor discovery, demo's en overdracht.",
+      "cards": {
+        "discovery": {
+          "title": "Discovery voorbereiding",
+          "description": "Genereer gerichte vragen en onderzoek.",
+          "prompt": "Bereid discovery vragen voor voor een Head of Sales bij een fintech bedrijf..."
+        },
+        "handoff": {
+          "title": "Verkoop → CS Overdracht",
+          "description": "Structureer dealnotities voor een naadloze overgang.",
+          "prompt": "Maak een overdrachtsdocument voor het Customer Success team..."
+        },
+        "leadFeedback": {
+          "title": "Lead feedbackloop",
+          "description": "Deel inzichten over leadkwaliteit met marketing.",
+          "prompt": "Stel feedback op over de leadkwaliteit voor marketing..."
+        }
+      }
+    },
+    "dataPanel": {
+      "bannerTitle": "Data Analyst Agent",
+      "bannerDescription": "Schoon lijsten op, verrijk contacten en analyseer CSV's voor marktinformatie.",
+      "cards": {
+        "leadCleaner": {
+          "title": "Leadlijst opschoner",
+          "description": "Herstel opmaak, verwijder duplicaten en standaardiseer velden voor CRM-import.",
+          "prompt": "Schoon deze leadlijst op en standaardiseer de functietitels..."
+        },
+        "lookalikes": {
+          "title": "Lookalike doelgroepen",
+          "description": "Ontdek nieuwe prospects op basis van je beste klanten.",
+          "prompt": "Vind bedrijven die lijken op mijn top 10 klanten..."
+        },
+        "ticketAnalysis": {
+          "title": "Ticket analyse",
+          "description": "Identificeer terugkerende problemen en sentiment uit support exports.",
+          "prompt": "Analyseer deze supporttickets op sentiment en terugkerende problemen..."
+        }
+      }
+    },
+    "pipelinePanel": {
+      "bannerTitle": "Pipeline Manager",
+      "bannerDescription": "Voorspellingen, deal-kwaliteit en risico-detectie.",
+      "cards": {
+        "q4Forecast": {
+          "title": "Q4 Voorspelling",
+          "description": "Voorspel omzet en identificeer deals die dreigen vast te lopen.",
+          "prompt": "Voorspel de omzet voor Q4 en identificeer vastgelopen risico's..."
+        },
+        "campaignRoi": {
+          "title": "Campagne ROI",
+          "description": "Attributie analyse voor recente successen.",
+          "prompt": "Analyseer campagne attributie voor gewonnen deals..."
+        },
+        "churnForecast": {
+          "title": "Churn voorspelling",
+          "description": "Voorspel verlengingen en accounts die risico lopen.",
+          "prompt": "Voorspel churn-risico's voor de komende vernieuwingsgroep..."
+        }
+      }
+    },
+    "researchPanel": {
+      "bannerTitle": "Deep Research",
+      "bannerDescription": "Gebruik geavanceerd redeneren voor diepgaand marktonderzoek, analyse van concurrentiestrategieën en het genereren van uitgebreide rapporten.",
+      "sectionTitle": "Nieuw onderzoek starten",
+      "items": {
+        "competitorDeepDive": "Concurrenten Deep Dive",
+        "marketTrendAnalysis": "Markttrend analyse",
+        "accountIntelligenceReport": "Account Intelligence rapport",
+        "regulatoryImpactStudy": "Regelgevingsimpact studie"
+      },
+      "promptTemplate": "Voer een {topic} uit over..."
+    },
+    "socialSellingPanel": {
+      "bannerTitle": "Social Selling Assistant",
+      "bannerDescription": "Bouw je persoonlijke merk, schrijf boeiende hooks en ga de interactie aan met prospects met AI.",
+      "cards": {
+        "viralHook": {
+          "title": "Viral hook generator",
+          "description": "Trek de aandacht met AI-ontworpen openingen.",
+          "prompt": "Schrijf een hook voor een LinkedIn bericht over..."
+        },
+        "repurpose": {
+          "title": "Content hergebruiken",
+          "description": "Zet blogs om in berichten, threads en carrousels.",
+          "prompt": "Vertaal dit blogbericht naar een Twitter thread..."
+        },
+        "dmSequence": {
+          "title": "DM sequence schrijver",
+          "description": "Stel niet-verkoopgerichte outreach berichten op.",
+          "prompt": "Schrijf een DM sequence voor een prospect die mijn profiel heeft bekeken..."
+        }
+      }
+    },
+    "strategistPanel": {
+      "bannerTitle": "Deal Strategist",
+      "bannerDescription": "Versnel dealcycli met onderhandelingsplannen, contractbeoordeling en prijsstrategie.",
+      "cards": {
+        "proposal": {
+          "title": "Slimme voorstellen maken",
+          "description": "Auto-drafting + prijsinvulling.",
+          "cta": "Nu opstellen",
+          "prompt": "Maak een voorstel voor [Klant] met standaard prijsstelling..."
+        },
+        "redline": {
+          "title": "Review assistent",
+          "description": "AI contractbeoordeling en aanpassingen.",
+          "cta": "Document uploaden",
+          "prompt": "Analyseer dit contract en stel aanpassingen voor..."
+        },
+        "followUp": {
+          "title": "Multi-thread follow-up",
+          "description": "Gepersonaliseerde e-mails voor stakeholders.",
+          "cta": "Sequence genereren",
+          "prompt": "Schrijf multi-thread follow-ups voor de VP en de Director..."
+        },
+        "expansion": {
+          "title": "Expansion scout",
+          "description": "Detecteer upsell-signalen en accountgezondheid.",
+          "cta": "Kansen vinden",
+          "prompt": "Analyseer accountgebruik voor expansiesignalen..."
+        }
+      }
+    },
+    "icpPanel": {
+      "bannerTitle": "Territory & Awareness",
+      "bannerDescription": "Definieer ICP, segmenteer territoria en breng besluitvormingscomités in kaart.",
+      "sectionTitle": "Diepe segmentatie",
+      "cards": {
+        "repAssignment": {
+          "title": "Rep toewijzing",
+          "description": "Aanbevolen rep-dekking op basis van sterktes.",
+          "prompt": "Stel rep-toewijzingen voor West Coast territorium voor op basis van prestaties uit het verleden..."
+        },
+        "quotaModeling": {
+          "title": "Quota modellering",
+          "description": "Optimaliseer targets en analyseer capaciteitsgaten.",
+          "prompt": "Modeleer quota capaciteit voor FY24 gegeven het huidige personeelsbestand..."
+        },
+        "predictiveHiring": {
+          "title": "Voorspellend aannemen",
+          "description": "Aanname-voorspellingen op basis van groei-pipeline.",
+          "prompt": "Maak een aannameplan op basis van pipeline-snelheid en omzetdoelen..."
+        },
+        "marketSegmentation": {
+          "title": "Marktsegmentatie",
+          "description": "Verfijn ICP's en buyer persona's.",
+          "prompt": "Definieer het psychografische profiel voor ons enterprise-segment..."
+        },
+        "customerHealth": {
+          "title": "Klantgezondheidsprofiel",
+          "description": "Identificeer kenmerken van succesvolle lange-termijn klanten.",
+          "prompt": "Maak een health score profiel voor onze meest succesvolle klanten..."
+        }
+      }
+    },
+    "websitePanel": {
+      "bannerTitle": "Website",
+      "bannerDescription": "Genereer hoog-converterende landingspagina's en functionele webapplicaties met AI.",
+      "sectionTitle": "Sjabloonbibliotheek",
+      "promptTemplate": "Maak een {template} voor...",
+      "categories": {
+        "marketing": {
+          "title": "Marketing & Campagnes",
+          "items": {
+            "landingPage": "Hoog-converterende landingspagina",
+            "webinarRegistration": "Webinar registratie site",
+            "productLaunchCountdown": "Productlancering countdown",
+            "eventMicrosite": "Event microsite",
+            "newsletterSignup": "Nieuwsbrief aanmeldpagina"
+          }
+        },
+        "corporate": {
+          "title": "Corporate & Branding",
+          "items": {
+            "corporateHomepage": "Moderne corporate homepage",
+            "aboutLeadership": "Over ons & Leiderschap",
+            "careersCulture": "Vacatures & Cultuur hub",
+            "pressMediaKit": "Pers & Media kit"
+          }
+        },
+        "saas": {
+          "title": "SaaS & Product",
+          "items": {
+            "saasHomepage": "SaaS product homepage",
+            "pricingComparison": "Prijzen & Abonnementen vergelijking",
+            "featureDeepDive": "Feature deep-dive pagina",
+            "docsHelpCenter": "Documentatie / Helpcentrum"
+          }
+        },
+        "content": {
+          "title": "Content & Portfolio",
+          "items": {
+            "personalPortfolio": "Personal branding portfolio",
+            "agencyShowcase": "Creative agency showcase",
+            "consultantBooking": "Consultant boekingspagina",
+            "resourceLibraryBlog": "Resource bibliotheek / Blog"
+          }
+        }
+      }
+    },
+    "adsPanel": {
+      "bannerTitle": "Ad Studio",
+      "bannerDescription": "Genereer hoog-converterende advertenties met scherpe targeting en creatieve richting.",
+      "none": "Geen",
+      "steps": {
+        "strategyTargeting": "Strategie & Targeting",
+        "adSpecifications": "Ad Specificaties",
+        "creativeDirection": "Creatieve Richting"
+      },
+      "fields": {
+        "productUrl": "Product landingspagina URL",
+        "competitorUrl": "Concurrent URL",
+        "targetAudience": "Doelgroep",
+        "platforms": "Platformen",
+        "format": "Formaat",
+        "callToAction": "Call to Action",
+        "visualStyle": "Visuele Stijl",
+        "outputVolume": "Output Volume",
+        "massTranslation": "Massa Vertaling"
+      },
+      "placeholders": {
+        "url": "https://...",
+        "age": "Leeftijd (bijv. 25-45)",
+        "location": "Locatie (bijv. VS, Europa)",
+        "interests": "Interesses (bijv. SaaS, Tech)",
+        "ctaText": "Knoptekst (bijv. Nu aanmelden)",
+        "destinationLink": "Bestemmingslink (bijv. https://...)"
+      },
+      "platforms": {
+        "googleAds": "Google Ads",
+        "metaAds": "Meta Ads",
+        "linkedin": "LinkedIn",
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "youtube": "YouTube"
+      },
+      "formats": {
+        "singleImage": "Enkele afbeelding",
+        "carousel": "Carrousel",
+        "shortVideo": "Korte video",
+        "story": "Story"
+      },
+      "visualStyles": {
+        "minimalist": "Minimalistisch",
+        "boldVibrant": "Gewaagd & Levendig",
+        "professional": "Professioneel",
+        "playful": "Speels",
+        "luxury": "Luxe",
+        "futuristic": "Futuristisch",
+        "handDrawn": "Handgetekend",
+        "corporate": "Zakelijk"
+      },
+      "languages": {
+        "es": "Spaans",
+        "fr": "Frans",
+        "de": "Duits",
+        "ja": "Japans",
+        "pt": "Portugees",
+        "it": "Italiaans",
+        "zh": "Chinees",
+        "ko": "Koreaans",
+        "ar": "Arabisch",
+        "nl": "Nederlands",
+        "sv": "Zweeds",
+        "no": "Noors",
+        "da": "Deens",
+        "fi": "Fins",
+        "hi": "Hindi",
+        "ru": "Russisch",
+        "tr": "Turks",
+        "pl": "Pools",
+        "id": "Indonesisch",
+        "th": "Thais",
+        "vi": "Vietnamees",
+        "el": "Grieks"
+      },
+      "outputVolumeConcepts": "{count} Concepten",
+      "generateButton": "Genereer concepten ({count})",
+      "strategyAppliedTitle": "Strategie Toegepast",
+      "strategyAppliedDescription": "Voor elk gegenereerd concept produceren we automatisch drie variaties.",
+      "variations": {
+        "1": {
+          "title": "1. Schaarste & Urgentie",
+          "description": "FOMO, tijdelijke aanbiedingen, exclusieve toegang hooks"
+        },
+        "2": {
+          "title": "2. Benefit Driven",
+          "description": "Duidelijke waardepropositie, probleem-oplossing kadering"
+        },
+        "3": {
+          "title": "3. Social Proof",
+          "description": "Testimonials, gebruikersaantallen, vertrouwen indicatoren"
+        }
+      },
+      "prompt": {
+        "notProvided": "Niet verstrekt",
+        "general": "Algemeen",
+        "global": "Globaal",
+        "learnMore": "Meer informatie",
+        "na": "N.v.t.",
+        "productUrl": "Product URL: {value}",
+        "competitorUrl": "Concurrent URL: {value}",
+        "targetAudienceTitle": "Doelgroep:",
+        "targetAudienceAge": "- Leeftijd: {value}",
+        "targetAudienceLocation": "- Locatie: {value}",
+        "targetAudienceInterests": "- Interesses: {value}",
+        "campaignSpecsTitle": "Campagne Specificaties:",
+        "platforms": "- Platformen: {value}",
+        "formats": "- Formaten: {value}",
+        "callToAction": "- Call to Action: \"{text}\" (Link: {link})",
+        "visualStyle": "- Visuele Stijl: {value}",
+        "settingsTitle": "Instellingen:",
+        "numberOfConcepts": "- Aantal Concepten: {value}",
+        "translationLanguages": "- Vertalingstalen: {value}",
+        "instructions": "Genereer hoog-converterende advertentieconcepten op basis van deze input.",
+        "variationsInstruction": "Zorg ervoor dat je 3 verschillende tekstvariaties (Schaarste, Benefit, Social Proof) per concept verstrekt."
+      }
+    },
+    "video_studio": "Video Studio",
+    "demos_outreach": "Demo's & Outreach",
+    "pipeline_manager": "Pipeline Manager",
+    "forecasting_deal_qa": "Voorspelling & Deal QA",
+    "account_executive": "Account Executive",
+    "full_cycle_sales_agent": "Full-cycle Sales Agent",
+    "deal_strategist": "Deal Strategist",
+    "negotiation_closers": "Onderhandeling & Closers",
+    "data_analyst": "Data Analyst",
+    "cleaning_enrichment": "Opschonen & Verrijken",
+    "territory_persona": "Territory & Persona",
+    "icp_market_planning": "ICP & Marktplanning",
+    "social_selling": "Social Selling",
+    "brand_content": "Merk & Content",
+    "deep_research": "Deep Research",
+    "market_intel_reports": "Market Intel & Rapportage",
+    "ad_studio": "Ad Studio",
+    "ads_creative_roi": "Ads & Creative ROI",
+    "gtm_decks": "GTM Decks",
+    "proposals_qbrs": "Voorstellen, QBR's",
+    "landing_pages_sites": "Landingspagina's, Sites",
+    "website": "Website",
+    "video": "Video",
+    "pipeline": "Pipeline",
+    "account_exec": "Account Exec",
+    "data": "Data",
+    "territory_icp": "Territorium/ICP",
+    "research": "Onderzoek"
+  },
+  "thread": {
+    "integrations": "Integraties",
+    "connect": "Verbinden",
+    "seeAllIntegrations": "+ Bekijk alle integraties",
+    "connectIntegrations": "Integraties verbinden",
+    "adaptive": "Adaptief",
+    "adaptiveDescription": "Snelle antwoorden met slimme context-schakeling",
+    "autonomous": "Autonoom",
+    "autonomousDescription": "Deep-work modus voor meerstaps probleemoplossing",
+    "chat": "Chat",
+    "chatDescription": "Eenvoudig heen-en-weer gesprek",
+    "sampleAnswers": "Voorbeeld antwoorden",
+    "samplePrompts": "Voorbeeld prompts",
+    "waitingForUserResponse": "SuperAgent gaat autonoom verder na jouw reactie.",
+    "taskCompleted": "Taak voltooid",
+    "uploadingFiles": "{count} {count, plural, one {bestand} other {bestanden}} uploaden...",
+    "uploadingFilesOne": "1 bestand uploaden...",
+    "uploadingFilesMany": "{count} bestanden uploaden...",
+    "scrollToBottom": "Naar beneden scrollen",
+    "tools": "Tools",
+    "instructions": "Instructies",
+    "knowledge": "Kennis",
+    "triggers": "Triggers",
+    "agents": "Workers",
+    "superWorker": "Super Worker",
+    "searchWorkers": "Workers zoeken...",
+    "myWorkers": "Mijn Workers",
+    "running": "Draait",
+    "minimizeToFloatingPreview": "Minimaliseren naar zwevende preview",
+    "close": "Sluiten",
+    "noActionsYet": "SuperAgent Computer",
+    "workerActionsDescription": "Opstarten",
+    "emptyActionsDescription": "Worker acties verschijnen hier",
+    "toolIsRunning": "Tool draait",
+    "toolCurrentlyExecuting": "{toolName} wordt momenteel uitgevoerd. Resultaten verschijnen hier na voltooiing.",
+    "thinkingTitle": "Denken",
+    "thinkingDescription": "Voorbereiden om acties uit te voeren...",
+    "rateThisResult": "Beoordeel dit resultaat",
+    "feedbackHelpsImprove": "Je feedback helpt ons verbeteren",
+    "additionalFeedbackOptional": "Aanvullende feedback (optioneel)",
+    "helpKortixImprove": "Help SuperAgent verbeteren met feedback",
+    "submit": "Verzenden",
+    "submitting": "Verzenden...",
+    "feedbackSubmittedSuccess": "Feedback succesvol verzonden",
+    "feedbackSubmitFailed": "Verzenden feedback mislukt"
+  },
+  "agents": {
+    "title": "Workers",
+    "create": "Worker aanmaken",
+    "createNewWorker": "Nieuwe worker aanmaken",
+    "edit": "Worker bewerken",
+    "delete": "Worker verwijderen",
+    "name": "Naam",
+    "description": "Beschrijving",
+    "model": "Model",
+    "systemPrompt": "Systeemprompt",
+    "systemPromptPlaceholder": "Definieer hoe je worker zich moet gedragen...",
+    "customizeIcon": "Klik om worker icoon aan te passen"
+  },
+  "home": {
+    "heroPlaceholder": "Beschrijf de taak die je worker moet voltooien..."
+  },
+  "showcase": {
+    "title": "SuperAgent: Je autonome AI-personeel",
+    "subtitle": "Gebouwd voor complexiteit, ontworpen voor alles. De ultieme AI-assistent die alles afhandelt - van eenvoudige verzoeken tot ultra-complexe projecten.",
+    "tryItOut": "Probeer het nu",
+    "kortixComputer": "SuperAgent Computer",
+    "running": "Draait",
+    "workers": {
+      "images": {
+        "title": "Afbeeldingen",
+        "description": "Genereer afbeeldingen op aanvraag. Van productfoto's tot social media graphics tot volledige illustraties. Pas stijl, belichting, kleuren en compositie aan, of verfijn bestaande visuals met snelle bewerkingen.",
+        "capabilities": {
+          "0": "Productfoto's genereren",
+          "1": "Social graphics maken",
+          "2": "Illustraties creëren",
+          "3": "Stijl & Belichting variaties",
+          "4": "Logo / Asset generatie",
+          "5": "+ Nog veel meer"
+        },
+        "imageAlt": "Voorbeeld van een niet-lineaire groeigrafiek",
+        "fileType": "AFBEELDING"
+      },
+      "slides": {
+        "title": "Slides",
+        "description": "Creëer direct verbluffende presentaties. Van pitch decks tot rapporten tot trainingsmateriaal. Pas thema's, lay-outs en contentstructuur aan, of verfijn bestaande decks met snelle bewerkingen.",
+        "capabilities": {
+          "0": "Pitch Decks",
+          "1": "Trainingsmateriaal",
+          "2": "Rapportage Decks",
+          "3": "Thema & Lay-out variaties",
+          "4": "Content herstructurering",
+          "5": "+ Nog veel meer"
+        },
+        "imageAlt": "Voorbeeld van een slide van het Nexus Enterprise Automation platform",
+        "fileType": "PPTX"
+      },
+      "data": {
+        "title": "Data",
+        "description": "Zet ruwe data om in inzichten. Van spreadsheets tot dashboards tot visualisaties. Schoon datasets op, genereer grafieken, bouw rapporten of verfijn bestaande analyses met snelle updates.",
+        "capabilities": {
+          "0": "Dashboards",
+          "1": "Visualisaties",
+          "2": "Data Rapportage",
+          "3": "Opschonen & Organiseren",
+          "4": "Inzichten genereren",
+          "5": "+ Nog veel meer"
+        },
+        "imageAlt": "Voorbeeld van een financieel model dashboard",
+        "fileType": "PREVIEW"
+      },
+      "docs": {
+        "title": "Documenten",
+        "description": "Schrijf en bewerk documenten moeiteloos. Van voorstellen tot handleidingen tot contentstukken. Pas toon, structuur en opmaak aan, of verfijn bestaande documenten met snelle herschrijvingen en polijsten.",
+        "capabilities": {
+          "0": "Voorstellen",
+          "1": "Handleidingen & Gidsen",
+          "2": "Contentstukken",
+          "3": "Toon & Stijl variaties",
+          "4": "Opmaak & Herstructurering",
+          "5": "+ Nog veel meer"
+        },
+        "imageAlt": "Voorbeeld van een Executive Summary Rapport voor Q3 2025",
+        "fileType": "PDF"
+      },
+      "research": {
+        "title": "Onderzoek",
+        "description": "Onderzoek onderwerpen uitgebreid. Van markttrends tot concurrentieanalyse tot deep dives. Verzamel bronnen, stel bevindingen op of verfijn bestaand onderzoek met snelle updates.",
+        "capabilities": {
+          "0": "Markttrend analyse",
+          "1": "Concurrentieonderzoek",
+          "2": "Onderwerp Deep Dives",
+          "3": "Bronnen verzamelen",
+          "4": "Bevindingen opstellen",
+          "5": "+ Nog veel meer"
+        },
+        "imageAlt": "Voorbeeld van een onderzoek naar gedetailleerde concurrentieprofielen",
+        "fileType": "PDF"
+      }
+    }
+  },
+  "threads": {
+    "title": "Gesprekken",
+    "newThread": "Nieuw gesprek",
+    "sendMessage": "Bericht verzenden",
+    "placeholder": "Typ je bericht..."
+  },
+  "billing": {
+    "title": "Facturering & Abonnement",
+    "subscription": "Abonnement",
+    "credits": "Credits",
+    "popular": "Populair",
+    "creditsExplained": "Uitleg over credits",
+    "creditsExhausted": "+100 credits in {time}. Upgrade om nu te gebruiken.",
+    "creditsExhaustedRefreshIn": "Je bent door je credits heen. Ze vernieuwen over {time}",
+    "trialActive": "Proefperiode actief",
+    "trialBadge": "7-daagse Proefperiode",
+    "currentPlan": "Huidig abonnement",
+    "currentBadge": "Huidig",
+    "scheduled": "Gepland",
+    "scheduledBadge": "Gepland",
+    "loading": "Laden...",
+    "subscriptionChangeScheduled": "Abonnementswijziging gepland",
+    "planWillChangeOn": "Je abonnement wijzigt op {date}.",
+    "failedToInitiateSubscription": "Starten abonnement mislukt. Probeer het opnieuw.",
+    "subscriptionUpgraded": "Abonnement geüpgraded van {currentPrice} naar {newPrice}",
+    "subscriptionUpdated": "Abonnement succesvol bijgewerkt",
+    "cannotDowngradeDuringCommitment": "Kan niet downgraden tijdens contractperiode",
+    "alreadyOnThisPlan": "Je zit al op dit abonnement.",
+    "localModeMessage": "Draait in lokale ontwikkelmodus - factureringsfuncties uitgeschakeld",
+    "holidayPromo": {
+      "badge": "Vakantie Special",
+      "countdown": "Eindigt over {time}",
+      "discount": "50% korting voor de eerste 3 maanden",
+      "window": "Geldig op 24-25 dec",
+      "headerLine": "Gebruik code {code} voor {discount}",
+      "description": "Gebruik code {code} bij het afrekenen voor {discount}. {window}",
+      "copyCode": "Code kopiëren",
+      "copied": "Gekopieerd",
+      "codeCopied": "Gekopieerd {code}",
+      "copyFailed": "Kopiëren promocode mislukt"
+    },
+    "creditsExplainedPage": {
+      "title": "Uitleg over Credits",
+      "subtitle": "Alles wat je moet weten over hoe credits werken in SuperAgent",
+      "understandingCredits": {
+        "title": "Credits begrijpen",
+        "description": "Credits fungeren als de universele valuta van het SuperAgent platform voor platformbewerkingen. Elke actie die je AI-workers uitvoeren - van data-analyse tot het genereren van code - verbruikt credits op basis van de complexiteit van de taak en de benodigde middelen."
+      },
+      "howCreditsWork": {
+        "title": "Hoe Credits werken",
+        "description": "Credits worden verbruikt op basis van de middelen die AI-workers gebruiken:",
+        "aiModelUsage": {
+          "title": "AI Model Verbruik",
+          "description": "De belangrijkste factor voor creditverbruik",
+          "content": "Verschillende AI-modellen hebben verschillende kosten op basis van hun mogelijkheden en tokenverbruik. Credits worden verbruikt voor input tokens (jouw prompts en context), output tokens (de reacties van de worker), en variëren per modelklasse (Claude, GPT, etc.)."
+        },
+        "pricingModel": {
+          "title": "Prijsmodel",
+          "description": "20% marge op AI model kosten",
+          "content": "We passen een marge van 20% toe op alle API- en modelkosten om platforminfrastructuur, beveiliging en voortdurende ontwikkeling te dekken. Deze transparante prijsstelling zorgt ervoor dat je precies weet waarvoor je betaalt."
+        }
+      },
+      "gettingMoreCredits": {
+        "title": "Meer Credits verkrijgen",
+        "description": "Er zijn verschillende manieren om credits te verkrijgen in SuperAgent:",
+        "monthlySubscription": {
+          "title": "Maandelijks Abonnementstegoed",
+          "description": "Inbegrepen bij je betaalde abonnement en elke maand automatisch vernieuwd. Dit zijn vervallende credits."
+        },
+        "topUpCredits": {
+          "title": "Credits Opwaarderen",
+          "description": "Koop extra credits wanneer je ze nodig hebt. Dit zijn niet-vervallende credits die beschikbaar zijn voor premium leden."
+        },
+        "promotionalGrants": {
+          "title": "Promotionele Grants & Events",
+          "description": "Bonus credits van speciale evenementen, promoties of verwijzingen. Dit zijn niet-vervallende credits."
+        },
+        "refunds": {
+          "title": "Terugbetalingen",
+          "description": "Credits terugbetaald vanwege technische problemen of mislukte taken. Dit zijn niet-vervallende credits."
+        }
+      },
+      "typesOfCredits": {
+        "title": "Types Credits",
+        "description": "SuperAgent gebruikt twee types credits om je flexibiliteit te geven in hoe je je verbruik beheert:",
+        "expiringCredits": {
+          "title": "Vervallende Credits",
+          "description": "Maandelijks Abonnementstegoed",
+          "content": "Deze credits zijn inbegrepen in je betaalde abonnement en worden elke maand op je abonnementsdatum automatisch vernieuwd. Ze vervallen aan het einde van elke factureringscyclus en worden altijd als eerste verbruikt voordat niet-vervallende credits worden aangesproken."
+        },
+        "nonExpiringCredits": {
+          "title": "Niet-vervallende Credits",
+          "description": "Permanent tegoed dat nooit verloopt",
+          "content": "Deze credits verlopen nooit en worden van maand naar maand meegenomen. Dit omvat opwaardeeraankopen, terugbetalingen en promotionele grants. Niet-vervallende credits worden pas gebruikt nadat je vervallende credits zijn opgebruikt."
+        },
+        "creditPriority": {
+          "title": "Credit Prioriteit:",
+          "description": "Bij het gebruik van SuperAgent worden vervallende credits altijd als eerste verbruikt. Pas nadat je vervallende credits op zijn, worden je niet-vervallende credits gebruikt."
+        }
+      }
+    },
+    "close": "Sluiten",
+    "cancelScheduledChange": "Geplande wijziging annuleren",
+    "threadUsage": "Gespreksverbruik",
+    "error": "Fout",
+    "totalUsage": "Totaal verbruik",
+    "usage": "Verbruik",
+    "thread": "Gesprek",
+    "lastUsed": "Laatst gebruikt",
+    "creditsUsed": "Credits verbruikt",
+    "creditTransactions": "Credit transacties",
+    "loadingTransactionHistory": "Transactiegeschiedenis laden...",
+    "monthly": "Maandelijks",
+    "yearly": "Jaarlijks",
+    "discount": "15% korting",
+    "perMonth": "/mnd",
+    "billedYearly": "Jaarlijks gefactureerd",
+    "downgradePending": "Downgrade in afwachting",
+    "downgrade": "Downgrade",
+    "switchToLegacyYearly": "Schakel over naar Legacy Jaarlijks",
+    "confirmDowngradeTitle": "Weet je zeker dat je wilt downgraden?",
+    "confirmDowngradeDescription": "Je staat op het punt je abonnement te downgraden naar {planName}. Deze wijziging gaat in aan het einde van je huidige factureringsperiode.",
+    "confirmDowngrade": "Ja, downgrade abonnement",
+    "pickPlan": "Kies het abonnement dat bij je past.",
+    "reachedLimit": "Je hebt je limiet bereikt.",
+    "projectLimit": "Projectlimiet ({current}/{limit})",
+    "threadLimit": "Gesprekslimiet ({current}/{limit})",
+    "workerLimit": "Workerlimiet ({current}/{limit})",
+    "triggerLimit": "Triggerlimiet ({current}/{limit})",
+    "getAdditionalCredits": "Extra credits verkrijgen",
+    "selectPlan": "Abonnement selecteren",
+    "changeScheduled": "Wijziging gepland",
+    "notAvailable": "Niet beschikbaar",
+    "features": {
+      "creditsPerMonth": "{count} credits/mnd",
+      "customWorker": "{count} aangepaste worker",
+      "customWorkers": "{count} aangepaste workers",
+      "privateProject": "{count} privé project",
+      "privateProjects": "Privé projecten",
+      "customTrigger": "{count} aangepaste trigger",
+      "integrations": "100+ integraties",
+      "premiumAIModels": "Premium AI-modellen",
+      "prioritySupport": "Prioriteitsondersteuning"
+    },
+    "downgradeDialog": {
+      "confirmTitle": "Abonnementswijziging bevestigen",
+      "confirmSubtitle": "We vinden het jammer dat je weggaat",
+      "confirmDescription": "Je staat op het punt over te stappen naar het {planName} abonnement. Deze wijziging gaat in aan het einde van je huidige factureringscyclus. Tot die tijd behoud je je huidige voordelen.",
+      "continue": "Doorgaan",
+      "keepCurrentPlan": "Mijn huidige abonnement behouden",
+      "feedbackTitle": "Help ons verbeteren",
+      "feedbackSubtitle": "Jouw feedback vormt de toekomst van SuperAgent",
+      "whatWouldMakeYouStay": "Wat zou je laten blijven?",
+      "feedbackPlaceholder": "Als er één ding is dat we konden veranderen of toevoegen om SuperAgent de moeite waard te maken voor jou, wat zou dat dan zijn?",
+      "feedbackFooter": "Ons team leest elk antwoord. Jouw woorden beïnvloeden direct wat we hierna gaan bouwen.",
+      "confirmDowngrade": "Downgrade bevestigen",
+      "processing": "Verwerken...",
+      "pleaseSelectReason": "Selecteer een reden",
+      "reasons": {
+        "tooExpensive": "Het is te duur voor mijn behoeften",
+        "notUsingOften": "Ik gebruik SuperAgent niet vaak genoeg",
+        "foundAlternative": "Ik heb een alternatieve oplossing gevonden",
+        "technicalIssues": "Ik ben technische problemen tegengekomen",
+        "resultsNotGood": "De resultaten voldeden niet aan mijn verwachtingen",
+        "other": "Andere reden"
+      }
+    }
+  },
+  "auth": {
+    "haveReferralCode": "Heb je een verwijzingscode?",
+    "referralCode": "Verwijzingscode",
+    "enterCode": "Code invoeren",
+    "logIntoAccount": "Inloggen op je account",
+    "createAccount": "Account aanmaken",
+    "signInOrCreateAccount": "Log in of maak je SuperAgent account aan",
+    "continueWithGoogle": "Doorgaan met Google",
+    "continueWithGitHub": "Doorgaan met GitHub",
+    "orEmail": "Of e-mail",
+    "emailAddress": "E-mailadres",
+    "password": "Wachtwoord",
+    "confirmPassword": "Wachtwoord bevestigen",
+    "signIn": "Inloggen",
+    "signUp": "Aanmelden",
+    "signingIn": "Inloggen...",
+    "creatingAccount": "Account aanmaken...",
+    "forgotPassword": "Wachtwoord vergeten?",
+    "dontHaveAccount": "Nog geen account?",
+    "alreadyHaveAccount": "Heb je al een account?",
+    "acceptPrivacyTerms": "Ik ga akkoord met de <privacyPolicy>Privacyverklaring</privacyPolicy> en <termsOfService>Algemene Voorwaarden</termsOfService>",
+    "privacyPolicy": "Privacyverklaring",
+    "termsOfService": "Algemene Voorwaarden",
+    "checkYourEmail": "Controleer je e-mail",
+    "confirmationLinkSent": "We hebben een reset-link gestuurd naar",
+    "clickLinkToActivate": "Klik op de link in de e-mail om je account te activeren. Als je de e-mail niet ziet, controleer dan je spamfolder.",
+    "returnToHome": "Terug naar startpagina",
+    "backToSignIn": "Terug naar inloggen",
+    "resetPassword": "Wachtwoord opnieuw instellen",
+    "resetPasswordDescription": "Voer je e-mailadres in en we sturen je een reset-link",
+    "sendResetLink": "Link verzenden",
+    "cancel": "Annuleren",
+    "pleaseEnterValidEmail": "Voer een geldig e-mailadres in",
+    "signInFailed": "Inloggen mislukt. Controleer je gegevens.",
+    "signUpFailed": "Aanmelden mislukt. Probeer het opnieuw.",
+    "sendMagicLink": "Magic link verzenden",
+    "sending": "Verzenden...",
+    "magicLinkSent": "We hebben een magic link gestuurd naar",
+    "magicLinkDescription": "Klik op de link in je e-mail om in te loggen. De link vervalt over 1 uur.",
+    "magicLinkExplanation": "We sturen je een veilige link om in te loggen. Geen wachtwoord nodig.",
+    "magicLinkExpired": "Deze link is verlopen",
+    "magicLinkExpiredDescription": "De magic link waarop je hebt geklikt is verlopen. Magic links vervallen na 1 uur om veiligheidsredenen.",
+    "resendMagicLink": "Magic link opnieuw verzenden",
+    "resending": "Opnieuw verzenden...",
+    "byContinuingYouAgree": "Door door te gaan, ga je akkoord met onze <privacyPolicy>Privacyverklaring</privacyPolicy> en <termsOfService>Algemene Voorwaarden</termsOfService>",
+    "openProvider": "Open {provider}",
+    "didntReceiveEmail": "Geen e-mail ontvangen?",
+    "resend": "Opnieuw verzenden",
+    "alreadySignedIn": "Je bent al ingelogd. Er is geen actie vereist.",
+    "goToDashboard": "Naar dashboard",
+    "signInToContinue": "Log in om door te gaan",
+    "signInOrCreateAccountToTalk": "Log in of maak een account aan om met SuperAgent te praten",
+    "orContinueWithEmail": "Of ga door met e-mail",
+    "signInWithEmail": "Inloggen met e-mail",
+    "createNewAccount": "Nieuw account aanmaken",
+    "byContinuingYouAgreeSimple": "Door door te gaan, ga je akkoord met onze",
+    "phoneVerification": {
+      "title": "Verifieer je telefoonnummer",
+      "titleOtp": "Voer verificatiecode in",
+      "description": "Beveilig je account met tweestapsverificatie",
+      "descriptionOtp": "We hebben een code naar je telefoonnummer gestuurd",
+      "phoneNumber": "Telefoonnummer",
+      "verificationCode": "Verificatiecode",
+      "enterSixDigitCode": "Voer de 6-cijferige code in",
+      "phoneNumberPlaceholder": "Voer je telefoonnummer in",
+      "sendVerificationCode": "Verificatiecode verzenden",
+      "sendingCode": "Code verzenden...",
+      "verifyCode": "Code verifiëren",
+      "verifying": "Verifiëren...",
+      "resendCode": "Code opnieuw verzenden",
+      "resendInSeconds": "Opnieuw verzenden over {seconds}s",
+      "removePhoneNumber": "Telefoonnummer verwijderen",
+      "codeSentTo": "Verificatiecode gestuurd naar",
+      "sixDigitCodeHint": "We sturen je een 6-cijferige verificatiecode via sms",
+      "pleaseEnterPhoneNumber": "Voer een telefoonnummer in",
+      "pleaseEnterValidPhoneNumber": "Voer een geldig telefoonnummer in",
+      "pleaseEnterSixDigitCode": "Voer een 6-cijferige code in",
+      "verificationCodeSent": "Verificatiecode naar je telefoon gestuurd",
+      "newVerificationCodeSent": "Nieuwe verificatiecode verzonden",
+      "phoneNumberVerified": "Telefoonnummer succesvol geverifieerd!",
+      "phoneNumberRemoved": "Telefoonnummer verwijderd. Je kunt nu een nieuw nummer toevoegen.",
+      "signOut": "Uitloggen",
+      "signingOut": "Uitloggen...",
+      "sending": "Verzenden..."
+    }
+  },
+  "onboarding": {
+    "welcome": "Welkom",
+    "next": "Volgende",
+    "skip": "Overslaan"
+  },
+  "tools": {
+    "executeCommand": "Commando uitvoeren",
+    "checkCommandOutput": "Commando output controleren",
+    "terminateCommand": "Commando beëindigen",
+    "listCommands": "Commando's weergeven",
+    "createFile": "Bestand aanmaken",
+    "deleteFile": "Bestand verwijderen",
+    "fullFileRewrite": "Bestand herschrijven",
+    "strReplace": "Tekst bewerken",
+    "editFile": "Bestand bewerken",
+    "uploadFile": "Bestand uploaden",
+    "createDocument": "Document aanmaken",
+    "updateDocument": "Document bijwerken",
+    "readDocument": "Document lezen",
+    "listDocuments": "Documenten weergeven",
+    "deleteDocument": "Document verwijderen",
+    "createTasks": "Taken aanmaken",
+    "updateTasks": "Taken bijwerken",
+    "browserNavigateTo": "Naar pagina navigeren",
+    "browserAct": "Actie uitvoeren",
+    "browserExtractContent": "Inhoud extraheren",
+    "browserScreenshot": "Screenshot maken",
+    "executeDataProviderCall": "Data provider aanroepen",
+    "getDataProviderEndpoints": "Endpoints ophalen",
+    "ask": "Vraag",
+    "wait": "Wacht",
+    "complete": "Taak voltooien",
+    "crawlWebpage": "Webpagina crawlen",
+    "exposePort": "Poort openstellen",
+    "scrapeWebpage": "Webpagina scrapen",
+    "webSearch": "Web zoeken",
+    "loadImage": "Afbeelding laden",
+    "createPresentationOutline": "Presentatie-outline maken",
+    "createPresentation": "Presentatie maken",
+    "presentPresentation": "Presenteren",
+    "clearImagesFromContext": "Afbeeldingen uit context wissen",
+    "imageSearch": "Afbeeldingen zoeken",
+    "createSheet": "Sheet aanmaken",
+    "updateSheet": "Sheet bijwerken",
+    "viewSheet": "Sheet bekijken",
+    "analyzeSheet": "Sheet analyseren",
+    "visualizeSheet": "Sheet visualiseren",
+    "formatSheet": "Sheet opmaken",
+    "updateAgent": "Worker bijwerken",
+    "getCurrentAgentConfig": "Huidige worker configuratie ophalen",
+    "searchMcpServers": "MCP servers zoeken",
+    "getMcpServerTools": "MCP server tools ophalen",
+    "configureMcpServer": "MCP server configureren",
+    "getPopularMcpServers": "Populaire MCP servers ophalen",
+    "testMcpServerConnection": "MCP server verbinding testen",
+    "listAppEventTriggers": "Event triggers zoeken",
+    "createEventTrigger": "Event trigger aanmaken",
+    "getProjectStructure": "Projectstructuur ophalen",
+    "buildProject": "Project bouwen",
+    "makePhoneCall": "Telefoongesprek starten",
+    "endCall": "Gesprek beëindigen",
+    "getCallDetails": "Gespreksdetails ophalen",
+    "listCalls": "Gesprekken weergeven",
+    "monitorCall": "Gesprek monitoren",
+    "waitForCallCompletion": "Wachten op voltooiing",
+    "getPaperDetails": "Paper details ophalen",
+    "searchAuthors": "Auteurs zoeken",
+    "getAuthorDetails": "Auteur details ophalen",
+    "getAuthorPapers": "Auteur papers ophalen",
+    "getPaperCitations": "Paper citaties ophalen",
+    "getPaperReferences": "Paper referenties ophalen",
+    "paperSearch": "Papers zoeken",
+    "discoverUserMcpServers": "Tools ontdekken",
+    "createCredentialProfile": "Profiel aanmaken",
+    "getCredentialProfiles": "Profielen ophalen",
+    "configureProfileForAgent": "Tools toevoegen aan worker",
+    "createNewAgent": "Nieuwe worker aanmaken",
+    "searchMcpServersForAgent": "MCP servers zoeken",
+    "createCredentialProfileForAgent": "Credential profiel aanmaken",
+    "discoverMcpToolsForAgent": "MCP tools ontdekken",
+    "configureAgentIntegration": "Worker integratie configureren",
+    "createAgentScheduledTrigger": "Geplande trigger aanmaken",
+    "listAgentScheduledTriggers": "Geplande triggers voor worker weergeven",
+    "executingTool": "Tool uitvoeren",
+    "toolExecutedSuccessfully": "Tool succesvol uitgevoerd",
+    "toolExecutionFailed": "Tool uitvoering mislukt",
+    "input": "Input",
+    "output": "Output",
+    "copyFileContent": "Bestandsinhoud kopiëren",
+    "fileContentCopied": "Bestandsinhoud naar klembord gekopieerd",
+    "failedToCopyFileContent": "Kopiëren bestandsinhoud mislukt",
+    "noContentAvailable": "Geen inhoud beschikbaar",
+    "noContentDescription": "Deze tooluitvoering heeft geen input of output inhoud gegenereerd om weer te geven.",
+    "tool": "Tool"
+  },
+  "agentRunLimit": {
+    "gotIt": "Begrepen",
+    "parallelRunsLimitReached": "Parallelle runs limiet bereikt",
+    "parallelRunsLimitDescription": "Je hebt de maximale limiet voor parallelle worker-runs bereikt.",
+    "needMoreParallelRuns": "Meer parallelle runs nodig?",
+    "upgradeDescription": "Upgrade je abonnement om meerdere workers tegelijk te laten draaien en je productiviteit te verhogen.",
+    "upgradePlan": "Abonnement upgraden",
+    "currentlyRunningAgents": "Workers die momenteel draaien",
+    "loadingThreads": "Gesprekken laden...",
+    "foundRunningAgents": "Er zijn {count} draaiende workers gevonden, maar gespreksdetails konden niet worden geladen.",
+    "threadIds": "Gespreks-ID's: {ids}",
+    "moreRunning": "+{count} meer draaiend",
+    "whatCanYouDo": "Wat kun je doen?",
+    "stopAgentsHint": "Klik op de stopknop om draaiende workers te beëindigen",
+    "waitForCompletion": "Wacht tot de worker automatisch klaar is",
+    "upgradeYourPlan": "Upgrade je abonnement",
+    "forMoreParallelRuns": "voor meer parallelle runs",
+    "stopAgent": "Worker stoppen",
+    "stopThisAgent": "Deze worker stoppen",
+    "openThread": "Gesprek openen",
+    "agentStoppedSuccessfully": "Worker succesvol gestopt",
+    "failedToStopAgent": "Stoppen worker mislukt",
+    "upgradeToRunMore": "Upgrade om meer workers parallel te laten draaien"
+  },
+  "errors": {
+    "generic": "Er is iets misgegaan",
+    "network": "Netwerkfout",
+    "unauthorized": "Niet geautoriseerd",
+    "notFound": "Niet gevonden"
+  },
+  "languages": {
+    "en": "Engels",
+    "de": "Duits",
+    "it": "Italiaans",
+    "zh": "Chinees",
+    "ja": "Japans",
+    "pt": "Portugees",
+    "fr": "Frans",
+    "es": "Spaans"
+  },
+  "notifications": {
+    "title": "Meldingen",
+    "description": "Beheer hoe je meldingen ontvangt",
+    "preferences": "Meldingsvoorkeuren",
+    "channels": "Meldingskanalen",
+    "emailNotifications": "E-mailmeldingen",
+    "emailDescription": "Meldingen ontvangen via e-mail",
+    "pushNotifications": "Pushmeldingen",
+    "pushDescription": "Pushmeldingen ontvangen op je apparaat",
+    "inAppNotifications": "In-app meldingen",
+    "inAppDescription": "Meldingen bekijken binnen de app",
+    "deviceTokens": "Geregistreerde apparaten",
+    "noDevices": "Geen geregistreerde apparaten",
+    "settingsUpdated": "Meldingsvoorkeuren succesvol bijgewerkt",
+    "settingsFailed": "Bijwerken meldingsvoorkeuren mislukt",
+    "enableAll": "Alles inschakelen",
+    "disableAll": "Alles uitschakelen",
+    "saveChanges": "Wijzigingen opslaan"
+  },
+  "suna": {
+    "samplePrompts": "Voorbeeld prompts",
+    "chooseStyle": "Kies stijl",
+    "chooseTemplate": "Kies sjabloon",
+    "chooseOutputFormat": "Kies output formaat",
+    "preferredCharts": "Voorkeursgrafieken",
+    "whatWouldYouLike": "Wat wil je bereiken?",
+    "describeTask": "Beschrijf de taak die je worker moet voltooien...",
+    "modes": {
+      "image": "Afbeelding",
+      "slides": "Slides",
+      "data": "Data",
+      "docs": "Documenten",
+      "canvas": "Canvas",
+      "video": "Video",
+      "research": "Onderzoek"
+    },
+    "styles": {
+      "photorealistic": "Fotorealistisch",
+      "watercolor": "Aquarel",
+      "digital-art": "Digitale kunst",
+      "oil-painting": "Olieverf",
+      "minimalist": "Minimalistisch",
+      "isometric": "Isometrisch",
+      "vintage": "Vintage",
+      "comic": "Stripboek",
+      "neon": "Neon",
+      "pastel": "Pastel",
+      "geometric": "Geometrisch",
+      "abstract": "Abstract",
+      "anime": "Anime",
+      "impressionist": "Impressionistisch",
+      "surreal": "Surrealistisch"
+    },
+    "templates": {
+      "minimalist": {
+        "name": "Minimalistisch",
+        "description": "Schoon en simpel ontwerp"
+      },
+      "minimalist_2": {
+        "name": "Minimalistisch 2",
+        "description": "Alternatieve simpele stijl"
+      },
+      "black_and_white_clean": {
+        "name": "Zwart-wit",
+        "description": "Klassiek monochroom"
+      },
+      "colorful": {
+        "name": "Kleurrijk",
+        "description": "Levendig en energiek"
+      },
+      "startup": {
+        "name": "Startup",
+        "description": "Dynamisch en innovatief"
+      },
+      "elevator_pitch": {
+        "name": "Elevator Pitch",
+        "description": "Snel en krachtig"
+      },
+      "portfolio": {
+        "name": "Portfolio",
+        "description": "Presenteer je werk"
+      },
+      "textbook": {
+        "name": "Tekstboek",
+        "description": "Educatief en gestructureerd"
+      },
+      "architect": {
+        "name": "Architect",
+        "description": "Professioneel en precies"
+      },
+      "hipster": {
+        "name": "Hipster",
+        "description": "Modern en trendy"
+      },
+      "green": {
+        "name": "Groen",
+        "description": "Natuur-geïnspireerd ontwerp"
+      },
+      "premium_black": {
+        "name": "Premium Zwart",
+        "description": "Luxe donkere look"
+      },
+      "premium_green": {
+        "name": "Premium Groen",
+        "description": "Verfijnd groen"
+      },
+      "professor_gray": {
+        "name": "Professor Grijs",
+        "description": "Academisch en serieus"
+      },
+      "gamer_gray": {
+        "name": "Gamer Grijs",
+        "description": "Gaming-geïnspireerd ontwerp"
+      },
+      "competitor_analysis_blue": {
+        "name": "Analyse Blauw",
+        "description": "Zakelijke analyse focus"
+      },
+      "numbers_clean": {
+        "name": "Cijfers Schoon",
+        "description": "Schone datavisualisatie"
+      },
+      "numbers_colorful": {
+        "name": "Cijfers Kleurrijk",
+        "description": "Levendige datapresentatie"
+      },
+      "prd": {
+        "name": "PRD",
+        "description": "Product Requirement Document"
+      },
+      "technical": {
+        "name": "Technisch",
+        "description": "Technische documentatie"
+      },
+      "proposal": {
+        "name": "Voorstel",
+        "description": "Zakelijk voorstel"
+      },
+      "report": {
+        "name": "Rapport",
+        "description": "Gedetailleerd rapport formaat"
+      },
+      "guide": {
+        "name": "Gids",
+        "description": "Stapsgewijze instructie"
+      },
+      "wiki": {
+        "name": "Wiki",
+        "description": "Kennisbank artikel"
+      },
+      "policy": {
+        "name": "Beleid",
+        "description": "Beleidsdocument"
+      },
+      "meeting-notes": {
+        "name": "Meeting Notes",
+        "description": "Notulen van vergaderingen"
+      }
+    },
+    "outputFormats": {
+      "spreadsheet": {
+        "name": "Spreadsheet",
+        "description": "Tabel met formules"
+      },
+      "dashboard": {
+        "name": "Dashboard",
+        "description": "Interactieve grafieken"
+      },
+      "report": {
+        "name": "Rapport",
+        "description": "Analyse met visuals"
+      },
+      "slides": {
+        "name": "Slides",
+        "description": "Presentatie formaat"
+      }
+    },
+    "charts": {
+      "bar": "Staafgrafiek",
+      "line": "Lijngrafiek",
+      "pie": "Cirkeldiagram",
+      "scatter": "Spreidingsdiagram",
+      "heatmap": "Heatmap",
+      "bubble": "Bellendiagram",
+      "wordcloud": "Word Cloud",
+      "stacked": "Gestapelde staafgrafiek",
+      "area": "Vlakdiagram"
+    },
+    "prompts": {
+      "image": {
+        "0": "Een majestueuze steenarend die door mistige bergtoppen zweeft bij zonsopgang met dramatische verlichting",
+        "1": "Close-up portret van een model met avant-garde make-up, studioverlichting, schaduwen met hoog contrast",
+        "2": "Een gezellige Scandinavische woonkamer met natuurlijke houten meubels, kamerplanten en zacht ochtendzonlicht",
+        "3": "Een futuristische cyberpunk straatmarkt bij nacht met neonreclames, door regen natte bestrating en holografische displays",
+        "4": "Elegante productfotografie van een luxe parfumflesje op een marmeren oppervlak met zachte reflecties",
+        "5": "Grillige zwevende eilanden verbonden door touwbruggen in een pastelkleurige lucht met dromerige wolken",
+        "6": "Macro close-up van ochtenddauwdruppels op levendige bloembladen met een bokeh achtergrond",
+        "7": "Een moderne bureau-opstelling met laptop, koffie, notitieblok en vetplanten van bovenaf gezien",
+        "8": "Een mysterieus bospad met oude bomen, gloeiende vuurvliegjes en etherische lichtstralen door de mist",
+        "9": "Architectonisch detail van een eigentijdse glazen gevel met geometrische patronen en reflecties",
+        "10": "Een levendig straatvoedselkraampje met kleurrijke ingrediënten, opstijgende stoom en warme sfeerverlichting",
+        "11": "Een serene Japanse zentuin met geharkte zand, bemoste stenen en kersenbloesemblaadjes",
+        "12": "Dynamische actiefoto van een atleet midden in een sprong tegen een dramatische zonsondergang, silhouet effect",
+        "13": "Een rustieke boerderijkeuken met koperen pannen, verse kruiden, houten snijplanken en natuurlijke texturen",
+        "14": "Abstracte vloeibare kunst met wervelend metallic goud, diepblauw en smaragdgroene organische patronen"
+      },
+      "slides": {
+        "0": "Maak een Series A pitch deck met marktomvang, tractie en financiële prognoses",
+        "1": "Bouw een Q4 business review met KPI's, successen en strategische initiatieven",
+        "2": "Ontwerp een productlancering presentatie met demo video's en klanttestimonials",
+        "3": "Ontwikkel een sales enablement deck dat onze waardepropositie en concurrentievoordelen uitlegt",
+        "4": "Maak een investor update die de belangrijkste statistieken en aankomende mijlpalen benadrukt",
+        "5": "Bouw een klantcase presentatie die ROI en succesfactoren laat zien",
+        "6": "Ontwerp een All-Hands presentatie over bedrijfsupdates en visie",
+        "7": "Ontwikkel een trainingsdeck voor nieuwe productfuncties en workflows",
+        "8": "Maak een conferentiepraatje over het opschalen van engineeringteams",
+        "9": "Bouw een bestuursvergadering deck met strategische aanbevelingen"
+      },
+      "data": {
+        "0": "Bouw een financieel model dat ARR-groei voorspelt met verschillende prijsscenario's",
+        "1": "Maak een interactief sales dashboard dat statistieken bijhoudt per regio en kwartaal",
+        "2": "Analyseer 50.000 klantbeoordelingen en visualiseer sentimenttrends over de tijd",
+        "3": "Ontwerp een contentkalender die campagnes bijhoudt met ROI- en engagementgrafieken",
+        "4": "Bouw een cohortanalyse die gebruikersbehoud en churn-patronen laat zien",
+        "5": "Maak een marketing attributiemodel dat kanaalprestaties vergelijkt",
+        "6": "Ontwikkel een recruitment tracker met pipeline statistieken en time-to-fill analyse",
+        "7": "Bouw een budgetplanning spreadsheet met scenario-modellering",
+        "8": "Analyseer websiteverkeer data en visualiseer conversiefunnels",
+        "9": "Maak een voorraadbeheersysteem met automatische herbestelling waarschuwingen"
+      },
+      "docs": {
+        "0": "Schrijf een uitgebreid PRD voor een AI-gestuurde aanbevelingsmotor",
+        "1": "Stel een technisch architectuurdocument op voor een schaalbaar microservices platform",
+        "2": "Maak een Go-To-Market strategiedocument voor onze Q2 productlancering",
+        "3": "Ontwikkel een 90-dagen onboarding gids voor engineering managers",
+        "4": "Schrijf een API-documentatie gids met voorbeelden en best practices",
+        "5": "Maak een bedrijfshandboek over cultuur, beleid en secundaire arbeidsvoorwaarden",
+        "6": "Stel een AVG- en CCPA-conform gegevensprivacybeleid op",
+        "7": "Ontwikkel een customer success draaiboek voor enterprise SaaS accounts",
+        "8": "Schrijf een incident response plan voor beveiliging met escalatieprocedures",
+        "9": "Maak een uitgebreide brand & content style guide"
+      },
+      "canvas": {
+        "0": "Voeg een tech startup banner toe aan het canvas met een futuristische skyline",
+        "1": "Maak een logo voor een koffiemerk op het canvas met een minimalistische, aardse stijl",
+        "2": "Voeg mijn productafbeelding toe aan het canvas en verwijder de achtergrond",
+        "3": "Ontwerp een infographic over duurzame energie op het canvas met platte iconen",
+        "4": "Maak een sciencefiction boekomslag op het canvas met cyberpunk esthetiek",
+        "5": "Voeg een YouTube thumbnail toe aan het canvas voor een video over productiviteitstips",
+        "6": "Bouw een moodboard voor luxe mode op het canvas voor millennials",
+        "7": "Ontwerp een elegante huwelijksuitnodiging op het canvas met bloemenpatronen",
+        "8": "Voeg mijn portretfoto toe aan het canvas en pas een vintage filmeffect toe",
+        "9": "Maak een muziekfestival poster op het canvas met een psychedelische sfeer"
+      },
+      "video": {
+        "0": "Animeer mijn productafbeelding die soepel ronddraait met studioverlichting",
+        "1": "Maak van mijn portretfoto een cinematografische scène met camerabeweging",
+        "2": "Genereer een rustige natuurvideo van kersenbloesems die langzaam vallen",
+        "3": "Creëer abstracte gloeiende deeltjes die samen wervelen in slow motion",
+        "4": "Laat mijn product zweven en draaien met zachte schaduwen en reflecties",
+        "5": "Voeg dramatische cinematografische verlichting en kleurcorrectie toe aan mijn portret",
+        "6": "Genereer een soepele drone-opname die door mistige bergtoppen vliegt",
+        "7": "Maak een video-loop van vloeibaar metaal dat in organische vormen stroomt",
+        "8": "Verander de achtergrond van mijn foto in een onderwaterscène met lichtstralen",
+        "9": "Genereer een video van een futuristisch stadsgezicht met neonlichten en reflecties"
+      },
+      "research": {
+        "0": "Analyseer opkomende trends in quantum computing en potentiële zakelijke toepassingen",
+        "1": "Onderzoek de top 10 concurrenten in de AI-gestuurde CRM-ruimte met featurevergelijking",
+        "2": "Onderzoek de regelgevende vereisten voor het lanceren van een fintech app in de EU",
+        "3": "Stel een marktanalyse samen van de adoptiegraad van elektrische voertuigen in belangrijke markten",
+        "4": "Bestudeer de impact van werken op afstand op de vraag naar commercieel vastgoed in grote steden",
+        "5": "Onderzoek Web3 adoptiepatronen onder Fortune 500 bedrijven",
+        "6": "Analyseer consumentensentiment ten opzichte van duurzame modemerken",
+        "7": "Onderzoek de nieuwste doorbraken in gentherapie voor zeldzame ziekten",
+        "8": "Bestudeer prijsstrategieën voor succesvolle D2C abonnementbox bedrijven",
+        "9": "Onderzoek het concurrentielandschap voor AI-gestuurde cybersecurity oplossingen"
+      }
+    }
+  },
+  "announcements": {
+    "memories": {
+      "title": "Introductie van Memories",
+      "description": "SuperAgent onthoudt nu je voorkeuren en context over alle gesprekken heen",
+      "features": {
+        "personalized": {
+          "title": "Gepersonaliseerde ervaring",
+          "description": "Past zich in de loop van de tijd aan je werkstijl aan"
+        },
+        "retention": {
+          "title": "Contextbehoud",
+          "description": "Belangrijke details worden over chats heen onthouden"
+        },
+        "control": {
+          "title": "Jij hebt de controle",
+          "description": "Schakel Memories uit of wis ze op elk moment"
+        }
+      },
+      "manageButton": "Memories beheren",
+      "dismissButton": "Begrepen"
+    }
+  }
+}

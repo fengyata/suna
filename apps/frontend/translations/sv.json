@@ -1,0 +1,1609 @@
+{
+  "common": {
+    "cancel": "Avbryt",
+    "save": "Spara",
+    "saving": "Sparar...",
+    "success": "Klart",
+    "done": "Färdig",
+    "close": "Stäng",
+    "ok": "OK",
+    "yes": "Ja",
+    "no": "Nej",
+    "delete": "Radera",
+    "edit": "Redigera",
+    "search": "Sök",
+    "loading": "Laddar...",
+    "error": "Fel",
+    "retry": "Försök igen",
+    "send": "Skicka",
+    "back": "Tillbaka",
+    "new": "Ny",
+    "create": "Skapa",
+    "update": "Uppdatera",
+    "remove": "Ta bort",
+    "confirm": "Bekräfta",
+    "processing": "Bearbetar...",
+    "keep": "Behåll",
+    "active": "Aktiv",
+    "inactive": "Inaktiv",
+    "next": "Nästa",
+    "upgrade": "Uppgradera",
+    "basic": "Bas",
+    "tryFree": "Kom igång"
+  },
+  "settings": {
+    "title": "Inställningar",
+    "tabs": {
+      "general": "Allmänt",
+      "plan": "Plan",
+      "billing": "Fakturering",
+      "usage": "Användning",
+      "referrals": "Värvningar",
+      "knowledgeBase": "Kunskapsbas",
+      "integrations": "Integrationer",
+      "envManager": "Miljöhantering"
+    },
+    "general": {
+      "title": "Allmänna inställningar",
+      "description": "Hantera din kontoinformation",
+      "profilePicture": {
+        "title": "Profilbild",
+        "upload": "Ladda upp bild",
+        "hint": "JPG, PNG eller GIF. Max 5MB.",
+        "invalidType": "Vänligen välj en bildfil",
+        "tooLarge": "Bilden måste vara under 5MB",
+        "uploadFailed": "Uppladdning av profilbild misslyckades"
+      },
+      "name": "Namn",
+      "email": "E-post",
+      "namePlaceholder": "Ange ditt namn",
+      "emailCannotChange": "E-post kan inte ändras härifrån",
+      "saveChanges": "Spara ändringar",
+      "profileUpdated": "Profilen har uppdaterats",
+      "profileUpdateFailed": "Uppdatering av profil misslyckades",
+      "language": {
+        "title": "Språk",
+        "description": "Välj ditt föredragna språk",
+        "current": "Nuvarande språk",
+        "select": "Välj språk"
+      },
+      "deleteAccount": {
+        "title": "Radera konto",
+        "description": "Radera ditt konto och all tillhörande data permanent",
+        "button": "Radera konto",
+        "scheduled": "Radering schemalagd",
+        "scheduledDescription": "Ditt konto kommer att raderas permanent den {date}.",
+        "canCancel": "Du kan avbryta denna begäran när som helst före raderingsdatumet.",
+        "cancelButton": "Avbryt raderingsbegäran",
+        "dialogTitle": "Radera konto",
+        "warning": "Denna åtgärd kan inte ångras efter 30 dagar",
+        "whenDelete": "När du raderar ditt konto:",
+        "agentsDeleted": "Alla Workers och deras versioner kommer att raderas",
+        "threadsDeleted": "Alla konversationer och sessioner kommer att raderas",
+        "credentialsRemoved": "Alla inloggningsuppgifter och integrationer kommer att tas bort",
+        "subscriptionCancelled": "Ditt abonnemang kommer att avslutas",
+        "billingRemoved": "All faktureringsdata kommer att tas bort",
+        "scheduled30Days": "Ditt konto är schemalagt för radering om 30 dagar",
+        "gracePeriod": "Du kan avbryta denna begäran när som helst under den 30 dagar långa ångerperioden. Efter 30 dagar kommer all din data att raderas permanent och kan inte återställas.",
+        "chooseDeletionType": "Välj raderingstyp:",
+        "gracePeriodOption": "30 dagars ångerperiod",
+        "gracePeriodDescription": "Ditt konto kommer att raderas om 30 dagar. Du kan avbryta begäran när som helst under ångerperioden.",
+        "immediateOption": "Omedelbar radering",
+        "immediateDescription": "Ditt konto och all data raderas permanent omedelbart. Denna åtgärd kan inte ångras.",
+        "warningImmediate": "Denna åtgärd kan inte ångras",
+        "warningGracePeriod": "Denna åtgärd kan inte ångras efter 30 dagar",
+        "confirmText": "Skriv delete för att bekräfta",
+        "confirmPlaceholder": "delete",
+        "keepAccount": "Behåll konto",
+        "cancelDeletionTitle": "Avbryt kontoradering",
+        "cancelDeletionDescription": "Är du säker på att du vill avbryta raderingen av ditt konto? Ditt konto och all data kommer att behållas.",
+        "cancelDeletion": "Avbryt radering"
+      }
+    },
+    "referrals": {
+      "title": "Värvningsprogram",
+      "description": "Dela din värvningslänk med vänner och tjäna krediter när de registrerar sig.",
+      "creditsPerReferral": "100 kreditter",
+      "youEarn": "Du tjänar",
+      "friendGets": "Din vän får",
+      "maxEarnable": "Maximalt belopp som kan tjänas genom värvningar:",
+      "maxCredits": "$100 i krediter",
+      "yourReferralCode": "Din värvningskod",
+      "referralLink": "Värvningslänk",
+      "shareYourLink": "Dela din värvningslänk",
+      "yourStats": "Din statistik",
+      "enterCodeDescription": "Ange en värvningskod för att tjäna krediter",
+      "enterCode": "Ange kod",
+      "refresh": "Uppdatera",
+      "copyCode": "Kopiera kod",
+      "copyLink": "Kopiera länk",
+      "share": "Dela",
+      "stats": {
+        "totalReferrals": "Totalt antal värvningar",
+        "successful": "Lyckade",
+        "creditsEarned": "Intjänade krediter"
+      },
+      "recentReferrals": "Senaste värvningar",
+      "signupComplete": "Registrering klar",
+      "pending": "Väntar",
+      "noReferrals": "Inga värvningar än. Dela din länk för att komma igång!",
+      "copied": "Kopierad!",
+      "codeCopied": "Värvningskod kopierad till urklipp",
+      "linkCopied": "Värvningslänk kopierad till urklipp",
+      "codeRefreshed": "Värvningskod uppdaterad",
+      "refreshFailed": "Uppdatering av värvningskod misslyckades",
+      "inviteByEmail": "Bjud in via e-post",
+      "inviteByEmailDescription": "Lägg till upp till 3 e-postadresser (tryck på Enter, mellanslag eller komma för att lägga till)",
+      "emailAddress": "E-postadress",
+      "emailPlaceholder": "Ange e-postadresser (Enter, mellanslag eller komma)",
+      "emailsAdded": "E-postadresser tillagda",
+      "sent": "Skickat",
+      "send": "Skicka",
+      "sending": "Skickar...",
+      "sendAllInvites": "Skicka alla inbjudningar",
+      "allSent": "Alla skickade",
+      "emailSent": "Värvningsinbjudan skickad"
+    },
+    "billing": {
+      "title": "Fakturering & Abonnemang",
+      "description": "Hantera dina krediter och ditt abonnemang",
+      "totalCredits": "Totalt tillgängliga krediter",
+      "allCredits": "Alla kreditter",
+      "monthlyCredits": "Månadskrediter",
+      "renewalIn": "Förnyelse om {days} {days, plural, one {dag} other {dagar}}",
+      "noRenewal": "Ingen schemalagd förnyelse",
+      "extraCredits": "Extra krediter",
+      "nonExpiring": "Går inte ut",
+      "renews": "Förnyas den {date}",
+      "manageSubscription": "Hantera abonnemang",
+      "getAdditionalCredits": "Hämta extra krediter",
+      "changePlan": "Byt plan",
+      "annualCommitment": "Årligt åtagande",
+      "activeUntil": "Aktiv till {date}",
+      "subscriptionCancelled": "Ditt abonnemang avslutas den {date}",
+      "reactivate": "Reaktivera",
+      "creditsExplained": "Förklaring av krediter",
+      "cancelPlan": "Avbryt plan",
+      "reactivateSubscription": "Reaktivera abonnemang",
+      "reactivating": "Reaktiverar...",
+      "cancelDialogTitle": "Avbryt abonnemang",
+      "cancelDialogDescription": "Är du säker på att du vill avbryta ditt abonnemang? Du kommer fortfarande ha tillgång till {date}.",
+      "keepSubscription": "Behåll abonnemang",
+      "cancelling": "Avbryter...",
+      "localMode": "Lokalt läge aktivt",
+      "localModeDescription": "Alla premiumfunktioner är tillgängliga i denna miljö",
+      "insufficientCredits": "Otillräckliga krediter",
+      "insufficientCreditsMessage": "Faktureringskontroll misslyckades: Otillräckliga krediter. Ditt saldo är {balance}. Vänligen fyll på krediter för att fortsätta.",
+      "creditsExhausted": "Dina krediter är slut. Uppgradera nu.",
+      "billingCheckFailed": "Faktureringskontroll misslyckades. Vänligen uppgradera för att fortsätta.",
+      "failedToStartAgent": "Misslyckades att starta Worker {agentName}: {message}"
+    },
+    "usage": {
+      "title": "Användning"
+    },
+    "knowledgeBase": {
+      "opening": "Öppnar kunskapsbasen",
+      "redirecting": "Omdirigerar till kunskapsbassidan..."
+    },
+    "integrations": {
+      "opening": "Öppnar integrationer",
+      "redirecting": "Omdirigerar till integrationssidan..."
+    },
+    "memory": {
+      "title": "AI-minne",
+      "description": "Kom ihåg sammanhang automatiskt över konversationer",
+      "enabled": "Aktiverad",
+      "disabled": "Inaktiverad",
+      "notAvailable": "Minne är inte tillgängligt i din nuvarande plan. Uppgradera till Plus eller högre för att aktivera automatiskt minne.",
+      "enableMemory": "Aktivera minne",
+      "enableMemoryDescription": "Låt SuperAgent komma ihåg information från dina konversationer",
+      "memoryDisabledByUser": "Minnet är för närvarande inaktiverat. Aktivera det ovan för att börja bygga minnen från dina konversationer.",
+      "upgradeRequired": "Uppgradering krävs för minne",
+      "clickToUpgrade": "Klicka för att se planer",
+      "memoryEnabledTooltip": "Minne aktiverat",
+      "memoryDisabledTooltip": "Minne inaktiverat",
+      "clickToToggle": "Klicka för att ändra",
+      "usage": "Minnesanvändning",
+      "available": "{count} minnen tillgängliga",
+      "noLimit": "Ingen gräns",
+      "yourMemories": "Dina minnen",
+      "yourMemoriesDescription": "Visa och hantera vad AI:n kommer ihåg om dig",
+      "clearAll": "Rensa allt",
+      "deleteAllTitle": "Radera alla minnen?",
+      "deleteAllDescription": "Detta kommer att radera alla dina {count} minnen permanent. AI:n kommer inte längre ihåg information från tidigare konversationer. Denna åtgärd kan inte ångras.",
+      "deleteAllButton": "Radera alla minnen",
+      "noMemoriesYet": "Inga minnen än",
+      "noMemoriesDescription": "Starta en konversation så kommer AI:n automatiskt ihåg viktig information om dig",
+      "searchMemories": "Sök i minnen...",
+      "filterByType": "Filtrera efter typ",
+      "allTypes": "Alla typer",
+      "personalFacts": "Personliga fakta",
+      "preferences": "Preferenser",
+      "context": "Sammanhang",
+      "conversations": "Konversationer",
+      "noMatchingMemories": "Inga minnen matchade din sökning",
+      "adjustFilters": "Försök att justera dina filter eller sökning",
+      "loadMore": "Ladda mer",
+      "loading": "Laddar minnen...",
+      "memoryTypes": {
+        "fact": "Faktum",
+        "preference": "Preferens",
+        "context": "Sammanhang",
+        "conversation_summary": "Konversation"
+      }
+    }
+  },
+  "triggers": {
+    "getStarted": "Kom igång genom att lägga till en trigger",
+    "getStartedDescription": "Schemalägg en trigger för att automatisera åtgärder och få påminnelser när de är klara.",
+    "search": "Sök",
+    "scheduledTrigger": "Schemalagd trigger",
+    "eventBasedTrigger": "Händelsebaserad trigger",
+    "chooseAgent": "Välj Worker",
+    "schedule": "Schema",
+    "agentInstructions": "Worker-instruktioner",
+    "agentInstructionsDescription": "Anpassad prompt för Worker",
+    "assignedAgent": "Tilldelad Worker",
+    "unknownAgent": "Okänd Worker",
+    "technicalDetails": "Tekniska detaljer",
+    "type": "Typ",
+    "provider": "Leverantör",
+    "created": "Skapad",
+    "lastUpdated": "Senast uppdaterad",
+    "enable": "Aktivera",
+    "disable": "Inaktivera",
+    "deleteTask": "Radera uppgift",
+    "deleteTaskDescription": "Är du säker på att du vill radera \"{name}\"? Detta kan inte ångras och kommer att stoppa alla automatiska körningar för denna uppgift.",
+    "taskEnabled": "Uppgift aktiverad",
+    "taskDisabled": "Uppgift inaktiverad",
+    "toggleTaskFailed": "Misslyckades med att ändra uppgiftsstatus",
+    "taskDeletedSuccess": "Uppgiften raderad",
+    "deleteTaskFailed": "Misslyckades att radera uppgift",
+    "taskUpdatedSuccess": "Uppgiften uppdaterad",
+    "updateTaskFailed": "Misslyckades att uppdatera uppgift",
+    "pleaseSelectAgent": "Vänligen välj en Worker",
+    "defaultScheduledTriggerName": "Schemalagd trigger",
+    "defaultScheduledTriggerDescription": "Automatiskt schemalagd trigger",
+    "scheduleTriggerUpdated": "Schemalagd trigger uppdaterad",
+    "scheduleTriggerCreated": "Schemalagd trigger skapad",
+    "upgradeForMoreScheduledTriggers": "Uppgradera för att skapa fler schemalagda triggers",
+    "upgradeForMoreAppTriggers": "Uppgradera för att skapa fler appbaserade triggers",
+    "updateScheduleTriggerFailed": "Misslyckades att uppdatera schemalagd trigger",
+    "createScheduleTriggerFailed": "Misslyckades att skapa schemalagd trigger",
+    "editScheduledTask": "Redigera schemalagd uppgift",
+    "createScheduledTask": "Skapa schemalagd uppgift",
+    "editAppBasedTask": "Redigera appbaserad uppgift",
+    "createAppBasedTask": "Skapa appbaserad uppgift",
+    "updateAgentForTask": "Uppdatera Worker för denna uppgift",
+    "selectAgentForTask": "Välj först vilken Worker som ska hantera denna uppgift",
+    "createNew": "Skapa ny",
+    "notConfigured": "Ej konfigurerad",
+    "every15Minutes": "Var 15:e minut",
+    "every30Minutes": "Var 30:e minut",
+    "everyHour": "Varje timme",
+    "dailyAt9AM": "Dagligen kl. 09:00",
+    "weekdaysAt9AM": "Vardagar kl. 09:00",
+    "weeklyOnMonday": "Veckovis på måndagar",
+    "monthlyOn1st": "Månadsvis den 1:a"
+  },
+  "sidebar": {
+    "referAndEarn": "Värva & Tjäna",
+    "referralShareTitle": "Värva vänner",
+    "referralShareSubtitle": "Få 400 kreditter",
+    "new": "Ny",
+    "upgrade": "Uppgradera",
+    "chats": "Chattar",
+    "library": "Filer",
+    "triggers": "Triggers",
+    "newChat": "Ny chat",
+    "newAgent": "Ny Worker",
+    "settings": "Inställningar",
+    "logout": "Logga ut",
+    "openMenu": "Öppna meny",
+    "expandSidebar": "Expandera sidofältet (CMD+B)",
+    "searchChats": "Sök i chattar",
+    "searchChatsPlaceholder": "Sök i chattar...",
+    "allTriggers": "Alla triggers",
+    "addWorkers": "Lägg till Workers",
+    "addTrigger": "Lägg till trigger",
+    "triggerConfig": "Trigger-konfiguration",
+    "scheduledTrigger": "Schemalagd trigger",
+    "scheduledTriggerDescription": "Schemalägg en trigger för att köra vid en specifik tid",
+    "eventBasedTrigger": "Händelsebaserad trigger",
+    "eventBasedTriggerDescription": "Skapa en trigger för att köra när en händelse inträffar",
+    "noChatsFound": "Inga chattar hittades",
+    "noConversations": "Inga konversationer än",
+    "search": "Sök",
+    "searchPlaceholder": "Sök...",
+    "searchResults": "Sökresultat",
+    "recent": "Senaste",
+    "personalAccount": "Personligt konto",
+    "workspaces": "Arbetsytor",
+    "theme": "Tema",
+    "integrations": "Integrationer",
+    "billing": "Fakturering",
+    "usage": "Användning",
+    "adminPanel": "Adminpanel",
+    "apiKeys": "API-nycklar",
+    "envManager": "Miljöhantering",
+    "advanced": "Avancerat",
+    "plan": "Plan",
+    "knowledgeBase": "Kunskapsbas",
+    "conversation": "Konversation",
+    "conversations": "Konversationer",
+    "startNewChat": "Starta ny chat",
+    "openInNewTab": "Öppna i ny flik",
+    "delete": "Radera",
+    "deleting": "Raderar",
+    "allThreadsLoaded": "Alla konversationer laddade",
+    "myWorkforce": "Min arbetsstyrka",
+    "addTeam": "Lägg till team",
+    "selectAll": "Markera alla",
+    "deselectAll": "Avmarkera alla",
+    "selectAllConversations": "Markera alla konversationer",
+    "deselectAllConversations": "Avmarkera alla konversationer",
+    "loadMore": "Ladda mer",
+    "remaining": "Återstående"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Välkommen",
+    "whatWouldYouLike": "Vad vill du åstadkomma?",
+    "describeWhatYouNeed": "Beskriv vad du behöver hjälp med...",
+    "usageLimits": "Användningsgränser",
+    "threads": "Konversationer",
+    "customWorkers": "Anpassade Workers",
+    "scheduledTriggers": "Schemalagda triggers",
+    "appTriggers": "App-triggers",
+    "limitsExceeded": "Du har nått din gräns för konversationer. Uppgradera din plan för att skapa fler konversationer.",
+    "agentInitiatedSuccessfully": "Worker startad",
+    "aiAssistantReady": "Din AI-assistent är redo att hjälpa till",
+    "greetings": {
+      "morning": [
+        "God morgon! Vad står på agendan idag?",
+        "God morgon! Vad ska vi bygga idag?",
+        "God morgon! Redo att vara produktiv?"
+      ],
+      "afternoon": [
+        "God dag! Hur kan jag hjälpa till?",
+        "Hoppas din dag går bra! Vad händer härnäst?"
+      ],
+      "evening": [
+        "God kväll! Jobbar du fortfarande hårt?",
+        "God kväll! Vad ska vi jobba på ikväll?",
+        "God kväll! Nu får vi saker gjorda."
+      ],
+      "random": [
+        "Gissa vem som är tillbaka!",
+        "Hej! Vad kan SuperAgent göra för dig?",
+        "Vad vill du få gjort?",
+        "Låt oss bygga något fantastiskt!",
+        "Redo när du är!",
+        "Vad är på gång?",
+        "Till din tjänst! Vad är uppgiften?",
+        "Låt oss skapa magi!",
+        "Vilken utmaning tar vi oss an idag?",
+        "Din önskan är min lag",
+        "Vad är planen?",
+        "Spänn fast dig! Vart ska vi?",
+        "Ny dag, nytt projekt",
+        "Vad har du i tankarna?",
+        "Låt oss starta showen"
+      ]
+    },
+    "good_morning": "God morgon",
+    "good_afternoon": "God dag",
+    "good_evening": "God kväll",
+    "ready_to_accelerate_your_pipeline": "Redo att accelerera din pipeline? Välj en färdighet för att komma igång.",
+    "explore_agentic_ai_capabilities": "Utforska agentiska AI-möjligheter",
+    "marketing_assets": "Marknadsföringsresurser",
+    "image": "Bild",
+    "images": {
+      "label": "Bild",
+      "bannerTitle": "Image Studio",
+      "bannerDescription": "Generera fotorealistiska marknadsföringsresurser, komplexa infografiker och posters fulla med text.",
+      "selectModelPlaceholder": "Välj modell",
+      "styleTitle": "Välj stil",
+      "samplePrompts": "Exempel-prompts",
+      "generateWithStylePrompt": "Generera bild med {style}-stil"
+    },
+    "videos": {
+      "label": "Video",
+      "bannerTitle": "Video Generator",
+      "bannerDescription": "Skapa filmiska videor med ultrarealistisk belysning och konsekventa rörelser.",
+      "selectModelPlaceholder": "Välj modell",
+      "styleTitle": "Välj videostil",
+      "samplePrompts": "Exempel-prompts",
+      "generateWithStylePrompt": "Generera video med {style}-stil"
+    },
+    "tags": {
+      "sales": "Försäljning",
+      "cx": "Kundupplevelse",
+      "mktg": "Marknadsföring",
+      "ops": "Drift",
+      "hr": "HR",
+      "legal": "Juridik"
+    },
+    "aePanel": {
+      "bannerTitle": "Account Executive Agent",
+      "bannerDescription": "Säljassistent för hela cykeln från discovery till demo och överlämning.",
+      "cards": {
+        "discovery": {
+          "title": "Discovery-förberedelse",
+          "description": "Generera riktade frågor och research.",
+          "prompt": "Förbered discovery-frågor för en säljchef på ett fintech-bolag..."
+        },
+        "handoff": {
+          "title": "Sälj → CS-överlämning",
+          "description": "Strukturera deal-anteckningar för en smidig övergång.",
+          "prompt": "Skapa ett överlämningsdokument till Customer Success-teamet..."
+        },
+        "leadFeedback": {
+          "title": "Lead-feedback-loop",
+          "description": "Dela insikter om lead-kvalitet med marknadsföring.",
+          "prompt": "Skriv feedback om lead-kvalitet till marknadsföring..."
+        }
+      }
+    },
+    "dataPanel": {
+      "bannerTitle": "Data Analyst Agent",
+      "bannerDescription": "Rensa listor, berika kontakter och analysera CSV-filer för marknadsinsikter.",
+      "cards": {
+        "leadCleaner": {
+          "title": "Lead-lista-rensare",
+          "description": "Rätta formatering, ta bort dubbletter och standardisera fält för CRM-import.",
+          "prompt": "Rensa den här lead-listan och standardisera jobbtitlar..."
+        },
+        "lookalikes": {
+          "title": "Lookalike-målgrupper",
+          "description": "Upptäck nya prospekt baserat på dina bästa kunder.",
+          "prompt": "Hitta företag som liknar mina topp 10-kunder..."
+        },
+        "ticketAnalysis": {
+          "title": "Ticket-analys",
+          "description": "Identifiera återkommande problem och sentiment från support-exporter.",
+          "prompt": "Analysera dessa support-tickets för sentiment och återkommande problem..."
+        }
+      }
+    },
+    "pipelinePanel": {
+      "bannerTitle": "Pipeline Manager",
+      "bannerDescription": "Prognoser, deal-QA och riskdetektering.",
+      "cards": {
+        "q4Forecast": {
+          "title": "Q4-prognos",
+          "description": "Förutse intäkter och identifiera deals som stannat av.",
+          "prompt": "Förutse intäkter för Q4 och identifiera risker för deals som stannat av..."
+        },
+        "campaignRoi": {
+          "title": "Kampanj-ROI",
+          "description": "Attributionsanalys för senaste framgångar.",
+          "prompt": "Analysera kampanjattribuering för vunna deals..."
+        },
+        "churnForecast": {
+          "title": "Churn-prognos",
+          "description": "Förutse förnyelser och konton i riskzonen.",
+          "prompt": "Förutse churn-risker för den kommande förnyelsegruppen..."
+        }
+      }
+    },
+    "researchPanel": {
+      "bannerTitle": "Deep Research",
+      "bannerDescription": "Använd avancerat resonerande för djup marknadsundersökning, analys av konkurrentstrategier och generering av omfattande rapporter.",
+      "sectionTitle": "Starta ny research",
+      "items": {
+        "competitorDeepDive": "Konkurrent Deep Dive",
+        "marketTrendAnalysis": "Marknadstrend-analys",
+        "accountIntelligenceReport": "Account Intelligence-rapport",
+        "regulatoryImpactStudy": "Regulatorisk konsekvensanalys"
+      },
+      "promptTemplate": "Utför en {topic} om..."
+    },
+    "socialSellingPanel": {
+      "bannerTitle": "Social Selling Assistant",
+      "bannerDescription": "Bygg ditt personliga varumärke, skriv fängslande hooks och engagera prospekt med AI.",
+      "cards": {
+        "viralHook": {
+          "title": "Viral hook generator",
+          "description": "Fånga uppmärksamheten med AI-designade öppningar.",
+          "prompt": "Skriv en hook till ett LinkedIn-inlägg om..."
+        },
+        "repurpose": {
+          "title": "Återanvänd innehåll",
+          "description": "Gör om bloggar till inlägg, trådar och karuseller.",
+          "prompt": "Gör om det här blogginlägget till en Twitter-tråd..."
+        },
+        "dmSequence": {
+          "title": "DM-sekvensförfattare",
+          "description": "Skriv outreach-meddelanden som inte känns som sälj.",
+          "prompt": "Skriv en DM-sekvens till ett prospekt som har sett min profil..."
+        }
+      }
+    },
+    "strategistPanel": {
+      "bannerTitle": "Deal Strategist",
+      "bannerDescription": "Accelerera deal-cykler med förhandlingsplaner, kontraktgranskning och prisstrategi.",
+      "cards": {
+        "proposal": {
+          "title": "Smart förslagsskapande",
+          "description": "Auto-drafting + prisifyllnad.",
+          "cta": "Skapa utkast nu",
+          "prompt": "Skapa ett förslag till [Kund] med standardprissättning..."
+        },
+        "redline": {
+          "title": "Review Assistant",
+          "description": "AI-kontraktgranskning och ändringsförslag.",
+          "cta": "Ladda upp dokument",
+          "prompt": "Analysera det här kontraktet och föreslå ändringar..."
+        },
+        "followUp": {
+          "title": "Multi-thread uppföljning",
+          "description": "Personliga e-postmeddelanden till intressenter.",
+          "cta": "Generera sekvens",
+          "prompt": "Skriv multi-thread uppföljningar till VP:n och chefen..."
+        },
+        "expansion": {
+          "title": "Expansion Scout",
+          "description": "Detektera upsell-signaler och kontohälsa.",
+          "cta": "Hitta möjligheter",
+          "prompt": "Analysera kontoanvändning för expansionssignaler..."
+        }
+      }
+    },
+    "icpPanel": {
+      "bannerTitle": "Territory & Awareness",
+      "bannerDescription": "Definiera ICP, segmentera territorier och kartlägg beslutstagare.",
+      "sectionTitle": "Djup segmentering",
+      "cards": {
+        "repAssignment": {
+          "title": "Säljtilldelning",
+          "description": "Rekommenderad tilldelning av säljare baserat på styrkor.",
+          "prompt": "Föreslå säljtilldelningar för West Coast-territoriet baserat på tidigare resultat..."
+        },
+        "quotaModeling": {
+          "title": "Kvotsmodellering",
+          "description": "Optimera mål och analysera kapacitetsluckor.",
+          "prompt": "Modellera kvotskapacitet för FY24 givet nuvarande personalstyrka..."
+        },
+        "predictiveHiring": {
+          "title": "Prediktiv rekrytering",
+          "description": "Rekryteringsprognoser baserade på tillväxtpipeline.",
+          "prompt": "Skapa en rekryteringsplan baserad på pipeline-hastighet och intäktsmål..."
+        },
+        "marketSegmentation": {
+          "title": "Marknadssegmentering",
+          "description": "Förfina ICP:er och buyer personas.",
+          "prompt": "Definiera den psykografiska profilen för vårt enterprise-segment..."
+        },
+        "customerHealth": {
+          "title": "Kundhälsoprofil",
+          "description": "Identifiera egenskaper hos framgångsrika långsiktiga kunder.",
+          "prompt": "Skapa en health score-profil för våra mest framgångsrika kunder..."
+        }
+      }
+    },
+    "websitePanel": {
+      "bannerTitle": "Webbplats",
+      "bannerDescription": "Generera högkonverterande landningssidor och funktionella webbappar med AI.",
+      "sectionTitle": "Mallbibliotek",
+      "promptTemplate": "Skapa en {template} för...",
+      "categories": {
+        "marketing": {
+          "title": "Marknadsföring & Kampanjer",
+          "items": {
+            "landingPage": "Högkonverterande landningssida",
+            "webinarRegistration": "Webbinarie-registreringssida",
+            "productLaunchCountdown": "Nedräkning för produktlansering",
+            "eventMicrosite": "Evenemangsmikrosida",
+            "newsletterSignup": "Anmälningssida för nyhetsbrev"
+          }
+        },
+        "corporate": {
+          "title": "Företag & Varumärkesbyggande",
+          "items": {
+            "corporateHomepage": "Modern företagssida",
+            "aboutLeadership": "Om oss & Ledarskap",
+            "careersCulture": "Jobb & Kultur-hubb",
+            "pressMediaKit": "Press & Mediapaket"
+          }
+        },
+        "saas": {
+          "title": "SaaS & Produkt",
+          "items": {
+            "saasHomepage": "SaaS-produktsida",
+            "pricingComparison": "Pris- & Plansammanställning",
+            "featureDeepDive": "Sida för djupdykning i funktioner",
+            "docsHelpCenter": "Dokumentation / Hjälpcenter"
+          }
+        },
+        "content": {
+          "title": "Innehåll & Portfolio",
+          "items": {
+            "personalPortfolio": "Personal branding portfolio",
+            "agencyShowcase": "Showcase för kreativ byrå",
+            "consultantBooking": "Bokningssida för konsult",
+            "resourceLibraryBlog": "Resursbibliotek / Blogg"
+          }
+        }
+      }
+    },
+    "adsPanel": {
+      "bannerTitle": "Ad Studio",
+      "bannerDescription": "Generera högkonverterande annonser med skarp målriktning och kreativ inriktning.",
+      "none": "Ingen",
+      "steps": {
+        "strategyTargeting": "Strategi & Målriktning",
+        "adSpecifications": "Annons-specifikationer",
+        "creativeDirection": "Kreativ inriktning"
+      },
+      "fields": {
+        "productUrl": "URL för produktens landningssida",
+        "competitorUrl": "Konkurrentens URL",
+        "targetAudience": "Målgrupp",
+        "platforms": "Plattformar",
+        "format": "Format",
+        "callToAction": "Call to Action",
+        "visualStyle": "Visuell stil",
+        "outputVolume": "Output-volym",
+        "massTranslation": "Massöversättning"
+      },
+      "placeholders": {
+        "url": "https://...",
+        "age": "Ålder (t.ex. 25-45)",
+        "location": "Plats (t.ex. USA, Europa)",
+        "interests": "Intressen (t.ex. SaaS, Tech)",
+        "ctaText": "Knapptext (t.ex. Registrera dig nu)",
+        "destinationLink": "Destinationslänk (t.ex. https://...)"
+      },
+      "platforms": {
+        "googleAds": "Google Ads",
+        "metaAds": "Meta Ads",
+        "linkedin": "LinkedIn",
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "youtube": "YouTube"
+      },
+      "formats": {
+        "singleImage": "Enskild bild",
+        "carousel": "Karusell",
+        "shortVideo": "Kort video",
+        "story": "Story"
+      },
+      "visualStyles": {
+        "minimalist": "Minimalistisk",
+        "boldVibrant": "Dristig & Levande",
+        "professional": "Professionell",
+        "playful": "Lekfull",
+        "luxury": "Lyxig",
+        "futuristic": "Futuristisk",
+        "handDrawn": "Handritad",
+        "corporate": "Företagsinriktad"
+      },
+      "languages": {
+        "es": "Spanska",
+        "fr": "Franska",
+        "de": "Tyska",
+        "ja": "Japanska",
+        "pt": "Portugisiska",
+        "it": "Italienska",
+        "zh": "Kinesiska",
+        "ko": "Koreanska",
+        "ar": "Arabiska",
+        "nl": "Nederländska",
+        "sv": "Svenska",
+        "no": "Norska",
+        "da": "Danska",
+        "fi": "Finska",
+        "hi": "Hindi",
+        "ru": "Ryska",
+        "tr": "Turkiska",
+        "pl": "Polska",
+        "id": "Indonesiska",
+        "th": "Thailändska",
+        "vi": "Vietnamesiska",
+        "el": "Grekiska"
+      },
+      "outputVolumeConcepts": "{count} Koncept",
+      "generateButton": "Generera koncept ({count})",
+      "strategyAppliedTitle": "Strategi applicerad",
+      "strategyAppliedDescription": "För varje genererat koncept producerar vi automatiskt tre varianter.",
+      "variations": {
+        "1": {
+          "title": "1. Knapphet & Brådska",
+          "description": "FOMO, tidsbegränsade erbjudanden, exklusiva hooks"
+        },
+        "2": {
+          "title": "2. Fördelsdriven",
+          "description": "Tydligt värdeerbjudande, problem-lösning inramning"
+        },
+        "3": {
+          "title": "3. Social Proof",
+          "description": "Vittnesmål, användarantal, förtroendeindikatorer"
+        }
+      },
+      "prompt": {
+        "notProvided": "Ej angivet",
+        "general": "Allmänt",
+        "global": "Global",
+        "learnMore": "Läs mer",
+        "na": "N/A",
+        "productUrl": "Produkt-URL: {value}",
+        "competitorUrl": "Konkurrent-URL: {value}",
+        "targetAudienceTitle": "Målgrupp:",
+        "targetAudienceAge": "- Ålder: {value}",
+        "targetAudienceLocation": "- Plats: {value}",
+        "targetAudienceInterests": "- Intressen: {value}",
+        "campaignSpecsTitle": "Annons-specifikationer:",
+        "platforms": "- Plattformar: {value}",
+        "formats": "- Format: {value}",
+        "callToAction": "- Call to Action: \"{text}\" (Länk: {link})",
+        "visualStyle": "- Visuell stil: {value}",
+        "settingsTitle": "Inställningar:",
+        "numberOfConcepts": "- Antal koncept: {value}",
+        "translationLanguages": "- Översättningsspråk: {value}",
+        "instructions": "Generera högkonverterande annonskoncept baserat på denna input.",
+        "variationsInstruction": "Se till att erbjuda 3 distinkta textvarianter (Knapphet, Fördel, Social Proof) per koncept."
+      }
+    },
+    "video_studio": "Video Studio",
+    "demos_outreach": "Demonstrationer & Outreach",
+    "pipeline_manager": "Pipeline Manager",
+    "forecasting_deal_qa": "Prognoser & Deal-QA",
+    "account_executive": "Account Executive",
+    "full_cycle_sales_agent": "Full-cycle Sales Agent",
+    "deal_strategist": "Deal Strategist",
+    "negotiation_closers": "Förhandling & Closers",
+    "data_analyst": "Data Analyst",
+    "cleaning_enrichment": "Rensning & Berikning",
+    "territory_persona": "Territory & Persona",
+    "icp_market_planning": "ICP & Marknadsplanering",
+    "social_selling": "Social Selling",
+    "brand_content": "Varumärke & Innehåll",
+    "deep_research": "Deep Research",
+    "market_intel_reports": "Marknadsinsikter & Rapportering",
+    "ad_studio": "Ad Studio",
+    "ads_creative_roi": "Annonser & Kreativ ROI",
+    "gtm_decks": "GTM Decks",
+    "proposals_qbrs": "Förslag, QBRs",
+    "landing_pages_sites": "Landningssidor, Sajter",
+    "website": "Webbplats",
+    "video": "Video",
+    "pipeline": "Pipeline",
+    "account_exec": "Account Exec",
+    "data": "Data",
+    "territory_icp": "Territorium/ICP",
+    "research": "Research"
+  },
+  "thread": {
+    "integrations": "Integrationer",
+    "connect": "Anslut",
+    "seeAllIntegrations": "+ Visa alla integrationer",
+    "connectIntegrations": "Anslut integrationer",
+    "adaptive": "Adaptiv",
+    "adaptiveDescription": "Snabba svar med smart sammanhangsväxling",
+    "autonomous": "Autonom",
+    "autonomousDescription": "Deep-work-läge för problemlösning i flera steg",
+    "chat": "Chatt",
+    "chatDescription": "Enkel konversation fram och tillbaka",
+    "sampleAnswers": "Exempelsvar",
+    "samplePrompts": "Exempel-prompts",
+    "waitingForUserResponse": "SuperAgent fortsätter autonomt efter ditt svar.",
+    "taskCompleted": "Uppgiften klar",
+    "uploadingFiles": "Laddar upp {count} {count, plural, one {fil} other {filer}}...",
+    "uploadingFilesOne": "Laddar upp 1 fil...",
+    "uploadingFilesMany": "Laddar upp {count} filer...",
+    "scrollToBottom": "Scrolla till botten",
+    "tools": "Verktyg",
+    "instructions": "Instruktioner",
+    "knowledge": "Kunskap",
+    "triggers": "Triggers",
+    "agents": "Workers",
+    "superWorker": "Super Worker",
+    "searchWorkers": "Sök efter Workers...",
+    "myWorkers": "Mina Workers",
+    "running": "Körs",
+    "minimizeToFloatingPreview": "Minimera till flytande förhandsvisning",
+    "close": "Stäng",
+    "noActionsYet": "SuperAgent-dator",
+    "workerActionsDescription": "Uppstart",
+    "emptyActionsDescription": "Worker-åtgärder visas här",
+    "toolIsRunning": "Verktyget körs",
+    "toolCurrentlyExecuting": "{toolName} körs för närvarande. Resultaten visas här när det är klart.",
+    "thinkingTitle": "Tänker",
+    "thinkingDescription": "Förbereder för att utföra åtgärder...",
+    "rateThisResult": "Betygsätt detta resultat",
+    "feedbackHelpsImprove": "Din feedback hjälper oss att bli bättre",
+    "additionalFeedbackOptional": "Ytterligare feedback (valfritt)",
+    "helpKortixImprove": "Hjälp SuperAgent att bli bättre genom feedback",
+    "submit": "Skicka",
+    "submitting": "Skickar...",
+    "feedbackSubmittedSuccess": "Feedback skickad",
+    "feedbackSubmitFailed": "Misslyckades att skicka feedback"
+  },
+  "agents": {
+    "title": "Workers",
+    "create": "Skapa Worker",
+    "createNewWorker": "Skapa ny Worker",
+    "edit": "Redigera Worker",
+    "delete": "Radera Worker",
+    "name": "Namn",
+    "description": "Beskrivning",
+    "model": "Modell",
+    "systemPrompt": "System Prompt",
+    "systemPromptPlaceholder": "Definiera hur din Worker ska bete sig...",
+    "customizeIcon": "Klicka för att anpassa Worker-ikonen"
+  },
+  "home": {
+    "heroPlaceholder": "Beskriv uppgiften du vill att din Worker ska slutföra..."
+  },
+  "showcase": {
+    "title": "SuperAgent: Din autonoma AI-arbetsstyrka",
+    "subtitle": "Byggd för komplexitet, designad för allt. Den ultimata AI-assistenten som hanterar allt – från enkla förfrågningar till ultra-komplexa projekt.",
+    "tryItOut": "Prova nu",
+    "kortixComputer": "SuperAgent-dator",
+    "running": "Körs",
+    "workers": {
+      "images": {
+        "title": "Bilder",
+        "description": "Generera bilder on-demand. Från produktbilder till social media-grafik till kompletta illustrationer. Justera stil, belysning, färger och komposition, eller förfina befintliga bilder med snabba redigeringar.",
+        "capabilities": {
+          "0": "Generera produktbilder",
+          "1": "Skapa social grafik",
+          "2": "Skapa illustrationer",
+          "3": "Stil- & Ljusvariationer",
+          "4": "Logotyp / Resursgenerering",
+          "5": "+ Mycket mer"
+        },
+        "imageAlt": "Exempel på en icke-linjär tillväxtgraf",
+        "fileType": "BILD"
+      },
+      "slides": {
+        "title": "Slides",
+        "description": "Skapa fantastiska presentationer omedelbart. Från pitch decks till rapporter till utbildningsmaterial. Justera teman, layouter och innehållsstruktur, eller förfina befintliga decks med snabba redigeringar.",
+        "capabilities": {
+          "0": "Pitch Decks",
+          "1": "Utbildningsmaterial",
+          "2": "Rapporterings-decks",
+          "3": "Tema- & Layoutvariationer",
+          "4": "Omstrukturering av innehåll",
+          "5": "+ Mycket mer"
+        },
+        "imageAlt": "Exempel på en slide från plattformen Nexus Enterprise Automation",
+        "fileType": "PPTX"
+      },
+      "data": {
+        "title": "Data",
+        "description": "Gör om rådata till insikter. Från kalkylblad till dashboards till visualiseringar. Rensa dataset, generera diagram, bygg rapporter eller förfina befintlig analys med snabba uppdateringar.",
+        "capabilities": {
+          "0": "Dashboards",
+          "1": "Visualiseringar",
+          "2": "Datarapportering",
+          "3": "Rensning & Organisering",
+          "4": "Generera insikter",
+          "5": "+ Mycket mer"
+        },
+        "imageAlt": "Exempel på en dashboard för en finansiell modell",
+        "fileType": "PREVIEW"
+      },
+      "docs": {
+        "title": "Dokument",
+        "description": "Skriv och redigera dokument utan ansträngning. Från förslag till manualer till innehåll. Justera ton, struktur och formatering, eller förfina befintliga dokument med snabba omskrivningar och polering.",
+        "capabilities": {
+          "0": "Förslag",
+          "1": "Manualer & Guider",
+          "2": "Innehåll",
+          "3": "Ton- & Stilvariationer",
+          "4": "Formatering & Omstrukturering",
+          "5": "+ Mycket mer"
+        },
+        "imageAlt": "Exempel på en Executive Summary-rapport för Q3 2025",
+        "fileType": "PDF"
+      },
+      "research": {
+        "title": "Research",
+        "description": "Undersök ämnen grundligt. Från marknadstrender till konkurrentanalys till deep dives. Samla källor, utarbeta slutsatser eller förfina befintlig research med snabba uppdateringar.",
+        "capabilities": {
+          "0": "Marknadstrend-analys",
+          "1": "Konkurrent-research",
+          "2": "Djuplodande ämnesresearch",
+          "3": "Källinsamling",
+          "4": "Utkast till slutsatser",
+          "5": "+ Mycket mer"
+        },
+        "imageAlt": "Exempel på research av detaljerade konkurrentprofiler",
+        "fileType": "PDF"
+      }
+    }
+  },
+  "threads": {
+    "title": "Konversationer",
+    "newThread": "Ny konversation",
+    "sendMessage": "Skicka meddelande",
+    "placeholder": "Skriv ditt meddelande..."
+  },
+  "billing": {
+    "title": "Fakturering & Abonnemang",
+    "subscription": "Abonnemang",
+    "credits": "Krediter",
+    "popular": "Populär",
+    "creditsExplained": "Förklaring av krediter",
+    "creditsExhausted": "+100 kreditter om {time}. Uppgradera för att använda nu.",
+    "creditsExhaustedRefreshIn": "Du har slut på krediter. De förnyas om {time}",
+    "trialActive": "Provperiod aktiv",
+    "trialBadge": "7-dagars provperiod",
+    "currentPlan": "Nuvarande plan",
+    "currentBadge": "Nuvarande",
+    "scheduled": "Schemalagd",
+    "scheduledBadge": "Schemalagd",
+    "loading": "Laddar...",
+    "subscriptionChangeScheduled": "Abonnemangsändring schemalagd",
+    "planWillChangeOn": "Din plan kommer att ändras den {date}.",
+    "failedToInitiateSubscription": "Misslyckades att initiera abonnemang. Försök igen.",
+    "subscriptionUpgraded": "Abonnemanget uppgraderades från {currentPrice} till {newPrice}",
+    "subscriptionUpdated": "Abonnemanget har uppdaterats",
+    "cannotDowngradeDuringCommitment": "Det går inte att nedgradera under bindningstiden",
+    "alreadyOnThisPlan": "Du har redan den här planen.",
+    "localModeMessage": "Körs i lokalt utvecklingsläge – faktureringsfunktioner inaktiverade",
+    "holidayPromo": {
+      "badge": "Julspecial",
+      "countdown": "Slutar om {time}",
+      "discount": "50% rabatt de första 3 månaderna",
+      "window": "Giltig 24-25 dec",
+      "headerLine": "Använd koden {code} för {discount}",
+      "description": "Använd koden {code} i kassan för {discount}. {window}",
+      "copyCode": "Kopiera kod",
+      "copied": "Kopierad",
+      "codeCopied": "Kopierade {code}",
+      "copyFailed": "Misslyckades att kopiera kampanjkod"
+    },
+    "creditsExplainedPage": {
+      "title": "Förklaring av krediter",
+      "subtitle": "Allt du behöver veta om hur krediter fungerar i SuperAgent",
+      "understandingCredits": {
+        "title": "Att förstå krediter",
+        "description": "Krediter fungerar som den universella valutan på SuperAgent-plattformen för plattformsåtgärder. Varje åtgärd dina AI-workers utför – från dataanalys till kodgenerering – förbrukar krediter baserat på uppgiftens komplexitet och de resurser som krävs."
+      },
+      "howCreditsWork": {
+        "title": "Hur krediter fungerar",
+        "description": "Krediter förbrukas baserat på de resurser AI-workers använder:",
+        "aiModelUsage": {
+          "title": "AI-modellanvändning",
+          "description": "Den främsta drivkraften för kreditförbrukning",
+          "content": "Olika AI-modeller har olika kostnader baserat på deras förmåga och token-användning. Krediter förbrukas för input-tokens (dina prompts och sammanhang), output-tokens (workerns svar) och varierar per modellklass (Claude, GPT, etc.)."
+        },
+        "pricingModel": {
+          "title": "Prismodell",
+          "description": "20% påslag på AI-modellkostnader",
+          "content": "Vi tillämpar ett påslag på 20% på alla API- och modellkostnader för att täcka plattformsinfrastruktur, säkerhet och löpande utveckling. Denna transparenta prissättning säkerställer att du vet exakt vad du betalar för."
+        }
+      },
+      "gettingMoreCredits": {
+        "title": "Hämta fler krediter",
+        "description": "Det finns flera sätt att få krediter i SuperAgent:",
+        "monthlySubscription": {
+          "title": "Månatliga abonnemangskrediter",
+          "description": "Ingår i din betalda plan och förnyas automatiskt varje månad. Dessa krediter har ett utgångsdatum."
+        },
+        "topUpCredits": {
+          "title": "Fyll på krediter",
+          "description": "Köp extra krediter när du behöver dem. Dessa krediter går inte ut och är tillgängliga för premium-medlemmar."
+        },
+        "promotionalGrants": {
+          "title": "Kampanjer & Events",
+          "description": "Bonuskrediter från speciella evenemang, kampanjer eller värvningar. Dessa krediter går inte ut."
+        },
+        "refunds": {
+          "title": "Återbetalningar",
+          "description": "Krediter som återbetalats på grund av tekniska problem eller misslyckade uppgifter. Dessa krediter går inte ut."
+        }
+      },
+      "typesOfCredits": {
+        "title": "Typer av krediter",
+        "description": "SuperAgent använder två typer av krediter för att ge dig flexibilitet i hur du hanterar din användning:",
+        "expiringCredits": {
+          "title": "Krediter som går ut",
+          "description": "Månatliga abonnemangskrediter",
+          "content": "Dessa krediter ingår i ditt betalda abonnemang och förnyas automatiskt varje månad på ditt abonnemangsdatum. De går ut vid slutet av varje faktureringscykel och förbrukas alltid först innan krediter som inte går ut används."
+        },
+        "nonExpiringCredits": {
+          "title": "Krediter som inte går ut",
+          "description": "Permanent kredit som aldrig går ut",
+          "content": "Dessa krediter går aldrig ut och följer med från månad till månad. Detta inkluderar påfyllningsköp, återbetalningar och kampanjkrediter. Krediter som inte går ut används först när dina krediter som går ut har förbrukats."
+        },
+        "creditPriority": {
+          "title": "Kreditprioritet:",
+          "description": "När du använder SuperAgent förbrukas krediter som går ut alltid först. Först när dina krediter som går ut är slut kommer dina krediter som inte går ut att användas."
+        }
+      }
+    },
+    "close": "Stäng",
+    "cancelScheduledChange": "Avbryt schemalagd ändring",
+    "threadUsage": "Konversationsanvändning",
+    "error": "Fel",
+    "totalUsage": "Total användning",
+    "usage": "Användning",
+    "thread": "Konversation",
+    "lastUsed": "Senast använd",
+    "creditsUsed": "Använda krediter",
+    "creditTransactions": "Kredittransaktioner",
+    "loadingTransactionHistory": "Laddar transaktionshistorik...",
+    "monthly": "Månadsvis",
+    "yearly": "Årsvis",
+    "discount": "15% rabatt",
+    "perMonth": "/mån",
+    "billedYearly": "Faktureras årsvis",
+    "downgradePending": "Nedgradering väntar",
+    "downgrade": "Nedgradera",
+    "switchToLegacyYearly": "Växla till Legacy Yearly",
+    "confirmDowngradeTitle": "Är du säker på att du vill nedgradera?",
+    "confirmDowngradeDescription": "Du håller på att nedgradera din plan till {planName}. Denna ändring träder i kraft i slutet av din nuvarande faktureringsperiod.",
+    "confirmDowngrade": "Ja, nedgradera plan",
+    "pickPlan": "Välj den plan som passar dig.",
+    "reachedLimit": "Du har nått din gräns.",
+    "projectLimit": "Projektgräns ({current}/{limit})",
+    "threadLimit": "Konversationsgräns ({current}/{limit})",
+    "workerLimit": "Worker-gräns ({current}/{limit})",
+    "triggerLimit": "Trigger-gräns ({current}/{limit})",
+    "getAdditionalCredits": "Hämta extra krediter",
+    "selectPlan": "Välj plan",
+    "changeScheduled": "Ändring schemalagd",
+    "notAvailable": "Ej tillgänglig",
+    "features": {
+      "creditsPerMonth": "{count} kreditter/mån",
+      "customWorker": "{count} anpassad Worker",
+      "customWorkers": "{count} anpassade Workers",
+      "privateProject": "{count} privat projekt",
+      "privateProjects": "Privata projekt",
+      "customTrigger": "{count} anpassad trigger",
+      "integrations": "100+ integrationer",
+      "premiumAIModels": "Premium AI-modeller",
+      "prioritySupport": "Prioriterad support"
+    },
+    "downgradeDialog": {
+      "confirmTitle": "Bekräfta abonnemangsändring",
+      "confirmSubtitle": "Vi är ledsna att se dig gå",
+      "confirmDescription": "Du håller på att byta till {planName}-planen. Denna ändring träder i kraft i slutet av din nuvarande faktureringscykel. Fram till dess behåller du dina nuvarande förmåner.",
+      "continue": "Fortsätt",
+      "keepCurrentPlan": "Behåll min nuvarande plan",
+      "feedbackTitle": "Hjälp oss att bli bättre",
+      "feedbackSubtitle": "Din feedback formar framtiden för SuperAgent",
+      "whatWouldMakeYouStay": "Vad skulle få dig att stanna?",
+      "feedbackPlaceholder": "Om det fanns en sak vi kunde ändra eller lägga till för att göra SuperAgent värt det för dig, vad skulle det vara?",
+      "feedbackFooter": "Vårt team läser varje svar. Dina ord påverkar direkt vad vi bygger härnäst.",
+      "confirmDowngrade": "Bekräfta nedgradering",
+      "processing": "Bearbetar...",
+      "pleaseSelectReason": "Välj en anledning",
+      "reasons": {
+        "tooExpensive": "Det är för dyrt för mina behov",
+        "notUsingOften": "Jag använder inte SuperAgent tillräckligt ofta",
+        "foundAlternative": "Jag har hittat en annan lösning",
+        "technicalIssues": "Jag har stött på tekniska problem",
+        "resultsNotGood": "Resultaten levde inte upp till mina förväntningar",
+        "other": "Annan anledning"
+      }
+    }
+  },
+  "auth": {
+    "haveReferralCode": "Har du en värvningskod?",
+    "referralCode": "Värvningskod",
+    "enterCode": "Ange kod",
+    "logIntoAccount": "Logga in på ditt konto",
+    "createAccount": "Skapa konto",
+    "signInOrCreateAccount": "Logga in eller skapa ditt SuperAgent-konto",
+    "continueWithGoogle": "Fortsätt med Google",
+    "continueWithGitHub": "Fortsätt med GitHub",
+    "orEmail": "Eller e-post",
+    "emailAddress": "E-postadress",
+    "password": "Lösenord",
+    "confirmPassword": "Bekräfta lösenord",
+    "signIn": "Logga in",
+    "signUp": "Registrera dig",
+    "signingIn": "Loggar in...",
+    "creatingAccount": "Skapar konto...",
+    "forgotPassword": "Glömt lösenordet?",
+    "dontHaveAccount": "Har du inget konto?",
+    "alreadyHaveAccount": "Har du redan ett konto?",
+    "acceptPrivacyTerms": "Jag godkänner <privacyPolicy>Integritetspolicyn</privacyPolicy> och <termsOfService>Användarvillkoren</termsOfService>",
+    "privacyPolicy": "Integritetspolicy",
+    "termsOfService": "Användarvillkor",
+    "checkYourEmail": "Kolla din e-post",
+    "confirmationLinkSent": "Vi har skickat en återställningslänk till",
+    "clickLinkToActivate": "Klicka på länken i e-postmeddelandet för att aktivera ditt konto. Om du inte ser meddelandet, kolla din skräppost.",
+    "returnToHome": "Gå tillbaka till startsidan",
+    "backToSignIn": "Tillbaka till inloggning",
+    "resetPassword": "Återställ lösenord",
+    "resetPasswordDescription": "Ange din e-post så skickar vi en återställningslänk",
+    "sendResetLink": "Skicka länk",
+    "cancel": "Avbryt",
+    "pleaseEnterValidEmail": "Vänligen ange en giltig e-postadress",
+    "signInFailed": "Inloggningen misslyckades. Kontrollera dina uppgifter.",
+    "signUpFailed": "Registreringen misslyckades. Försök igen.",
+    "sendMagicLink": "Skicka Magic Link",
+    "sending": "Skickar...",
+    "magicLinkSent": "Vi har skickat en Magic Link till",
+    "magicLinkDescription": "Klicka på länken i ditt e-postmeddelande för att logga in. Länken går ut om 1 timme.",
+    "magicLinkExplanation": "Vi skickar en säker länk till dig för att logga in. Inget lösenord behövs.",
+    "magicLinkExpired": "Länken har gått ut",
+    "magicLinkExpiredDescription": "Den Magic Link du klickade på har gått ut. Magic Links går ut efter 1 timme av säkerhetsskäl.",
+    "resendMagicLink": "Skicka Magic Link igen",
+    "resending": "Skickar igen...",
+    "byContinuingYouAgree": "Genom att fortsätta godkänner du vår <privacyPolicy>Integritetspolicy</privacyPolicy> och våra <termsOfService>Användarvillkor</termsOfService>",
+    "openProvider": "Öppna {provider}",
+    "didntReceiveEmail": "Fick du inget e-postmeddelande?",
+    "resend": "Skicka igen",
+    "alreadySignedIn": "Du är redan inloggad. Ingen åtgärd krävs.",
+    "goToDashboard": "Gå till dashboard",
+    "signInToContinue": "Logga in för att fortsätta",
+    "signInOrCreateAccountToTalk": "Logga in eller skapa ett konto för att prata med SuperAgent",
+    "orContinueWithEmail": "Eller fortsätt med e-post",
+    "signInWithEmail": "Logga in med e-post",
+    "createNewAccount": "Skapa nytt konto",
+    "byContinuingYouAgreeSimple": "Genom att fortsätta godkänner du våra",
+    "phoneVerification": {
+      "title": "Verifiera ditt telefonnummer",
+      "titleOtp": "Ange verifieringskod",
+      "description": "Säkra ditt konto med tvåfaktorsautentisering",
+      "descriptionOtp": "Vi har skickat en kod till ditt telefonnummer",
+      "phoneNumber": "Telefonnummer",
+      "verificationCode": "Verifieringskod",
+      "enterSixDigitCode": "Ange den 6-siffriga koden",
+      "phoneNumberPlaceholder": "Ange ditt telefonnummer",
+      "sendVerificationCode": "Skicka verifieringskod",
+      "sendingCode": "Skickar kod...",
+      "verifyCode": "Verifiera kod",
+      "verifying": "Verifierar...",
+      "resendCode": "Skicka kod igen",
+      "resendInSeconds": "Skicka igen om {seconds}s",
+      "removePhoneNumber": "Ta bort telefonnummer",
+      "codeSentTo": "Verifieringskod skickad till",
+      "sixDigitCodeHint": "Vi skickar en 6-siffrig verifieringskod till dig via SMS",
+      "pleaseEnterPhoneNumber": "Vänligen ange ett telefonnummer",
+      "pleaseEnterValidPhoneNumber": "Vänligen ange ett giltigt telefonnummer",
+      "pleaseEnterSixDigitCode": "Vänligen ange en 6-siffrig kod",
+      "verificationCodeSent": "Verifieringskod skickad till din telefon",
+      "newVerificationCodeSent": "Ny verifieringskod skickad",
+      "phoneNumberVerified": "Telefonnumret har verifierats!",
+      "phoneNumberRemoved": "Telefonnumret har tagits bort. Du kan nu lägga till ett nytt nummer.",
+      "signOut": "Logga ut",
+      "signingOut": "Loggar ut...",
+      "sending": "Skickar..."
+    }
+  },
+  "onboarding": {
+    "welcome": "Välkommen",
+    "next": "Nästa",
+    "skip": "Hoppa över"
+  },
+  "tools": {
+    "executeCommand": "Kör kommando",
+    "checkCommandOutput": "Kontrollera kommando-output",
+    "terminateCommand": "Avsluta kommando",
+    "listCommands": "Lista kommandon",
+    "createFile": "Skapa fil",
+    "deleteFile": "Radera fil",
+    "fullFileRewrite": "Skriv om fil",
+    "strReplace": "Redigera text",
+    "editFile": "Redigera fil",
+    "uploadFile": "Ladda upp fil",
+    "createDocument": "Skapa dokument",
+    "updateDocument": "Uppdatera dokument",
+    "readDocument": "Läs dokument",
+    "listDocuments": "Lista dokument",
+    "deleteDocument": "Radera dokument",
+    "createTasks": "Skapa uppgifter",
+    "updateTasks": "Uppdatera uppgifter",
+    "browserNavigateTo": "Navigera till sida",
+    "browserAct": "Utför åtgärd",
+    "browserExtractContent": "Extrahera innehåll",
+    "browserScreenshot": "Ta skärmdump",
+    "executeDataProviderCall": "Anropa dataleverantör",
+    "getDataProviderEndpoints": "Hämta endpoints",
+    "ask": "Fråga",
+    "wait": "Vänta",
+    "complete": "Slutför uppgift",
+    "crawlWebpage": "Crawl:a webbsida",
+    "exposePort": "Exponera port",
+    "scrapeWebpage": "Scrape:a webbsida",
+    "webSearch": "Webbsökning",
+    "loadImage": "Ladda bild",
+    "createPresentationOutline": "Skapa presentationsutkast",
+    "createPresentation": "Skapa presentation",
+    "presentPresentation": "Presentera",
+    "clearImagesFromContext": "Rensa bilder från sammanhang",
+    "imageSearch": "Bildsök",
+    "createSheet": "Skapa ark",
+    "updateSheet": "Uppdatera ark",
+    "viewSheet": "Visa ark",
+    "analyzeSheet": "Analysera ark",
+    "visualizeSheet": "Visualisera ark",
+    "formatSheet": "Formatera ark",
+    "updateAgent": "Uppdatera Worker",
+    "getCurrentAgentConfig": "Hämta aktuell Worker-konfiguration",
+    "searchMcpServers": "Sök MCP-servrar",
+    "getMcpServerTools": "Hämta verktyg från MCP-server",
+    "configureMcpServer": "Konfigurera MCP-server",
+    "getPopularMcpServers": "Hämta populära MCP-servrar",
+    "testMcpServerConnection": "Testa MCP-serveranslutning",
+    "listAppEventTriggers": "Hitta händelsetriggers",
+    "createEventTrigger": "Skapa händelsetrigger",
+    "getProjectStructure": "Hämta projektstruktur",
+    "buildProject": "Bygg projekt",
+    "makePhoneCall": "Ring samtal",
+    "endCall": "Avsluta samtal",
+    "getCallDetails": "Hämta samtalsdetaljer",
+    "listCalls": "Lista samtal",
+    "monitorCall": "Övervaka samtal",
+    "waitForCallCompletion": "Vänta på slutförande",
+    "getPaperDetails": "Hämta artikeldetaljer",
+    "searchAuthors": "Sök författare",
+    "getAuthorDetails": "Hämta författardetaljer",
+    "getAuthorPapers": "Hämta författarens artiklar",
+    "getPaperCitations": "Hämta artikelciteringar",
+    "getPaperReferences": "Hämta artikelreferenser",
+    "paperSearch": "Artikelsök",
+    "discoverUserMcpServers": "Upptäck verktyg",
+    "createCredentialProfile": "Skapa profil",
+    "getCredentialProfiles": "Hämta profiler",
+    "configureProfileForAgent": "Lägg till verktyg i Worker",
+    "createNewAgent": "Skapa ny Worker",
+    "searchMcpServersForAgent": "Sök MCP-servrar",
+    "createCredentialProfileForAgent": "Skapa profil för autentiseringsuppgifter",
+    "discoverMcpToolsForAgent": "Upptäck MCP-verktyg",
+    "configureAgentIntegration": "Konfigurera Worker-integration",
+    "createAgentScheduledTrigger": "Skapa schemalagd trigger",
+    "listAgentScheduledTriggers": "Lista schemalagda triggers för Worker",
+    "executingTool": "Kör verktyg",
+    "toolExecutedSuccessfully": "Verktyget kördes framgångsrikt",
+    "toolExecutionFailed": "Verktygskörningen misslyckades",
+    "input": "Input",
+    "output": "Output",
+    "copyFileContent": "Kopiera filinnehåll",
+    "fileContentCopied": "Filinnehåll kopierat till urklipp",
+    "failedToCopyFileContent": "Misslyckades att kopiera filinnehåll",
+    "noContentAvailable": "Inget innehåll tillgängligt",
+    "noContentDescription": "Denna verktygskörning genererade inget input- eller output-innehåll att visa.",
+    "tool": "Verktyg"
+  },
+  "agentRunLimit": {
+    "gotIt": "Uppfattat",
+    "parallelRunsLimitReached": "Gräns för parallella körningar nådd",
+    "parallelRunsLimitDescription": "Du har nått den maximala gränsen för parallella Worker-körningar.",
+    "needMoreParallelRuns": "Behöver du fler parallella körningar?",
+    "upgradeDescription": "Uppgradera din plan för att köra flera Workers samtidigt och öka din produktivitet.",
+    "upgradePlan": "Uppgradera plan",
+    "currentlyRunningAgents": "Workers som körs just nu",
+    "loadingThreads": "Laddar konversationer...",
+    "foundRunningAgents": "Hittade {count} körande Workers men kunde inte ladda konversationsdetaljer.",
+    "threadIds": "Konversations-ID:n: {ids}",
+    "moreRunning": "+{count} till som körs",
+    "whatCanYouDo": "Vad kan du göra?",
+    "stopAgentsHint": "Klicka på stoppknappen för att avbryta körande Workers",
+    "waitForCompletion": "Vänta tills Workern blir klar automatiskt",
+    "upgradeYourPlan": "Uppgradera din plan",
+    "forMoreParallelRuns": "för fler parallella körningar",
+    "stopAgent": "Stoppa Worker",
+    "stopThisAgent": "Stoppa denna Worker",
+    "openThread": "Öppna konversation",
+    "agentStoppedSuccessfully": "Worker stoppad",
+    "failedToStopAgent": "Misslyckades att stoppa Worker",
+    "upgradeToRunMore": "Uppgradera för att köra fler Workers parallellt"
+  },
+  "errors": {
+    "generic": "Något gick fel",
+    "network": "Nätverksfel",
+    "unauthorized": "Obehörig",
+    "notFound": "Hittades inte"
+  },
+  "languages": {
+    "en": "Engelska",
+    "de": "Tyska",
+    "it": "Italienska",
+    "zh": "Kinesiska",
+    "ja": "Japanska",
+    "pt": "Portugisiska",
+    "fr": "Franska",
+    "es": "Spanska"
+  },
+  "notifications": {
+    "title": "Notiser",
+    "description": "Hantera hur du tar emot notiser",
+    "preferences": "Notisinställningar",
+    "channels": "Notiskanaler",
+    "emailNotifications": "E-postnotiser",
+    "emailDescription": "Ta emot notiser via e-post",
+    "pushNotifications": "Pushnotiser",
+    "pushDescription": "Ta emot pushnotiser på din enhet",
+    "inAppNotifications": "In-app-notiser",
+    "inAppDescription": "Visa notiser inuti appen",
+    "deviceTokens": "Registrerade enheter",
+    "noDevices": "Inga registrerade enheter",
+    "settingsUpdated": "Notisinställningar uppdaterade",
+    "settingsFailed": "Misslyckades att uppdatera notisinställningar",
+    "enableAll": "Aktivera alla",
+    "disableAll": "Inaktivera alla",
+    "saveChanges": "Spara ändringar"
+  },
+  "suna": {
+    "samplePrompts": "Exempel-prompts",
+    "chooseStyle": "Välj stil",
+    "chooseTemplate": "Välj mall",
+    "chooseOutputFormat": "Välj utdataformat",
+    "preferredCharts": "Föredragna diagram",
+    "whatWouldYouLike": "Vad vill du åstadkomma?",
+    "describeTask": "Beskriv uppgiften du vill att din Worker ska slutföra...",
+    "modes": {
+      "image": "Bild",
+      "slides": "Slides",
+      "data": "Data",
+      "docs": "Dokument",
+      "canvas": "Canvas",
+      "video": "Video",
+      "research": "Research"
+    },
+    "styles": {
+      "photorealistic": "Fotorealistisk",
+      "watercolor": "Akvarell",
+      "digital-art": "Digital konst",
+      "oil-painting": "Oljemålning",
+      "minimalist": "Minimalistisk",
+      "isometric": "Isometrisk",
+      "vintage": "Vintage",
+      "comic": "Serietidning",
+      "neon": "Neon",
+      "pastel": "Pastell",
+      "geometric": "Geometrisk",
+      "abstract": "Abstrakt",
+      "anime": "Anime",
+      "impressionist": "Impressionistisk",
+      "surreal": "Surrealistisk"
+    },
+    "templates": {
+      "minimalist": {
+        "name": "Minimalistisk",
+        "description": "Ren och enkel design"
+      },
+      "minimalist_2": {
+        "name": "Minimalistisk 2",
+        "description": "Alternativ enkel stil"
+      },
+      "black_and_white_clean": {
+        "name": "Svartvitt",
+        "description": "Klassisk monokrom"
+      },
+      "colorful": {
+        "name": "Färgglad",
+        "description": "Levande och energisk"
+      },
+      "startup": {
+        "name": "Startup",
+        "description": "Dynamisk och innovativ"
+      },
+      "elevator_pitch": {
+        "name": "Elevator Pitch",
+        "description": "Snabb och slagkraftig"
+      },
+      "portfolio": {
+        "name": "Portfolio",
+        "description": "Visa upp ditt arbete"
+      },
+      "textbook": {
+        "name": "Lärobok",
+        "description": "Pedagogisk och strukturerad"
+      },
+      "architect": {
+        "name": "Arkitekt",
+        "description": "Professionell och exakt"
+      },
+      "hipster": {
+        "name": "Hipster",
+        "description": "Modern och trendig"
+      },
+      "green": {
+        "name": "Grön",
+        "description": "Naturinspirerad design"
+      },
+      "premium_black": {
+        "name": "Premium svart",
+        "description": "Luxe mörkt utseende"
+      },
+      "premium_green": {
+        "name": "Premium grön",
+        "description": "Sofistikerad grön"
+      },
+      "professor_gray": {
+        "name": "Professor grå",
+        "description": "Akademisk och vetenskaplig"
+      },
+      "gamer_gray": {
+        "name": "Gamer grå",
+        "description": "Gaming-inspirerad design"
+      },
+      "competitor_analysis_blue": {
+        "name": "Analyseblå",
+        "description": "Fokus på affärsanalys"
+      },
+      "numbers_clean": {
+        "name": "Siffror rent",
+        "description": "Ren datavisualisering"
+      },
+      "numbers_colorful": {
+        "name": "Siffror färgglatt",
+        "description": "Levande datapresentation"
+      },
+      "prd": {
+        "name": "PRD",
+        "description": "Product Requirement Document"
+      },
+      "technical": {
+        "name": "Teknisk",
+        "description": "Teknisk dokumentation"
+      },
+      "proposal": {
+        "name": "Förslag",
+        "description": "Affärsförslag"
+      },
+      "report": {
+        "name": "Rapport",
+        "description": "Detaljerat rapportformat"
+      },
+      "guide": {
+        "name": "Guide",
+        "description": "Steg-för-steg-instruktion"
+      },
+      "wiki": {
+        "name": "Wiki",
+        "description": "Kunskapsbasartikel"
+      },
+      "policy": {
+        "name": "Policy",
+        "description": "Policydokument"
+      },
+      "meeting-notes": {
+        "name": "Mötesanteckningar",
+        "description": "Mötesprotokoll"
+      }
+    },
+    "outputFormats": {
+      "spreadsheet": {
+        "name": "Kalkylblad",
+        "description": "Tabell med formler"
+      },
+      "dashboard": {
+        "name": "Dashboard",
+        "description": "Interaktiva diagram"
+      },
+      "report": {
+        "name": "Rapport",
+        "description": "Analys med visualiseringar"
+      },
+      "slides": {
+        "name": "Slides",
+        "description": "Presentationsformat"
+      }
+    },
+    "charts": {
+      "bar": "Stapel",
+      "line": "Linje",
+      "pie": "Tårta",
+      "scatter": "Scatter",
+      "heatmap": "Heatmap",
+      "bubble": "Bubbla",
+      "wordcloud": "Word Cloud",
+      "stacked": "Staplad stapel",
+      "area": "Area"
+    },
+    "prompts": {
+      "image": {
+        "0": "En majestätisk kungsörn som svävar genom dimmiga bergstoppar vid soluppgång med dramatisk belysning",
+        "1": "Närbildsporträtt av en modell med avantgardistisk makeup, studiobelysning, skuggor med hög kontrast",
+        "2": "Ett mysigt skandinaviskt vardagsrum med naturliga trämöbler, inomhusväxter och mjukt morgonsolljus",
+        "3": "En futuristisk cyberpunk-gatumarknad på natten med neonskyltar, regnvåt asfalt och holografiska skärmar",
+        "4": "Elegant produktfotografering av en lyxig parfymflaska på en marmoryta med mjuka reflektioner",
+        "5": "Graciösa svävande öar sammankopplade med repbroar i en pastelhimmel med drömska moln",
+        "6": "Makronärbild av morgondagg på livfulla blomblad med bokeh-bakgrund",
+        "7": "En modern skrivbordsmiljö med laptop, kaffe, anteckningsblock och suckulenter sedda ovanifrån",
+        "8": "En mystisk skogsstig med gamla träd, glödande eldflugor och eteriska ljusstrålar genom dimman",
+        "9": "Arkitektonisk detalj av en modern glasfasad med geometriska mönster och reflektioner",
+        "10": "Ett livligt gatumatstånd med färgglada ingredienser, stigande ånga och varm stämningsbelysning",
+        "11": "En fridfull japansk zenträdgård med krattad sand, mossbelagda stenar och körsbärsblommor",
+        "12": "Dynamisk actionbild av en idrottare mitt i ett hopp mot en dramatisk solnedgång, silhuetteffekt",
+        "13": "Ett rustikt lantkök med kopparpannor, färska örter, skärbrädor i trä och naturliga texturer",
+        "14": "Abstrakt flytande konst med virvlande metalliskt guld, djupblått och smaragdgröna organiska mönster"
+      },
+      "slides": {
+        "0": "Skapa ett Series A pitch deck med marknadsstorlek, dragkraft och finansiella prognoser",
+        "1": "Bygg en Q4 business review med KPI:er, framgångar och strategiska initiativ",
+        "2": "Designa en produktlanseringspresentation med demovideor och kundreferenser",
+        "3": "Utveckla ett sales enablement deck som förklarar vårt värdeerbjudande och konkurrensfördelar",
+        "4": "Skapa en investeraruppdatering som lyfter fram viktiga mätetal och kommande milstolpar",
+        "5": "Bygg en kundcase-presentation som visar ROI och framgångsfaktorer",
+        "6": "Designa en All-Hands-presentation som täcker företagsuppdateringar och vision",
+        "7": "Utveckla ett utbildningsmaterial för nya produktfunktioner och arbetsflöden",
+        "8": "Skapa ett konferenstal om skalning av ingenjörsteam",
+        "9": "Bygg ett styrelsemötes-deck med strategiska rekommendationer"
+      },
+      "data": {
+        "0": "Bygg en finansiell modell som förutsäger ARR-tillväxt med olika prisscenarier",
+        "1": "Skapa en interaktiv säljdashboard som spårar mätetal per region och kvartal",
+        "2": "Analysera 50 000 kundrecensioner och visualisera sentiment-trender över tid",
+        "3": "Designa en innehållskalender som spårar kampanjer med ROI- och engagemangsgrafer",
+        "4": "Bygg en kohortanalys som visar användarbehållning och churn-mönster",
+        "5": "Skapa en marknadsföringsattributionsmodell som jämför kanalprestanda",
+        "6": "Utveckla en rekryteringstracker med pipelinemätetal och time-to-fill-analys",
+        "7": "Bygg ett kalkylblad för budgetplanering med scenariomodellering",
+        "8": "Analysera webbtrafikdata och visualisera konverteringstrattar",
+        "9": "Skapa ett lagerhanteringssystem med automatiska påfyllningsvarningar"
+      },
+      "docs": {
+        "0": "Skriv en omfattande PRD för en AI-driven rekommendationsmotor",
+        "1": "Utarbeta ett tekniskt arkitekturdokument för en skalerbar microservices-plattform",
+        "2": "Skapa ett Go-To-Market-strategidokument för vår produktlansering i Q2",
+        "3": "Utveckla en 90-dagars onboarding-guide för ingenjörschefer",
+        "4": "Skriv en guide för API-dokumentation med exempel och best practices",
+        "5": "Skapa en medarbetarhandbok som täcker kultur, policyer och förmåner",
+        "6": "Utarbeta en integritetspolicy som efterlever GDPR och CCPA",
+        "7": "Utveckla en kundframgångs-playbook för enterprise SaaS-konton",
+        "8": "Skriv en plan för händelsehantering vid säkerhetsincidenter med eskaleringsprocedurer",
+        "9": "Skapa en omfattande stilguide för varumärke och innehåll"
+      },
+      "canvas": {
+        "0": "Lägg till en tech-startup-banner på canvasen med en futuristisk skyline",
+        "1": "Skapa en logotyp för ett kaffemärke på canvasen med en minimalistisk, jordnära stil",
+        "2": "Lägg till min produktbild på canvasen och ta bort bakgrunden",
+        "3": "Designa en infografik om förnybar energi på canvasen med platta ikoner",
+        "4": "Skapa ett sci-fi bokomslag på canvasen med cyberpunk-estetik",
+        "5": "Lägg till en YouTube-thumbnail på canvasen för en video med produktivitetstips",
+        "6": "Bygg en moodboard för lyxmode på canvasen för millennials",
+        "7": "Designa en elegant bröllopsinbjudan på canvasen med blommönster",
+        "8": "Lägg till min porträttbild på canvasen och applicera en vintage filmeffekt",
+        "9": "Skapa en musikfestival-poster på canvasen med en psykedelisk känsla"
+      },
+      "video": {
+        "0": "Animera min produktbild som roterar mjukt med studiobelysning",
+        "1": "Gör om min porträttbild till en filmisk scen med kamerarörelse",
+        "2": "Generera en lugn naturvideo av körsbärsblommor som faller sakta",
+        "3": "Skapa abstrakta glödande partiklar som virvlar samman i slow-motion",
+        "4": "Få min produkt att sväva och rotera med mjuka skuggor och reflektioner",
+        "5": "Lägg till dramatisk filmisk belysning och färggradering på mitt porträtt",
+        "6": "Generera en mjuk drone-shot som flyger genom dimmiga bergstoppar",
+        "7": "Skapa en videoloop av flytande metall som flyter i organiska former",
+        "8": "Ändra bakgrunden på mitt foto till en undervattensscen med ljusstrålar",
+        "9": "Generera en video av ett futuristiskt stadslandskap med neonljus och reflektioner"
+      },
+      "research": {
+        "0": "Analysera framväxande trender inom kvantdatorer och potentiella affärstillämpningar",
+        "1": "Undersök de 10 främsta konkurrenterna inom AI-driven CRM med funktionsjämförelse",
+        "2": "Undersök de regulatoriska kraven för att lansera en fintech-app i EU",
+        "3": "Sammanställ en marknadsanalys av adoptionsgraden för elbilar på nyckelmarknader",
+        "4": "Studera effekten av distansarbete på efterfrågan på kommersiella fastigheter i storstäder",
+        "5": "Undersök Web3-adoptionsmønster bland Fortune 500-företag",
+        "6": "Analysera konsumenternas inställning till hållbara modemärken",
+        "7": "Undersök de senaste genombrotten inom genterapi för sällsynta sjukdomar",
+        "8": "Studera prisstrategier för framgångsrika D2C-företag med prenumerationsboxar",
+        "9": "Undersök det konkurrenskraftiga landskapet för AI-drivna cybersäkerhetslösningar"
+      }
+    }
+  },
+  "announcements": {
+    "memories": {
+      "title": "Vi presenterar Memories",
+      "description": "SuperAgent kommer nu ihåg dina preferenser och sammanhang över alla konversationer",
+      "features": {
+        "personalized": {
+          "title": "Personlig upplevelse",
+          "description": "Anpassar sig till din arbetsstil över tid"
+        },
+        "retention": {
+          "title": "Bevarande av sammanhang",
+          "description": "Viktiga detaljer komms ihåg över chattar"
+        },
+        "control": {
+          "title": "Du har kontrollen",
+          "description": "Stäng av eller rensa Memories när som helst"
+        }
+      },
+      "manageButton": "Hantera Memories",
+      "dismissButton": "Uppfattat"
+    }
+  }
+}

@@ -1,0 +1,1609 @@
+{
+  "common": {
+    "cancel": "Anuluj",
+    "save": "Zapisz",
+    "saving": "Zapisywanie...",
+    "success": "Sukces",
+    "done": "Gotowe",
+    "close": "Zamknij",
+    "ok": "OK",
+    "yes": "Tak",
+    "no": "Nie",
+    "delete": "Usuń",
+    "edit": "Edytuj",
+    "search": "Szukaj",
+    "loading": "Ładowanie...",
+    "error": "Błąd",
+    "retry": "Spróbuj ponownie",
+    "send": "Wyślij",
+    "back": "Wstecz",
+    "new": "Nowy",
+    "create": "Utwórz",
+    "update": "Aktualizuj",
+    "remove": "Usuń",
+    "confirm": "Potwierdź",
+    "processing": "Przetwarzanie...",
+    "keep": "Zachowaj",
+    "active": "Aktywny",
+    "inactive": "Nieaktywny",
+    "next": "Dalej",
+    "upgrade": "Uaktualnij",
+    "basic": "Podstawowy",
+    "tryFree": "Rozpocznij"
+  },
+  "settings": {
+    "title": "Ustawienia",
+    "tabs": {
+      "general": "Ogólne",
+      "plan": "Plan",
+      "billing": "Płatności",
+      "usage": "Zużycie",
+      "referrals": "Polecenia",
+      "knowledgeBase": "Baza wiedzy",
+      "integrations": "Integracje",
+      "envManager": "Menedżer środowisk"
+    },
+    "general": {
+      "title": "Ustawienia ogólne",
+      "description": "Zarządzaj informacjami o koncie",
+      "profilePicture": {
+        "title": "Zdjęcie profilowe",
+        "upload": "Prześlij zdjęcie",
+        "hint": "JPG, PNG lub GIF. Maks. 5MB.",
+        "invalidType": "Proszę wybrać plik graficzny",
+        "tooLarge": "Zdjęcie musi mieć mniej niż 5MB",
+        "uploadFailed": "Przesyłanie zdjęcia profilowego nie powiodło się"
+      },
+      "name": "Imię i nazwisko",
+      "email": "E-mail",
+      "namePlaceholder": "Wpisz swoje imię",
+      "emailCannotChange": "Adresu e-mail nie można zmienić tutaj",
+      "saveChanges": "Zapisz zmiany",
+      "profileUpdated": "Profil został zaktualizowany",
+      "profileUpdateFailed": "Aktualizacja profilu nie powiodła się",
+      "language": {
+        "title": "Język",
+        "description": "Wybierz preferowany język",
+        "current": "Bieżący język",
+        "select": "Wybierz język"
+      },
+      "deleteAccount": {
+        "title": "Usuń konto",
+        "description": "Trwale usuń swoje konto i wszystkie powiązane dane",
+        "button": "Usuń konto",
+        "scheduled": "Zaplanowano usunięcie",
+        "scheduledDescription": "Twoje konto zostanie trwale usunięte w dniu {date}.",
+        "canCancel": "Możesz anulować to żądanie w dowolnym momencie przed datą usunięcia.",
+        "cancelButton": "Anuluj żądanie usunięcia",
+        "dialogTitle": "Usuń konto",
+        "warning": "Tej operacji nie można cofnąć po 30 dniach",
+        "whenDelete": "Po usunięciu konta:",
+        "agentsDeleted": "Wszyscy Workerzy i ich wersje zostaną usunięte",
+        "threadsDeleted": "Wszystkie rozmowy i sesje zostaną usunięte",
+        "credentialsRemoved": "Wszystkie poświadczenia i integracje zostaną usunięte",
+        "subscriptionCancelled": "Twoja subskrypcja zostanie anulowana",
+        "billingRemoved": "Wszystkie dane bilingowe zostaną usunięte",
+        "scheduled30Days": "Twoje konto zostanie usunięte za 30 dni",
+        "gracePeriod": "Możesz anulować to żądanie w dowolnym momencie w ciągu 30-dniowego okresu przejściowego. Po 30 dniach wszystkie dane zostaną trwale usunięte i nie będzie można ich odzyskać.",
+        "chooseDeletionType": "Wybierz typ usunięcia:",
+        "gracePeriodOption": "30-dniowy okres przejściowy",
+        "gracePeriodDescription": "Twoje konto zostanie usunięte za 30 dni. Możesz anulować żądanie w dowolnym momencie w tym okresie.",
+        "immediateOption": "Natychmiastowe usunięcie",
+        "immediateDescription": "Twoje konto i wszystkie dane zostaną natychmiast trwale usunięte. Tej operacji nie można cofnąć.",
+        "warningImmediate": "Tej operacji nie można cofnąć",
+        "warningGracePeriod": "Tej operacji nie można cofnąć po 30 dniach",
+        "confirmText": "Wpisz delete, aby potwierdzić",
+        "confirmPlaceholder": "delete",
+        "keepAccount": "Zachowaj konto",
+        "cancelDeletionTitle": "Anuluj usuwanie konta",
+        "cancelDeletionDescription": "Czy na pewno chcesz anulować usuwanie konta? Twoje konto i wszystkie dane zostaną zachowane.",
+        "cancelDeletion": "Anuluj usuwanie"
+      }
+    },
+    "referrals": {
+      "title": "Program poleceń",
+      "description": "Udostępnij swój link polecający znajomym i zdobywaj kredyty, gdy się zarejestrują.",
+      "creditsPerReferral": "100 kredytów",
+      "youEarn": "Ty zarabiasz",
+      "friendGets": "Twój znajomy otrzymuje",
+      "maxEarnable": "Maksymalna kwota do zarobienia dzięki poleceniom:",
+      "maxCredits": "$100 w kredytach",
+      "yourReferralCode": "Twój kod polecający",
+      "referralLink": "Link polecający",
+      "shareYourLink": "Udostępnij swój link",
+      "yourStats": "Twoje statystyki",
+      "enterCodeDescription": "Wprowadź kod polecający, aby zdobyć kredyty",
+      "enterCode": "Wprowadź kod",
+      "refresh": "Odśwież",
+      "copyCode": "Kopiuj kod",
+      "copyLink": "Kopiuj link",
+      "share": "Udostępnij",
+      "stats": {
+        "totalReferrals": "Suma poleceń",
+        "successful": "Udana",
+        "creditsEarned": "Zarobione kredyty"
+      },
+      "recentReferrals": "Ostatnie polecenia",
+      "signupComplete": "Rejestracja zakończona",
+      "pending": "Oczekujące",
+      "noReferrals": "Brak poleceń. Udostępnij swój link, aby zacząć!",
+      "copied": "Skopiowano!",
+      "codeCopied": "Kod polecający skopiowany do schowka",
+      "linkCopied": "Link polecający skopiowany do schowka",
+      "codeRefreshed": "Kod polecający odświeżony",
+      "refreshFailed": "Odświeżenie kodu polecającego nie powiodło się",
+      "inviteByEmail": "Zaproś przez e-mail",
+      "inviteByEmailDescription": "Dodaj do 3 adresów e-mail (naciśnij Enter, spację lub przecinek, aby dodać)",
+      "emailAddress": "Adres e-mail",
+      "emailPlaceholder": "Wprowadź adresy e-mail (Enter, spacja lub przecinek)",
+      "emailsAdded": "Dodano adresy e-mail",
+      "sent": "Wysłano",
+      "send": "Wyślij",
+      "sending": "Wysyłanie...",
+      "sendAllInvites": "Wyślij wszystkie zaproszenia",
+      "allSent": "Wszystkie wysłane",
+      "emailSent": "Zaproszenie polecające wysłane"
+    },
+    "billing": {
+      "title": "Płatności i subskrypcja",
+      "description": "Zarządzaj kredytami i subskrypcją",
+      "totalCredits": "Suma dostępnych kredytów",
+      "allCredits": "Wszystkie kredyty",
+      "monthlyCredits": "Kredyty miesięczne",
+      "renewalIn": "Odnowienie za {days} {days, plural, one {dzień} few {dni} many {dni} other {dni}}",
+      "noRenewal": "Brak zaplanowanego odnowienia",
+      "extraCredits": "Dodatkowe kredyty",
+      "nonExpiring": "Nie wygasa",
+      "renews": "Odnawia się {date}",
+      "manageSubscription": "Zarządzaj subskrypcją",
+      "getAdditionalCredits": "Kup dodatkowe kredyty",
+      "changePlan": "Zmień plan",
+      "annualCommitment": "Zobowiązanie roczne",
+      "activeUntil": "Aktywny do {date}",
+      "subscriptionCancelled": "Subskrypcja wygasa {date}",
+      "reactivate": "Reaktywuj",
+      "creditsExplained": "Wyjaśnienie kredytów",
+      "cancelPlan": "Anuluj plan",
+      "reactivateSubscription": "Reaktywuj subskrypcję",
+      "reactivating": "Reaktywowanie...",
+      "cancelDialogTitle": "Anuluj subskrypcję",
+      "cancelDialogDescription": "Czy na pewno chcesz anulować subskrypcję? Nadal będziesz mieć dostęp do {date}.",
+      "keepSubscription": "Zachowaj subskrypcję",
+      "cancelling": "Anulowanie...",
+      "localMode": "Tryb lokalny aktywny",
+      "localModeDescription": "Wszystkie funkcje premium są dostępne w tym środowisku",
+      "insufficientCredits": "Niewystarczająca liczba kredytów",
+      "insufficientCreditsMessage": "Weryfikacja płatności nie powiodła się: Niewystarczająca liczba kredytów. Twoje saldo wynosi {balance}. Proszę doładować kredyty, aby kontynuować.",
+      "creditsExhausted": "Twoje kredyty się wyczerpały. Uaktualnij teraz.",
+      "billingCheckFailed": "Weryfikacja płatności nie powiodła się. Proszę uaktualnij plan, aby kontynuować.",
+      "failedToStartAgent": "Nie udało się uruchomić Workera {agentName}: {message}"
+    },
+    "usage": {
+      "title": "Zużycie"
+    },
+    "knowledgeBase": {
+      "opening": "Otwieranie bazy wiedzy",
+      "redirecting": "Przekierowywanie do strony bazy wiedzy..."
+    },
+    "integrations": {
+      "opening": "Otwieranie integracji",
+      "redirecting": "Przekierowywanie do strony integracji..."
+    },
+    "memory": {
+      "title": "Pamięć AI",
+      "description": "Automatycznie zapamiętuj kontekst między rozmowami",
+      "enabled": "Włączona",
+      "disabled": "Wyłączona",
+      "notAvailable": "Pamięć nie jest dostępna w Twoim obecnym planie. Uaktualnij do wersji Plus lub wyższej, aby włączyć automatyczną pamięć.",
+      "enableMemory": "Włącz pamięć",
+      "enableMemoryDescription": "Pozwól SuperAgent zapamiętywać informacje z Twoich rozmów",
+      "memoryDisabledByUser": "Pamięć jest obecnie wyłączona. Włącz ją powyżej, aby zacząć budować wspomnienia ze swoich rozmów.",
+      "upgradeRequired": "Wymagane uaktualnienie dla pamięci",
+      "clickToUpgrade": "Kliknij, aby zobaczyć plany",
+      "memoryEnabledTooltip": "Pamięć włączona",
+      "memoryDisabledTooltip": "Pamięć wyłączona",
+      "clickToToggle": "Kliknij, aby przełączyć",
+      "usage": "Zużycie pamięci",
+      "available": "{count} dostępnych wspomnień",
+      "noLimit": "Bez limitu",
+      "yourMemories": "Twoje wspomnienia",
+      "yourMemoriesDescription": "Przeglądaj i zarządzaj tym, co AI o Tobie pamięta",
+      "clearAll": "Wyczyść wszystko",
+      "deleteAllTitle": "Usunąć wszystkie wspomnienia?",
+      "deleteAllDescription": "Spowoduje to trwałe usunięcie wszystkich Twoich wspomnień ({count}). AI nie będzie już pamiętać informacji z poprzednich rozmów. Tej operacji nie można cofnąć.",
+      "deleteAllButton": "Usuń wszystkie wspomnienia",
+      "noMemoriesYet": "Brak wspomnień",
+      "noMemoriesDescription": "Rozpocznij rozmowę, a AI automatycznie zapamięta ważne informacje o Tobie",
+      "searchMemories": "Szukaj we wspomnieniach...",
+      "filterByType": "Filtruj wg typu",
+      "allTypes": "Wszystkie typy",
+      "personalFacts": "Fakty osobiste",
+      "preferences": "Preferencje",
+      "context": "Kontekst",
+      "conversations": "Rozmowy",
+      "noMatchingMemories": "Nie znaleziono wspomnień pasujących do wyszukiwania",
+      "adjustFilters": "Spróbuj dostosować filtry lub wyszukiwanie",
+      "loadMore": "Załaduj więcej",
+      "loading": "Ładowanie wspomnień...",
+      "memoryTypes": {
+        "fact": "Fakt",
+        "preference": "Preferencja",
+        "context": "Kontekst",
+        "conversation_summary": "Rozmowa"
+      }
+    }
+  },
+  "triggers": {
+    "getStarted": "Zacznij od dodania triggera",
+    "getStartedDescription": "Zaplanuj trigger, aby zautomatyzować działania i otrzymywać powiadomienia po ich zakończeniu.",
+    "search": "Szukaj",
+    "scheduledTrigger": "Zaplanowany trigger",
+    "eventBasedTrigger": "Trigger zdarzeniowy",
+    "chooseAgent": "Wybierz Workera",
+    "schedule": "Harmonogram",
+    "agentInstructions": "Instrukcje dla Workera",
+    "agentInstructionsDescription": "Niestandardowy prompt dla Workera",
+    "assignedAgent": "Przypisany Worker",
+    "unknownAgent": "Nieznany Worker",
+    "technicalDetails": "Szczegóły techniczne",
+    "type": "Typ",
+    "provider": "Dostawca",
+    "created": "Utworzono",
+    "lastUpdated": "Ostatnia aktualizacja",
+    "enable": "Włącz",
+    "disable": "Wyłącz",
+    "deleteTask": "Usuń zadanie",
+    "deleteTaskDescription": "Czy na pewno chcesz usunąć zadanie „{name}”? Tej operacji nie można cofnąć i spowoduje ona zatrzymanie wszystkich automatycznych uruchomień tego zadania.",
+    "taskEnabled": "Zadanie włączone",
+    "taskDisabled": "Zadanie wyłączone",
+    "toggleTaskFailed": "Nie udało się zmienić statusu zadania",
+    "taskDeletedSuccess": "Zadanie usunięte",
+    "deleteTaskFailed": "Nie udało się usunąć zadania",
+    "taskUpdatedSuccess": "Zadanie zaktualizowane",
+    "updateTaskFailed": "Nie udało się zaktualizować zadania",
+    "pleaseSelectAgent": "Proszę wybrać Workera",
+    "defaultScheduledTriggerName": "Zaplanowany trigger",
+    "defaultScheduledTriggerDescription": "Automatycznie zaplanowany trigger",
+    "scheduleTriggerUpdated": "Zaplanowany trigger zaktualizowany",
+    "scheduleTriggerCreated": "Zaplanowany trigger utworzony",
+    "upgradeForMoreScheduledTriggers": "Uaktualnij, aby utworzyć więcej zaplanowanych triggerów",
+    "upgradeForMoreAppTriggers": "Uaktualnij, aby utworzyć więcej triggerów aplikacji",
+    "updateScheduleTriggerFailed": "Nie udało się zaktualizować zaplanowanego triggera",
+    "createScheduleTriggerFailed": "Nie udało się utworzyć zaplanowanego triggera",
+    "editScheduledTask": "Edytuj zaplanowane zadanie",
+    "createScheduledTask": "Utwórz zaplanowane zadanie",
+    "editAppBasedTask": "Edytuj zadanie aplikacji",
+    "createAppBasedTask": "Utwórz zadanie aplikacji",
+    "updateAgentForTask": "Zaktualizuj Workera dla tego zadania",
+    "selectAgentForTask": "Najpierw wybierz, który Worker ma obsługiwać to zadanie",
+    "createNew": "Utwórz nowy",
+    "notConfigured": "Nieskonfigurowane",
+    "every15Minutes": "Co 15 minut",
+    "every30Minutes": "Co 30 minut",
+    "everyHour": "Co godzinę",
+    "dailyAt9AM": "Codziennie o 09:00",
+    "weekdaysAt9AM": "W dni robocze o 09:00",
+    "weeklyOnMonday": "Co tydzień w poniedziałek",
+    "monthlyOn1st": "Co miesiąc pierwszego dnia"
+  },
+  "sidebar": {
+    "referAndEarn": "Poleć i zarabiaj",
+    "referralShareTitle": "Poleć znajomym",
+    "referralShareSubtitle": "Zdobądź 400 kredytów",
+    "new": "Nowy",
+    "upgrade": "Uaktualnij",
+    "chats": "Czaty",
+    "library": "Pliki",
+    "triggers": "Triggery",
+    "newChat": "Nowy czat",
+    "newAgent": "Nowy Worker",
+    "settings": "Ustawienia",
+    "logout": "Wyloguj się",
+    "openMenu": "Otwórz menu",
+    "expandSidebar": "Rozwiń pasek boczny (CMD+B)",
+    "searchChats": "Szukaj w czatach",
+    "searchChatsPlaceholder": "Szukaj w czatach...",
+    "allTriggers": "Wszystkie triggery",
+    "addWorkers": "Dodaj Workerów",
+    "addTrigger": "Dodaj trigger",
+    "triggerConfig": "Konfiguracja triggera",
+    "scheduledTrigger": "Zaplanowany trigger",
+    "scheduledTriggerDescription": "Zaplanuj trigger na określony czas",
+    "eventBasedTrigger": "Trigger zdarzeniowy",
+    "eventBasedTriggerDescription": "Utwórz trigger uruchamiany po wystąpieniu zdarzenia",
+    "noChatsFound": "Nie znaleziono czatów",
+    "noConversations": "Brak rozmów",
+    "search": "Szukaj",
+    "searchPlaceholder": "Szukaj...",
+    "searchResults": "Wyniki wyszukiwania",
+    "recent": "Ostatnie",
+    "personalAccount": "Konto osobiste",
+    "workspaces": "Obszary robocze",
+    "theme": "Motyw",
+    "integrations": "Integracje",
+    "billing": "Płatności",
+    "usage": "Zużycie",
+    "adminPanel": "Panel admina",
+    "apiKeys": "Klucze API",
+    "envManager": "Menedżer środowisk",
+    "advanced": "Zaawansowane",
+    "plan": "Plan",
+    "knowledgeBase": "Baza wiedzy",
+    "conversation": "Rozmowa",
+    "conversations": "Rozmowy",
+    "startNewChat": "Rozpocznij nowy czat",
+    "openInNewTab": "Otwórz w nowej karcie",
+    "delete": "Usuń",
+    "deleting": "Usuwanie",
+    "allThreadsLoaded": "Wszystkie rozmowy załadowane",
+    "myWorkforce": "Moi pracownicy",
+    "addTeam": "Dodaj zespół",
+    "selectAll": "Zaznacz wszystko",
+    "deselectAll": "Odznacz wszystko",
+    "selectAllConversations": "Zaznacz wszystkie rozmowy",
+    "deselectAllConversations": "Odznacz wszystkie rozmowy",
+    "loadMore": "Załaduj więcej",
+    "remaining": "Pozostałe"
+  },
+  "dashboard": {
+    "title": "Panel główny",
+    "welcome": "Witaj",
+    "whatWouldYouLike": "W czym mogę Ci pomóc?",
+    "describeWhatYouNeed": "Opisz, w czym potrzebujesz pomocy...",
+    "usageLimits": "Limity zużycia",
+    "threads": "Rozmowy",
+    "customWorkers": "Własne Workerzy",
+    "scheduledTriggers": "Zaplanowane triggery",
+    "appTriggers": "Triggery aplikacji",
+    "limitsExceeded": "Osiągnięto limit rozmów. Uaktualnij plan, aby utworzyć więcej rozmów.",
+    "agentInitiatedSuccessfully": "Worker uruchomiony",
+    "aiAssistantReady": "Twój asystent AI jest gotowy do pomocy",
+    "greetings": {
+      "morning": [
+        "Dzień dobry! Jaki jest plan na dziś?",
+        "Dzień dobry! Co dzisiaj budujemy?",
+        "Dzień dobry! Gotowy na produktywny dzień?"
+      ],
+      "afternoon": [
+        "Dzień dobry! Jak mogę pomóc?",
+        "Mam nadzieję, że dzień mija dobrze! Co dalej?"
+      ],
+      "evening": [
+        "Dobry wieczór! Nadal ciężko pracujesz?",
+        "Dobry wieczór! Nad czym dzisiaj popracujemy?",
+        "Dobry wieczór! Czas coś dokończyć."
+      ],
+      "random": [
+        "Zgadnij, kto wrócił!",
+        "Cześć! Co SuperAgent może dla Ciebie zrobić?",
+        "Co chcesz dzisiaj osiągnąć?",
+        "Zróbmy coś niesamowitego!",
+        "Gotowy, gdy Ty jesteś!",
+        "Co słychać?",
+        "Do usług! Jakie masz zadanie?",
+        "Stwórzmy trochę magii!",
+        "Z jakim wyzwaniem dzisiaj się zmierzymy?",
+        "Twoje życzenie jest dla mnie rozkazem",
+        "Jaki jest plan?",
+        "Zapnij pasy! Gdzie ruszamy?",
+        "Nowy dzień, nowy projekt",
+        "O czym myślisz?",
+        "Zaczynamy show"
+      ]
+    },
+    "good_morning": "Dzień dobry",
+    "good_afternoon": "Dzień dobry",
+    "good_evening": "Dobry wieczór",
+    "ready_to_accelerate_your_pipeline": "Gotowy na przyspieszenie procesów? Wybierz umiejętność, aby zacząć.",
+    "explore_agentic_ai_capabilities": "Odkryj możliwości AI agentowego",
+    "marketing_assets": "Zasoby marketingowe",
+    "image": "Obraz",
+    "images": {
+      "label": "Obraz",
+      "bannerTitle": "Studio Obrazu",
+      "bannerDescription": "Generuj fotorealistyczne zasoby marketingowe, złożone infografiki i plakaty z tekstem.",
+      "selectModelPlaceholder": "Wybierz model",
+      "styleTitle": "Wybierz styl",
+      "samplePrompts": "Przykładowe prompty",
+      "generateWithStylePrompt": "Generuj obraz w stylu {style}"
+    },
+    "videos": {
+      "label": "Wideo",
+      "bannerTitle": "Generator Wideo",
+      "bannerDescription": "Twórz filmowe wideo z ultrarealistycznym oświetleniem i płynnym ruchem.",
+      "selectModelPlaceholder": "Wybierz model",
+      "styleTitle": "Wybierz styl wideo",
+      "samplePrompts": "Przykładowe prompty",
+      "generateWithStylePrompt": "Generuj wideo w stylu {style}"
+    },
+    "tags": {
+      "sales": "Sprzedaż",
+      "cx": "Obsługa klienta",
+      "mktg": "Marketing",
+      "ops": "Operacje",
+      "hr": "HR",
+      "legal": "Prawo"
+    },
+    "aePanel": {
+      "bannerTitle": "Agent Account Executive",
+      "bannerDescription": "Asystent sprzedaży wspierający cały cykl: od analizy potrzeb po demo i przekazanie klienta.",
+      "cards": {
+        "discovery": {
+          "title": "Przygotowanie do analizy",
+          "description": "Generuj ukierunkowane pytania i research.",
+          "prompt": "Przygotuj pytania do analizy potrzeb dla dyrektora sprzedaży w firmie fintech..."
+        },
+        "handoff": {
+          "title": "Przekazanie Sprzedaż → CS",
+          "description": "Strukturyzuj notatki o transakcji dla sprawnego przekazania.",
+          "prompt": "Stwórz dokument przekazania klienta dla zespołu Customer Success..."
+        },
+        "leadFeedback": {
+          "title": "Pętla feedbacku o leadach",
+          "description": "Dziel się spostrzeżeniami o jakości leadów z marketingiem.",
+          "prompt": "Napisz opinię o jakości leadów dla zespołu marketingu..."
+        }
+      }
+    },
+    "dataPanel": {
+      "bannerTitle": "Agent Analityk Danych",
+      "bannerDescription": "Czyść listy, wzbogacaj kontakty i analizuj pliki CSV pod kątem trendów rynkowych.",
+      "cards": {
+        "leadCleaner": {
+          "title": "Czyszczenie list leadów",
+          "description": "Popraw formatowanie, usuń duplikaty i ustandaryzuj pola do importu do CRM.",
+          "prompt": "Wyczyść tę listę leadów i ustandaryzuj stanowiska pracy..."
+        },
+        "lookalikes": {
+          "title": "Grupy lookalike",
+          "description": "Znajdź nowych potencjalnych klientów na podstawie swoich najlepszych odbiorców.",
+          "prompt": "Znajdź firmy podobne do moich 10 najlepszych klientów..."
+        },
+        "ticketAnalysis": {
+          "title": "Analiza zgłoszeń",
+          "description": "Zidentyfikuj powtarzające się problemy i nastroje w zgłoszeniach wsparcia.",
+          "prompt": "Przeanalizuj te zgłoszenia wsparcia pod kątem nastrojów i typowych problemów..."
+        }
+      }
+    },
+    "pipelinePanel": {
+      "bannerTitle": "Menedżer Procesów",
+      "bannerDescription": "Prognozowanie, kontrola jakości transakcji i wykrywanie ryzyk.",
+      "cards": {
+        "q4Forecast": {
+          "title": "Prognoza na Q4",
+          "description": "Przewiduj przychody i zidentyfikuj transakcje, które utknęły.",
+          "prompt": "Przewiduj przychody na Q4 i zidentyfikuj ryzyka w transakcjach, które utknęły..."
+        },
+        "campaignRoi": {
+          "title": "ROI kampanii",
+          "description": "Analiza atrybucji ostatnich sukcesów.",
+          "prompt": "Przeanalizuj atrybucję kampanii dla wygranych transakcji..."
+        },
+        "churnForecast": {
+          "title": "Prognoza rezygnacji",
+          "description": "Przewiduj odnowienia i konta zagrożone odejściem.",
+          "prompt": "Przewiduj ryzyko rezygnacji w nadchodzącej grupie odnowień..."
+        }
+      }
+    },
+    "researchPanel": {
+      "bannerTitle": "Głęboki Research",
+      "bannerDescription": "Wykorzystaj zaawansowane rozumowanie do analizy rynku, strategii konkurencji i generowania obszernych raportów.",
+      "sectionTitle": "Rozpocznij nowy research",
+      "items": {
+        "competitorDeepDive": "Analiza konkurencji",
+        "marketTrendAnalysis": "Analiza trendów rynkowych",
+        "accountIntelligenceReport": "Raport o potencjalnym kliencie",
+        "regulatoryImpactStudy": "Badanie wpływu regulacji"
+      },
+      "promptTemplate": "Przeprowadź {topic} na temat..."
+    },
+    "socialSellingPanel": {
+      "bannerTitle": "Asystent Social Selling",
+      "bannerDescription": "Buduj markę osobistą, pisz wciągające wstępy i angażuj prospektów z pomocą AI.",
+      "cards": {
+        "viralHook": {
+          "title": "Generator wiralowych wstępów",
+          "description": "Przyciągnij uwagę dzięki wstępom zaprojektowanym przez AI.",
+          "prompt": "Napisz wstęp do posta na LinkedIn o..."
+        },
+        "repurpose": {
+          "title": "Recykling treści",
+          "description": "Zamień wpisy na blogu w posty, wątki i karuzele.",
+          "prompt": "Zamień ten wpis na blogu w wątek na Twitterze..."
+        },
+        "dmSequence": {
+          "title": "Autor sekwencji wiadomości",
+          "description": "Pisz wiadomości, które nie brzmią jak nachalna sprzedaż.",
+          "prompt": "Napisz sekwencję wiadomości dla prospekta, który odwiedził mój profil..."
+        }
+      }
+    },
+    "strategistPanel": {
+      "bannerTitle": "Strateg Transakcji",
+      "bannerDescription": "Przyspiesz cykle sprzedaży dzięki planom negocjacyjnym, przeglądom umów i strategii cenowej.",
+      "cards": {
+        "proposal": {
+          "title": "Inteligentne tworzenie ofert",
+          "description": "Automatyczne szkice + uzupełnianie cen.",
+          "cta": "Stwórz szkic",
+          "prompt": "Stwórz ofertę dla [Klienta] ze standardowymi cenami..."
+        },
+        "redline": {
+          "title": "Asystent Przeglądu",
+          "description": "Analiza umów przez AI i propozycje zmian.",
+          "cta": "Prześlij dokument",
+          "prompt": "Przeanalizuj tę umowę i zaproponuj poprawki..."
+        },
+        "followUp": {
+          "title": "Wielokanałowy follow-up",
+          "description": "Spersonalizowane e-maile dla różnych interesariuszy.",
+          "cta": "Generuj sekwencję",
+          "prompt": "Napisz spersonalizowane wiadomości follow-up dla VP i Managera..."
+        },
+        "expansion": {
+          "title": "Łowca Ekspansji",
+          "description": "Wykrywaj sygnały do dosprzedaży i monitoruj kondycję kont.",
+          "cta": "Znajdź okazje",
+          "prompt": "Przeanalizuj zużycie na koncie pod kątem sygnałów do ekspansji..."
+        }
+      }
+    },
+    "icpPanel": {
+      "bannerTitle": "Terytorium i Świadomość",
+      "bannerDescription": "Zdefiniuj ICP, segmentuj terytoria i zmapuj decydentów.",
+      "sectionTitle": "Głęboka segmentacja",
+      "cards": {
+        "repAssignment": {
+          "title": "Przypisanie handlowców",
+          "description": "Rekomendowane przypisanie terytoriów na podstawie mocnych stron.",
+          "prompt": "Zaproponuj przypisanie handlowców do regionu zachodniego na podstawie wyników..."
+        },
+        "quotaModeling": {
+          "title": "Modelowanie celów",
+          "description": "Optymalizuj targety i analizuj wydajność zespołu.",
+          "prompt": "Zmodeluj wydajność celów na rok 2024 przy obecnym zatrudnieniu..."
+        },
+        "predictiveHiring": {
+          "title": "Rekrutacja predykcyjna",
+          "description": "Prognozy zatrudnienia na podstawie tempa wzrostu procesów.",
+          "prompt": "Stwórz plan zatrudnienia oparty na szybkości procesów i celach przychodowych..."
+        },
+        "marketSegmentation": {
+          "title": "Segmentacja rynku",
+          "description": "Dopracuj ICP i persony zakupowe.",
+          "prompt": "Zdefiniuj profil psychograficzny dla naszego segmentu korporacyjnego..."
+        },
+        "customerHealth": {
+          "title": "Profil kondycji klienta",
+          "description": "Zidentyfikuj cechy odnoszących sukcesy, lojalnych klientów.",
+          "prompt": "Stwórz profil oceny kondycji (health score) dla naszych najlepszych klientów..."
+        }
+      }
+    },
+    "websitePanel": {
+      "bannerTitle": "Witryna",
+      "bannerDescription": "Generuj wysoko konwertujące strony docelowe i funkcjonalne aplikacje webowe z pomocą AI.",
+      "sectionTitle": "Biblioteka szablonów",
+      "promptTemplate": "Stwórz {template} dla...",
+      "categories": {
+        "marketing": {
+          "title": "Marketing i Kampanie",
+          "items": {
+            "landingPage": "Konwertująca strona docelowa",
+            "webinarRegistration": "Strona rejestracji na webinar",
+            "productLaunchCountdown": "Odliczanie do premiery produktu",
+            "eventMicrosite": "Mikrowitryna wydarzenia",
+            "newsletterSignup": "Zapis do newslettera"
+          }
+        },
+        "corporate": {
+          "title": "Korporacyjne i Brandowe",
+          "items": {
+            "corporateHomepage": "Nowoczesna strona główna firmy",
+            "aboutLeadership": "O nas i Zarząd",
+            "careersCulture": "Kariera i Kultura",
+            "pressMediaKit": "Press & Media Kit"
+          }
+        },
+        "saas": {
+          "title": "SaaS i Produkt",
+          "items": {
+            "saasHomepage": "Strona produktu SaaS",
+            "pricingComparison": "Porównanie cen i planów",
+            "featureDeepDive": "Szczegółowa prezentacja funkcji",
+            "docsHelpCenter": "Dokumentacja / Centrum pomocy"
+          }
+        },
+        "content": {
+          "title": "Treści i Portfolio",
+          "items": {
+            "personalPortfolio": "Portfolio marki osobistej",
+            "agencyShowcase": "Prezentacja agencji",
+            "consultantBooking": "Rezerwacja konsultacji",
+            "resourceLibraryBlog": "Biblioteka zasobów / Blog"
+          }
+        }
+      }
+    },
+    "adsPanel": {
+      "bannerTitle": "Studio Reklamowe",
+      "bannerDescription": "Generuj wysoko konwertujące reklamy z precyzyjnym targetowaniem i kreatywnym kierunkiem.",
+      "none": "Brak",
+      "steps": {
+        "strategyTargeting": "Strategia i Targetowanie",
+        "adSpecifications": "Specyfikacja reklamy",
+        "creativeDirection": "Kierunek kreatywny"
+      },
+      "fields": {
+        "productUrl": "URL strony docelowej produktu",
+        "competitorUrl": "URL konkurencji",
+        "targetAudience": "Grupa docelowa",
+        "platforms": "Platformy",
+        "format": "Format",
+        "callToAction": "Call to Action",
+        "visualStyle": "Styl wizualny",
+        "outputVolume": "Liczba wyników",
+        "massTranslation": "Masowe tłumaczenie"
+      },
+      "placeholders": {
+        "url": "https://...",
+        "age": "Wiek (np. 25-45)",
+        "location": "Lokalizacja (np. Polska, Europa)",
+        "interests": "Zainteresowania (np. SaaS, Technologie)",
+        "ctaText": "Tekst przycisku (np. Zapisz się teraz)",
+        "destinationLink": "Link docelowy (np. https://...)"
+      },
+      "platforms": {
+        "googleAds": "Google Ads",
+        "metaAds": "Meta Ads",
+        "linkedin": "LinkedIn",
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "youtube": "YouTube"
+      },
+      "formats": {
+        "singleImage": "Pojedynczy obraz",
+        "carousel": "Karuzela",
+        "shortVideo": "Krótkie wideo",
+        "story": "Relacja"
+      },
+      "visualStyles": {
+        "minimalist": "Minimalistyczny",
+        "boldVibrant": "Odważny i żywy",
+        "professional": "Profesjonalny",
+        "playful": "Zabawny",
+        "luxury": "Luksusowy",
+        "futuristic": "Futurystyczny",
+        "handDrawn": "Ręcznie rysowany",
+        "corporate": "Biznesowy"
+      },
+      "languages": {
+        "es": "Hiszpański",
+        "fr": "Francuski",
+        "de": "Niemiecki",
+        "ja": "Japoński",
+        "pt": "Portugalski",
+        "it": "Włoski",
+        "zh": "Chiński",
+        "ko": "Koreański",
+        "ar": "Arabski",
+        "nl": "Holenderski",
+        "sv": "Szwedzki",
+        "no": "Norweski",
+        "da": "Duński",
+        "fi": "Fiński",
+        "hi": "Hindi",
+        "ru": "Rosyjski",
+        "tr": "Turecki",
+        "pl": "Polski",
+        "id": "Indonezyjski",
+        "th": "Tajski",
+        "vi": "Wietnamski",
+        "el": "Grecki"
+      },
+      "outputVolumeConcepts": "{count} Konceptów",
+      "generateButton": "Generuj koncepty ({count})",
+      "strategyAppliedTitle": "Zastosowano strategię",
+      "strategyAppliedDescription": "Dla każdego wygenerowanego konceptu automatycznie tworzymy trzy warianty.",
+      "variations": {
+        "1": {
+          "title": "1. Niedobór i pilność",
+          "description": "FOMO, oferty ograniczone czasowo, ekskluzywne wstępy"
+        },
+        "2": {
+          "title": "2. Zorientowany na korzyści",
+          "description": "Jasna propozycja wartości, ujęcie problem-rozwiązanie"
+        },
+        "3": {
+          "title": "3. Dowód społeczny",
+          "description": "Referencje, liczba użytkowników, wskaźniki zaufania"
+        }
+      },
+      "prompt": {
+        "notProvided": "Nie podano",
+        "general": "Ogólne",
+        "global": "Globalne",
+        "learnMore": "Dowiedz się więcej",
+        "na": "N/D",
+        "productUrl": "URL Produktu: {value}",
+        "competitorUrl": "URL Konkurencji: {value}",
+        "targetAudienceTitle": "Grupa docelowa:",
+        "targetAudienceAge": "- Wiek: {value}",
+        "targetAudienceLocation": "- Lokalizacja: {value}",
+        "targetAudienceInterests": "- Zainteresowania: {value}",
+        "campaignSpecsTitle": "Specyfikacja kampanii:",
+        "platforms": "- Platformy: {value}",
+        "formats": "- Formaty: {value}",
+        "callToAction": "- Call to Action: „{text}” (Link: {link})",
+        "visualStyle": "- Styl wizualny: {value}",
+        "settingsTitle": "Ustawienia:",
+        "numberOfConcepts": "- Liczba konceptów: {value}",
+        "translationLanguages": "- Języki tłumaczenia: {value}",
+        "instructions": "Wygeneruj wysoko konwertujące koncepty reklamowe na podstawie tych danych.",
+        "variationsInstruction": "Upewnij się, że dostarczasz 3 odrębne warianty tekstu (Niedobór, Korzyść, Dowód społeczny) dla każdego konceptu."
+      }
+    },
+    "video_studio": "Studio Wideo",
+    "demos_outreach": "Dema i Outreach",
+    "pipeline_manager": "Menedżer Procesów",
+    "forecasting_deal_qa": "Prognozowanie i Kontrola",
+    "account_executive": "Account Executive",
+    "full_cycle_sales_agent": "Agent Pełnego Cyklu Sprzedaży",
+    "deal_strategist": "Strateg Transakcji",
+    "negotiation_closers": "Negocjacje i Domykanie",
+    "data_analyst": "Analityk Danych",
+    "cleaning_enrichment": "Czyszczenie i Wzbogacanie",
+    "territory_persona": "Terytorium i Persona",
+    "icp_market_planning": "ICP i Planowanie Rynku",
+    "social_selling": "Social Selling",
+    "brand_content": "Marka i Treści",
+    "deep_research": "Głęboki Research",
+    "market_intel_reports": "Analizy i Raporty",
+    "ad_studio": "Studio Reklamowe",
+    "ads_creative_roi": "Reklamy i Kreatywne ROI",
+    "gtm_decks": "Prezentacje GTM",
+    "proposals_qbrs": "Oferty, QBR",
+    "landing_pages_sites": "Strony docelowe, Witryny",
+    "website": "Witryna",
+    "video": "Wideo",
+    "pipeline": "Proces",
+    "account_exec": "Account Exec",
+    "data": "Dane",
+    "territory_icp": "Terytorium/ICP",
+    "research": "Research"
+  },
+  "thread": {
+    "integrations": "Integracje",
+    "connect": "Połącz",
+    "seeAllIntegrations": "+ Zobacz wszystkie integracje",
+    "connectIntegrations": "Połącz integracje",
+    "adaptive": "Adaptacyjny",
+    "adaptiveDescription": "Szybkie odpowiedzi z inteligentnym przełączaniem kontekstu",
+    "autonomous": "Autonomiczny",
+    "autonomousDescription": "Tryb głębokiej pracy do rozwiązywania złożonych problemów",
+    "chat": "Czat",
+    "chatDescription": "Prosta rozmowa tam i z powrotem",
+    "sampleAnswers": "Przykładowe odpowiedzi",
+    "samplePrompts": "Przykładowe prompty",
+    "waitingForUserResponse": "SuperAgent będzie kontynuować autonomicznie po Twojej odpowiedzi.",
+    "taskCompleted": "Zadanie zakończone",
+    "uploadingFiles": "Przesyłanie {count} {count, plural, one {pliku} few {plików} many {plików} other {plików}}...",
+    "uploadingFilesOne": "Przesyłanie 1 pliku...",
+    "uploadingFilesMany": "Przesyłanie {count} plików...",
+    "scrollToBottom": "Przewiń na dół",
+    "tools": "Narzędzia",
+    "instructions": "Instrukcje",
+    "knowledge": "Wiedza",
+    "triggers": "Triggery",
+    "agents": "Workerzy",
+    "superWorker": "Super Worker",
+    "searchWorkers": "Szukaj Workerów...",
+    "myWorkers": "Moi Workerzy",
+    "running": "Uruchomiony",
+    "minimizeToFloatingPreview": "Zminimalizuj do pływającego podglądu",
+    "close": "Zamknij",
+    "noActionsYet": "Komputer SuperAgent",
+    "workerActionsDescription": "Uruchamianie",
+    "emptyActionsDescription": "Działania Workera pojawią się tutaj",
+    "toolIsRunning": "Narzędzie jest uruchomione",
+    "toolCurrentlyExecuting": "{toolName} jest obecnie wykonywane. Wyniki pojawią się tutaj po zakończeniu.",
+    "thinkingTitle": "Myślę",
+    "thinkingDescription": "Przygotowuję się do wykonania działań...",
+    "rateThisResult": "Oceń ten wynik",
+    "feedbackHelpsImprove": "Twoja opinia pomaga nam się doskonalić",
+    "additionalFeedbackOptional": "Dodatkowy feedback (opcjonalnie)",
+    "helpKortixImprove": "Pomóż SuperAgentowi stać się lepszym, dzieląc się opinią",
+    "submit": "Wyślij",
+    "submitting": "Wysyłanie...",
+    "feedbackSubmittedSuccess": "Feedback wysłany",
+    "feedbackSubmitFailed": "Nie udało się wysłać feedbacku"
+  },
+  "agents": {
+    "title": "Workerzy",
+    "create": "Utwórz Workera",
+    "createNewWorker": "Utwórz nowego Workera",
+    "edit": "Edytuj Workera",
+    "delete": "Usuń Workera",
+    "name": "Nazwa",
+    "description": "Opis",
+    "model": "Model",
+    "systemPrompt": "Prompt systemowy",
+    "systemPromptPlaceholder": "Zdefiniuj, jak Twój Worker ma się zachowywać...",
+    "customizeIcon": "Kliknij, aby spersonalizować ikonę Workera"
+  },
+  "home": {
+    "heroPlaceholder": "Opisz zadanie, które chcesz, aby Twój Worker wykonał..."
+  },
+  "showcase": {
+    "title": "SuperAgent: Twoja autonomiczna kadra AI",
+    "subtitle": "Zbudowany dla złożoności, zaprojektowany do wszystkiego. Ostateczny asystent AI, który poradzi sobie ze wszystkim – od prostych pytań po ultra-złożone projekty.",
+    "tryItOut": "Wypróbuj teraz",
+    "kortixComputer": "Komputer SuperAgent",
+    "running": "Uruchomiony",
+    "workers": {
+      "images": {
+        "title": "Obrazy",
+        "description": "Generuj obrazy na żądanie. Od zdjęć produktów przez grafiki do mediów społecznościowych po kompletne ilustracje. Dostosuj styl, oświetlenie, kolory i kompozycję lub ulepszaj istniejące obrazy za pomocą szybkich edycji.",
+        "capabilities": {
+          "0": "Generuj zdjęcia produktów",
+          "1": "Twórz grafiki do social media",
+          "2": "Twórz ilustracje",
+          "3": "Wariacje stylu i światła",
+          "4": "Tworzenie logo / zasobów",
+          "5": "+ Dużo więcej"
+        },
+        "imageAlt": "Przykład wykresu wzrostu nieliniowego",
+        "fileType": "OBRAZ"
+      },
+      "slides": {
+        "title": "Prezentacje",
+        "description": "Twórz oszałamiające prezentacje natychmiast. Od pitch decków przez raporty po materiały szkoleniowe. Dostosuj motywy, układy i strukturę treści lub dopracowuj istniejące prezentacje za pomocą szybkich zmian.",
+        "capabilities": {
+          "0": "Pitch Decki",
+          "1": "Materiały szkoleniowe",
+          "2": "Prezentacje raportowe",
+          "3": "Wariacje motywów i układów",
+          "4": "Restrukturyzacja treści",
+          "5": "+ Dużo więcej"
+        },
+        "imageAlt": "Przykład slajdu z platformy Nexus Enterprise Automation",
+        "fileType": "PPTX"
+      },
+      "data": {
+        "title": "Dane",
+        "description": "Zamień surowe dane w konkretne wnioski. Od arkuszy kalkulacyjnych przez panele kontrolne po wizualizacje. Czyść zbiory danych, generuj wykresy, buduj raporty lub dopracowuj istniejące analizy dzięki szybkim aktualizacjom.",
+        "capabilities": {
+          "0": "Panele kontrolne",
+          "1": "Wizualizacje",
+          "2": "Raportowanie danych",
+          "3": "Czyszczenie i organizacja",
+          "4": "Generowanie wniosków",
+          "5": "+ Dużo więcej"
+        },
+        "imageAlt": "Przykład panelu kontrolnego modelu finansowego",
+        "fileType": "PODGLĄD"
+      },
+      "docs": {
+        "title": "Dokumenty",
+        "description": "Pisz i edytuj dokumenty bez wysiłku. Od ofert przez podręczniki po treści marketingowe. Dostosuj ton, strukturę i formatowanie lub ulepszaj istniejące dokumenty dzięki szybkim poprawkom i szlifowaniu tekstu.",
+        "capabilities": {
+          "0": "Oferty i propozycje",
+          "1": "Podręczniki i przewodniki",
+          "2": "Treści marketingowe",
+          "3": "Wariacje tonu i stylu",
+          "4": "Formatowanie i restrukturyzacja",
+          "5": "+ Dużo więcej"
+        },
+        "imageAlt": "Przykład raportu Executive Summary na Q3 2025",
+        "fileType": "PDF"
+      },
+      "research": {
+        "title": "Research",
+        "description": "Dogłębnie badaj tematy. Od trendów rynkowych przez analizę konkurencji po szczegółowe studia przypadków. Zbieraj źródła, przygotowuj wnioski lub aktualizuj istniejące badania w mgnieniu oka.",
+        "capabilities": {
+          "0": "Analiza trendów rynkowych",
+          "1": "Research konkurencji",
+          "2": "Dogłębne badania tematów",
+          "3": "Gromadzenie źródeł",
+          "4": "Przygotowywanie wniosków",
+          "5": "+ Dużo więcej"
+        },
+        "imageAlt": "Przykład szczegółowych profili konkurencji",
+        "fileType": "PDF"
+      }
+    }
+  },
+  "threads": {
+    "title": "Rozmowy",
+    "newThread": "Nowa rozmowa",
+    "sendMessage": "Wyślij wiadomość",
+    "placeholder": "Wpisz swoją wiadomość..."
+  },
+  "billing": {
+    "title": "Płatności i subskrypcja",
+    "subscription": "Subskrypcja",
+    "credits": "Kredyty",
+    "popular": "Popularny",
+    "creditsExplained": "Wyjaśnienie kredytów",
+    "creditsExhausted": "+100 kredytów za {time}. Uaktualnij, aby skorzystać teraz.",
+    "creditsExhaustedRefreshIn": "Kredyty się wyczerpały. Zostaną odnowione za {time}",
+    "trialActive": "Okres próbny aktywny",
+    "trialBadge": "7-dniowy okres próbny",
+    "currentPlan": "Obecny plan",
+    "currentBadge": "Obecny",
+    "scheduled": "Zaplanowany",
+    "scheduledBadge": "Zaplanowany",
+    "loading": "Ładowanie...",
+    "subscriptionChangeScheduled": "Zaplanowano zmianę subskrypcji",
+    "planWillChangeOn": "Twój plan zmieni się w dniu {date}.",
+    "failedToInitiateSubscription": "Nie udało się zainicjować subskrypcji. Spróbuj ponownie.",
+    "subscriptionUpgraded": "Subskrypcja uaktualniona z {currentPrice} do {newPrice}",
+    "subscriptionUpdated": "Subskrypcja zaktualizowana",
+    "cannotDowngradeDuringCommitment": "Nie można obniżyć planu w trakcie okresu zobowiązania",
+    "alreadyOnThisPlan": "Już korzystasz z tego planu.",
+    "localModeMessage": "Działa w lokalnym trybie deweloperskim – funkcje płatności wyłączone",
+    "holidayPromo": {
+      "badge": "Specjalna oferta świąteczna",
+      "countdown": "Kończy się za {time}",
+      "discount": "50% zniżki przez pierwsze 3 miesiące",
+      "window": "Ważne 24-25 grudnia",
+      "headerLine": "Użyj kodu {code}, aby otrzymać {discount}",
+      "description": "Użyj kodu {code} przy płatności, aby otrzymać {discount}. {window}",
+      "copyCode": "Kopiuj kod",
+      "copied": "Skopiowano",
+      "codeCopied": "Skopiowano {code}",
+      "copyFailed": "Nie udało się skopiować kodu"
+    },
+    "creditsExplainedPage": {
+      "title": "Wyjaśnienie kredytów",
+      "subtitle": "Wszystko, co musisz wiedzieć o tym, jak działają kredyty w SuperAgent",
+      "understandingCredits": {
+        "title": "Zrozumienie kredytów",
+        "description": "Kredyty służą jako uniwersalna waluta na platformie SuperAgent dla wszystkich działań. Każda akcja wykonana przez Twoich workerów AI – od analizy danych po generowanie kodu – zużywa kredyty w zależności od złożoności zadania i wymaganych zasobów."
+      },
+      "howCreditsWork": {
+        "title": "Jak działają kredyty",
+        "description": "Kredyty są zużywane na podstawie zasobów wykorzystywanych przez workerów AI:",
+        "aiModelUsage": {
+          "title": "Użycie modeli AI",
+          "description": "Główny czynnik zużycia kredytów",
+          "content": "Różne modele AI mają różne koszty w zależności od ich możliwości i zużycia tokenów. Kredyty są pobierane za tokeny wejściowe (Twoje prompty i kontekst), tokeny wyjściowe (odpowiedź workera) i różnią się w zależności od klasy modelu (Claude, GPT itp.)."
+        },
+        "pricingModel": {
+          "title": "Model wyceny",
+          "description": "20% marży do kosztów modeli AI",
+          "content": "Stosujemy 20% marży do wszystkich kosztów API i modeli, aby pokryć koszty infrastruktury platformy, bezpieczeństwo i ciągły rozwój. Ta przejrzysta wycena gwarantuje, że wiesz dokładnie, za co płacisz."
+        }
+      },
+      "gettingMoreCredits": {
+        "title": "Jak zdobyć więcej kredytów",
+        "description": "W SuperAgent istnieje kilka sposobów na zdobycie kredytów:",
+        "monthlySubscription": {
+          "title": "Miesięczne kredyty z subskrypcji",
+          "description": "Zawarte w Twoim płatnym planie i odnawiane automatycznie co miesiąc. Te kredyty mają datę ważności."
+        },
+        "topUpCredits": {
+          "title": "Doładowanie kredytów",
+          "description": "Kup dodatkowe kredyty, gdy ich potrzebujesz. Te kredyty nie wygasają i są dostępne dla członków premium."
+        },
+        "promotionalGrants": {
+          "title": "Promocje i wydarzenia",
+          "description": "Bonusowe kredyty ze specjalnych wydarzeń, kampanii lub poleceń. Te kredyty nie wygasają."
+        },
+        "refunds": {
+          "title": "Zwroty",
+          "description": "Kredyty zwrócone z powodu problemów technicznych lub nieudanych zadań. Te kredyty nie wygasają."
+        }
+      },
+      "typesOfCredits": {
+        "title": "Rodzaje kredytów",
+        "description": "SuperAgent używa dwóch rodzajów kredytów, aby zapewnić elastyczność w zarządzaniu zużyciem:",
+        "expiringCredits": {
+          "title": "Kredyty wygasające",
+          "description": "Miesięczne kredyty z subskrypcji",
+          "content": "Te kredyty są zawarte w Twojej płatnej subskrypcji i odnawiają się automatycznie co miesiąc w dniu rozpoczęcia subskrypcji. Wygasają na koniec każdego cyklu bilingowego i są zawsze zużywane w pierwszej kolejności."
+        },
+        "nonExpiringCredits": {
+          "title": "Kredyty niewygasające",
+          "description": "Stałe kredyty, które nigdy nie wygasają",
+          "content": "Te kredyty nigdy nie wygasają i przechodzą z miesiąca na miesiąc. Obejmują one doładowania, zwroty i kredyty promocyjne. Są zużywane dopiero wtedy, gdy wyczerpiesz kredyty wygasające."
+        },
+        "creditPriority": {
+          "title": "Priorytet kredytów:",
+          "description": "Podczas korzystania z SuperAgent, kredyty wygasające są zawsze zużywane w pierwszej kolejności. Dopiero po ich wyczerpaniu system zacznie pobierać kredyty niewygasające."
+        }
+      }
+    },
+    "close": "Zamknij",
+    "cancelScheduledChange": "Anuluj zaplanowaną zmianę",
+    "threadUsage": "Zużycie w rozmowie",
+    "error": "Błąd",
+    "totalUsage": "Całkowite zużycie",
+    "usage": "Zużycie",
+    "thread": "Rozmowa",
+    "lastUsed": "Ostatnio użyte",
+    "creditsUsed": "Zużyte kredyty",
+    "creditTransactions": "Transakcje kredytowe",
+    "loadingTransactionHistory": "Ładowanie historii transakcji...",
+    "monthly": "Miesięcznie",
+    "yearly": "Rocznie",
+    "discount": "15% zniżki",
+    "perMonth": "/mies.",
+    "billedYearly": "Rozliczane rocznie",
+    "downgradePending": "Oczekiwanie na obniżenie planu",
+    "downgrade": "Obniż plan",
+    "switchToLegacyYearly": "Przełącz na Legacy Yearly",
+    "confirmDowngradeTitle": "Czy na pewno chcesz obniżyć plan?",
+    "confirmDowngradeDescription": "Zamierzasz zmienić swój plan na {planName}. Ta zmiana wejdzie w życie pod koniec bieżącego okresu rozliczeniowego.",
+    "confirmDowngrade": "Tak, obniż plan",
+    "pickPlan": "Wybierz plan dopasowany do Twoich potrzeb.",
+    "reachedLimit": "Osiągnięto limit.",
+    "projectLimit": "Limit projektów ({current}/{limit})",
+    "threadLimit": "Limit rozmów ({current}/{limit})",
+    "workerLimit": "Limit workerów ({current}/{limit})",
+    "triggerLimit": "Limit triggerów ({current}/{limit})",
+    "getAdditionalCredits": "Kup dodatkowe kredyty",
+    "selectPlan": "Wybierz plan",
+    "changeScheduled": "Zaplanowano zmianę",
+    "notAvailable": "Niedostępne",
+    "features": {
+      "creditsPerMonth": "{count} kredytów/mies.",
+      "customWorker": "{count} własny worker",
+      "customWorkers": "{count} własnych workerów",
+      "privateProject": "{count} prywatny projekt",
+      "privateProjects": "Prywatne projekty",
+      "customTrigger": "{count} własny trigger",
+      "integrations": "100+ integracji",
+      "premiumAIModels": "Modele AI Premium",
+      "prioritySupport": "Wsparcie priorytetowe"
+    },
+    "downgradeDialog": {
+      "confirmTitle": "Potwierdź zmianę subskrypcji",
+      "confirmSubtitle": "Przykro nam, że nas opuszczasz",
+      "confirmDescription": "Zamierzasz zmienić plan na {planName}. Zmiana wejdzie w życie na koniec bieżącego cyklu rozliczeniowego. Do tego czasu zachowasz obecne korzyści.",
+      "continue": "Kontynuuj",
+      "keepCurrentPlan": "Zachowaj obecny plan",
+      "feedbackTitle": "Pomóż nam się doskonalić",
+      "feedbackSubtitle": "Twoja opinia kształtuje przyszłość SuperAgent",
+      "whatWouldMakeYouStay": "Co sprawiłoby, że byś został?",
+      "feedbackPlaceholder": "Gdyby była jedna rzecz, którą moglibyśmy zmienić lub dodać, aby SuperAgent był dla Ciebie wartościowy, co by to było?",
+      "feedbackFooter": "Nasz zespół czyta każdą odpowiedź. Twoje słowa mają bezpośredni wpływ na to, co budujemy.",
+      "confirmDowngrade": "Potwierdź obniżenie planu",
+      "processing": "Przetwarzanie...",
+      "pleaseSelectReason": "Wybierz powód",
+      "reasons": {
+        "tooExpensive": "Jest za drogi dla moich potrzeb",
+        "notUsingOften": "Nie korzystam z SuperAgent wystarczająco często",
+        "foundAlternative": "Znalazłem inne rozwiązanie",
+        "technicalIssues": "Napotkałem problemy techniczne",
+        "resultsNotGood": "Wyniki nie spełniły moich oczekiwań",
+        "other": "Inny powód"
+      }
+    }
+  },
+  "auth": {
+    "haveReferralCode": "Masz kod polecający?",
+    "referralCode": "Kod polecający",
+    "enterCode": "Wprowadź kod",
+    "logIntoAccount": "Zaloguj się na swoje konto",
+    "createAccount": "Utwórz konto",
+    "signInOrCreateAccount": "Zaloguj się lub utwórz konto SuperAgent",
+    "continueWithGoogle": "Kontynuuj przez Google",
+    "continueWithGitHub": "Kontynuuj przez GitHub",
+    "orEmail": "Lub e-mail",
+    "emailAddress": "Adres e-mail",
+    "password": "Hasło",
+    "confirmPassword": "Potwierdź hasło",
+    "signIn": "Zaloguj się",
+    "signUp": "Zarejestruj się",
+    "signingIn": "Logowanie...",
+    "creatingAccount": "Tworzenie konta...",
+    "forgotPassword": "Nie pamiętasz hasła?",
+    "dontHaveAccount": "Nie masz konta?",
+    "alreadyHaveAccount": "Masz już konto?",
+    "acceptPrivacyTerms": "Akceptuję <privacyPolicy>Politykę prywatności</privacyPolicy> oraz <termsOfService>Regulamin</termsOfService>",
+    "privacyPolicy": "Polityka prywatności",
+    "termsOfService": "Regulamin",
+    "checkYourEmail": "Sprawdź swoją pocztę",
+    "confirmationLinkSent": "Wysłaliśmy link do resetowania hasła na adres",
+    "clickLinkToActivate": "Kliknij link w wiadomości e-mail, aby aktywować konto. Jeśli nie widzisz wiadomości, sprawdź folder spam.",
+    "returnToHome": "Wróć do strony głównej",
+    "backToSignIn": "Wróć do logowania",
+    "resetPassword": "Resetuj hasło",
+    "resetPasswordDescription": "Wprowadź swój e-mail, a wyślemy Ci link do resetowania hasła",
+    "sendResetLink": "Wyślij link",
+    "cancel": "Anuluj",
+    "pleaseEnterValidEmail": "Proszę wprowadzić poprawny adres e-mail",
+    "signInFailed": "Logowanie nie powiodło się. Sprawdź swoje dane.",
+    "signUpFailed": "Rejestracja nie powiodła się. Spróbuj ponownie.",
+    "sendMagicLink": "Wyślij Magic Link",
+    "sending": "Wysyłanie...",
+    "magicLinkSent": "Wysłaliśmy Magic Link na adres",
+    "magicLinkDescription": "Kliknij link w e-mailu, aby się zalogować. Link wygaśnie za 1 godzinę.",
+    "magicLinkExplanation": "Wyślemy Ci bezpieczny link do logowania. Hasło nie jest wymagane.",
+    "magicLinkExpired": "Link wygasł",
+    "magicLinkExpiredDescription": "Kliknięty Magic Link wygasł. Ze względów bezpieczeństwa linki te są ważne tylko przez godzinę.",
+    "resendMagicLink": "Wyślij Magic Link ponownie",
+    "resending": "Ponowne wysyłanie...",
+    "byContinuingYouAgree": "Kontynuując, akceptujesz naszą <privacyPolicy>Politykę prywatności</privacyPolicy> oraz <termsOfService>Regulamin</termsOfService>",
+    "openProvider": "Otwórz {provider}",
+    "didntReceiveEmail": "Nie otrzymałeś e-maila?",
+    "resend": "Wyślij ponownie",
+    "alreadySignedIn": "Jesteś już zalogowany. Nie trzeba nic robić.",
+    "goToDashboard": "Przejdź do panelu głównego",
+    "signInToContinue": "Zaloguj się, aby kontynuować",
+    "signInOrCreateAccountToTalk": "Zaloguj się lub utwórz konto, aby rozmawiać z SuperAgentem",
+    "orContinueWithEmail": "Lub kontynuuj z adresem e-mail",
+    "signInWithEmail": "Zaloguj się przez e-mail",
+    "createNewAccount": "Utwórz nowe konto",
+    "byContinuingYouAgreeSimple": "Kontynuując, zgadzasz się na nasze",
+    "phoneVerification": {
+      "title": "Zweryfikuj swój numer telefonu",
+      "titleOtp": "Wprowadź kod weryfikacyjny",
+      "description": "Zabezpiecz swoje konto dzięki uwierzytelnianiu dwuskładnikowemu",
+      "descriptionOtp": "Wysłaliśmy kod na Twój numer telefonu",
+      "phoneNumber": "Numer telefonu",
+      "verificationCode": "Kod weryfikacyjny",
+      "enterSixDigitCode": "Wprowadź 6-cyfrowy kod",
+      "phoneNumberPlaceholder": "Wprowadź numer telefonu",
+      "sendVerificationCode": "Wyślij kod weryfikacyjny",
+      "sendingCode": "Wysyłanie kodu...",
+      "verifyCode": "Zweryfikuj kod",
+      "verifying": "Weryfikowanie...",
+      "resendCode": "Wyślij kod ponownie",
+      "resendInSeconds": "Wyślij ponownie za {seconds} s",
+      "removePhoneNumber": "Usuń numer telefonu",
+      "codeSentTo": "Kod weryfikacyjny wysłany na",
+      "sixDigitCodeHint": "Wyślemy Ci 6-cyfrowy kod weryfikacyjny SMS-em",
+      "pleaseEnterPhoneNumber": "Proszę wprowadzić numer telefonu",
+      "pleaseEnterValidPhoneNumber": "Proszę wprowadzić poprawny numer telefonu",
+      "pleaseEnterSixDigitCode": "Proszę wprowadzić 6-cyfrowy kod",
+      "verificationCodeSent": "Kod weryfikacyjny wysłany na Twój telefon",
+      "newVerificationCodeSent": "Nowy kod weryfikacyjny wysłany",
+      "phoneNumberVerified": "Numer telefonu został zweryfikowany!",
+      "phoneNumberRemoved": "Numer telefonu został usunięty. Możesz teraz dodać nowy numer.",
+      "signOut": "Wyloguj się",
+      "signingOut": "Wylogowywanie...",
+      "sending": "Wysyłanie..."
+    }
+  },
+  "onboarding": {
+    "welcome": "Witaj",
+    "next": "Dalej",
+    "skip": "Pomiń"
+  },
+  "tools": {
+    "executeCommand": "Wykonaj polecenie",
+    "checkCommandOutput": "Sprawdź wynik polecenia",
+    "terminateCommand": "Zakończ polecenie",
+    "listCommands": "Lista poleceń",
+    "createFile": "Utwórz plik",
+    "deleteFile": "Usuń plik",
+    "fullFileRewrite": "Przepisz plik",
+    "strReplace": "Edytuj tekst",
+    "editFile": "Edytuj plik",
+    "uploadFile": "Prześlij plik",
+    "createDocument": "Utwórz dokument",
+    "updateDocument": "Aktualizuj dokument",
+    "readDocument": "Czytaj dokument",
+    "listDocuments": "Lista dokumentów",
+    "deleteDocument": "Usuń dokument",
+    "createTasks": "Utwórz zadania",
+    "updateTasks": "Aktualizuj zadania",
+    "browserNavigateTo": "Przejdź do strony",
+    "browserAct": "Wykonaj akcję",
+    "browserExtractContent": "Wyodrębnij treść",
+    "browserScreenshot": "Zrób zrzut ekranu",
+    "executeDataProviderCall": "Wywołaj dostawcę danych",
+    "getDataProviderEndpoints": "Pobierz punkty końcowe",
+    "ask": "Zapytaj",
+    "wait": "Czekaj",
+    "complete": "Zakończ zadanie",
+    "crawlWebpage": "Przeskanuj witrynę (Crawl)",
+    "exposePort": "Udostępnij port",
+    "scrapeWebpage": "Pobierz dane ze strony (Scrape)",
+    "webSearch": "Wyszukiwanie w sieci",
+    "loadImage": "Wczytaj obraz",
+    "createPresentationOutline": "Stwórz konspekt prezentacji",
+    "createPresentation": "Stwórz prezentację",
+    "presentPresentation": "Prezentuj",
+    "clearImagesFromContext": "Wyczyść obrazy z kontekstu",
+    "imageSearch": "Wyszukiwanie obrazów",
+    "createSheet": "Utwórz arkusz",
+    "updateSheet": "Aktualizuj arkusz",
+    "viewSheet": "Widok arkusza",
+    "analyzeSheet": "Analizuj arkusz",
+    "visualizeSheet": "Wizualizuj arkusz",
+    "formatSheet": "Formatuj arkusz",
+    "updateAgent": "Zaktualizuj Workera",
+    "getCurrentAgentConfig": "Pobierz konfigurację Workera",
+    "searchMcpServers": "Szukaj serwerów MCP",
+    "getMcpServerTools": "Pobierz narzędzia z serwera MCP",
+    "configureMcpServer": "Konfiguruj serwer MCP",
+    "getPopularMcpServers": "Pobierz popularne serwery MCP",
+    "testMcpServerConnection": "Testuj połączenie z serwerem MCP",
+    "listAppEventTriggers": "Znajdź triggery zdarzeń",
+    "createEventTrigger": "Utwórz trigger zdarzenia",
+    "getProjectStructure": "Pobierz strukturę projektu",
+    "buildProject": "Zbuduj projekt",
+    "makePhoneCall": "Zadzwoń",
+    "endCall": "Zakończ połączenie",
+    "getCallDetails": "Szczegóły połączenia",
+    "listCalls": "Lista połączeń",
+    "monitorCall": "Monitoruj połączenie",
+    "waitForCallCompletion": "Czekaj na zakończenie",
+    "getPaperDetails": "Szczegóły artykułu",
+    "searchAuthors": "Szukaj autorów",
+    "getAuthorDetails": "Szczegóły autora",
+    "getAuthorPapers": "Artykuły autora",
+    "getPaperCitations": "Cytowania artykułu",
+    "getPaperReferences": "Referencje artykułu",
+    "paperSearch": "Wyszukiwanie artykułów",
+    "discoverUserMcpServers": "Odkryj narzędzia",
+    "createCredentialProfile": "Utwórz profil",
+    "getCredentialProfiles": "Pobierz profile",
+    "configureProfileForAgent": "Dodaj narzędzia do Workera",
+    "createNewAgent": "Utwórz nowego Workera",
+    "searchMcpServersForAgent": "Szukaj serwerów MCP",
+    "createCredentialProfileForAgent": "Utwórz profil poświadczeń",
+    "discoverMcpToolsForAgent": "Odkryj narzędzia MCP",
+    "configureAgentIntegration": "Konfiguruj integrację Workera",
+    "createAgentScheduledTrigger": "Utwórz zaplanowany trigger",
+    "listAgentScheduledTriggers": "Lista zaplanowanych triggerów Workera",
+    "executingTool": "Uruchamianie narzędzia",
+    "toolExecutedSuccessfully": "Narzędzie wykonane pomyślnie",
+    "toolExecutionFailed": "Wykonanie narzędzia nie powiodło się",
+    "input": "Wejście",
+    "output": "Wyjście",
+    "copyFileContent": "Kopiuj zawartość pliku",
+    "fileContentCopied": "Zawartość pliku skopiowana do schowka",
+    "failedToCopyFileContent": "Nie udało się skopiować zawartości pliku",
+    "noContentAvailable": "Brak dostępnej treści",
+    "noContentDescription": "To wykonanie narzędzia nie wygenerowało żadnych danych wejściowych ani wyjściowych do wyświetlenia.",
+    "tool": "Narzędzie"
+  },
+  "agentRunLimit": {
+    "gotIt": "Rozumiem",
+    "parallelRunsLimitReached": "Osiągnięto limit równoległych uruchomień",
+    "parallelRunsLimitDescription": "Osiągnąłeś maksymalny limit równoległych uruchomień Workerów.",
+    "needMoreParallelRuns": "Potrzebujesz więcej równoległych uruchomień?",
+    "upgradeDescription": "Uaktualnij swój plan, aby uruchamiać wiele Workerów jednocześnie i zwiększyć swoją produktywność.",
+    "upgradePlan": "Uaktualnij plan",
+    "currentlyRunningAgents": "Obecnie uruchomieni Workerzy",
+    "loadingThreads": "Ładowanie rozmów...",
+    "foundRunningAgents": "Znaleziono {count} uruchomionych Workerów, ale nie udało się załadować szczegółów rozmów.",
+    "threadIds": "ID rozmów: {ids}",
+    "moreRunning": "+{count} więcej uruchomionych",
+    "whatCanYouDo": "Co możesz zrobić?",
+    "stopAgentsHint": "Kliknij przycisk stop, aby zakończyć działanie Workerów",
+    "waitForCompletion": "Poczekaj, aż Worker zakończy działanie automatycznie",
+    "upgradeYourPlan": "Uaktualnij swój plan",
+    "forMoreParallelRuns": "aby uzyskać więcej równoległych uruchomień",
+    "stopAgent": "Zatrzymaj Workera",
+    "stopThisAgent": "Zatrzymaj tego Workera",
+    "openThread": "Otwórz rozmowę",
+    "agentStoppedSuccessfully": "Worker zatrzymany",
+    "failedToStopAgent": "Nie udało się zatrzymać Workera",
+    "upgradeToRunMore": "Uaktualnij, aby uruchamiać więcej Workerów równolegle"
+  },
+  "errors": {
+    "generic": "Coś poszło nie tak",
+    "network": "Błąd sieci",
+    "unauthorized": "Brak autoryzacji",
+    "notFound": "Nie znaleziono"
+  },
+  "languages": {
+    "en": "Angielski",
+    "de": "Niemiecki",
+    "it": "Włoski",
+    "zh": "Chiński",
+    "ja": "Japoński",
+    "pt": "Portugalski",
+    "fr": "Francuski",
+    "es": "Hiszpański"
+  },
+  "notifications": {
+    "title": "Powiadomienia",
+    "description": "Zarządzaj sposobem otrzymywania powiadomień",
+    "preferences": "Preferencje powiadomień",
+    "channels": "Kanały powiadomień",
+    "emailNotifications": "Powiadomienia e-mail",
+    "emailDescription": "Otrzymuj powiadomienia drogą mailową",
+    "pushNotifications": "Powiadomienia push",
+    "pushDescription": "Otrzymuj powiadomienia push na swoim urządzeniu",
+    "inAppNotifications": "Powiadomienia w aplikacji",
+    "inAppDescription": "Wyświetlaj powiadomienia wewnątrz aplikacji",
+    "deviceTokens": "Zarejestrowane urządzenia",
+    "noDevices": "Brak zarejestrowanych urządzeń",
+    "settingsUpdated": "Ustawienia powiadomień zaktualizowane",
+    "settingsFailed": "Nie udało się zaktualizować ustawień powiadomień",
+    "enableAll": "Włącz wszystko",
+    "disableAll": "Wyłącz wszystko",
+    "saveChanges": "Zapisz zmiany"
+  },
+  "suna": {
+    "samplePrompts": "Przykładowe prompty",
+    "chooseStyle": "Wybierz styl",
+    "chooseTemplate": "Wybierz szablon",
+    "chooseOutputFormat": "Wybierz format wyjściowy",
+    "preferredCharts": "Preferowane wykresy",
+    "whatWouldYouLike": "W czym mogę pomóc?",
+    "describeTask": "Opisz zadanie, które chcesz, aby Twój Worker wykonał...",
+    "modes": {
+      "image": "Obraz",
+      "slides": "Prezentacje",
+      "data": "Dane",
+      "docs": "Dokumenty",
+      "canvas": "Canvas",
+      "video": "Wideo",
+      "research": "Research"
+    },
+    "styles": {
+      "photorealistic": "Fotorealistyczny",
+      "watercolor": "Akwarela",
+      "digital-art": "Sztuka cyfrowa",
+      "oil-painting": "Malarstwo olejne",
+      "minimalist": "Minimalistyczny",
+      "isometric": "Izometryczny",
+      "vintage": "Vintage",
+      "comic": "Komiks",
+      "neon": "Neon",
+      "pastel": "Pastelowy",
+      "geometric": "Geometryczny",
+      "abstract": "Abstrakcyjny",
+      "anime": "Anime",
+      "impressionist": "Impresjonistyczny",
+      "surreal": "Surrealistyczny"
+    },
+    "templates": {
+      "minimalist": {
+        "name": "Minimalistyczny",
+        "description": "Czysty i prosty design"
+      },
+      "minimalist_2": {
+        "name": "Minimalistyczny 2",
+        "description": "Alternatywny prosty styl"
+      },
+      "black_and_white_clean": {
+        "name": "Czarno-biały",
+        "description": "Klasyczny monochromatyczny"
+      },
+      "colorful": {
+        "name": "Kolorowy",
+        "description": "Żywy i energetyczny"
+      },
+      "startup": {
+        "name": "Startup",
+        "description": "Dynamiczny i innowacyjny"
+      },
+      "elevator_pitch": {
+        "name": "Elevator Pitch",
+        "description": "Szybki i konkretny"
+      },
+      "portfolio": {
+        "name": "Portfolio",
+        "description": "Zaprezentuj swoje prace"
+      },
+      "textbook": {
+        "name": "Podręcznik",
+        "description": "Edukacyjny i ustrukturyzowany"
+      },
+      "architect": {
+        "name": "Architekt",
+        "description": "Profesjonalny i precyzyjny"
+      },
+      "hipster": {
+        "name": "Hipster",
+        "description": "Nowoczesny i modny"
+      },
+      "green": {
+        "name": "Zielony",
+        "description": "Design inspirowany naturą"
+      },
+      "premium_black": {
+        "name": "Premium czarny",
+        "description": "Luksusowy ciemny wygląd"
+      },
+      "premium_green": {
+        "name": "Premium zielony",
+        "description": "Wyrafinowana zieleń"
+      },
+      "professor_gray": {
+        "name": "Profesorski szary",
+        "description": "Akademicki i naukowy"
+      },
+      "gamer_gray": {
+        "name": "Gamer szary",
+        "description": "Design inspirowany gamingiem"
+      },
+      "competitor_analysis_blue": {
+        "name": "Niebieski analityczny",
+        "description": "Skupiony na analizie biznesowej"
+      },
+      "numbers_clean": {
+        "name": "Liczby czyste",
+        "description": "Przejrzysta wizualizacja danych"
+      },
+      "numbers_colorful": {
+        "name": "Liczby kolorowe",
+        "description": "Żywa prezentacja danych"
+      },
+      "prd": {
+        "name": "PRD",
+        "description": "Product Requirement Document"
+      },
+      "technical": {
+        "name": "Techniczny",
+        "description": "Dokumentacja techniczna"
+      },
+      "proposal": {
+        "name": "Oferta",
+        "description": "Oferta biznesowa"
+      },
+      "report": {
+        "name": "Raport",
+        "description": "Szczegółowy format raportu"
+      },
+      "guide": {
+        "name": "Przewodnik",
+        "description": "Instrukcja krok po kroku"
+      },
+      "wiki": {
+        "name": "Wiki",
+        "description": "Artykuł w bazie wiedzy"
+      },
+      "policy": {
+        "name": "Polityka",
+        "description": "Dokument polityki firmy"
+      },
+      "meeting-notes": {
+        "name": "Notatki z meczu",
+        "description": "Protokół ze spotkania"
+      }
+    },
+    "outputFormats": {
+      "spreadsheet": {
+        "name": "Arkusz kalkulacyjny",
+        "description": "Tabela z formułami"
+      },
+      "dashboard": {
+        "name": "Panel kontrolny",
+        "description": "Interaktywne wykresy"
+      },
+      "report": {
+        "name": "Raport",
+        "description": "Analiza z wizualizacjami"
+      },
+      "slides": {
+        "name": "Prezentacje",
+        "description": "Format prezentacji"
+      }
+    },
+    "charts": {
+      "bar": "Słupkowy",
+      "line": "Liniowy",
+      "pie": "Kołowy",
+      "scatter": "Punktowy",
+      "heatmap": "Mapa cieplna",
+      "bubble": "Bąbelkowy",
+      "wordcloud": "Chmura słów",
+      "stacked": "Słupkowy skumulowany",
+      "area": "Warstwowy"
+    },
+    "prompts": {
+      "image": {
+        "0": "Majestatyczny orzeł przedni szybujący nad mglistymi szczytami górskimi o wschodzie słońca, dramatyczne oświetlenie",
+        "1": "Portret zbliżeniowy modelki w makijażu awangardowym, oświetlenie studyjne, cienie o wysokim kontraście",
+        "2": "Przytulny skandynawski salon z meblami z naturalnego drewna, roślinami doniczkowymi i miękkim porannym światłem słonecznym",
+        "3": "Futurystyczny targ uliczny cyberpunk nocą z neonami, mokrym od deszczu asfaltem i wyświetlaczami holograficznymi",
+        "4": "Elegancka fotografia produktowa luksusowej butelki perfum na marmurowej powierzchni z miękkimi odbiciami",
+        "5": "Wdzięczne latające wyspy połączone mostami linowymi na pastelowym niebie z marzycielskimi chmurami",
+        "6": "Makrofotografia porannej rosy na tętniących życiem płatkach kwiatów z tłem bokeh",
+        "7": "Nowoczesne stanowisko pracy z laptopem, kawą, notatnikiem i sukulentami widziane z góry",
+        "8": "Tajemnicza leśna ścieżka ze starymi drzewami, świecącymi świetlikami i eterycznymi promieniami światła przebijającymi przez mgłę",
+        "9": "Detal architektoniczny nowoczesnej szklanej fasady z geometrycznymi wzorami i odbiciami",
+        "10": "Tętniące życiem stoisko z jedzeniem ulicznym, kolorowe składniki, unosząca się para i ciepłe nastrojowe oświetlenie",
+        "11": "Spokojny japoński ogród zen z wygrabionym piaskiem, mszystymi kamieniami i kwiatami wiśni",
+        "12": "Dynamiczne ujęcie sportowca w trakcie skoku na tle dramatycznego zachodu słońca, efekt sylwetki",
+        "13": "Rustykalna wiejska kuchnia z miedzianymi patelniami, świeżymi ziołami, drewnianymi deskami do krojenia i naturalnymi teksturami",
+        "14": "Abstrakcyjna sztuka płynna z wirującym metalicznym złotem, głębokim błękitem i szmaragdowymi organicznymi wzorami"
+      },
+      "slides": {
+        "0": "Stwórz pitch deck dla Series A zawierający wielkość rynku, trakcję i prognozy finansowe",
+        "1": "Zbuduj podsumowanie biznesowe Q4 z KPI, sukcesami i inicjatywami strategicznymi",
+        "2": "Zaprojektuj prezentację premiery produktu z filmami demo i opiniami klientów",
+        "3": "Opracuj prezentację sales enablement wyjaśniającą naszą propozycję wartości i przewagę konkurencyjną",
+        "4": "Stwórz aktualizację dla inwestorów podkreślającą kluczowe wskaźniki i nadchodzące kamienie milowe",
+        "5": "Zbuduj prezentację studium przypadku (case study) pokazującą ROI i czynniki sukcesu",
+        "6": "Zaprojektuj prezentację All-Hands obejmującą aktualności firmowe i wizję",
+        "7": "Opracuj materiały szkoleniowe dotyczące nowych funkcji produktu i procesów",
+        "8": "Stwórz prezentację na konferencję o skalowaniu zespołów inżynieryjnych",
+        "9": "Zbuduj prezentację na spotkanie zarządu z rekomendacjami strategicznymi"
+      },
+      "data": {
+        "0": "Zbuduj model finansowy prognozujący wzrost ARR przy różnych scenariuszach cenowych",
+        "1": "Stwórz interaktywny panel sprzedaży śledzący wskaźniki wg regionu i kwartału",
+        "2": "Przeanalizuj 50 000 opinii klientów i zwizualizuj trendy nastrojów w czasie",
+        "3": "Zaprojektuj kalendarz treści śledzący kampanie z wykresami ROI i zaangażowania",
+        "4": "Zbuduj analizę kohortową pokazującą retencję użytkowników i wzorce rezygnacji (churn)",
+        "5": "Stwórz model atrybucji marketingowej porównujący skuteczność kanałów",
+        "6": "Opracuj tracker rekrutacji ze wskaźnikami procesów i analizą czasu obsadzenia stanowisk",
+        "7": "Zbuduj arkusz planowania budżetu z modelowaniem scenariuszy",
+        "8": "Przeanalizuj dane o ruchu na stronie i zwizualizuj lejki konwersji",
+        "9": "Stwórz system zarządzania zapasami z automatycznymi alertami o konieczności uzupełnienia"
+      },
+      "docs": {
+        "0": "Napisz obszerny PRD dla silnika rekomendacji opartego na AI",
+        "1": "Opracuj dokument architektury technicznej dla skalowalnej platformy mikroserwisów",
+        "2": "Stwórz dokument strategii Go-To-Market dla premiery produktu w Q2",
+        "3": "Opracuj 90-dniowy przewodnik wdrożeniowy (onboarding) dla managerów inżynierii",
+        "4": "Napisz przewodnik po dokumentacji API z przykładami i najlepszymi praktykami",
+        "5": "Stwórz podręcznik pracownika obejmujący kulturę, polityki i benefity",
+        "6": "Opracuj politykę prywatności zgodną z RODO i CCPA",
+        "7": "Opracuj playbook Customer Success dla klientów korporacyjnych",
+        "8": "Napisz plan reagowania na incydenty bezpieczeństwa z procedurami eskalacji",
+        "9": "Stwórz kompleksowy przewodnik po stylu marki i treściach (style guide)"
+      },
+      "canvas": {
+        "0": "Dodaj baner tech startupu na kanwę z futurystyczną panoramą miasta",
+        "1": "Stwórz logo dla marki kawy na kanwie w minimalistycznym, ziemistym stylu",
+        "2": "Dodaj zdjęcie mojego produktu na kanwę i usuń tło",
+        "3": "Zaprojektuj infografikę o energii odnawialnej na kanwie z płaskimi ikonami",
+        "4": "Stwórz okładkę książki sci-fi na kanwie z estetyką cyberpunk",
+        "5": "Dodaj miniaturę YouTube na kanwę dla filmu o poradach produktywności",
+        "6": "Zbuduj moodboard dla luksusowej mody na kanwie dla millenialsów",
+        "7": "Zaprojektuj eleganckie zaproszenie ślubne na kanwie z motywami kwiatowymi",
+        "8": "Dodaj mój portret na kanwę i zastosuj efekt vintage filmu",
+        "9": "Stwórz plakat festiwalu muzycznego na kanwie z psychodelicznym klimatem"
+      },
+      "video": {
+        "0": "Animuj zdjęcie mojego produktu, aby płynnie obracało się w oświetleniu studyjnym",
+        "1": "Zamień mój portret w filmową scenę z ruchem kamery",
+        "2": "Wygeneruj spokojne wideo natury z powoli spadającymi kwiatami wiśni",
+        "3": "Stwórz abstrakcyjne świecące cząsteczki wirujące razem w zwolnionym tempie",
+        "4": "Spraw, aby mój produkt lewitował i obracał się z miękkimi cieniami i odbiciami",
+        "5": "Dodaj dramatyczne filmowe oświetlenie i gradację kolorów do mojego portretu",
+        "6": "Wygeneruj płynne ujęcie z drona przelatującego przez mgliste szczyty górskie",
+        "7": "Stwórz pętlę wideo z płynnym metalem płynącym w organicznych kształtach",
+        "8": "Zmień tło mojego zdjęcia na scenę podwodną z promieniami światła",
+        "9": "Wygeneruj wideo futurystycznego krajobrazu miasta z neonami i odbiciami"
+      },
+      "research": {
+        "0": "Przeanalizuj rozwijające się trendy w komputerach kwantowych i potencjalne zastosowania biznesowe",
+        "1": "Zbadaj 10 najlepszych konkurentów w dziedzinie systemów CRM opartych na AI z porównaniem funkcji",
+        "2": "Sprawdź wymogi regulacyjne dotyczące uruchomienia aplikacji fintech w UE",
+        "3": "Przygotuj analizę rynku adopcji pojazdów elektrycznych na kluczowych rynkach",
+        "4": "Zbadaj wpływ pracy zdalnej na popyt na nieruchomości komercyjne w dużych miastach",
+        "5": "Zbadaj wzorce adopcji Web3 wśród firm z listy Fortune 500",
+        "6": "Przeanalizuj nastroje konsumentów wobec marek mody zrównoważonej",
+        "7": "Zbadaj najnowsze przełomy w terapii genowej dla rzadkich chorób",
+        "8": "Zbadaj strategie cenowe odnoszących sukcesy firm D2C oferujących pudełka subskrypcyjne",
+        "9": "Zbadaj krajobraz konkurencyjny rozwiązań cyberbezpieczeństwa opartych na AI"
+      }
+    }
+  },
+  "announcements": {
+    "memories": {
+      "title": "Przedstawiamy Memories",
+      "description": "SuperAgent pamięta teraz Twoje preferencje i kontekst we wszystkich rozmowach",
+      "features": {
+        "personalized": {
+          "title": "Spersonalizowane doświadczenie",
+          "description": "Dostosowuje się do Twojego stylu pracy z upływem czasu"
+        },
+        "retention": {
+          "title": "Zachowanie kontekstu",
+          "description": "Ważne szczegóły są zapamiętywane między czatami"
+        },
+        "control": {
+          "title": "Masz kontrolę",
+          "description": "Wyłącz lub wyczyść Memories w dowolnym momencie"
+        }
+      },
+      "manageButton": "Zarządzaj Memories",
+      "dismissButton": "Rozumiem"
+    }
+  }
+}
