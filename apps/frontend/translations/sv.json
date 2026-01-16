@@ -1605,5 +1605,18 @@
       "manageButton": "Hantera Memories",
       "dismissButton": "Uppfattat"
     }
+  },
+  "share": {
+    "Shared": "Delad",
+    "copy_share_link": "Kopiera delningslänk",
+    "share": "Dela",
+    "copied": "Kopierad!",
+    "copy_link": "Kopiera länk",
+    "please_describe_your_targeting_audience_or_companies": "Beskriv din målgrupp eller företag",
+    "you_are_about_to_watch_a_replay_of": "Du är på väg att se en repris av",
+    "playback_will_begin_automatically_in": "Uppspelningen startar automatiskt om",
+    "seconds": "sekunder",
+    "play": "Spela",
+    "this_chat_is_publicly_accessible": "Denna chatt är offentligt tillgänglig. Alla med länken kan se denna konversation."
   }
 }

@@ -6,24 +6,8 @@ import { Play } from 'lucide-react';
 import type { Project } from '@/lib/api/threads';
 import { cn } from '@/lib/utils';
 import { useMediaQuery } from '@/hooks/utils/use-media-query';
+import { useTranslations } from 'next-intl';
 
-function GlobalTranslation(key: string): string {
-  // Minimal local fallback to keep UI identical without wiring i18n keys in frontend.
-  switch (key) {
-    case 'please_describe_your_targeting_audience_or_companies':
-      return 'Please describe your targeting audience or companies';
-    case 'you_are_about_to_watch_a_replay_of':
-      return 'You are about to watch a replay of';
-    case 'playback_will_begin_automatically_in':
-      return 'Playback will begin automatically in';
-    case 'seconds':
-      return 'seconds';
-    case 'play':
-      return 'Play';
-    default:
-      return key;
-  }
-}
 
 function SendDefaultArrowIcon({ className }: { className?: string }) {
   return (
@@ -73,6 +57,7 @@ export function PlaybackCoverPage({
   onSendClick,
   defaultPromptText = '',
 }: PlaybackCoverPageProps) {
+  const t = useTranslations("share")
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
 
   // PRD: 固定 5s；倒计时必须等“第一个字出现”才启动
@@ -302,7 +287,7 @@ export function PlaybackCoverPage({
             {/* 打字开始前保持空白（参考视频），可选显示 placeholder */}
             {typedCount === 0 && !prefersReducedMotion ? (
               <span className="select-none text-[rgba(82,90,103,0.35)]">
-                {GlobalTranslation('please_describe_your_targeting_audience_or_companies')}
+                {t('please_describe_your_targeting_audience_or_companies')}
               </span>
             ) : null}
 
@@ -366,17 +351,17 @@ export function PlaybackCoverPage({
       <div className="flex w-full max-w-[520px] flex-col items-center gap-[24px] rounded-[24px] border border-[#edeff4] bg-white p-[24px]">
         <div className="flex flex-col items-center">
           <p className="text-center text-[16px] font-medium leading-[1.5] text-[#525a67]">
-            {GlobalTranslation('you_are_about_to_watch_a_replay_of')} {displayName}
+            {t('you_are_about_to_watch_a_replay_of')} {displayName}
           </p>
           <div className="flex items-end justify-center gap-[6px] text-center leading-[1.5]">
             <span className="text-[16px] font-medium text-[#525a67]">
-              {GlobalTranslation('playback_will_begin_automatically_in')}
+              {t('playback_will_begin_automatically_in')}
             </span>
             <span className="text-[20px] font-bold text-[#222]">
               {Math.max(0, secondsLeft)}
             </span>
             <span className="text-[16px] font-medium text-[#525a67]">
-              {GlobalTranslation('seconds')}
+              {t('seconds')}
             </span>
           </div>
         </div>
@@ -393,7 +378,7 @@ export function PlaybackCoverPage({
           data-name="play"
         >
           <Play className="size-[18px]" />
-          <span className="text-[16px] font-medium leading-[1.5]">{GlobalTranslation('play')}</span>
+          <span className="text-[16px] font-medium leading-[1.5]">{t('play')}</span>
         </button>
       </div>
 

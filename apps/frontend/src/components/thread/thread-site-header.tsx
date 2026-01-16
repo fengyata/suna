@@ -14,6 +14,8 @@ import { useIsMobile } from "@/hooks/utils"
 import { cn } from "@/lib/utils"
 import { SharePopover } from "@/components/sidebar/share-modal"
 import { ModeIndicator } from "@/components/thread/mode-indicator"
+import { useTranslations } from "next-intl"
+
 
 interface ThreadSiteHeaderProps {
   threadId?: string;
@@ -38,6 +40,7 @@ export function SiteHeader({
   isMobileView,
   variant = 'default',
 }: ThreadSiteHeaderProps) {
+  const t = useTranslations("share")
   const [copied, setCopied] = useState(false);
   const isMobile = useIsMobile() || isMobileView
 
@@ -62,7 +65,7 @@ export function SiteHeader({
           <div className="text-base font-medium text-muted-foreground flex items-center gap-2 min-w-0">
             <span className="truncate">{projectName}</span>
             <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded-full shrink-0">
-              Shared
+              {t("Shared")}
             </span>
           </div>
         ) : (
@@ -82,11 +85,11 @@ export function SiteHeader({
                   className="h-9 px-3 cursor-pointer gap-2"
                 >
                   {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                  <span>{copied ? 'Copied!' : 'Copy Link'}</span>
+                  <span>{copied ? t("copied") : t("copy_link")}</span>
                 </Button>
               </TooltipTrigger>
               <TooltipContent side="bottom">
-                <p>Copy share link</p>
+                <p>{t("copy_share_link")}</p>
               </TooltipContent>
             </Tooltip>
           ) : threadId && projectId ? (
@@ -96,7 +99,7 @@ export function SiteHeader({
                 className="h-9 px-3 cursor-pointer gap-2"
               >
                 <Upload className="h-4 w-4" />
-                <span>Share</span>
+                <span>{t("share")}</span>
               </Button>
             </SharePopover>
           ) : null}

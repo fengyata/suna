@@ -1597,5 +1597,18 @@
       "manageButton": "メモリーを管理",
       "dismissButton": "了解"
     }
+  },
+  "share": {
+    "Shared": "共有済み",
+    "copy_share_link": "共有リンクをコピー",
+    "share": "共有",
+    "copied": "コピーしました！",
+    "copy_link": "リンクをコピー",
+    "please_describe_your_targeting_audience_or_companies": "ターゲットオーディエンスまたは企業について説明してください",
+    "you_are_about_to_watch_a_replay_of": "以下の再生を開始します：",
+    "playback_will_begin_automatically_in": "再生は自動的に開始されます：",
+    "seconds": "秒後",
+    "play": "再生",
+    "this_chat_is_publicly_accessible": "このチャットは公開されています。リンクを知っている人なら誰でもこの会話を閲覧できます。"
   }
 }

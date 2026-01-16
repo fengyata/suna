@@ -1605,5 +1605,18 @@
       "manageButton": "Administrer Memories",
       "dismissButton": "Skjønner"
     }
+  },
+  "share": {
+    "Shared": "Delt",
+    "copy_share_link": "Kopier delingslenke",
+    "share": "Del",
+    "copied": "Kopiert!",
+    "copy_link": "Kopier lenke",
+    "please_describe_your_targeting_audience_or_companies": "Beskriv din målgruppe eller selskaper",
+    "you_are_about_to_watch_a_replay_of": "Du er i ferd med å se en reprise av",
+    "playback_will_begin_automatically_in": "Avspillingen starter automatisk om",
+    "seconds": "sekunder",
+    "play": "Spill av",
+    "this_chat_is_publicly_accessible": "Denne chatten er offentlig tilgjengelig. Alle med lenken kan se denne samtalen."
   }
 }

@@ -1597,5 +1597,18 @@
       "manageButton": "Gérer les Mémoires",
       "dismissButton": "Compris"
     }
+  },
+  "share": {
+    "Shared": "Partagé",
+    "copy_share_link": "Copier le lien de partage",
+    "share": "Partager",
+    "copied": "Copié !",
+    "copy_link": "Copier le lien",
+    "please_describe_your_targeting_audience_or_companies": "Veuillez décrire votre public cible ou vos entreprises",
+    "you_are_about_to_watch_a_replay_of": "Vous êtes sur le point de regarder une rediffusion de",
+    "playback_will_begin_automatically_in": "La lecture commencera automatiquement dans",
+    "seconds": "secondes",
+    "play": "Lire",
+    "this_chat_is_publicly_accessible": "Cette discussion est accessible au public. Toute personne disposant du lien peut voir cette conversation."
   }
 }

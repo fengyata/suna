@@ -1597,5 +1597,18 @@
       "manageButton": "管理记忆",
       "dismissButton": "知道了"
     }
+  },
+  "share": {
+    "Shared": "已分享",
+    "copy_share_link": "复制分享链接",
+    "share": "分享",
+    "copied": "已复制！",
+    "copy_link": "复制链接",
+    "please_describe_your_targeting_audience_or_companies": "请描述您的目标受众或公司",
+    "you_are_about_to_watch_a_replay_of": "您即将观看以下内容的重放：",
+    "playback_will_begin_automatically_in": "重放将在以下时间内自动开始：",
+    "seconds": "秒",
+    "play": "播放",
+    "this_chat_is_publicly_accessible": "此聊天是公开访问的。任何拥有链接的人都可以查看此对话。"
   }
 }
