@@ -10,6 +10,7 @@ export type ThreadRow = {
   created_at: string;
   updated_at: string;
   is_public: boolean | null;
+  account_id?: string;
 };
 
 export type ThreadsListResponse = {
@@ -20,6 +21,18 @@ export type ThreadsListResponse = {
     total: number;
     pages: number;
   };
+};
+
+export type ThreadsBatchResponse = {
+  threads: Array<{
+    thread_id: string;
+    project_id: string | null;
+    name: string | null;
+    created_at: string;
+    updated_at: string;
+    is_public: boolean | null;
+    account_id: string;
+  }>;
 };
 
 type FlashcloudAuth = {
@@ -166,6 +179,46 @@ export async function listThreads(params: {
   };
 }
 
+export async function batchGetThreads(params: {
+  threadIds: string[];
+}): Promise<ThreadsBatchResponse> {
+  const threadIds = Array.isArray(params.threadIds) ? params.threadIds.filter((x) => typeof x === 'string' && x) : [];
+
+  if (threadIds.length === 0) {
+    return { threads: [] };
+  }
+
+  // Safety cap to avoid giant IN queries
+  const cappedIds = threadIds.slice(0, 500);
+
+  const supabase = getSupabaseAdminClient();
+
+  const { data, error } = await supabase
+    .from('threads')
+    .select('thread_id, project_id, name, created_at, updated_at, is_public, account_id')
+    .in('thread_id', cappedIds);
+
+  if (error) {
+    throw error;
+  }
+
+  const byId = new Map<string, ThreadsBatchResponse['threads'][number]>();
+  for (const row of (data || []) as any[]) {
+    if (row?.thread_id) {
+      byId.set(row.thread_id, row);
+    }
+  }
+
+  // Keep output order identical to input order (including duplicates)
+  const ordered: ThreadsBatchResponse['threads'] = [];
+  for (const id of cappedIds) {
+    const row = byId.get(id);
+    if (row) ordered.push(row);
+  }
+
+  return { threads: ordered };
+}
+
 export async function renameThread(params: {
   threadId: string;
   name: string;
@@ -195,10 +248,25 @@ export async function deleteThread(params: {
   threadId: string;
   accountId: string;
   projectId: string | null;
-}): Promise<{ ok: true } | { ok: false }> {
+}): Promise<{ ok: true } | { ok: false; error_code?: number }> {
   const { threadId, accountId, projectId } = params;
   if (!accountId) return { ok: false };
   const supabase = getSupabaseAdminClient();
+
+  // Guard: do not allow deletion if latest agent run is still running
+  const { data: latestRun, error: latestRunError } = await supabase
+    .from('agent_runs')
+    .select('status')
+    .eq('thread_id', threadId)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (latestRunError) throw latestRunError;
+
+  if (latestRun?.status === 'running') {
+    return { ok: false, error_code: 80001 };
+  }
 
   // 2) Delete dependent data first to avoid FK violations (agent_runs has no ON DELETE CASCADE).
   // Optimize: delete agent_runs + messages in parallel, and also fetch remainingCount (excluding current thread)
