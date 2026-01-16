@@ -21,6 +21,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { X, Image as ImageIcon, Presentation, BarChart3, FileText, Search, Palette, Video, Code2, Sparkles, Brain as BrainIcon, MessageSquare, CornerDownLeft, Plug, Lock } from 'lucide-react';
 import { KortixLoader } from '@/components/ui/kortix-loader';
 import { VoiceRecorder } from './voice-recorder';
+import { MeetingAgentToggle } from './meeting-agent-toggle';
 import { useTheme } from 'next-themes';
 import { AttachmentGroup } from '../file-attachment';
 import { cn } from '@/lib/utils';
@@ -1339,6 +1340,12 @@ export const ChatInput = memo(forwardRef<ChatInputHandles, ChatInputProps>(
             isLoggedIn={isLoggedIn}
           />
         )}
+        <MeetingAgentToggle
+          agentId={selectedAgentId}
+          isLoggedIn={isLoggedIn}
+          disabled={disabled}
+          isAgentRunning={isAgentRunning}
+        />
 
         {!hideAgentSelection && (
           <UnifiedConfigMenu

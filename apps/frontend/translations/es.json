@@ -31,6 +31,14 @@
     "basic": "Básico",
     "tryFree": "Comenzar"
   },
+  "meetingAgent": {
+    "tooltip": "Buscar registros de reuniones",
+    "loginRequired": "Inicia sesión para acceder a los registros de reuniones",
+    "connectFailed": "No se pueden acceder los registros de reuniones en FlashRev, inténtalo de nuevo más tarde",
+    "disconnectFailed": "No se pudo desconectar los registros de reuniones, inténtalo de nuevo más tarde",
+    "missingTool": "La herramienta de búsqueda de reuniones no está disponible, inténtalo de nuevo más tarde",
+    "missingConfig": "Meeting MCP no está configurado"
+  },
   "settings": {
     "title": "Ajustes",
     "tabs": {

@@ -31,6 +31,14 @@
     "basic": "基础版",
     "tryFree": "开始"
   },
+  "meetingAgent": {
+    "tooltip": "搜索会议记录",
+    "loginRequired": "请登录后访问会议记录",
+    "connectFailed": "当前无法访问FlashRev系统中的会议记录，请稍后重试",
+    "disconnectFailed": "断开会议记录失败，请稍后重试",
+    "missingTool": "会议搜索工具不可用，请稍后重试",
+    "missingConfig": "会议 MCP 未配置"
+  },
   "settings": {
     "title": "设置",
     "tabs": {
