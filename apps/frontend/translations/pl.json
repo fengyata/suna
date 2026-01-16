@@ -1617,6 +1617,12 @@
     "playback_will_begin_automatically_in": "Odtwarzanie rozpocznie się automatycznie za",
     "seconds": "sekund",
     "play": "Odtwórz",
-    "this_chat_is_publicly_accessible": "Ten czat jest publicznie dostępny. Każdy, kto ma link, może zobaczyć tę rozmowę."
+    "this_chat_is_publicly_accessible": "Ten czat jest publicznie dostępny. Każdy, kto ma link, może zobaczyć tę rozmowę.",
+    "preparing_your_replay": "Przygotowywanie powtórki",
+    "replay": "Powtórka",
+    "go_to_results": "Przejdź do wyników",
+    "make_yours": "Stwórz własną",
+    "task_replay_completed": "Powtórka zadania zakończona",
+    "replay_in_progress": "Powtórka w toku"
   }
 }

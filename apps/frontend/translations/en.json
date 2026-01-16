@@ -1617,7 +1617,13 @@
     "playback_will_begin_automatically_in": "Playback will begin automatically in",
     "seconds": "seconds",
     "play": "Play",
-    "this_chat_is_publicly_accessible": "This chat is publicly accessible. Anyone with the link can view this conversation."
+    "this_chat_is_publicly_accessible": "This chat is publicly accessible. Anyone with the link can view this conversation.",
+    "preparing_your_replay": "Preparing your replay",
+    "replay": "Replay",
+    "go_to_results": "Go to results",
+    "make_yours": "Make yours",
+    "task_replay_completed": "Task replay completed",
+    "replay_in_progress": "Replay in progress"
   }
 }
 

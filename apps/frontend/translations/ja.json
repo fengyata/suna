@@ -1609,6 +1609,12 @@
     "playback_will_begin_automatically_in": "再生は自動的に開始されます：",
     "seconds": "秒後",
     "play": "再生",
-    "this_chat_is_publicly_accessible": "このチャットは公開されています。リンクを知っている人なら誰でもこの会話を閲覧できます。"
+    "this_chat_is_publicly_accessible": "このチャットは公開されています。リンクを知っている人なら誰でもこの会話を閲覧できます。",
+    "preparing_your_replay": "再生の準備をしています",
+    "replay": "再生",
+    "go_to_results": "結果を見る",
+    "make_yours": "自分だけのものを作る",
+    "task_replay_completed": "タスク再生が完了しました",
+    "replay_in_progress": "再生中"
   }
 }

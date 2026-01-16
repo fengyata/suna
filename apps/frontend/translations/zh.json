@@ -1609,6 +1609,12 @@
     "playback_will_begin_automatically_in": "重放将在以下时间内自动开始：",
     "seconds": "秒",
     "play": "播放",
-    "this_chat_is_publicly_accessible": "此聊天是公开访问的。任何拥有链接的人都可以查看此对话。"
+    "this_chat_is_publicly_accessible": "此聊天是公开访问的。任何拥有链接的人都可以查看此对话。",
+    "preparing_your_replay": "正在准备回放",
+    "replay": "回放",
+    "go_to_results": "查看结果",
+    "make_yours": "制作您的",
+    "task_replay_completed": "任务回放已完成",
+    "replay_in_progress": "正在回放"
   }
 }
