@@ -38,7 +38,9 @@ export type SubscriptionStatus = 'no_subscription' | 'active';
 import {
   UnifiedMessage,
   ApiMessageType,
+  ParsedMetadata,
 } from '@/components/thread/types';
+import { safeJsonParse } from '@/components/thread/utils';
 import {
   useThreadData,
   useThreadBilling,
@@ -73,6 +75,8 @@ import { useProcessStreamOperation } from '@/stores/spreadsheet-store';
 import { uploadPendingFilesToProject } from '@/components/thread/chat-input/file-upload-handler';
 import { useClearNavigation } from '@/stores/thread-navigation-store';
 import { useModeViewerInit } from '@/hooks/threads/use-mode-viewer-init';
+import { PlaybackCoverPage } from '@/components/share/PlaybackCoverPage';
+import { SharePromptBackground } from '@/components/share/SharePromptBackground';
 
 interface ThreadComponentProps {
   projectId: string;
@@ -188,6 +192,13 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
   const [optimisticPrompt, setOptimisticPrompt] = useState<string | null>(null);
   const [showOptimisticUI, setShowOptimisticUI] = useState(false);
   const setStorePanelOpen = useSetIsSidePanelOpen();
+
+  // Share cover overlay state (ported from apps/superagent share page)
+  // Goal: once initial load completes, show a cover overlay for ~5s, then start playback.
+  const [isPromptOverlayDismissed, setIsPromptOverlayDismissed] = useState(false);
+  const promptOverlayTimeoutRef = useRef<number | null>(null);
+  const hasStartedPromptOverlayTimerRef = useRef(false);
+  const hasStartedPlaybackRef = useRef(false);
   
   const allOptimisticFiles = useOptimisticFilesStore((state) => state.files);
   const updateFileStatus = useOptimisticFilesStore((state) => state.updateFileStatus);
@@ -310,6 +321,7 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
   const openFileInComputer = useKortixComputerStore((state) => state.openFileInComputer);
   const openFileBrowser = useKortixComputerStore((state) => state.openFileBrowser);
   const setSandboxContext = useKortixComputerStore((state) => state.setSandboxContext);
+  const navigateToToolCall = useKortixComputerStore((state) => state.navigateToToolCall);
 
   const billingModal = useBillingModal();
   const threadBilling = useThreadBilling(
@@ -1229,11 +1241,158 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
   const playback = usePlaybackController({
     messages,
     enabled: isShared,
+    // Share cover overlay controls when playback actually starts.
+    // If we auto-start behind the overlay, we can end up with a "flash" of the first user message.
+    autoStart: false,
     isSidePanelOpen,
     onToggleSidePanel: toggleSidePanel,
     setCurrentToolIndex,
+    navigateToToolCall,
     toolCalls,
   });
+
+  // Share playback: keep the right tool panel step in sync with playback progress.
+  // We drive navigation via externalNavigateToIndex to ensure the panel switches to Tools view.
+  const prevPlaybackIsPlayingRef = useRef(false);
+  const prevPlaybackToolIndexRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!isShared) return;
+
+    const isPlayingNow = playback.playbackState.isPlaying;
+    const wasPlaying = prevPlaybackIsPlayingRef.current;
+    prevPlaybackIsPlayingRef.current = isPlayingNow;
+
+    // Only follow while actively playing
+    if (!isPlayingNow) return;
+    if (toolCalls.length === 0) return;
+
+    const visible = playback.playbackState.visibleMessages || [];
+
+    const navigateToIndex = (idx: number) => {
+      if (idx < 0 || idx >= toolCalls.length) return;
+      if (prevPlaybackToolIndexRef.current === idx) return;
+      prevPlaybackToolIndexRef.current = idx;
+
+      setCurrentToolIndex(idx);
+      // Use store-based pending nav so KortixComputer will apply it once snapshots are ready.
+      // This avoids missing the navigation when totalCalls is still 0 during initialization.
+      navigateToToolCall(idx);
+    };
+
+    // Always start from step 0 when playback begins (matches expected UX).
+    if (!wasPlaying) {
+      navigateToIndex(0);
+      // keep following tool mapping below as messages advance
+    }
+
+    // Build a fast lookup from tool_call_id -> tool index (toolCalls already filtered).
+    const toolIdToIndex = new Map<string, number>();
+    for (let i = 0; i < toolCalls.length; i++) {
+      const id = toolCalls[i]?.toolCall?.tool_call_id;
+      if (typeof id === 'string' && id) toolIdToIndex.set(id, i);
+    }
+
+    // Find the latest *mappable* tool message in visible playback slice.
+    // This automatically skips filtered tools (ask/complete/hidden) that are not in toolCalls.
+    let latestMappableIndex: number | undefined;
+    for (let i = visible.length - 1; i >= 0; i--) {
+      const m = visible[i];
+      if (m?.type !== 'tool') continue;
+      const meta = safeJsonParse<ParsedMetadata>((m as any).metadata, {});
+      const toolCallId = (meta as any)?.tool_call_id;
+      if (typeof toolCallId !== 'string' || !toolCallId) continue;
+      const mapped = toolIdToIndex.get(toolCallId);
+      if (mapped !== undefined) {
+        latestMappableIndex = mapped;
+        break;
+      }
+    }
+
+    if (latestMappableIndex !== undefined) {
+      navigateToIndex(latestMappableIndex);
+    }
+  }, [
+    isShared,
+    playback.playbackState.isPlaying,
+    playback.playbackState.currentMessageIndex,
+    playback.playbackState.visibleMessages,
+    toolCalls,
+    setCurrentToolIndex,
+    navigateToToolCall,
+  ]);
+
+  // Share: extract a display prompt for the cover overlay (use the first user message).
+  const defaultPromptText = useMemo(() => {
+    if (!isShared) return '';
+    const firstUser = messages.find((m) => m.type === 'user');
+    if (!firstUser) return '';
+
+    const contentAny: any = (firstUser as any).content;
+    // Support both object-shaped and string-shaped content
+    if (contentAny && typeof contentAny === 'object' && typeof contentAny.content === 'string') {
+      return contentAny.content;
+    }
+
+    const raw = typeof contentAny === 'string' ? contentAny : String(contentAny ?? '');
+    if (typeof raw !== 'string') return String(raw);
+
+    try {
+      const parsed = JSON.parse(raw) as { content?: unknown };
+      if (typeof parsed?.content === 'string') return parsed.content;
+    } catch {
+      // ignore
+    }
+    return raw;
+  }, [isShared, messages]);
+
+  // Share: only show overlay after initial load completes to avoid flashing skeleton/empty state.
+  const shouldShowPromptOverlay =
+    isShared && !isPromptOverlayDismissed && !isLoading && initialLoadCompleted;
+
+  // Share: once loaded, show cover overlay then start playback (ported from superagent share page 813-833).
+  const hidePromptOverlayAndStartPlayback = useCallback(() => {
+    if (promptOverlayTimeoutRef.current) {
+      window.clearTimeout(promptOverlayTimeoutRef.current);
+      promptOverlayTimeoutRef.current = null;
+    }
+    setIsPromptOverlayDismissed(true);
+
+    if (!hasStartedPlaybackRef.current) {
+      hasStartedPlaybackRef.current = true;
+      // Restart ensures we begin from message 0 with a clean slate (no pre-rendered first user message).
+      playback.restartPlayback();
+    }
+  }, [playback]);
+
+  useEffect(() => {
+    if (!isShared) return;
+    if (!shouldShowPromptOverlay) return;
+    if (hasStartedPromptOverlayTimerRef.current) return;
+    hasStartedPromptOverlayTimerRef.current = true;
+
+    promptOverlayTimeoutRef.current = window.setTimeout(() => {
+      hidePromptOverlayAndStartPlayback();
+    }, 5000);
+
+    return () => {
+      if (promptOverlayTimeoutRef.current) {
+        window.clearTimeout(promptOverlayTimeoutRef.current);
+        promptOverlayTimeoutRef.current = null;
+      }
+    };
+  }, [isShared, shouldShowPromptOverlay, hidePromptOverlayAndStartPlayback]);
+
+  useEffect(() => {
+    // Reset overlay state when thread changes or share mode toggles.
+    setIsPromptOverlayDismissed(false);
+    hasStartedPromptOverlayTimerRef.current = false;
+    hasStartedPlaybackRef.current = false;
+    if (promptOverlayTimeoutRef.current) {
+      window.clearTimeout(promptOverlayTimeoutRef.current);
+      promptOverlayTimeoutRef.current = null;
+    }
+  }, [threadId, isShared]);
 
   useEffect(() => {
     if (!initialLayoutAppliedRef.current) {
@@ -1514,6 +1673,62 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
   const displayProjectName = showOptimisticUI ? 'New Conversation' : projectName;
   
   // Skip skeleton for new threads - show empty state immediately
+  // Share: keep page loading until first load completed (ported from superagent share page 779-812).
+  if (isShared && !initialLoadCompleted) {
+    return (
+      <div className="relative h-screen w-screen overflow-hidden bg-[#fafbfc]">
+        <div className="absolute inset-0 opacity-40 blur-sm">
+          <SharePromptBackground />
+        </div>
+
+        <div className="relative z-10 flex h-full w-full flex-col items-center justify-center gap-6">
+          <div className="relative flex items-center justify-center">
+            <div className="absolute h-12 w-12 rounded-full border-[3px] border-black/5" />
+            <div className="h-12 w-12 animate-[sap-spin_2s_linear_infinite] rounded-full border-[3px] border-transparent border-t-black/40" />
+            <div className="absolute h-6 w-6 animate-[sap-spin_0.8s_ease-in-out_infinite] rounded-full border-2 border-transparent border-t-black/60" />
+          </div>
+
+          <p className="animate-pulse text-[14px] font-medium tracking-wide text-black/40">
+            Preparing your replay
+          </p>
+        </div>
+
+        <style jsx global>{`
+          @keyframes sap-spin {
+            from {
+              transform: rotate(0deg);
+            }
+            to {
+              transform: rotate(360deg);
+            }
+          }
+        `}</style>
+      </div>
+    );
+  }
+
+  // Share: show cover overlay after first load completes (ported from superagent share page 813-833).
+  if (shouldShowPromptOverlay) {
+    return (
+      <>
+        <div className="fixed inset-0 overflow-hidden">
+          <SharePromptBackground />
+        </div>
+        <PlaybackCoverPage
+          projectName="SuperAgent"
+          initialCountdown={4}
+          defaultPromptText={defaultPromptText}
+          onSendClick={() => {
+            hidePromptOverlayAndStartPlayback();
+          }}
+          onPlayClick={() => {
+            hidePromptOverlayAndStartPlayback();
+          }}
+        />
+      </>
+    );
+  }
+
   if (!isNewThread && !hasDataLoaded.current && !showOptimisticUI && (!initialLoadCompleted || isLoading || isThreadInitializing)) {
     return <ThreadSkeleton isSidePanelOpen={isSidePanelOpen} compact={compact} initializingMessage={
       isThreadInitializing ? 'Setting up your conversation...' : undefined
@@ -1624,7 +1839,7 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
             ref={scrollContainerRef}
             className="flex-1 overflow-y-auto overflow-x-hidden flex flex-col-reverse"
           >
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <ThreadContent
                 messages={isShared ? playback.playbackState.visibleMessages : displayMessages}
                 streamingTextContent={isShared ? '' : displayStreamingText}
@@ -1652,7 +1867,7 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
           </div>
 
           {!isShared && (
-            <div className="flex-shrink-0 border-t border-border/20 p-4">
+            <div className="shrink-0 border-t border-border/20 p-4">
               <ChatInput
                 ref={chatInputRef}
                 onSubmit={showOptimisticUI ? () => {} : handleSubmitMessage}
@@ -1691,7 +1906,7 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
               isPlaying={playback.playbackState.isPlaying}
               isSidePanelOpen={isSidePanelOpen}
               onTogglePlayback={playback.togglePlayback}
-              onReset={playback.resetPlayback}
+              onReset={playback.restartPlayback}
               onSkipToEnd={playback.skipToEnd}
               onForwardOne={playback.forwardOne}
               onBackwardOne={playback.backwardOne}
@@ -1825,7 +2040,7 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
             isPlaying={playback.playbackState.isPlaying}
             isSidePanelOpen={isSidePanelOpen}
             onTogglePlayback={playback.togglePlayback}
-            onReset={playback.resetPlayback}
+            onReset={playback.restartPlayback}
             onSkipToEnd={playback.skipToEnd}
             onForwardOne={playback.forwardOne}
             onBackwardOne={playback.backwardOne}

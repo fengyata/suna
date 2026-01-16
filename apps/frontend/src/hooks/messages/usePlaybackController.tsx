@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useReducer, useRef } from 'react';
 import { UnifiedMessage } from '@/components/thread/types';
+import { safeJsonParse } from '@/components/thread/utils';
 
 export interface PlaybackState {
     isPlaying: boolean;
@@ -32,6 +33,7 @@ function playbackReducer(state: PlaybackState, action: PlaybackAction): Playback
             return { ...state, isPlaying: true };
         case 'RESET':
             return {
+                ...state,
                 isPlaying: false,
                 currentMessageIndex: 0,
                 visibleMessages: [],
@@ -89,24 +91,35 @@ function playbackReducer(state: PlaybackState, action: PlaybackAction): Playback
 interface UsePlaybackControllerOptions {
     messages: UnifiedMessage[];
     enabled: boolean;
+    /**
+     * If true, playback will auto-start shortly after messages load.
+     * For share pages that show a cover overlay, this should be false so the overlay controls start.
+     */
+    autoStart?: boolean;
     isSidePanelOpen: boolean;
     onToggleSidePanel: () => void;
     setCurrentToolIndex: (index: number) => void;
+    navigateToToolCall?: (index: number) => void;
     toolCalls: any[];
 }
 
 export function usePlaybackController({
     messages,
     enabled,
+    autoStart = true,
     isSidePanelOpen,
     onToggleSidePanel,
     setCurrentToolIndex,
+    navigateToToolCall,
     toolCalls,
 }: UsePlaybackControllerOptions) {
     const [state, dispatch] = useReducer(playbackReducer, {
         isPlaying: false,
         currentMessageIndex: 0,
-        visibleMessages: messages.length > 0 ? [messages[0]] : [],
+        // IMPORTANT (share playback): do NOT pre-render the first message.
+        // If we render messages[0] fully before playback starts, the first user message will "flash"
+        // fully and then get cleared/replaced when we stream it character-by-character.
+        visibleMessages: enabled ? [] : (messages.length > 0 ? [messages[0]] : []),
         streamingText: '',
         isStreamingText: false,
         currentToolCall: null,
@@ -127,15 +140,16 @@ export function usePlaybackController({
         messagesRef.current = messages;
     }, [messages]);
 
-    // Initialize with first message when messages load
-    useEffect(() => {
-        if (enabled && messages.length > 0 && state.visibleMessages.length === 0) {
-            dispatch({ type: 'SET_VISIBLE_MESSAGES', messages: [messages[0]] });
-        }
-    }, [enabled, messages, state.visibleMessages.length, dispatch]);
+    // NOTE: We intentionally do NOT initialize visibleMessages with messages[0] when enabled (share playback).
+    // Playback will render messages as it streams them to avoid the "first user message flashes fully" issue.
 
-    // Stream text character by character with realistic typing animation
-    const streamText = useCallback((text: string, onComplete: () => void) => {
+    // Stream text character by character with realistic typing animation.
+    // Optionally accepts a "finalMessage" to persist after streaming finishes.
+    const streamText = useCallback((
+        text: string,
+        finalMessage: UnifiedMessage | undefined,
+        onComplete: () => void
+    ) => {
         if (!text) {
             onComplete();
             return () => { };
@@ -165,15 +179,17 @@ export function usePlaybackController({
 
             if (currentIndex < textStr.length) {
                 // Dynamically adjust typing speed for realistic effect
-                const baseDelay = 2;
+                // Keep this slow enough to be perceivable. Very small delays often look "instant"
+                // due to browser timer clamping and React batching.
+                const baseDelay = 8;
                 let typingDelay = baseDelay;
 
                 // Add more delay for punctuation to make it feel natural
                 const char = textStr[currentIndex];
                 if ('.!?,;:'.includes(char)) {
-                    typingDelay = baseDelay + Math.random() * 20 + 30;
+                    typingDelay = baseDelay + Math.random() * 30 + 50;
                 } else {
-                    const variableDelay = Math.random() * 2;
+                    const variableDelay = Math.random() * 8;
                     typingDelay = baseDelay + variableDelay;
                 }
 
@@ -192,19 +208,20 @@ export function usePlaybackController({
                 const currentState = stateRef.current;
                 const currentMessageIndex = currentState.currentMessageIndex;
                 const currentMessage = messagesRef.current[currentMessageIndex];
+                const messageToPersist = finalMessage || currentMessage;
                 const lastMessage = currentState.visibleMessages[currentState.visibleMessages.length - 1];
 
-                if (lastMessage?.message_id === currentMessage.message_id) {
+                if (lastMessage?.message_id === messageToPersist.message_id) {
                     // Replace the streaming message with the complete one
                     dispatch({
                         type: 'SET_VISIBLE_MESSAGES',
-                        messages: [...currentState.visibleMessages.slice(0, -1), currentMessage]
+                        messages: [...currentState.visibleMessages.slice(0, -1), messageToPersist]
                     });
                 } else {
                     // Add the complete message
                     dispatch({
                         type: 'SET_VISIBLE_MESSAGES',
-                        messages: [...currentState.visibleMessages, currentMessage]
+                        messages: [...currentState.visibleMessages, messageToPersist]
                     });
                 }
 
@@ -220,6 +237,173 @@ export function usePlaybackController({
             isCancelled = true;
             dispatch({ type: 'SET_IS_STREAMING', value: false });
         };
+    }, []);
+
+    const normalizeAssistantForPlayback = useCallback((message: UnifiedMessage): {
+        textToStream: string;
+        displayMessage: UnifiedMessage;
+    } => {
+        const contentStr =
+            typeof message.content === 'string'
+                ? message.content
+                : message.content != null
+                    ? JSON.stringify(message.content)
+                    : '';
+
+        const metadataStr =
+            typeof message.metadata === 'string'
+                ? message.metadata
+                : message.metadata != null
+                    ? JSON.stringify(message.metadata)
+                    : '{}';
+
+        const parsedContent = safeJsonParse<any>(contentStr, { content: contentStr });
+        const parsedMetadata = safeJsonParse<any>(metadataStr, {});
+
+        // 1) Standard text field
+        const metaText = parsedMetadata?.text_content;
+        const metaTextStr =
+            typeof metaText === 'string' ? metaText : (metaText != null ? String(metaText) : '');
+
+        // 2) Ask/complete tool call text (your sample: metadata.tool_calls[].arguments.text)
+        const toolCalls: any[] = Array.isArray(parsedMetadata?.tool_calls) ? parsedMetadata.tool_calls : [];
+        const askOrComplete = toolCalls.find((tc) => {
+            const fn = String(tc?.function_name || '').replace(/_/g, '-').toLowerCase();
+            return fn === 'ask' || fn === 'complete';
+        });
+        const toolText = askOrComplete?.arguments?.text;
+        const toolTextStr =
+            typeof toolText === 'string' ? toolText : (toolText != null ? String(toolText) : '');
+
+        // 3) Legacy content JSON / raw content
+        const parsedContentVal = parsedContent?.content;
+        const parsedContentStr =
+            typeof parsedContentVal === 'string'
+                ? parsedContentVal
+                : parsedContentVal != null
+                    ? String(parsedContentVal)
+                    : '';
+
+        const raw = metaTextStr || toolTextStr || parsedContentStr || contentStr;
+        const textToStream = typeof raw === 'string' ? raw : (raw != null ? String(raw) : '');
+
+        // Persist: if backend stored assistant content as empty but we extracted text from metadata,
+        // inject it so the final message doesn't "disappear" after streaming finishes.
+        const shouldInjectText =
+            (typeof message.content !== 'string' || message.content.trim().length === 0) &&
+            textToStream.trim().length > 0;
+
+        const displayMessage: UnifiedMessage = shouldInjectText
+            ? {
+                ...message,
+                content: textToStream,
+                metadata: JSON.stringify({
+                    ...(typeof parsedMetadata === 'object' && parsedMetadata ? parsedMetadata : {}),
+                    text_content: textToStream,
+                }),
+            }
+            : {
+                ...message,
+                metadata: typeof message.metadata === 'string' ? message.metadata : JSON.stringify(parsedMetadata || {}),
+            };
+
+        return { textToStream, displayMessage };
+    }, []);
+
+    const normalizeUserForPlayback = useCallback((message: UnifiedMessage): {
+        textToStream: string;
+        displayMessage: UnifiedMessage;
+    } => {
+        // User messages may come as:
+        // - string
+        // - object like { role: "user", content: "..." }
+        // - JSON string of either of the above
+        const contentStr =
+            typeof message.content === 'string'
+                ? message.content
+                : message.content != null
+                    ? JSON.stringify(message.content)
+                    : '';
+
+        const metadataStr =
+            typeof message.metadata === 'string'
+                ? message.metadata
+                : message.metadata != null
+                    ? JSON.stringify(message.metadata)
+                    : '{}';
+
+        const parsedContent = safeJsonParse<any>(contentStr, { content: contentStr });
+        const parsedMetadata = safeJsonParse<any>(metadataStr, {});
+
+        // Prefer parsedContent.content if it's a string (covers { content: "hello" } and { role, content } forms).
+        const parsedVal = parsedContent?.content;
+        const parsedText =
+            typeof parsedVal === 'string' ? parsedVal : (parsedVal != null ? String(parsedVal) : '');
+
+        const raw = parsedText || contentStr;
+        const textToStream = typeof raw === 'string' ? raw : (raw != null ? String(raw) : '');
+
+        // Normalize to a plain string content for consistent rendering during playback.
+        const displayMessage: UnifiedMessage = {
+            ...message,
+            content: textToStream,
+            metadata: typeof message.metadata === 'string' ? message.metadata : JSON.stringify(parsedMetadata || {}),
+        };
+
+        return { textToStream, displayMessage };
+    }, []);
+
+    // Stream a message by progressively updating its content inside visibleMessages.
+    // We intentionally DO NOT use streamingText/isStreamingText for user messages because ThreadContent
+    // treats playback streamingText as assistant-only.
+    const streamMessageInPlace = useCallback(async (
+        message: UnifiedMessage,
+        text: string,
+        options?: { baseDelay?: number; punctuationExtraMin?: number; punctuationExtraMax?: number }
+    ) => {
+        const textStr = typeof text === 'string' ? text : String(text ?? '');
+
+        const upsert = (msg: UnifiedMessage) => {
+            const current = stateRef.current.visibleMessages;
+            const idx = current.findIndex((m) => m.message_id === msg.message_id);
+            const next =
+                idx >= 0
+                    ? [...current.slice(0, idx), msg, ...current.slice(idx + 1)]
+                    : [...current, msg];
+            dispatch({ type: 'SET_VISIBLE_MESSAGES', messages: next });
+        };
+
+        // Empty text: just ensure message is present
+        if (!textStr || textStr.trim().length === 0) {
+            upsert(message);
+            return;
+        }
+
+        const {
+            baseDelay = 12,
+            punctuationExtraMin = 60,
+            punctuationExtraMax = 110,
+        } = options || {};
+
+        let partial = '';
+        for (let i = 0; i < textStr.length; i++) {
+            if (!stateRef.current.isPlaying) break;
+
+            partial += textStr[i];
+            upsert({ ...message, content: partial });
+
+            const ch = textStr[i];
+            const extra =
+                '.!?,;:'.includes(ch)
+                    ? punctuationExtraMin + Math.random() * (punctuationExtraMax - punctuationExtraMin)
+                    : Math.random() * 6;
+            const delay = baseDelay + extra;
+            // eslint-disable-next-line no-await-in-loop
+            await new Promise((resolve) => setTimeout(resolve, delay));
+        }
+
+        // Ensure final full message content is persisted
+        upsert(message);
     }, []);
 
     // Main playback loop - ONLY runs when isPlaying changes
@@ -250,7 +434,9 @@ export function usePlaybackController({
                     (m) => m.message_id === currentMessage.message_id
                 );
 
-                if (isAlreadyVisible && msgIndex === 0) {
+                // If the first message was pre-rendered, we usually skip it to avoid duplicates.
+                // But for user messages we want a typing effect, so we allow streaming-in-place.
+                if (isAlreadyVisible && msgIndex === 0 && currentMessage.type !== 'user') {
                     dispatch({ type: 'SET_CURRENT_MESSAGE_INDEX', index: msgIndex + 1 });
                     await new Promise(resolve => setTimeout(resolve, 100));
                     continue;
@@ -259,42 +445,44 @@ export function usePlaybackController({
                 // Stream assistant messages
                 if (currentMessage.type === 'assistant') {
                     try {
-                        let textToStream = '';
-
-                        // Parse metadata to get text_content
-                        try {
-                            const metadata = typeof currentMessage.metadata === 'string' 
-                                ? JSON.parse(currentMessage.metadata) 
-                                : currentMessage.metadata;
-                            textToStream = metadata?.text_content || '';
-                        } catch (e) {
-                            // Fallback to parsing content for legacy messages
-                            const content = currentMessage.content;
-                            if (typeof content === 'string') {
-                                try {
-                                    const parsed = JSON.parse(content);
-                                    if (parsed.content) {
-                                        textToStream = parsed.content;
-                                    } else {
-                                        textToStream = content;
-                                    }
-                                } catch (e) {
-                                    textToStream = content;
-                                }
-                            } else if (typeof content === 'object' && content !== null) {
-                                textToStream = (content as any).content || '';
-                            }
-                        }
+                        const { textToStream, displayMessage } = normalizeAssistantForPlayback(currentMessage);
 
                         // Stream the text
-                        await new Promise<void>((resolve) => {
-                            const cleanup = streamText(textToStream, resolve);
-                            streamCleanupRef.current = cleanup;
-                        });
+                        // IMPORTANT: If we couldn't extract any text, we must still render the message.
+                        // Otherwise assistant replies with empty/unsupported text formats "disappear" in share playback.
+                        if (!textToStream || textToStream.trim().length === 0) {
+                            dispatch({
+                                type: 'SET_VISIBLE_MESSAGES',
+                                messages: [...currentState.visibleMessages, displayMessage],
+                            });
+                            await new Promise(resolve => setTimeout(resolve, 150));
+                        } else {
+                            await new Promise<void>((resolve) => {
+                                const cleanup = streamText(textToStream, displayMessage, resolve);
+                                streamCleanupRef.current = cleanup;
+                            });
+                        }
 
                         if (isCancelled) break;
                     } catch (error) {
                         console.error('Error streaming message:', error);
+                    }
+                } else if (currentMessage.type === 'user') {
+                    try {
+                        const { textToStream, displayMessage } = normalizeUserForPlayback(currentMessage);
+                        await streamMessageInPlace(displayMessage, textToStream, {
+                            baseDelay: 10,
+                            punctuationExtraMin: 50,
+                            punctuationExtraMax: 90,
+                        });
+                    } catch (error) {
+                        console.error('Error streaming user message:', error);
+                        // Fallback: show immediately
+                        dispatch({
+                            type: 'SET_VISIBLE_MESSAGES',
+                            messages: [...currentState.visibleMessages, currentMessage],
+                        });
+                        await new Promise(resolve => setTimeout(resolve, 150));
                     }
                 } else {
                     // Non-assistant messages: show immediately
@@ -338,16 +526,51 @@ export function usePlaybackController({
         }
     }, [state.isPlaying, isSidePanelOpen, onToggleSidePanel]);
 
+    const startPlayback = useCallback(() => {
+        dispatch({ type: 'START_PLAYBACK' });
+        if (!isSidePanelOpen) {
+            onToggleSidePanel();
+        }
+    }, [isSidePanelOpen, onToggleSidePanel]);
+
+    const stopPlayback = useCallback(() => {
+        dispatch({ type: 'STOP_PLAYBACK' });
+    }, []);
+
     const resetPlayback = useCallback(() => {
         if (streamCleanupRef.current) {
             streamCleanupRef.current();
             streamCleanupRef.current = null;
         }
         dispatch({ type: 'RESET' });
+
+        setCurrentToolIndex(0);
+        if (navigateToToolCall) {
+            navigateToToolCall(0);
+        }
+
         if (isSidePanelOpen) {
             onToggleSidePanel();
         }
-    }, [isSidePanelOpen, onToggleSidePanel]);
+    }, [isSidePanelOpen, onToggleSidePanel, setCurrentToolIndex, navigateToToolCall]);
+
+    const restartPlayback = useCallback(() => {
+        if (streamCleanupRef.current) {
+            streamCleanupRef.current();
+            streamCleanupRef.current = null;
+        }
+        dispatch({ type: 'RESET' });
+
+        setCurrentToolIndex(0);
+        if (navigateToToolCall) {
+            navigateToToolCall(0);
+        }
+
+        dispatch({ type: 'START_PLAYBACK' });
+        if (!isSidePanelOpen) {
+            onToggleSidePanel();
+        }
+    }, [isSidePanelOpen, onToggleSidePanel, setCurrentToolIndex, navigateToToolCall]);
 
     const skipToEnd = useCallback(() => {
         if (streamCleanupRef.current) {
@@ -355,11 +578,17 @@ export function usePlaybackController({
             streamCleanupRef.current = null;
         }
         dispatch({ type: 'SKIP_TO_END', messages });
-        if (toolCalls.length > 0 && !isSidePanelOpen) {
-            setCurrentToolIndex(toolCalls.length - 1);
-            onToggleSidePanel();
+        if (toolCalls.length > 0) {
+            const lastIdx = toolCalls.length - 1;
+            setCurrentToolIndex(lastIdx);
+            if (navigateToToolCall) {
+                navigateToToolCall(lastIdx);
+            }
+            if (!isSidePanelOpen) {
+                onToggleSidePanel();
+            }
         }
-    }, [messages, toolCalls, isSidePanelOpen, setCurrentToolIndex, onToggleSidePanel]);
+    }, [messages, toolCalls, isSidePanelOpen, setCurrentToolIndex, navigateToToolCall, onToggleSidePanel]);
 
     const forwardOne = useCallback(() => {
         if (streamCleanupRef.current) {
@@ -379,6 +608,7 @@ export function usePlaybackController({
 
     // Auto-start playback after a delay when first loaded
     useEffect(() => {
+        if (!autoStart) return;
         if (enabled && messages.length > 0 && state.currentMessageIndex === 0 && !state.isPlaying) {
             const autoStartTimer = setTimeout(() => {
                 dispatch({ type: 'START_PLAYBACK' });
@@ -389,7 +619,7 @@ export function usePlaybackController({
 
             return () => clearTimeout(autoStartTimer);
         }
-    }, [enabled, messages.length, state.currentMessageIndex, state.isPlaying, isSidePanelOpen, onToggleSidePanel]);
+    }, [autoStart, enabled, messages.length, state.currentMessageIndex, state.isPlaying, isSidePanelOpen, onToggleSidePanel]);
 
     return {
         playbackState: {
@@ -399,7 +629,10 @@ export function usePlaybackController({
                 : state.visibleMessages,
         },
         togglePlayback,
+        startPlayback,
+        stopPlayback,
         resetPlayback,
+        restartPlayback,
         skipToEnd,
         forwardOne,
         backwardOne,
