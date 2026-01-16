@@ -31,6 +31,14 @@
     "basic": "Basis",
     "tryFree": "Aan de slag"
   },
+  "meetingAgent": {
+    "tooltip": "Vergaderrecords zoeken",
+    "loginRequired": "Log in om vergaderrecords te bekijken",
+    "connectFailed": "Kan geen toegang krijgen tot vergaderrecords in FlashRev, probeer het later opnieuw",
+    "disconnectFailed": "Loskoppelen van vergaderrecords mislukt, probeer het later opnieuw",
+    "missingTool": "De vergaderzoektool is niet beschikbaar, probeer het later opnieuw",
+    "missingConfig": "Meeting MCP is niet geconfigureerd"
+  },
   "settings": {
     "title": "Instellingen",
     "tabs": {

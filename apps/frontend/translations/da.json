@@ -31,6 +31,14 @@
     "basic": "Basis",
     "tryFree": "Kom i gang"
   },
+  "meetingAgent": {
+    "tooltip": "Søg i mødenotater",
+    "loginRequired": "Log ind for at få adgang til mødenotater",
+    "connectFailed": "Kan ikke få adgang til mødenotater i FlashRev, prøv igen senere",
+    "disconnectFailed": "Kunne ikke afbryde mødenotater, prøv igen senere",
+    "missingTool": "Mødesøgeværktøjet er ikke tilgængeligt, prøv igen senere",
+    "missingConfig": "Meeting MCP er ikke konfigureret"
+  },
   "settings": {
     "title": "Indstillinger",
     "tabs": {

@@ -31,6 +31,14 @@
     "basic": "Basis",
     "tryFree": "Kom i gang"
   },
+  "meetingAgent": {
+    "tooltip": "Søk i møtereferater",
+    "loginRequired": "Logg inn for å få tilgang til møtereferater",
+    "connectFailed": "Kan ikke få tilgang til møtereferater i FlashRev, prøv igjen senere",
+    "disconnectFailed": "Kunne ikke koble fra møtereferater, prøv igjen senere",
+    "missingTool": "Møtesøk-verktøyet er ikke tilgjengelig, prøv igjen senere",
+    "missingConfig": "Meeting MCP er ikke konfigurert"
+  },
   "settings": {
     "title": "Innstillinger",
     "tabs": {

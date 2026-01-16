@@ -31,6 +31,14 @@
     "basic": "Basic",
     "tryFree": "Get started"
   },
+  "meetingAgent": {
+    "tooltip": "Search meeting records",
+    "loginRequired": "Please login to access meeting records",
+    "connectFailed": "Unable to access meeting records in FlashRev, please try again later",
+    "disconnectFailed": "Failed to disconnect meeting records, please try again later",
+    "missingTool": "Meeting search tool is unavailable, please try again later",
+    "missingConfig": "Meeting MCP is not configured"
+  },
   "settings": {
     "title": "Settings",
     "tabs": {

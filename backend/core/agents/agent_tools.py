@@ -129,6 +129,7 @@ async def update_custom_mcp_tools_for_agent(
         mcp_url = request.get('url')
         mcp_type = request.get('type', 'sse')
         enabled_tools = request.get('enabled_tools', [])
+        mcp_name = request.get('name')
         
         if not mcp_url:
             raise HTTPException(status_code=400, detail="MCP URL is required")
@@ -180,7 +181,7 @@ async def update_custom_mcp_tools_for_agent(
                     raise HTTPException(status_code=400, detail=f"Failed to get Composio profile: {str(e)}")
             else:
                 new_mcp_config = {
-                    "name": f"Custom MCP ({mcp_type.upper()})",
+                    "name": mcp_name or f"Custom MCP ({mcp_type.upper()})",
                     "customType": mcp_type,
                     "type": mcp_type,
                     "config": {
@@ -348,6 +349,86 @@ async def update_agent_custom_mcps(
         raise
     except Exception as e:
         logger.error(f"Error updating agent custom MCPs: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
+
+
+@router.delete("/agents/{agent_id}/custom-mcp", summary="Delete Agent Custom MCP", operation_id="delete_agent_custom_mcp")
+async def delete_agent_custom_mcp(
+    agent_id: str,
+    url: str,
+    type: str = "sse",
+    user_id: str = Depends(verify_and_get_user_id_from_jwt)
+):
+    logger.debug(f"Deleting custom MCP for agent {agent_id}, user {user_id}")
+
+    try:
+        from core.agents import repo as agents_repo
+        from core.versioning import repo as versioning_repo
+
+        agent = await agents_repo.get_agent_by_id(agent_id)
+        if not agent or agent.get('account_id') != user_id:
+            raise HTTPException(status_code=404, detail="Worker not found")
+
+        agent_config = {}
+        if agent.get('current_version_id'):
+            version_result = await versioning_repo.get_agent_version_by_id(agent_id, agent['current_version_id'])
+            if version_result and version_result.get('config'):
+                agent_config = version_result['config']
+
+        tools = agent_config.get('tools', {})
+        custom_mcps = tools.get('custom_mcp', [])
+
+        def is_target_mcp(mcp: Dict[str, Any]) -> bool:
+            if type == 'composio':
+                return (
+                    mcp.get('type') == 'composio'
+                    and mcp.get('config', {}).get('profile_id') == url
+                )
+            return (
+                (mcp.get('customType') == type or mcp.get('type') == type)
+                and mcp.get('config', {}).get('url') == url
+            )
+
+        remaining_mcps = [mcp for mcp in custom_mcps if not is_target_mcp(mcp)]
+        removed_count = len(custom_mcps) - len(remaining_mcps)
+
+        if removed_count == 0:
+            return {
+                'success': True,
+                'removed': False,
+                'removed_count': 0
+            }
+
+        tools['custom_mcp'] = remaining_mcps
+        agent_config['tools'] = tools
+
+        from core.versioning.version_service import get_version_service
+        try:
+            version_service = await get_version_service()
+            new_version = await version_service.create_version(
+                agent_id=agent_id,
+                user_id=user_id,
+                system_prompt=agent_config.get('system_prompt', ''),
+                configured_mcps=agent_config.get('tools', {}).get('mcp', []),
+                custom_mcps=remaining_mcps,
+                agentpress_tools=agent_config.get('tools', {}).get('agentpress', {}),
+                change_description=f"Removed custom MCP ({type})"
+            )
+            logger.debug(f"Created version {new_version.version_id} after removing custom MCP on agent {agent_id}")
+        except Exception as e:
+            logger.error(f"Failed to create version for custom MCP removal: {e}")
+            raise HTTPException(status_code=500, detail="Failed to save changes")
+
+        return {
+            'success': True,
+            'removed': True,
+            'removed_count': removed_count
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error deleting custom MCP for agent {agent_id}: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
 @router.get("/agents/{agent_id}/tools", summary="Get Agent Tools", operation_id="get_agent_tools")

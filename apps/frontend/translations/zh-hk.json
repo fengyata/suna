@@ -31,6 +31,14 @@
     "basic": "基礎",
     "tryFree": "立即開始"
   },
+  "meetingAgent": {
+    "tooltip": "搜尋會議記錄",
+    "loginRequired": "請登入後存取會議記錄",
+    "connectFailed": "暫時無法存取 FlashRev 系統中的會議記錄，請稍後再試",
+    "disconnectFailed": "中斷會議記錄失敗，請稍後再試",
+    "missingTool": "會議搜尋工具不可用，請稍後再試",
+    "missingConfig": "會議 MCP 未設定"
+  },
   "settings": {
     "title": "設定",
     "tabs": {
