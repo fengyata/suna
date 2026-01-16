@@ -1520,6 +1520,12 @@
     "playback_will_begin_automatically_in": "Die Wiedergabe beginnt automatisch in",
     "seconds": "Sekunden",
     "play": "Abspielen",
-    "this_chat_is_publicly_accessible": "Dieser Chat ist öffentlich zugänglich. Jeder mit dem Link kann diese Unterhaltung ansehen."
+    "this_chat_is_publicly_accessible": "Dieser Chat ist öffentlich zugänglich. Jeder mit dem Link kann diese Unterhaltung ansehen.",
+    "preparing_your_replay": "Vorbereitung Ihrer Wiedergabe",
+    "replay": "Wiedergabe",
+    "go_to_results": "Zu den Ergebnissen",
+    "make_yours": "Machen Sie Ihr eigenes",
+    "task_replay_completed": "Aufgabenwiedergabe abgeschlossen",
+    "replay_in_progress": "Wiedergabe läuft"
   }
 }

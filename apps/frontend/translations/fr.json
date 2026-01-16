@@ -1609,6 +1609,12 @@
     "playback_will_begin_automatically_in": "La lecture commencera automatiquement dans",
     "seconds": "secondes",
     "play": "Lire",
-    "this_chat_is_publicly_accessible": "Cette discussion est accessible au public. Toute personne disposant du lien peut voir cette conversation."
+    "this_chat_is_publicly_accessible": "Cette discussion est accessible au public. Toute personne disposant du lien peut voir cette conversation.",
+    "preparing_your_replay": "Préparation de votre relecture",
+    "replay": "Relecture",
+    "go_to_results": "Aller aux résultats",
+    "make_yours": "Faites le vôtre",
+    "task_replay_completed": "Relecture de tâche terminée",
+    "replay_in_progress": "Relecture en cours"
   }
 }

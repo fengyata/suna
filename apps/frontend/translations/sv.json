@@ -1617,6 +1617,12 @@
     "playback_will_begin_automatically_in": "Uppspelningen startar automatiskt om",
     "seconds": "sekunder",
     "play": "Spela",
-    "this_chat_is_publicly_accessible": "Denna chatt är offentligt tillgänglig. Alla med länken kan se denna konversation."
+    "this_chat_is_publicly_accessible": "Denna chatt är offentligt tillgänglig. Alla med länken kan se denna konversation.",
+    "preparing_your_replay": "Förbereder din repris",
+    "replay": "Repris",
+    "go_to_results": "Gå till resultat",
+    "make_yours": "Gör din egen",
+    "task_replay_completed": "Uppgiftsrepris slutförd",
+    "replay_in_progress": "Repris pågår"
   }
 }

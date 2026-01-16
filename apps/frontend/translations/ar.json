@@ -1617,6 +1617,12 @@
     "playback_will_begin_automatically_in": "سيبدأ التشغيل تلقائيًا خلال",
     "seconds": "ثواني",
     "play": "تشغيل",
-    "this_chat_is_publicly_accessible": "هذه الدردشة متاحة للجمهور. يمكن لأي شخص لديه الرابط عرض هذه المحادثة."
+    "this_chat_is_publicly_accessible": "هذه الدردشة متاحة للجمهور. يمكن لأي شخص لديه الرابط عرض هذه المحادثة.",
+    "preparing_your_replay": "جارٍ تحضير إعادة التشغيل",
+    "replay": "إعادة التشغيل",
+    "go_to_results": "الذهاب إلى النتائج",
+    "make_yours": "اصنع خاصتك",
+    "task_replay_completed": "اكتملت إعادة تشغيل المهمة",
+    "replay_in_progress": "إعادة التشغيل قيد التنفيذ"
   }
 }

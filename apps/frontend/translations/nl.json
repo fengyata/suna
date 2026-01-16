@@ -1617,6 +1617,12 @@
     "playback_will_begin_automatically_in": "Het afspelen begint automatisch over",
     "seconds": "seconden",
     "play": "Afspelen",
-    "this_chat_is_publicly_accessible": "Deze chat is openbaar toegankelijk. Iedereen met de link kan dit gesprek bekijken."
+    "this_chat_is_publicly_accessible": "Deze chat is openbaar toegankelijk. Iedereen met de link kan dit gesprek bekijken.",
+    "preparing_your_replay": "Uw herhaling voorbereiden",
+    "replay": "Herhaling",
+    "go_to_results": "Ga naar resultaten",
+    "make_yours": "Maak de uwe",
+    "task_replay_completed": "Taakherhaling voltooid",
+    "replay_in_progress": "Herhaling in uitvoering"
   }
 }

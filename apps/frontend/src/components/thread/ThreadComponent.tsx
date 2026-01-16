@@ -90,6 +90,7 @@ interface ThreadComponentProps {
 
 export function ThreadComponent({ projectId, threadId, compact = false, configuredAgentId, isShared = false, isNew = false, preCreatedThreadId }: ThreadComponentProps) {
   const t = useTranslations('dashboard');
+  const tShare = useTranslations('share');
   const isMobile = useIsMobile();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -1689,7 +1690,7 @@ export function ThreadComponent({ projectId, threadId, compact = false, configur
           </div>
 
           <p className="animate-pulse text-[14px] font-medium tracking-wide text-black/40">
-            Preparing your replay
+            { tShare("preparing_your_replay") }
           </p>
         </div>
 

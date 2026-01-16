@@ -1617,6 +1617,12 @@
     "playback_will_begin_automatically_in": "Toisto alkaa automaattisesti",
     "seconds": "sekunnin kuluttua",
     "play": "Toista",
-    "this_chat_is_publicly_accessible": "Tämä chat on julkisesti saatavilla. Kuka tahansa linkin omaava voi tarkastella tätä keskustelua."
+    "this_chat_is_publicly_accessible": "Tämä chat on julkisesti saatavilla. Kuka tahansa linkin omaava voi tarkastella tätä keskustelua.",
+    "preparing_your_replay": "Valmistellaan toistoa",
+    "replay": "Toisto",
+    "go_to_results": "Mene tuloksiin",
+    "make_yours": "Tee omasi",
+    "task_replay_completed": "Tehtävän toisto valmis",
+    "replay_in_progress": "Toisto käynnissä"
   }
 }

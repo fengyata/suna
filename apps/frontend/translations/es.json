@@ -1609,6 +1609,12 @@
     "playback_will_begin_automatically_in": "La reproducción comenzará automáticamente en",
     "seconds": "segundos",
     "play": "Reproducir",
-    "this_chat_is_publicly_accessible": "Este chat es accesible públicamente. Cualquier persona con el enlace può ver esta conversación."
+    "this_chat_is_publicly_accessible": "Este chat es accesible públicamente. Cualquier persona con el enlace può ver esta conversación.",
+    "preparing_your_replay": "Preparando tu repetición",
+    "replay": "Repetición",
+    "go_to_results": "Ir a resultados",
+    "make_yours": "Haz el tuyo",
+    "task_replay_completed": "Repetición de tarea completada",
+    "replay_in_progress": "Repetición en curso"
   }
 }

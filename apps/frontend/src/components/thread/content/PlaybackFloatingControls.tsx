@@ -7,6 +7,7 @@ import {
     ArrowDown,
     RefreshCcw,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 interface PlaybackFloatingControlsProps {
     messageCount: number;
@@ -31,6 +32,7 @@ export function PlaybackFloatingControls({
     onForwardOne,
     onBackwardOne,
 }: PlaybackFloatingControlsProps) {
+    const t = useTranslations('share');
     // Match superagent renderFloatingControls container positioning style.
     const controlsPositionClass = isSidePanelOpen
         ? 'left-1/2 -translate-x-1/2 sm:left-[calc(50%-225px)] md:left-[calc(50%-250px)] lg:left-[calc(50%-275px)] xl:left-[calc(50%-325px)]'
@@ -57,7 +59,7 @@ export function PlaybackFloatingControls({
                 {/* Left: status text + (keep existing controls hidden, to match superagent) */}
                 <div className="flex items-center text-sm text-muted-foreground">
                     <span className="!opacity-[0.8]">
-                        {isPlaybackCompleted ? 'Task replay completed' : 'Replay in progress'}
+                        {isPlaybackCompleted ? t("task_replay_completed") : t("replay_in_progress")}
                     </span>
                 </div>
 
@@ -71,11 +73,11 @@ export function PlaybackFloatingControls({
                     >
                         {isPlaybackCompleted ? (
                             <>
-                                <Play className="h-4 w-4" /> Replay
+                                <Play className="h-4 w-4" /> {t("replay")}
                             </>
                         ) : (
                             <>
-                                <ArrowDown className="h-4 w-4" /> Go to results
+                                <ArrowDown className="h-4 w-4" /> {t("go_to_results")}
                             </>
                         )}
                     </Button>
@@ -103,7 +105,7 @@ export function PlaybackFloatingControls({
                             <path d="M6.72732 9.2538L6.72732 8.47745L5.45459 8.47745L5.45459 9.2538L5.45459 9.76292L5.45459 10.0684L6.72732 10.0684L6.72732 9.76292L6.72732 9.2538Z" fill="white" />
                             <path d="M3.22705 13.7273L3.22705 15L4.49978 15L4.49978 13.7273L3.22705 13.7273Z" fill="white" />
                         </svg>
-                        Make yours
+                        {t("make_yours")}
                     </Button>
                 </div>
             </div>
