@@ -289,6 +289,7 @@ export function useAgentStartInput(options: UseAgentStartInputOptions = {}): Use
 
     if (result) {
       postRefreshHistoryToParent();
+      setSelectedMode(null);
     }
 
     if (!result) {

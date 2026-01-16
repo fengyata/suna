@@ -149,7 +149,7 @@ export async function listThreads(params: {
     .from('threads')
     .select('thread_id, project_id, name, created_at, updated_at, is_public, account_id', { count: 'exact' })
     .eq('account_id', accountId)
-    .order('updated_at', { ascending: false })
+    .order('created_at', { ascending: false })
     .range(from, to);
 
   if (error) {
