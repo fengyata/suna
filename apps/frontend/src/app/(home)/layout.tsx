@@ -1,5 +1,4 @@
-'use client';
-
+import { Suspense } from 'react';
 import { Navbar } from '@/components/home/navbar';
 
 export default function HomeLayout({
@@ -10,7 +9,7 @@ export default function HomeLayout({
   return (
     <div className="w-full relative">
       {/* <Navbar /> */}
-      {children}
+      <Suspense fallback={null}>{children}</Suspense>
     </div>
   );
 }
