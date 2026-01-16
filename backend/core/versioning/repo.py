@@ -224,6 +224,29 @@ async def get_agent_triggers(agent_id: str) -> List[Dict[str, Any]]:
     return [dict(row) for row in rows] if rows else []
 
 
+async def get_latest_agent_version(agent_id: str) -> Optional[Dict[str, Any]]:
+    """
+    Get the latest version information for an agent.
+    
+    Args:
+        agent_id: The agent ID to query
+        
+    Returns:
+        Dict containing version_id, version_number, version_name, created_at
+        or None if no versions found
+    """
+    sql = """
+    SELECT version_id, version_number, version_name, created_at
+    FROM agent_versions
+    WHERE agent_id = :agent_id
+    ORDER BY version_number DESC
+    LIMIT 1
+    """
+    
+    result = await execute_one(sql, {"agent_id": agent_id})
+    return serialize_row(dict(result)) if result else None
+
+
 async def get_max_version_number(agent_id: str) -> int:
     sql = """
     SELECT version_number

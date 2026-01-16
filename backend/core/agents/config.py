@@ -63,48 +63,85 @@ async def load_agent_config(
         from core.cache.runtime_cache import (
             get_static_suna_config, 
             get_cached_user_mcps,
-            get_cached_agent_config
+            get_cached_agent_config,
+            set_cached_agent_config
         )
+        from core.versioning import repo as versioning_repo
         
-        static_config = get_static_suna_config()
-        cached_mcps = await get_cached_user_mcps(agent_id)
+        # Step 1: Query latest version of the agent
+        logger.debug(f"[AGENT CONFIG] Querying latest version for agent {agent_id}")
+        t_version = time.time()
         
-        if static_config and cached_mcps is not None:
-            agent_config = {
-                'agent_id': agent_id,
-                'system_prompt': static_config['system_prompt'],
-                'model': static_config['model'],
-                'agentpress_tools': static_config['agentpress_tools'],
-                'centrally_managed': static_config['centrally_managed'],
-                'is_suna_default': static_config['is_suna_default'],
-                'restrictions': static_config['restrictions'],
-                'configured_mcps': cached_mcps.get('configured_mcps', []),
-                'custom_mcps': cached_mcps.get('custom_mcps', []),
-                'triggers': cached_mcps.get('triggers', []),
-            }
-            logger.info(f"⏱️ [AGENT CONFIG] memory + Redis MCPs: {(time.time() - t) * 1000:.1f}ms (CACHE HIT)")
+        latest_version = await versioning_repo.get_latest_agent_version(agent_id)
+        
+        if not latest_version:
+            logger.warning(f"[AGENT CONFIG] No versions found for agent {agent_id}")
+            return None
+        
+        version_id = latest_version['version_id']
+        version_number = latest_version['version_number']
+        
+        logger.debug(f"[AGENT CONFIG] Latest version for agent {agent_id}: v{version_number} ({version_id}) - query took {(time.time() - t_version) * 1000:.1f}ms")
+        
+        # Step 2: Check if this is version 1 (use static config)
+        if version_number == 1:
+            logger.debug(f"[AGENT CONFIG] Using static config for version 1")
+            static_config = get_static_suna_config()
+            cached_mcps = await get_cached_user_mcps(agent_id)
+            
+            if static_config and cached_mcps is not None:
+                agent_config = {
+                    'agent_id': agent_id,
+                    'system_prompt': static_config['system_prompt'],
+                    'model': static_config['model'],
+                    'agentpress_tools': static_config['agentpress_tools'],
+                    'centrally_managed': static_config['centrally_managed'],
+                    'is_suna_default': static_config['is_suna_default'],
+                    'restrictions': static_config['restrictions'],
+                    'configured_mcps': cached_mcps.get('configured_mcps', []),
+                    'custom_mcps': cached_mcps.get('custom_mcps', []),
+                    'triggers': cached_mcps.get('triggers', []),
+                    'version_id': version_id,
+                    'version_number': version_number,
+                }
+                logger.info(f"⏱️ [AGENT CONFIG] static config + Redis MCPs (v1): {(time.time() - t) * 1000:.1f}ms (CACHE HIT)")
+            else:
+                # Fallback for version 1 without static config
+                logger.debug(f"[AGENT CONFIG] Static config not available for v1, loading from DB")
+                t_db = time.time()
+                from core.agents.agent_loader import get_agent_loader
+                loader = await get_agent_loader()
+                user_id_for_load = account_id or user_id or agent_id
+                agent_data = await loader.load_agent(agent_id, user_id_for_load, load_config=True)
+                agent_config = agent_data.to_dict()
+                logger.info(f"⏱️ [AGENT CONFIG] DB load (v1 fallback): {(time.time() - t_db) * 1000:.1f}ms")
         else:
+            # Step 3: For version > 1, use version-specific cache
+            logger.debug(f"[AGENT CONFIG] Using version-specific cache for v{version_number}")
             t_cache = time.time()
-            cached_config = await get_cached_agent_config(agent_id)
+            cached_config = await get_cached_agent_config(agent_id, version_id)
             
             if cached_config:
                 agent_config = cached_config
-                logger.info(f"⏱️ [AGENT CONFIG] get_cached_agent_config: {(time.time() - t_cache) * 1000:.1f}ms (CACHE HIT)")
-            elif account_id:
-                logger.info(f"⏱️ [AGENT CONFIG] Cache miss, loading from DB...")
-                t_db = time.time()
-                from core.agents.agent_loader import get_agent_loader
-                loader = await get_agent_loader()
-                agent_data = await loader.load_agent(agent_id, account_id, load_config=True)
-                agent_config = agent_data.to_dict()
-                logger.info(f"⏱️ [AGENT CONFIG] DB load: {(time.time() - t_db) * 1000:.1f}ms (CACHE MISS)")
+                logger.info(f"⏱️ [AGENT CONFIG] version-specific cache hit (v{version_number}): {(time.time() - t_cache) * 1000:.1f}ms (CACHE HIT)")
             else:
+                # Step 4: Cache miss - load from DB and auto-cache
+                logger.info(f"⏱️ [AGENT CONFIG] Cache miss for v{version_number}, loading from DB and caching...")
                 t_db = time.time()
                 from core.agents.agent_loader import get_agent_loader
                 loader = await get_agent_loader()
-                agent_data = await loader.load_agent(agent_id, agent_id, load_config=True)
+                user_id_for_load = account_id or user_id or agent_id
+                agent_data = await loader.load_agent(agent_id, user_id_for_load, load_config=True)
                 agent_config = agent_data.to_dict()
-                logger.info(f"⏱️ [AGENT CONFIG] DB load (no account): {(time.time() - t_db) * 1000:.1f}ms")
+                
+                # Auto-cache the loaded config with version-specific key
+                try:
+                    await set_cached_agent_config(agent_id, agent_config, version_id)
+                    logger.debug(f"[AGENT CONFIG] Auto-cached config for agent {agent_id} v{version_number}")
+                except Exception as cache_error:
+                    logger.warning(f"[AGENT CONFIG] Failed to auto-cache config: {cache_error}")
+                
+                logger.info(f"⏱️ [AGENT CONFIG] DB load + auto-cache (v{version_number}): {(time.time() - t_db) * 1000:.1f}ms (CACHE MISS)")
         
         if agent_config:
             logger.debug(f"Using agent {agent_config.get('agent_id')} for this agent run")
