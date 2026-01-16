@@ -1,0 +1,1609 @@
+{
+  "common": {
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "saving": "جاري الحفظ...",
+    "success": "نجاح",
+    "done": "تم",
+    "close": "إغلاق",
+    "ok": "موافق",
+    "yes": "نعم",
+    "no": "لا",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "search": "بحث",
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "retry": "إعادة المحاولة",
+    "send": "إرسال",
+    "back": "رجوع",
+    "new": "جديد",
+    "create": "إنشاء",
+    "update": "تحديث",
+    "remove": "إزالة",
+    "confirm": "تأكيد",
+    "processing": "جاري المعالجة...",
+    "keep": "احتفاظ",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "next": "التالي",
+    "upgrade": "ترقية",
+    "basic": "أساسي",
+    "tryFree": "ابدأ الآن"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "tabs": {
+      "general": "عام",
+      "plan": "الخطة",
+      "billing": "الفواتير",
+      "usage": "الاستخدام",
+      "referrals": "الإحالات",
+      "knowledgeBase": "قاعدة المعرفة",
+      "integrations": "التكاملات",
+      "envManager": "مدير البيئة"
+    },
+    "general": {
+      "title": "الإعدادات العامة",
+      "description": "إدارة معلومات حسابك",
+      "profilePicture": {
+        "title": "صورة الملف الشخصي",
+        "upload": "تحميل صورة",
+        "hint": "JPG أو PNG أو GIF. بحد أقصى 5 ميجابايت.",
+        "invalidType": "يرجى اختيار ملف صورة",
+        "tooLarge": "يجب أن تكون الصورة أقل من 5 ميجابايت",
+        "uploadFailed": "فشل تحميل صورة الملف الشخصي"
+      },
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "namePlaceholder": "أدخل اسمك",
+      "emailCannotChange": "لا يمكن تغيير البريد الإلكتروني من هنا",
+      "saveChanges": "حفظ التغييرات",
+      "profileUpdated": "تم تحديث الملف الشخصي بنجاح",
+      "profileUpdateFailed": "فشل تحديث الملف الشخصي",
+      "language": {
+        "title": "اللغة",
+        "description": "اختر لغتك المفضلة",
+        "current": "اللغة الحالية",
+        "select": "اختر اللغة"
+      },
+      "deleteAccount": {
+        "title": "حذف الحساب",
+        "description": "إزالة حسابك وجميع البيانات المرتبطة به بشكل دائم",
+        "button": "حذف الحساب",
+        "scheduled": "تم جدولة الحذف",
+        "scheduledDescription": "سيتم حذف حسابك نهائيًا في {date}.",
+        "canCancel": "يمكنك إلغاء هذا الطلب في أي وقت قبل تاريخ الحذف.",
+        "cancelButton": "إلغاء طلب الحذف",
+        "dialogTitle": "حذف الحساب",
+        "warning": "لا يمكن التراجع عن هذا الإجراء بعد 30 يومًا",
+        "whenDelete": "عند حذف حسابك:",
+        "agentsDeleted": "سيتم حذف جميع العاملين (Workers) وإصداراتهم",
+        "threadsDeleted": "سيتم حذف جميع المحادثات والجلسات",
+        "credentialsRemoved": "سيتم إزالة جميع بيانات الاعتماد والتكاملات",
+        "subscriptionCancelled": "سيتم إلغاء اشتراكك",
+        "billingRemoved": "سيتم إزالة جميع بيانات الفواتير",
+        "scheduled30Days": "سيتم جدولة حذف حسابك خلال 30 يومًا",
+        "gracePeriod": "يمكنك إلغاء هذا الطلب في أي وقت خلال فترة السماح البالغة 30 يومًا. بعد 30 يومًا، سيتم حذف جميع بياناتك نهائيًا ولا يمكن استعادتها.",
+        "chooseDeletionType": "اختر نوع الحذف:",
+        "gracePeriodOption": "فترة سماح لمدة 30 يومًا",
+        "gracePeriodDescription": "سيتم جدولة حذف حسابك خلال 30 يومًا. يمكنك إلغاء هذا الطلب في أي وقت خلال فترة السماح.",
+        "immediateOption": "حذف فوري",
+        "immediateDescription": "سيتم حذف حسابك وجميع البيانات نهائيًا على الفور. لا يمكن التراجع عن هذا الإجراء.",
+        "warningImmediate": "لا يمكن التراجع عن هذا الإجراء",
+        "warningGracePeriod": "لا يمكن التراجع عن هذا الإجراء بعد 30 يومًا",
+        "confirmText": "اكتب delete للتأكيد",
+        "confirmPlaceholder": "delete",
+        "keepAccount": "الاحتفاظ بالحساب",
+        "cancelDeletionTitle": "إلغاء حذف الحساب",
+        "cancelDeletionDescription": "هل أنت متأكد أنك تريد إلغاء حذف حسابك؟ سيتم الحفاظ على حسابك وجميع بياناتك.",
+        "cancelDeletion": "إلغاء الحذف"
+      }
+    },
+    "referrals": {
+      "title": "برنامج الإحالة",
+      "description": "شارك رابط الإحالة الخاص بك مع الأصدقاء واكسب رصيدًا عند قيامهم بالتسجيل.",
+      "creditsPerReferral": "100 رصيد",
+      "youEarn": "أنت تكسب",
+      "friendGets": "صديقك يحصل على",
+      "maxEarnable": "الحد الأقصى الممكن كسبه من خلال الإحالات:",
+      "maxCredits": "100 دولار من الرصيد",
+      "yourReferralCode": "كود الإحالة الخاص بك",
+      "referralLink": "رابط الإحالة",
+      "shareYourLink": "شارك رابط الإحالة الخاص بك",
+      "yourStats": "إحصائياتك",
+      "enterCodeDescription": "أدخل كود الإحالة لكسب الرصيد",
+      "enterCode": "أدخل الكود",
+      "refresh": "تحديث",
+      "copyCode": "نسخ الكود",
+      "copyLink": "نسخ الرابط",
+      "share": "مشاركة",
+      "stats": {
+        "totalReferrals": "إجمالي الإحالات",
+        "successful": "ناجحة",
+        "creditsEarned": "الرصيد المكتسب"
+      },
+      "recentReferrals": "الإحالات الأخيرة",
+      "signupComplete": "اكتمل التسجيل",
+      "pending": "قيد الانتظار",
+      "noReferrals": "لا توجد إحالات حتى الآن. شارك رابط الإحالة الخاص بك للبدء!",
+      "copied": "تم النسخ!",
+      "codeCopied": "تم نسخ كود الإحالة إلى الحافظة",
+      "linkCopied": "تم نسخ رابط الإحالة إلى الحافظة",
+      "codeRefreshed": "تم تحديث كود الإحالة بنجاح",
+      "refreshFailed": "فشل تحديث كود الإحالة",
+      "inviteByEmail": "دعوة عبر البريد الإلكتروني",
+      "inviteByEmailDescription": "أضف ما يصل إلى 3 عناوين بريد إلكتروني (اضغط Enter أو مسافة أو فاصلة للإضافة)",
+      "emailAddress": "عنوان البريد الإلكتروني",
+      "emailPlaceholder": "أدخل عناوين البريد الإلكتروني (اضغط Enter أو مسافة أو فاصلة)",
+      "emailsAdded": "إيميلات مضافة",
+      "sent": "تم الإرسال",
+      "send": "إرسال",
+      "sending": "جاري الإرسال...",
+      "sendAllInvites": "إرسال جميع الدعوات",
+      "allSent": "تم إرسال الكل",
+      "emailSent": "تم إرسال دعوة الإحالة بنجاح"
+    },
+    "billing": {
+      "title": "الفواتير والاشتراك",
+      "description": "إدارة رصيدك واشتراكك",
+      "totalCredits": "إجمالي الرصيد المتاح",
+      "allCredits": "كل الرصيد",
+      "monthlyCredits": "الرصيد الشهري",
+      "renewalIn": "التجديد خلال {days} {days, plural, one {يوم} other {أيام}}",
+      "noRenewal": "لا يوجد تجديد مجدول",
+      "extraCredits": "رصيد إضافي",
+      "nonExpiring": "لا تنتهي صلاحيته",
+      "renews": "يتجدد في {date}",
+      "manageSubscription": "إدارة الاشتراك",
+      "getAdditionalCredits": "احصل على رصيد إضافي",
+      "changePlan": "تغيير الخطة",
+      "annualCommitment": "التزام سنوي",
+      "activeUntil": "نشط حتى {date}",
+      "subscriptionCancelled": "سيتم إلغاء اشتراكك في {date}",
+      "reactivate": "إعادة التفعيل",
+      "creditsExplained": "شرح الرصيد",
+      "cancelPlan": "إلغاء الخطة",
+      "reactivateSubscription": "إعادة تفعيل الاشتراك",
+      "reactivating": "جاري إعادة التفعيل...",
+      "cancelDialogTitle": "إلغاء الاشتراك",
+      "cancelDialogDescription": "هل أنت متأكد أنك تريد إلغاء اشتراكك؟ سيظل بإمكانك الوصول حتى {date}.",
+      "keepSubscription": "الاحتفاظ بالاشتراك",
+      "cancelling": "جاري الإلغاء...",
+      "localMode": "الوضع المحلي نشط",
+      "localModeDescription": "جميع الميزات المميزة متاحة في هذه البيئة",
+      "insufficientCredits": "رصيد غير كافٍ",
+      "insufficientCreditsMessage": "فشل التحقق من الفواتير: رصيد غير كافٍ. رصيدك هو {balance}. يرجى إضافة رصيد للمتابعة.",
+      "creditsExhausted": "لقد نفد رصيدك. قم بالترقية الآن.",
+      "billingCheckFailed": "فشل التحقق من الفواتير. يرجى الترقية للمتابعة.",
+      "failedToStartAgent": "فشل تشغيل العامل {agentName}: {message}"
+    },
+    "usage": {
+      "title": "الاستخدام"
+    },
+    "knowledgeBase": {
+      "opening": "جاري فتح قاعدة المعرفة",
+      "redirecting": "جاري التوجيه إلى صفحة قاعدة المعرفة..."
+    },
+    "integrations": {
+      "opening": "جاري فتح التكاملات",
+      "redirecting": "جاري التوجيه إلى صفحة التكاملات..."
+    },
+    "memory": {
+      "title": "ذاكرة الذكاء الاصطناعي",
+      "description": "تذكر السياق تلقائيًا عبر المحادثات",
+      "enabled": "مفعّل",
+      "disabled": "معطل",
+      "notAvailable": "الذاكرة غير متاحة في خطتك الحالية. قم بالترقية إلى Plus أو أعلى لتمكين الذاكرة التلقائية.",
+      "enableMemory": "تمكين الذاكرة",
+      "enableMemoryDescription": "السماح لـ SuperAgent بتذكر المعلومات من محادثاتك",
+      "memoryDisabledByUser": "الذاكرة معطلة حاليًا. قم بتمكينها أعلاه لبدء بناء الذكريات من محادثاتك.",
+      "upgradeRequired": "تتطلب الذاكرة ترقية",
+      "clickToUpgrade": "انقر لرؤية الخطط",
+      "memoryEnabledTooltip": "الذاكرة مفعلة",
+      "memoryDisabledTooltip": "الذاكرة معطلة",
+      "clickToToggle": "انقر للتبديل",
+      "usage": "استخدام الذاكرة",
+      "available": "{count} ذكريات متاحة",
+      "noLimit": "بلا حدود",
+      "yourMemories": "ذكرياتك",
+      "yourMemoriesDescription": "عرض وإدارة ما يتذكره الذكاء الاصطناعي عنك",
+      "clearAll": "مسح الكل",
+      "deleteAllTitle": "حذف جميع الذكريات؟",
+      "deleteAllDescription": "سيؤدي هذا إلى حذف جميع ذكرياتك الـ {count} نهائيًا. لن يتذكر الذكاء الاصطناعي المعلومات من المحادثات السابقة. لا يمكن التراجع عن هذا الإجراء.",
+      "deleteAllButton": "حذف جميع الذكريات",
+      "noMemoriesYet": "لا توجد ذكريات حتى الآن",
+      "noMemoriesDescription": "ابدأ محادثة وسيتذكر الذكاء الاصطناعي المعلومات المهمة عنك تلقائيًا",
+      "searchMemories": "البحث في الذكريات...",
+      "filterByType": "تصفية حسب النوع",
+      "allTypes": "جميع الأنواع",
+      "personalFacts": "حقائق شخصية",
+      "preferences": "تفضيلات",
+      "context": "سياق",
+      "conversations": "محادثات",
+      "noMatchingMemories": "لا توجد ذكريات مطابقة",
+      "adjustFilters": "جرب تعديل الفلاتر أو استعلام البحث",
+      "loadMore": "تحميل المزيد",
+      "loading": "جاري تحميل الذكريات...",
+      "memoryTypes": {
+        "fact": "حقيقة",
+        "preference": "تفضيل",
+        "context": "سياق",
+        "conversation_summary": "محادثة"
+      }
+    }
+  },
+  "triggers": {
+    "getStarted": "ابدأ بإضافة مشغل (Trigger)",
+    "getStartedDescription": "جدولة مشغل لأتمتة الإجراءات والحصول على تذكيرات عند اكتمالها.",
+    "search": "بحث",
+    "scheduledTrigger": "مشغل مجدول",
+    "eventBasedTrigger": "مشغل قائم على الأحداث",
+    "chooseAgent": "اختر العامل",
+    "schedule": "الجدولة",
+    "agentInstructions": "تعليمات العامل",
+    "agentInstructionsDescription": "موجه مخصص للعامل",
+    "assignedAgent": "العامل المعين",
+    "unknownAgent": "عامل غير معروف",
+    "technicalDetails": "تفاصيل تقنية",
+    "type": "النوع",
+    "provider": "المزود",
+    "created": "تاريخ الإنشاء",
+    "lastUpdated": "آخر تحديث",
+    "enable": "تمكين",
+    "disable": "تعطيل",
+    "deleteTask": "حذف المهمة",
+    "deleteTaskDescription": "هل أنت متأكد أنك تريد حذف \"{name}\"؟ لا يمكن التراجع عن هذا الإجراء وسيؤقف جميع عمليات التشغيل المؤتمتة لهذه المهمة.",
+    "taskEnabled": "تم تمكين المهمة",
+    "taskDisabled": "تم تعطيل المهمة",
+    "toggleTaskFailed": "فشل تبديل حالة المهمة",
+    "taskDeletedSuccess": "تم حذف المهمة بنجاح",
+    "deleteTaskFailed": "فشل حذف المهمة",
+    "taskUpdatedSuccess": "تم تحديث المهمة بنجاح",
+    "updateTaskFailed": "فشل تحديث المهمة",
+    "pleaseSelectAgent": "يرجى اختيار عامل",
+    "defaultScheduledTriggerName": "مشغل مجدول",
+    "defaultScheduledTriggerDescription": "مشغل مجدول تلقائيًا",
+    "scheduleTriggerUpdated": "تم تحديث المشغل المجدول بنجاح",
+    "scheduleTriggerCreated": "تم إنشاء المشغل المجدول بنجاح",
+    "upgradeForMoreScheduledTriggers": "قم بالترقية لإنشاء المزيد من المشغلات المجدولة",
+    "upgradeForMoreAppTriggers": "قم بالترقية لإنشاء المزيد من المشغلات القائمة على التطبيقات",
+    "updateScheduleTriggerFailed": "فشل تحديث المشغل المجدول",
+    "createScheduleTriggerFailed": "فشل إنشاء المشغل المجدول",
+    "editScheduledTask": "تعديل المهمة المجدولة",
+    "createScheduledTask": "إنشاء مهمة مجدولة",
+    "editAppBasedTask": "تعديل المهمة القائمة على التطبيق",
+    "createAppBasedTask": "إنشاء مهمة قائمة على التطبيق",
+    "updateAgentForTask": "تحديث العامل لهذه المهمة",
+    "selectAgentForTask": "أولاً، اختر العامل الذي يجب أن يتعامل مع هذه المهمة",
+    "createNew": "إنشاء جديد",
+    "notConfigured": "غير مكوّن",
+    "every15Minutes": "كل 15 دقيقة",
+    "every30Minutes": "كل 30 دقيقة",
+    "everyHour": "كل ساعة",
+    "dailyAt9AM": "يوميًا في الساعة 9 صباحًا",
+    "weekdaysAt9AM": "أيام الأسبوع في الساعة 9 صباحًا",
+    "weeklyOnMonday": "أسبوعيًا يوم الاثنين",
+    "monthlyOn1st": "شهريًا في اليوم الأول"
+  },
+  "sidebar": {
+    "referAndEarn": "أحل واكسب",
+    "referralShareTitle": "إحالة الأصدقاء",
+    "referralShareSubtitle": "احصل على 400 رصيد",
+    "new": "جديد",
+    "upgrade": "ترقية",
+    "chats": "المحادثات",
+    "library": "الملفات",
+    "triggers": "المشغلات",
+    "newChat": "محادثة جديدة",
+    "newAgent": "عامل جديد",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج",
+    "openMenu": "فتح القائمة",
+    "expandSidebar": "توسيع الشريط الجانبي (CMD+B)",
+    "searchChats": "بحث في المحادثات",
+    "searchChatsPlaceholder": "بحث في المحادثات...",
+    "allTriggers": "جميع المشغلات",
+    "addWorkers": "إضافة عمال",
+    "addTrigger": "إضافة مشغل",
+    "triggerConfig": "تكوين المشغل",
+    "scheduledTrigger": "مشغل مجدول",
+    "scheduledTriggerDescription": "جدولة مشغل للعمل في وقت محدد",
+    "eventBasedTrigger": "مشغل قائم على الأحداث",
+    "eventBasedTriggerDescription": "إنشاء مشغل للعمل عند وقوع حدث ما",
+    "noChatsFound": "لم يتم العثور على محادثات",
+    "noConversations": "لا توجد محادثات حتى الآن",
+    "search": "بحث",
+    "searchPlaceholder": "بحث...",
+    "searchResults": "نتائج البحث",
+    "recent": "الأخيرة",
+    "personalAccount": "حساب شخصي",
+    "workspaces": "مساحات العمل",
+    "theme": "المظهر",
+    "integrations": "التكاملات",
+    "billing": "الفواتير",
+    "usage": "الاستخدام",
+    "adminPanel": "لوحة الإدارة",
+    "apiKeys": "مفاتيح API",
+    "envManager": "مدير البيئة",
+    "advanced": "متقدم",
+    "plan": "الخطة",
+    "knowledgeBase": "قاعدة المعرفة",
+    "conversation": "محادثة",
+    "conversations": "محادثات",
+    "startNewChat": "بدء محادثة جديدة",
+    "openInNewTab": "فتح في علامة تبويب جديدة",
+    "delete": "حذف",
+    "deleting": "جاري الحذف",
+    "allThreadsLoaded": "تم تحميل جميع المحادثات",
+    "myWorkforce": "قوة العمل الخاصة بي",
+    "addTeam": "إضافة فريق",
+    "selectAll": "تحديد الكل",
+    "deselectAll": "إلغاء تحديد الكل",
+    "selectAllConversations": "تحديد جميع المحادثات",
+    "deselectAllConversations": "إلغاء تحديد جميع المحادثات",
+    "loadMore": "تحميل المزيد",
+    "remaining": "المتبقي"
+  },
+  "dashboard": {
+    "title": "لوحة القيادة",
+    "welcome": "مرحباً",
+    "whatWouldYouLike": "ماذا تريد أن تنجز؟",
+    "describeWhatYouNeed": "صف ما تحتاج للمساعدة فيه...",
+    "usageLimits": "حدود الاستخدام",
+    "threads": "المحادثات",
+    "customWorkers": "العمال المخصصون",
+    "scheduledTriggers": "المشغلات المجدولة",
+    "appTriggers": "مشغلات التطبيقات",
+    "limitsExceeded": "لقد وصلت إلى حد المحادثات الخاص بك. قم بترقية خطتك لإنشاء المزيد من المحادثات.",
+    "agentInitiatedSuccessfully": "تم تشغيل العامل بنجاح",
+    "aiAssistantReady": "مساعد الذكاء الاصطناعي الخاص بك جاهز للمساعدة",
+    "greetings": {
+      "morning": [
+        "صباح الخير! ما هو جدول الأعمال اليوم؟",
+        "استيقظ وتألق! ماذا سنبني اليوم؟",
+        "صباح الخير! هل أنت جاهز لتكون منتجًا؟"
+      ],
+      "afternoon": [
+        "مساء الخير! كيف يمكنني المساعدة؟",
+        "أتمنى أن يكون يومك يسير بشكل جيد! ماذا بعد؟"
+      ],
+      "evening": [
+        "مساء الخير! هل ما زلت تعمل بجد؟",
+        "مساء الخير! ماذا سنعمل عليه الليلة؟",
+        "مساء الخير! لننجز الأمور."
+      ],
+      "random": [
+        "خمن من عاد مجدداً، أنا هنا",
+        "أهلاً! ماذا يمكن لـ SuperAgent أن يفعل لك؟",
+        "ماذا تريد أن تنجز؟",
+        "لنبني شيئاً رائعاً",
+        "جاهز عندما تكون جاهزاً!",
+        "ماذا يطبخ؟",
+        "في خدمتك! ما هي المهمة؟",
+        "لنجعل السحر يحدث",
+        "ما هو التحدي الذي سنواجهه؟",
+        "أمرك مطاع",
+        "ما هي الخطة؟",
+        "استعد! إلى أين نحن متجهون؟",
+        "يوم جديد، بناء جديد",
+        "ماذا يدور في ذهنك؟",
+        "لنبدأ العرض"
+      ]
+    },
+    "good_morning": "صباح الخير",
+    "good_afternoon": "مساء الخير",
+    "good_evening": "مساء الخير",
+    "ready_to_accelerate_your_pipeline": "جاهز لتسريع سير عملك؟ اختر مهارة للبدء.",
+    "explore_agentic_ai_capabilities": "استكشف قدرات وكيل الذكاء الاصطناعي",
+    "marketing_assets": "أصول التسويق",
+    "image": "صورة",
+    "images": {
+      "label": "صورة",
+      "bannerTitle": "استوديو الصور",
+      "bannerDescription": "إنشاء أصول تسويقية واقعية، ورسوم بيانية معقدة، وملصقات مليئة بالنصوص.",
+      "selectModelPlaceholder": "اختر النموذج",
+      "styleTitle": "اختر النمط",
+      "samplePrompts": "نماذج الأوامر",
+      "generateWithStylePrompt": "إنشاء صورة بنمط {style}"
+    },
+    "videos": {
+      "label": "فيديو",
+      "bannerTitle": "منشئ الفيديو",
+      "bannerDescription": "إنشاء فيديوهات سينمائية بإضاءة واقعية للغاية وحركة متسقة.",
+      "selectModelPlaceholder": "اختر النموذج",
+      "styleTitle": "اختر نمط الفيديو",
+      "samplePrompts": "نماذج الأوامر",
+      "generateWithStylePrompt": "إنشاء فيديو بنمط {style}"
+    },
+    "tags": {
+      "sales": "المبيعات",
+      "cx": "تجربة العملاء",
+      "mktg": "التسويق",
+      "ops": "العمليات",
+      "hr": "الموارد البشرية",
+      "legal": "القانونية"
+    },
+    "aePanel": {
+      "bannerTitle": "وكيل مسؤول الحسابات",
+      "bannerDescription": "مساعد المبيعات للدورة الكاملة للاكتشاف، والعروض التجريبية، والتسليم.",
+      "cards": {
+        "discovery": {
+          "title": "إعداد الاكتشاف",
+          "description": "إنشاء أسئلة وأبحاث مستهدفة.",
+          "prompt": "تحضير أسئلة اكتشاف لمدير مبيعات في شركة تقنية مالية..."
+        },
+        "handoff": {
+          "title": "تسليم المبيعات ← نجاح العملاء",
+          "description": "هيكلة ملاحظات الصفقة لانتقال سلس.",
+          "prompt": "إنشاء وثيقة تسليم لفريق نجاح العملاء..."
+        },
+        "leadFeedback": {
+          "title": "حلقة ملاحظات العملاء المحتملين",
+          "description": "مشاركة الرؤى حول جودة العملاء المحتملين مع فريق التسويق.",
+          "prompt": "صياغة ملاحظات حول جودة العملاء المحتملين للتسويق..."
+        }
+      }
+    },
+    "dataPanel": {
+      "bannerTitle": "وكيل محلل البيانات",
+      "bannerDescription": "تنظيف القوائم، وإثراء جهات الاتصال، وتحليل ملفات CSV لرؤى السوق.",
+      "cards": {
+        "leadCleaner": {
+          "title": "منظف قوائم العملاء",
+          "description": "إصلاح التنسيق، وإزالة التكرارات، وتوحيد الحقول لاستيراد CRM.",
+          "prompt": "تنظيف قائمة العملاء هذه وتوحيد المسميات الوظيفية..."
+        },
+        "lookalikes": {
+          "title": "الجماهير المشابهة",
+          "description": "اكتشاف آفاق جديدة بناءً على أفضل عملائك.",
+          "prompt": "البحث عن شركات مشابهة لأفضل 10 عملاء لدي..."
+        },
+        "ticketAnalysis": {
+          "title": "تحليل التذاكر",
+          "description": "تحديد المشاكل المتكررة والمشاعر من صادرات الدعم.",
+          "prompt": "تحليل تذاكر الدعم هذه لمعرفة المشاعر والمشاكل المتكررة..."
+        }
+      }
+    },
+    "pipelinePanel": {
+      "bannerTitle": "مدير سير العمل",
+      "bannerDescription": "التنبؤ، وضمان جودة الصفقات، واكتشاف المخاطر.",
+      "cards": {
+        "q4Forecast": {
+          "title": "توقعات الربع الرابع",
+          "description": "التنبؤ بالإيرادات واكتشاف تعثر الصفقات.",
+          "prompt": "توقع إيرادات الربع الرابع وتحديد مخاطر التعثر..."
+        },
+        "campaignRoi": {
+          "title": "عائد استثمار الحملة",
+          "description": "تحليل الإسناد للنجاحات الأخيرة.",
+          "prompt": "تحليل إسناد الحملة للصفقات الرابحة..."
+        },
+        "churnForecast": {
+          "title": "توقع الانصراف",
+          "description": "التنبؤ بالتجديدات والحسابات المعرضة للخطر.",
+          "prompt": "توقع مخاطر انصراف العملاء لمجموعة التجديد القادمة..."
+        }
+      }
+    },
+    "researchPanel": {
+      "bannerTitle": "بحث عميق",
+      "bannerDescription": "استخدام التفكير المتقدم لإجراء أبحاث سوقية عميقة، وتحليل استراتيجيات المنافسين، وإنشاء تقارير شاملة.",
+      "sectionTitle": "بدء بحث جديد",
+      "items": {
+        "competitorDeepDive": "تحليل عميق للمنافسين",
+        "marketTrendAnalysis": "تحليل اتجاهات السوق",
+        "accountIntelligenceReport": "تقرير استخبارات الحساب",
+        "regulatoryImpactStudy": "دراسة الأثر التنظيمي"
+      },
+      "promptTemplate": "إجراء {topic} حول..."
+    },
+    "socialSellingPanel": {
+      "bannerTitle": "مساعد البيع الاجتماعي",
+      "bannerDescription": "بناء علامتك الشخصية، وصياغة خطافات جذابة، والتفاعل مع الآفاق باستخدام الذكاء الاصطناعي.",
+      "cards": {
+        "viralHook": {
+          "title": "منشئ الخطافات الجذابة",
+          "description": "اجذب الانتباه بافتتاحيات مصممة بالذكاء الاصطناعي.",
+          "prompt": "كتابة خطاف لمنشور LinkedIn حول..."
+        },
+        "repurpose": {
+          "title": "إعادة صياغة المحتوى",
+          "description": "تحويل المدونات إلى منشورات، وسلاسل تغريدات، وعروض صور.",
+          "prompt": "إعادة صياغة منشور المدونة هذا إلى سلسلة تغريدات Twitter..."
+        },
+        "dmSequence": {
+          "title": "كاتب تسلسل الرسائل المباشرة",
+          "description": "صياغة رسائل تواصل غير بيعية.",
+          "prompt": "كتابة تسلسل رسائل مباشرة لعميل محتمل شاهد ملفي الشخصي..."
+        }
+      }
+    },
+    "strategistPanel": {
+      "bannerTitle": "استراتيجي الصفقات",
+      "bannerDescription": "تسريع دورات الصفقات من خلال خطط التفاوض، ومراجعة العقود، واستراتيجية التسعير.",
+      "cards": {
+        "proposal": {
+          "title": "إنشاء مقترحات ذكي",
+          "description": "صياغة تلقائية + تعبئة الأسعار.",
+          "cta": "صياغة الآن",
+          "prompt": "إنشاء مقترح لـ [العميل] بتسعير قياسي..."
+        },
+        "redline": {
+          "title": "مساعد المراجعة",
+          "description": "مراجعة عقود وتعديلات بالذكاء الاصطناعي.",
+          "cta": "تحميل وثيقة",
+          "prompt": "تحليل هذا العقد واقتراح تعديلات..."
+        },
+        "followUp": {
+          "title": "متابعة متعددة المسارات",
+          "description": "رسائل بريد إلكتروني مخصصة لأصحاب المصلحة.",
+          "cta": "إنشاء تسلسل",
+          "prompt": "صياغة رسائل متابعة متعددة المسارات لنائب الرئيس والمدير..."
+        },
+        "expansion": {
+          "title": "كشاف التوسع",
+          "description": "اكتشاف إشارات زيادة البيع وتقييم صحة الحساب.",
+          "cta": "البحث عن فرص",
+          "prompt": "تحليل استخدام الحساب لإشارات التوسع..."
+        }
+      }
+    },
+    "icpPanel": {
+      "bannerTitle": "الإقليم والوعي",
+      "bannerDescription": "تحديد ملف العميل المثالي (ICP)، وتقسيم الأقاليم، ورسم خرائط لجان الشراء.",
+      "sectionTitle": "تقسيم عميق",
+      "cards": {
+        "repAssignment": {
+          "title": "تعيين المندوبين",
+          "description": "التوصية بتغطية المندوبين بناءً على نقاط القوة.",
+          "prompt": "اقتراح تعيينات المندوبين لإقليم الساحل الغربي بناءً على الأداء السابق..."
+        },
+        "quotaModeling": {
+          "title": "نمذجة الحصص",
+          "description": "تحسين الأهداف وتحليل فجوات القدرة.",
+          "prompt": "نمذجة قدرة الحصص للسنة المالية 24 بالنظر إلى عدد الموظفين الحالي..."
+        },
+        "predictiveHiring": {
+          "title": "التوظيف التنبؤي",
+          "description": "توقعات التوظيف بناءً على مسار النمو.",
+          "prompt": "إنشاء خطة توظيف بناءً على سرعة سير العمل وأهداف الإيرادات..."
+        },
+        "marketSegmentation": {
+          "title": "تقسيم السوق",
+          "description": "تحسين ملفات العملاء المثاليين وشخصيات المشترين.",
+          "prompt": "تحديد الملف النفسي لقطاع المؤسسات لدينا..."
+        },
+        "customerHealth": {
+          "title": "ملف صحة العميل",
+          "description": "تحديد سمات العملاء الناجحين على المدى الطويل.",
+          "prompt": "إنشاء ملف درجة الصحة لعملائنا الأكثر نجاحاً..."
+        }
+      }
+    },
+    "websitePanel": {
+      "bannerTitle": "موقع الويب",
+      "bannerDescription": "إنشاء صفحات هبوط عالية التحويل وتطبيقات ويب وظيفية باستخدام الذكاء الاصطناعي.",
+      "sectionTitle": "مكتبة القوالب",
+      "promptTemplate": "إنشاء {template} لـ...",
+      "categories": {
+        "marketing": {
+          "title": "التسويق والحملات",
+          "items": {
+            "landingPage": "صفحة هبوط عالية التحويل",
+            "webinarRegistration": "موقع تسجيل في ندوة عبر الويب",
+            "productLaunchCountdown": "العد التنازلي لإطلاق منتج",
+            "eventMicrosite": "موقع صغير للحدث",
+            "newsletterSignup": "صفحة الاشتراك في النشرة الإخبارية"
+          }
+        },
+        "corporate": {
+          "title": "الشركات والعلامة التجارية",
+          "items": {
+            "corporateHomepage": "الصفحة الرئيسية للشركة حديثة",
+            "aboutLeadership": "من نحن والقيادة",
+            "careersCulture": "مركز الوظائف والثقافة",
+            "pressMediaKit": "الصحافة ومجموعة الوسائط"
+          }
+        },
+        "saas": {
+          "title": "SaaS والمنتجات",
+          "items": {
+            "saasHomepage": "الصفحة الرئيسية لمنتج SaaS",
+            "pricingComparison": "مقارنة الأسعار والخطط",
+            "featureDeepDive": "صفحة تحليل الميزات العميقة",
+            "docsHelpCenter": "الوثائق / مركز المساعدة"
+          }
+        },
+        "content": {
+          "title": "المحتوى والحقيبة",
+          "items": {
+            "personalPortfolio": "حقيبة العلامة التجارية الشخصية",
+            "agencyShowcase": "معرض وكالة إبداعية",
+            "consultantBooking": "صفحة حجز المستشار",
+            "resourceLibraryBlog": "مكتبة الموارد / المدونة"
+          }
+        }
+      }
+    },
+    "adsPanel": {
+      "bannerTitle": "استوديو الإعلانات",
+      "bannerDescription": "إنشاء إعلانات عالية التحويل مع استهداف واضح واتجاه إبداعي.",
+      "none": "لا يوجد",
+      "steps": {
+        "strategyTargeting": "الاستراتيجية والاستهداف",
+        "adSpecifications": "مواصفات الإعلان",
+        "creativeDirection": "الاتجاه الإبداعي"
+      },
+      "fields": {
+        "productUrl": "رابط صفحة هبوط المنتج",
+        "competitorUrl": "رابط المنافس",
+        "targetAudience": "الجمهور المستهدف",
+        "platforms": "المنصات",
+        "format": "التنسيق",
+        "callToAction": "دعوة لاتخاذ إجراء",
+        "visualStyle": "النمط البصري",
+        "outputVolume": "حجم المخرجات",
+        "massTranslation": "ترجمة جماعية"
+      },
+      "placeholders": {
+        "url": "https://...",
+        "age": "العمر (مثلاً 25-45)",
+        "location": "الموقع (مثلاً الولايات المتحدة، أوروبا)",
+        "interests": "الاهتمامات (مثلاً SaaS، التكنولوجيا)",
+        "ctaText": "نص الزر (مثلاً سجل الآن)",
+        "destinationLink": "رابط الوجهة (مثلاً https://...)"
+      },
+      "platforms": {
+        "googleAds": "إعلانات جوجل",
+        "metaAds": "إعلانات ميتا",
+        "linkedin": "LinkedIn",
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "youtube": "YouTube"
+      },
+      "formats": {
+        "singleImage": "صورة واحدة",
+        "carousel": "دوار (Carousel)",
+        "shortVideo": "فيديو قصير",
+        "story": "قصة (Story)"
+      },
+      "visualStyles": {
+        "minimalist": "بسيط",
+        "boldVibrant": "جريء وحيوي",
+        "professional": "احترافي",
+        "playful": "مرح",
+        "luxury": "فاخر",
+        "futuristic": "مستقبلي",
+        "handDrawn": "مرسوم يدوياً",
+        "corporate": "شركات"
+      },
+      "languages": {
+        "es": "الإسبانية",
+        "fr": "الفرنسية",
+        "de": "الألمانية",
+        "ja": "اليابانية",
+        "pt": "البرتغالية",
+        "it": "الإيطالية",
+        "zh": "الصينية",
+        "ko": "الكورية",
+        "ar": "العربية",
+        "nl": "الهولندية",
+        "sv": "السويدية",
+        "no": "النرويجية",
+        "da": "الدنماركية",
+        "fi": "الفنلندية",
+        "hi": "الهندية",
+        "ru": "الروسية",
+        "tr": "التركية",
+        "pl": "البولندية",
+        "id": "الإندونيسية",
+        "th": "التايلاندية",
+        "vi": "الفيتنامية",
+        "el": "اليونانية"
+      },
+      "outputVolumeConcepts": "{count} مفاهيم",
+      "generateButton": "إنشاء مفاهيم ({count})",
+      "strategyAppliedTitle": "تم تطبيق الاستراتيجية",
+      "strategyAppliedDescription": "لكل مفهوم يتم إنشاؤه، سنقوم تلقائيًا بإنتاج ثلاثة اختلافات.",
+      "variations": {
+        "1": {
+          "title": "1. الندرة والاستعجال",
+          "description": "FOMO، عروض محدودة الوقت، خطافات وصول حصري"
+        },
+        "2": {
+          "title": "2. مدفوع بالفوائد",
+          "description": "عرض قيمة واضح، تأطير المشكلة والحل"
+        },
+        "3": {
+          "title": "3. الدليل الاجتماعي",
+          "description": "الشهادات، أعداد المستخدمين، مؤشرات الثقة"
+        }
+      },
+      "prompt": {
+        "notProvided": "غير مقدم",
+        "general": "عام",
+        "global": "عالمي",
+        "learnMore": "تعلم المزيد",
+        "na": "غير متاح",
+        "productUrl": "رابط المنتج: {value}",
+        "competitorUrl": "رابط المنافس: {value}",
+        "targetAudienceTitle": "الجمهور المستهدف:",
+        "targetAudienceAge": "- العمر: {value}",
+        "targetAudienceLocation": "- الموقع: {value}",
+        "targetAudienceInterests": "- الاهتمامات: {value}",
+        "campaignSpecsTitle": "مواصفات الحملة:",
+        "platforms": "- المنصات: {value}",
+        "formats": "- التنسيقات: {value}",
+        "callToAction": "- دعوة لاتخاذ إجراء: \"{text}\" (الرابط: {link})",
+        "visualStyle": "- النمط البصري: {value}",
+        "settingsTitle": "الإعدادات:",
+        "numberOfConcepts": "- عدد المفاهيم: {value}",
+        "translationLanguages": "- لغات الترجمة: {value}",
+        "instructions": "يرجى إنشاء مفاهيم إعلانية عالية التحويل بناءً على هذه المدخلات.",
+        "variationsInstruction": "تأكد من تقديم 3 اختلافات متميزة في النصوص (الندرة، الفائدة، الدليل الاجتماعي) لكل مفهوم."
+      }
+    },
+    "video_studio": "استوديو الفيديو",
+    "demos_outreach": "العروض والتواصل",
+    "pipeline_manager": "مدير سير العمل",
+    "forecasting_deal_qa": "التنبؤ وضمان جودة الصفقات",
+    "account_executive": "مسؤول الحسابات",
+    "full_cycle_sales_agent": "وكيل مبيعات الدورة الكاملة",
+    "deal_strategist": "استراتيجي الصفقات",
+    "negotiation_closers": "التفاوض والإغلاق",
+    "data_analyst": "محلل البيانات",
+    "cleaning_enrichment": "التنظيف والإثراء",
+    "territory_persona": "الإقليم والوعي",
+    "icp_market_planning": "ICP وتخطيط السوق",
+    "social_selling": "البيع الاجتماعي",
+    "brand_content": "العلامة التجارية والمحتوى",
+    "deep_research": "بحث عميق",
+    "market_intel_reports": "ذكاء السوق والتقارير",
+    "ad_studio": "استوديو الإعلانات",
+    "ads_creative_roi": "الإعلانات وعائد الاستثمار الإبداعي",
+    "gtm_decks": "عروض GTM",
+    "proposals_qbrs": "المقترحات، QBRs",
+    "landing_pages_sites": "صفحات الهبوط، المواقع",
+    "website": "موقع الويب",
+    "video": "فيديو",
+    "pipeline": "سير العمل",
+    "account_exec": "مسؤول حساب",
+    "data": "البيانات",
+    "territory_icp": "الإقليم/ICP",
+    "research": "البحث"
+  },
+  "thread": {
+    "integrations": "التكاملات",
+    "connect": "اتصال",
+    "seeAllIntegrations": "+ رؤية جميع التكاملات",
+    "connectIntegrations": "ربط التكاملات",
+    "adaptive": "تكيفي",
+    "adaptiveDescription": "استجابات سريعة مع تبديل ذكي للسياق",
+    "autonomous": "مستقل",
+    "autonomousDescription": "وضع العمل العميق لحل المشكلات متعددة الخطوات",
+    "chat": "دردشة",
+    "chatDescription": "محادثة بسيطة ذهاباً وإياباً",
+    "sampleAnswers": "نماذج الإجابات",
+    "samplePrompts": "نماذج الأوامر",
+    "waitingForUserResponse": "سيمضي SuperAgent قدماً في العمل بشكل مستقل بعد إجابتك.",
+    "taskCompleted": "اكتملت المهمة",
+    "uploadingFiles": "جاري تحميل {count} {count, plural, one {ملف} other {ملفات}}...",
+    "uploadingFilesOne": "جاري تحميل ملف واحد...",
+    "uploadingFilesMany": "جاري تحميل {count} ملفات...",
+    "scrollToBottom": "التمرير للأسفل",
+    "tools": "الأدوات",
+    "instructions": "التعليمات",
+    "knowledge": "المعرفة",
+    "triggers": "المشغلات",
+    "agents": "العمال",
+    "superWorker": "عامل خارق",
+    "searchWorkers": "بحث عن عمال...",
+    "myWorkers": "عمالي",
+    "running": "قيد التشغيل",
+    "minimizeToFloatingPreview": "تصغير إلى معاينة عائمة",
+    "close": "إغلاق",
+    "noActionsYet": "كمبيوتر SuperAgent",
+    "workerActionsDescription": "بدء التشغيل",
+    "emptyActionsDescription": "ستظهر إجراءات العامل هنا",
+    "toolIsRunning": "الأداة تعمل",
+    "toolCurrentlyExecuting": "{toolName} قيد التنفيذ حاليًا. ستظهر النتائج هنا عند الاكتمال.",
+    "thinkingTitle": "تفكير",
+    "thinkingDescription": "التحضير لتنفيذ الإجراءات...",
+    "rateThisResult": "قيم هذه النتيجة",
+    "feedbackHelpsImprove": "ملاحظاتك تساعدنا على التحسن",
+    "additionalFeedbackOptional": "ملاحظات إضافية (اختياري)",
+    "helpKortixImprove": "ساعد SuperAgent على التحسن من خلال الملاحظات",
+    "submit": "إرسال",
+    "submitting": "جاري الإرسال...",
+    "feedbackSubmittedSuccess": "تم إرسال الملاحظات بنجاح",
+    "feedbackSubmitFailed": "فشل إرسال الملاحظات"
+  },
+  "agents": {
+    "title": "العمال",
+    "create": "إنشاء عامل",
+    "createNewWorker": "إنشاء عامل جديد",
+    "edit": "تعديل العامل",
+    "delete": "حذف العامل",
+    "name": "الاسم",
+    "description": "الوصف",
+    "model": "النموذج",
+    "systemPrompt": "الموجه النظامي",
+    "systemPromptPlaceholder": "حدد كيف يجب أن يتصرف عاملك...",
+    "customizeIcon": "انقر لتخصيص أيقونة العامل"
+  },
+  "home": {
+    "heroPlaceholder": "صف المهمة التي تريد أن يكملها عاملك..."
+  },
+  "showcase": {
+    "title": "SuperAgent: عاملك الذكي المستقل",
+    "subtitle": "بُني للمهام المعقدة، وصُمم لكل شيء. مساعد الذكاء الاصطناعي النهائي الذي يتعامل مع كل شيء - من الطلبات البسيطة إلى المشاريع المعقدة للغاية.",
+    "tryItOut": "جربه الآن",
+    "kortixComputer": "كمبيوتر SuperAgent",
+    "running": "قيد التشغيل",
+    "workers": {
+      "images": {
+        "title": "الصور",
+        "description": "إنشاء صور حسب الطلب. من لقطات المنتجات إلى رسومات التواصل الاجتماعي إلى الرسوم التوضيحية الكاملة. يعدل النمط والإضاءة والألوان والتخطيط، أو يحسن المرئيات الحالية بتعديلات سريعة.",
+        "capabilities": {
+          "0": "إنشاء لقطات منتجات",
+          "1": "إنشاء رسومات اجتماعية",
+          "2": "صنع رسوم توضيحية",
+          "3": "اختلافات النمط والإضاءة",
+          "4": "إنشاء شعارات / أصول",
+          "5": "+ وأكثر من ذلك بكثير"
+        },
+        "imageAlt": "مثال على رسم بياني للنمو غير الخطي",
+        "fileType": "صورة"
+      },
+      "slides": {
+        "title": "الشرائح",
+        "description": "إنشاء عروض تقديمية مذهلة على الفور. من عروض التمويل إلى التقارير إلى المواد التدريبية. يعدل السمات والتخطيطات وهيكل المحتوى، أو يحسن العروض الحالية بتعديلات سريعة.",
+        "capabilities": {
+          "0": "عروض التمويل",
+          "1": "مواد تدريبية",
+          "2": "عروض التقارير",
+          "3": "اختلافات السمات والتخطيط",
+          "4": "إعادة هيكلة المحتوى",
+          "5": "+ وأكثر من ذلك بكثير"
+        },
+        "imageAlt": "مثال على شريحة منصة Nexus لأتمتة المؤسسات",
+        "fileType": "PPTX"
+      },
+      "data": {
+        "title": "البيانات",
+        "description": "تحويل البيانات الخام إلى رؤى. من جداول البيانات إلى لوحات القيادة إلى المرئيات. ينظف مجموعات البيانات، وينشئ الرسوم البيانية، ويبني التقارير، أو يحسن التحليلات الحالية بتحديثات سريعة.",
+        "capabilities": {
+          "0": "لوحات القيادة",
+          "1": "المرئيات",
+          "2": "تقارير البيانات",
+          "3": "تنظيف وتنظيم البيانات",
+          "4": "إنشاء الرؤى",
+          "5": "+ وأكثر من ذلك بكثير"
+        },
+        "imageAlt": "مثال على لوحة قيادة نموذج مالي",
+        "fileType": "معاينة"
+      },
+      "docs": {
+        "title": "المستندات",
+        "description": "كتابة وتعديل المستندات بسهولة. من المقترحات إلى الأدلة إلى قطع المحتوى. يعدل النبرة والهيكل والتنسيق، أو يحسن المستندات الحالية بإعادة كتابة سريعة وصقل.",
+        "capabilities": {
+          "0": "مقترحات",
+          "1": "أدلة وكتيبات",
+          "2": "قطع محتوى",
+          "3": "اختلافات النبرة والنمط",
+          "4": "التنسيق وإعادة الهيكلة",
+          "5": "+ وأكثر من ذلك بكثير"
+        },
+        "imageAlt": "مثال على تقرير الملخص التنفيذي للربع الثالث 2025",
+        "fileType": "PDF"
+      },
+      "research": {
+        "title": "البحث",
+        "description": "البحث في الموضوعات بشكل شامل. من اتجاهات السوق إلى تحليل المنافسين إلى الغوص العميق. يجمع المصادر، ويصيغ النتائج، أو يحسن البحث الحالي بتحديثات سريعة.",
+        "capabilities": {
+          "0": "تحليل اتجاهات السوق",
+          "1": "بحث المنافسين",
+          "2": "غوص عميق في المواضيع",
+          "3": "جمع المصادر",
+          "4": "صياغة النتائج",
+          "5": "+ وأكثر من ذلك بكثير"
+        },
+        "imageAlt": "مثال على بحث ملفات تعريف المنافسين المفصلة",
+        "fileType": "PDF"
+      }
+    }
+  },
+  "threads": {
+    "title": "المحادثات",
+    "newThread": "محادثة جديدة",
+    "sendMessage": "إرسال رسالة",
+    "placeholder": "اكتب رسالتك..."
+  },
+  "billing": {
+    "title": "الفواتير والاشتراك",
+    "subscription": "الاشتراك",
+    "credits": "الرصيد",
+    "popular": "شائع",
+    "creditsExplained": "شرح الرصيد",
+    "creditsExhausted": "+100 رصيد خلال {time}. قم بالترقية للاستخدام الآن.",
+    "creditsExhaustedRefreshIn": "لقد استهلكت رصيدك. سيتم تجديده خلال {time}",
+    "trialActive": "التجربة نشطة",
+    "trialBadge": "تجربة لمدة 7 أيام",
+    "currentPlan": "الخطة الحالية",
+    "currentBadge": "الحالي",
+    "scheduled": "مجدول",
+    "scheduledBadge": "مجدول",
+    "loading": "جاري التحميل...",
+    "subscriptionChangeScheduled": "تم جدولة تغيير الاشتراك",
+    "planWillChangeOn": "ستتغير خطتك في {date}.",
+    "failedToInitiateSubscription": "فشل بدء الاشتراك. يرجى المحاولة مرة أخرى.",
+    "subscriptionUpgraded": "تم ترقية الاشتراك من {currentPrice} إلى {newPrice}",
+    "subscriptionUpdated": "تم تحديث الاشتراك بنجاح",
+    "cannotDowngradeDuringCommitment": "لا يمكن خفض الخطة خلال فترة الالتزام",
+    "alreadyOnThisPlan": "أنت بالفعل مشترك في هذه الخطة.",
+    "localModeMessage": "يعمل في وضع التطوير المحلي - ميزات الفواتير معطلة",
+    "holidayPromo": {
+      "badge": "عرض خاص للعطلة",
+      "countdown": "ينتهي خلال {time}",
+      "discount": "خصم 50% لأول 3 أشهر",
+      "window": "صالح في 24-25 ديسمبر",
+      "headerLine": "استخدم الكود {code} للحصول على {discount}",
+      "description": "استخدم الكود {code} عند الدفع للحصول على {discount}. {window}",
+      "copyCode": "نسخ الكود",
+      "copied": "تم النسخ",
+      "codeCopied": "تم نسخ {code}",
+      "copyFailed": "تعذر نسخ كود العرض"
+    },
+    "creditsExplainedPage": {
+      "title": "شرح الرصيد",
+      "subtitle": "كل ما تحتاج لمعرفته حول كيفية عمل الرصيد في SuperAgent",
+      "understandingCredits": {
+        "title": "فهم الرصيد",
+        "description": "يعمل الرصيد كعملة عالمية لمنصة SuperAgent لعمليات المنصة. كل إجراء يقوم به عمال الذكاء الاصطناعي الخاص بك - من تحليل البيانات إلى إنشاء الكود - يستهلك رصيداً بناءً على تعقيد المهمة والموارد المطلوبة."
+      },
+      "howCreditsWork": {
+        "title": "كيف يعمل الرصيد",
+        "description": "يتم استهلاك الرصيد بناءً على الموارد التي يستخدمها عمال الذكاء الاصطناعي:",
+        "aiModelUsage": {
+          "title": "استخدام نموذج الذكاء الاصطناعي",
+          "description": "المحرك الرئيسي لاستهلاك الرصيد",
+          "content": "نماذج الذكاء الاصطناعي المختلفة لها تكاليف مختلفة بناءً على قدراتها واستخدام الرموز (tokens). يتم استهلاك الرصيد لرموز الإدخال (موجهاتك وسياقك)، ورموز الإخراج (استجابات العامل)، وتختلف حسب فئة النموذج (Claude، GPT، إلخ)."
+        },
+        "pricingModel": {
+          "title": "نموذج التسعير",
+          "description": "هامش ربح 20% على تكاليف نموذج الذكاء الاصطناعي",
+          "content": "نطبق هامش ربح بنسبة 20% على جميع تكاليف واجهة برمجة التطبيقات (API) والنماذج لتغطية البنية التحتية للمنصة، والأمن، والتطوير المستمر. يضمن هذا التسعير الشفاف أنك تعرف بالضبط ما تدفع مقابله."
+        }
+      },
+      "gettingMoreCredits": {
+        "title": "الحصول على مزيد من الرصيد",
+        "description": "هناك عدة طرق للحصول على الرصيد في SuperAgent:",
+        "monthlySubscription": {
+          "title": "رصيد الاشتراك الشهري",
+          "description": "متضمن في خطتك المدفوعة ويتم تجديده تلقائيًا كل شهر. هذا رصيد ينتهي صلاحيته."
+        },
+        "topUpCredits": {
+          "title": "شحن الرصيد",
+          "description": "شراء رصيد إضافي عندما تحتاج إليه. هذا رصيد لا تنتهي صلاحيته ومتاح للأعضاء المميزين."
+        },
+        "promotionalGrants": {
+          "title": "منح ترويجية وفعاليات",
+          "description": "رصيد إضافي من الفعاليات الخاصة، أو العروض الترويجية، أو الإحالات. هذا رصيد لا تنتهي صلاحيته."
+        },
+        "refunds": {
+          "title": "استرداد الأموال",
+          "description": "الرصيد المسترد بسبب مشكلات فنية أو مهام فاشلة. هذا رصيد لا تنتهي صلاحيته."
+        }
+      },
+      "typesOfCredits": {
+        "title": "أنواع الرصيد",
+        "description": "يستخدم SuperAgent نوعين من الرصيد لمنحك المرونة في كيفية إدارة استخدامك:",
+        "expiringCredits": {
+          "title": "رصيد ينتهي صلاحيته",
+          "description": "رصيد الاشتراك الشهري",
+          "content": "يتم تضمين هذا الرصيد في اشتراكك المدفوع ويتم تجديده تلقائيًا كل شهر في تاريخ اشتراكك. تنتهي صلاحيته في نهاية كل دورة فوترة ويتم استهلاكه دائمًا أولاً قبل أي رصيد لا تنتهي صلاحيته."
+        },
+        "nonExpiringCredits": {
+          "title": "رصيد لا تنتهي صلاحيته",
+          "description": "رصيد دائم لا ينتهي أبدًا",
+          "content": "هذا الرصيد لا ينتهي أبدًا وينتقل من شهر لآخر. يشمل مشتريات الشحن، واسترداد الأموال، والمنح الترويجية. لا يتم استخدام الرصيد الذي لا تنتهي صلاحيته إلا بعد استنفاد الرصيد الذي تنتهي صلاحيته."
+        },
+        "creditPriority": {
+          "title": "أولوية الرصيد:",
+          "description": "عند استخدام SuperAgent، يتم استهلاك الرصيد الذي تنتهي صلاحيته أولاً. فقط بعد نفاد الرصيد الذي تنتهي صلاحيته، سيتم استخدام الرصيد الذي لا تنتهي صلاحيته."
+        }
+      }
+    },
+    "close": "إغلاق",
+    "cancelScheduledChange": "إلغاء التغيير المجدول",
+    "threadUsage": "استخدام المحادثة",
+    "error": "خطأ",
+    "totalUsage": "إجمالي الاستخدام",
+    "usage": "الاستخدام",
+    "thread": "المحادثة",
+    "lastUsed": "آخر استخدام",
+    "creditsUsed": "الرصيد المستخدم",
+    "creditTransactions": "معاملات الرصيد",
+    "loadingTransactionHistory": "جاري تحميل سجل معاملاتك...",
+    "monthly": "شهرياً",
+    "yearly": "سنوياً",
+    "discount": "خصم 15%",
+    "perMonth": "/شهر",
+    "billedYearly": "يتم فوترته سنوياً",
+    "downgradePending": "خفض الخطة قيد الانتظار",
+    "downgrade": "خفض الخطة",
+    "switchToLegacyYearly": "التبديل إلى السنوي القديم",
+    "confirmDowngradeTitle": "هل أنت متأكد أنك تريد خفض الخطة؟",
+    "confirmDowngradeDescription": "أنت على وشك خفض خطتك إلى {planName}. سيسري هذا التغيير في نهاية فترة الفوترة الحالية.",
+    "confirmDowngrade": "نعم، خفض الخطة",
+    "pickPlan": "اختر الخطة التي تناسبك.",
+    "reachedLimit": "لقد وصلت إلى حدودك.",
+    "projectLimit": "حد المشروع ({current}/{limit})",
+    "threadLimit": "حد المحادثات ({current}/{limit})",
+    "workerLimit": "حد العمال ({current}/{limit})",
+    "triggerLimit": "حد المشغلات ({current}/{limit})",
+    "getAdditionalCredits": "احصل على رصيد إضافي",
+    "selectPlan": "اختر الخطة",
+    "changeScheduled": "تم جدولة التغيير",
+    "notAvailable": "غير متاح",
+    "features": {
+      "creditsPerMonth": "{count} رصيد/شهر",
+      "customWorker": "{count} عامل مخصص",
+      "customWorkers": "{count} عمال مخصصين",
+      "privateProject": "{count} مشروع خاص",
+      "privateProjects": "مشاريع خاصة",
+      "customTrigger": "{count} مشغل مخصص",
+      "integrations": "أكثر من 100 تكامل",
+      "premiumAIModels": "نماذج ذكاء اصطناعي مميزة",
+      "prioritySupport": "دعم ذو أولوية"
+    },
+    "downgradeDialog": {
+      "confirmTitle": "تأكيد تغيير الخطة",
+      "confirmSubtitle": "نحن آسفون لرؤيتك ترحل",
+      "confirmDescription": "أنت على وشك التبديل إلى خطة {planName}. سيسري هذا التغيير في نهاية فترة الفوترة الحالية. ستحتفظ بمزاياك الحالية حتى ذلك الحين.",
+      "continue": "متابعة",
+      "keepCurrentPlan": "الاحتفاظ بخطتي الحالية",
+      "feedbackTitle": "ساعدنا على التحسن",
+      "feedbackSubtitle": "ملاحظاتك تشكل مستقبل SuperAgent",
+      "whatWouldMakeYouStay": "ما الذي قد يجعلك تبقى؟",
+      "feedbackPlaceholder": "إذا كان هناك شيء واحد يمكننا تغييره أو إضافته لجعل SuperAgent يستحق ذلك بالنسبة لك، فماذا سيكون؟",
+      "feedbackFooter": "يقرأ فريقنا كل رد. كلماتك تؤثر مباشرة على ما سنبنيه في المرة القادمة.",
+      "confirmDowngrade": "تأكيد خفض الخطة",
+      "processing": "جاري المعالجة...",
+      "pleaseSelectReason": "يرجى اختيار السبب",
+      "reasons": {
+        "tooExpensive": "إنها مكلفة للغاية بالنسبة لاحتياجاتي",
+        "notUsingOften": "أنا لا أستخدم SuperAgent بشكل كافٍ",
+        "foundAlternative": "لقد وجدت حلاً آخر",
+        "technicalIssues": "واجهت مشكلات فنية",
+        "resultsNotGood": "النتائج لم تلبِ توقعاتي",
+        "other": "سبب آخر"
+      }
+    }
+  },
+  "auth": {
+    "haveReferralCode": "هل لديك كود إحالة؟",
+    "referralCode": "كود الإحالة",
+    "enterCode": "أدخل الكود",
+    "logIntoAccount": "تسجيل الدخول إلى حسابك",
+    "createAccount": "إنشاء حساب",
+    "signInOrCreateAccount": "سجل الدخول أو أنشئ حساب SuperAgent الخاص بك",
+    "continueWithGoogle": "المتابعة باستخدام جوجل",
+    "continueWithGitHub": "المتابعة باستخدام GitHub",
+    "orEmail": "أو البريد الإلكتروني",
+    "emailAddress": "عنوان البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "signIn": "تسجيل الدخول",
+    "signUp": "تسجيل جديد",
+    "signingIn": "جاري تسجيل الدخول...",
+    "creatingAccount": "جاري إنشاء الحساب...",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "dontHaveAccount": "ليس لديك حساب؟",
+    "alreadyHaveAccount": "لديك حساب بالفعل؟",
+    "acceptPrivacyTerms": "أوافق على <privacyPolicy>سياسة الخصوصية</privacyPolicy> و <termsOfService>شروط الخدمة</termsOfService>",
+    "privacyPolicy": "سياسة الخصوصية",
+    "termsOfService": "شروط الخدمة",
+    "checkYourEmail": "تحقق من بريدك الإلكتروني",
+    "confirmationLinkSent": "أرسلنا رابط إعادة التعيين إلى",
+    "clickLinkToActivate": "انقر على الرابط الموجود في البريد الإلكتروني لتنشيط حسابك. إذا لم تشاهد البريد الإلكتروني، فتحقق من مجلد البريد العشوائي.",
+    "returnToHome": "العودة إلى الصفحة الرئيسية",
+    "backToSignIn": "العودة لتسجيل الدخول",
+    "resetPassword": "إعادة تعيين كلمة المرور",
+    "resetPasswordDescription": "أدخل بريدك الإلكتروني وسنرسل لك رابط إعادة التعيين",
+    "sendResetLink": "إرسال الرابط",
+    "cancel": "إلغاء",
+    "pleaseEnterValidEmail": "يرجى إدخال عنوان بريد إلكتروني صالح",
+    "signInFailed": "فشل تسجيل الدخول. تحقق من بيانات الاعتماد الخاصة بك.",
+    "signUpFailed": "فشل التسجيل. يرجى المحاولة مرة أخرى.",
+    "sendMagicLink": "إرسال رابط سحري",
+    "sending": "جاري الإرسال...",
+    "magicLinkSent": "أرسلنا رابطاً سحرياً إلى",
+    "magicLinkDescription": "انقر على الرابط الموجود في بريدك الإلكتروني لتسجيل الدخول. ستنتهي صلاحية الرابط خلال ساعة واحدة.",
+    "magicLinkExplanation": "سنرسل لك رابطاً آمناً لتسجيل الدخول. لا حاجة لكلمة مرور.",
+    "magicLinkExpired": "انتهت صلاحية هذا الرابط",
+    "magicLinkExpiredDescription": "انتهت صلاحية الرابط السحري الذي نقرت عليه. تنتهي صلاحية الروابط السحرية بعد ساعة واحدة لأسباب أمنية.",
+    "resendMagicLink": "إعادة إرسال الرابط السحري",
+    "resending": "جاري إعادة الإرسال...",
+    "byContinuingYouAgree": "بالمتابعة، فإنك توافق على <privacyPolicy>سياسة الخصوصية</privacyPolicy> و <termsOfService>شروط الخدمة</termsOfService>",
+    "openProvider": "فتح {provider}",
+    "didntReceiveEmail": "لم تستلم البريد الإلكتروني؟",
+    "resend": "إعادة إرسال",
+    "alreadySignedIn": "أنت مسجل الدخول بالفعل. لا يلزم اتخاذ أي إجراء.",
+    "goToDashboard": "الذهاب إلى لوحة القيادة",
+    "signInToContinue": "سجل الدخول للمتابعة",
+    "signInOrCreateAccountToTalk": "سجل الدخول أو أنشئ حساباً للتحدث مع SuperAgent",
+    "orContinueWithEmail": "أو المتابعة باستخدام البريد الإلكتروني",
+    "signInWithEmail": "تسجيل الدخول بالبريد الإلكتروني",
+    "createNewAccount": "إنشاء حساب جديد",
+    "byContinuingYouAgreeSimple": "بالمتابعة، فإنك توافق على",
+    "phoneVerification": {
+      "title": "تحقق من رقم هاتفك",
+      "titleOtp": "أدخل رمز التحقق",
+      "description": "قم بتأمين حسابك باستخدام المصادقة الثنائية",
+      "descriptionOtp": "لقد أرسلنا رمزاً إلى رقم هاتفك",
+      "phoneNumber": "رقم الهاتف",
+      "verificationCode": "رمز التحقق",
+      "enterSixDigitCode": "أدخل الرمز المكون من 6 أرقام",
+      "phoneNumberPlaceholder": "أدخل رقم هاتفك",
+      "sendVerificationCode": "إرسال رمز التحقق",
+      "sendingCode": "جاري إرسال الرمز...",
+      "verifyCode": "تحقق من الرمز",
+      "verifying": "جاري التحقق...",
+      "resendCode": "إعادة إرسال الرمز",
+      "resendInSeconds": "إعادة الإرسال خلال {seconds} ثانية",
+      "removePhoneNumber": "إزالة رقم الهاتف",
+      "codeSentTo": "تم إرسال رمز التحقق إلى",
+      "sixDigitCodeHint": "سنرسل لك رمز تحقق مكوناً من 6 أرقام عبر رسالة نصية قصيرة",
+      "pleaseEnterPhoneNumber": "يرجى إدخال رقم هاتف",
+      "pleaseEnterValidPhoneNumber": "يرجى إدخال رقم هاتف صالح",
+      "pleaseEnterSixDigitCode": "يرجى إدخال رمز مكون من 6 أرقام",
+      "verificationCodeSent": "تم إرسال رمز التحقق إلى هاتفك",
+      "newVerificationCodeSent": "تم إرسال رمز تحقق جديد",
+      "phoneNumberVerified": "تم التحقق من رقم الهاتف بنجاح!",
+      "phoneNumberRemoved": "تم إزالة رقم الهاتف. يمكنك الآن إضافة رقم جديد.",
+      "signOut": "تسجيل الخروج",
+      "signingOut": "جاري تسجيل الخروج...",
+      "sending": "جاري الإرسال..."
+    }
+  },
+  "onboarding": {
+    "welcome": "مرحباً",
+    "next": "التالي",
+    "skip": "تخطي"
+  },
+  "tools": {
+    "executeCommand": "تنفيذ الأمر",
+    "checkCommandOutput": "التحقق من مخرجات الأمر",
+    "terminateCommand": "إنهاء الأمر",
+    "listCommands": "سرد الأوامر",
+    "createFile": "إنشاء ملف",
+    "deleteFile": "حذف ملف",
+    "fullFileRewrite": "إعادة كتابة الملف",
+    "strReplace": "تعديل النص",
+    "editFile": "تعديل الملف",
+    "uploadFile": "تحميل ملف",
+    "createDocument": "إنشاء مستند",
+    "updateDocument": "تحديث مستند",
+    "readDocument": "قراءة مستند",
+    "listDocuments": "سرد المستندات",
+    "deleteDocument": "حذف مستند",
+    "createTasks": "إنشاء مهام",
+    "updateTasks": "تحديث مهام",
+    "browserNavigateTo": "التوجه إلى الصفحة",
+    "browserAct": "أداء إجراء",
+    "browserExtractContent": "استخراج المحتوى",
+    "browserScreenshot": "أخذ لقطة شاشة",
+    "executeDataProviderCall": "الاتصال بمزود البيانات",
+    "getDataProviderEndpoints": "الحصول على نقاط النهاية",
+    "ask": "سؤال",
+    "wait": "انتظار",
+    "complete": "إكمال المهمة",
+    "crawlWebpage": "زحف لصفحة الويب",
+    "exposePort": "كشف المنفذ",
+    "scrapeWebpage": "كشط صفحة الويب",
+    "webSearch": "بحث الويب",
+    "loadImage": "تحميل الصورة",
+    "createPresentationOutline": "إنشاء مخطط العرض التقديمي",
+    "createPresentation": "إنشاء العرض التقديمي",
+    "presentPresentation": "عرض",
+    "clearImagesFromContext": "مسح الصور من السياق",
+    "imageSearch": "بحث عن الصور",
+    "createSheet": "إنشاء ورقة",
+    "updateSheet": "تحديث ورقة",
+    "viewSheet": "عرض ورقة",
+    "analyzeSheet": "تحليل ورقة",
+    "visualizeSheet": "تصوير ورقة",
+    "formatSheet": "تنسيق ورقة",
+    "updateAgent": "تحديث العامل",
+    "getCurrentAgentConfig": "الحصول على تكوين العامل",
+    "searchMcpServers": "بحث في خوادم MCP",
+    "getMcpServerTools": "الحصول على أدوات خادم MCP",
+    "configureMcpServer": "تكوين خادم MCP",
+    "getPopularMcpServers": "الحصول على خوادم MCP الشائعة",
+    "testMcpServerConnection": "اختبار اتصال خادم MCP",
+    "listAppEventTriggers": "العثور على مشغلات الأحداث",
+    "createEventTrigger": "إنشاء مشغل حدث",
+    "getProjectStructure": "الحصول على هيكل المشروع",
+    "buildProject": "بناء المشروع",
+    "makePhoneCall": "إجراء مكالمة هاتفية",
+    "endCall": "إنهاء المكالمة",
+    "getCallDetails": "الحصول على تفاصيل المكالمة",
+    "listCalls": "سرد المكالمات",
+    "monitorCall": "مراقبة المكالمة",
+    "waitForCallCompletion": "انتظار الاكتمال",
+    "getPaperDetails": "الحصول على تفاصيل الورقة",
+    "searchAuthors": "بحث عن المؤلفين",
+    "getAuthorDetails": "الحصول على تفاصيل المؤلف",
+    "getAuthorPapers": "الحصول على أوراق المؤلف",
+    "getPaperCitations": "الحصول على استشهادات الورقة",
+    "getPaperReferences": "الحصول على مراجع الورقة",
+    "paperSearch": "البحث عن الأوراق",
+    "discoverUserMcpServers": "اكتشاف الأدوات",
+    "createCredentialProfile": "إنشاء ملف تعريف",
+    "getCredentialProfiles": "الحصول على ملفات التعريف",
+    "configureProfileForAgent": "إضافة أدوات للعامل",
+    "createNewAgent": "إنشاء عامل جديد",
+    "searchMcpServersForAgent": "بحث في خوادم MCP",
+    "createCredentialProfileForAgent": "إنشاء ملف تعريف بيانات الاعتماد",
+    "discoverMcpToolsForAgent": "اكتشاف أدوات MCP",
+    "configureAgentIntegration": "تكوين تكامل العامل",
+    "createAgentScheduledTrigger": "إنشاء مشغل مجدول",
+    "listAgentScheduledTriggers": "سرد المشغلات المجدولة للعامل",
+    "executingTool": "تنفيذ الأداة",
+    "toolExecutedSuccessfully": "تم تنفيذ الأداة بنجاح",
+    "toolExecutionFailed": "فشل تنفيذ الأداة",
+    "input": "المدخلات",
+    "output": "المخرجات",
+    "copyFileContent": "نسخ محتوى الملف",
+    "fileContentCopied": "تم نسخ محتوى الملف إلى الحافظة",
+    "failedToCopyFileContent": "فشل نسخ محتوى الملف",
+    "noContentAvailable": "لا يوجد محتوى متاح",
+    "noContentDescription": "لم ينتج عن تنفيذ هذه الأداة أي محتوى إدخال أو إخراج لعرضه.",
+    "tool": "الأداة"
+  },
+  "agentRunLimit": {
+    "gotIt": "فهمت",
+    "parallelRunsLimitReached": "تم الوصول إلى حد عمليات التشغيل المتوازية",
+    "parallelRunsLimitDescription": "لقد وصلت إلى الحد الأقصى المسموح به لعمليات تشغيل العامل المتوازية.",
+    "needMoreParallelRuns": "هل تحتاج لمزيد من عمليات التشغيل المتوازية؟",
+    "upgradeDescription": "قم بترقية خطتك لتشغيل عمال متعددين في وقت واحد وتعزيز إنتاجيتك.",
+    "upgradePlan": "ترقية الخطة",
+    "currentlyRunningAgents": "العمال الذين يعملون حالياً",
+    "loadingThreads": "جاري تحميل المحادثات...",
+    "foundRunningAgents": "تم العثور على {count} من العمال الذين يعملون ولكن تعذر تحميل تفاصيل المحادثة.",
+    "threadIds": "معرفات المحادثة: {ids}",
+    "moreRunning": "+{count} أكثر قيد التشغيل",
+    "whatCanYouDo": "ماذا يمكنك أن تفعل؟",
+    "stopAgentsHint": "انقر على زر الإيقاف لإيقاف العمال قيد التشغيل",
+    "waitForCompletion": "انتظر حتى يكتمل العامل تلقائياً",
+    "upgradeYourPlan": "قم بترقية خطتك",
+    "forMoreParallelRuns": "لمزيد من عمليات التشغيل المتوازية",
+    "stopAgent": "إيقاف العامل",
+    "stopThisAgent": "إيقاف هذا العامل",
+    "openThread": "فتح المحادثة",
+    "agentStoppedSuccessfully": "تم إيقاف العامل بنجاح",
+    "failedToStopAgent": "فشل إيقاف العامل",
+    "upgradeToRunMore": "قم بالترقية لتشغيل المزيد من العمال بالتوازي"
+  },
+  "errors": {
+    "generic": "حدث خطأ ما",
+    "network": "خطأ في الشبكة",
+    "unauthorized": "غير مصرح",
+    "notFound": "غير موجود"
+  },
+  "languages": {
+    "en": "الإنجليزية",
+    "de": "الألمانية",
+    "it": "الإيطالية",
+    "zh": "الصينية",
+    "ja": "اليابانية",
+    "pt": "البرتغالية",
+    "fr": "الفرنسية",
+    "es": "الإسبانية"
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "description": "إدارة كيفية تلقيك للإشعارات",
+    "preferences": "تفضيلات الإشعارات",
+    "channels": "قنوات الإشعارات",
+    "emailNotifications": "إشعارات البريد الإلكتروني",
+    "emailDescription": "تلقي الإشعارات عبر البريد الإلكتروني",
+    "pushNotifications": "إشعارات الدفع",
+    "pushDescription": "تلقي إشعارات الدفع على جهازك",
+    "inAppNotifications": "إشعارات داخل التطبيق",
+    "inAppDescription": "رؤية الإشعارات داخل التطبيق",
+    "deviceTokens": "الأجهزة المسجلة",
+    "noDevices": "لا توجد أجهزة مسجلة",
+    "settingsUpdated": "تم تحديث تفضيلات الإشعارات بنجاح",
+    "settingsFailed": "فشل تحديث تفضيلات الإشعارات",
+    "enableAll": "تمكين الكل",
+    "disableAll": "تعطيل الكل",
+    "saveChanges": "حفظ التغييرات"
+  },
+  "suna": {
+    "samplePrompts": "نماذج الأوامر",
+    "chooseStyle": "اختر النمط",
+    "chooseTemplate": "اختر القالب",
+    "chooseOutputFormat": "اختر تنسيق المخرجات",
+    "preferredCharts": "الرسوم البيانية المفضلة",
+    "whatWouldYouLike": "ماذا تريد أن تنجز؟",
+    "describeTask": "صف المهمة التي تريد أن يكملها عاملك...",
+    "modes": {
+      "image": "صورة",
+      "slides": "شرائح",
+      "data": "بيانات",
+      "docs": "مستندات",
+      "canvas": "لوحة (Canvas)",
+      "video": "فيديو",
+      "research": "بحث"
+    },
+    "styles": {
+      "photorealistic": "واقعي",
+      "watercolor": "ألوان مائية",
+      "digital-art": "فن رقمي",
+      "oil-painting": "رسم زيتي",
+      "minimalist": "بسيط",
+      "isometric": "متساوي القياس",
+      "vintage": "عتيق",
+      "comic": "كتاب هزلي",
+      "neon": "نيون",
+      "pastel": "باستيل",
+      "geometric": "هندسي",
+      "abstract": "تجريدي",
+      "anime": "أنمي",
+      "impressionist": "انطباعي",
+      "surreal": "سريالي"
+    },
+    "templates": {
+      "minimalist": {
+        "name": "بسيط",
+        "description": "تصميم نظيف وبسيط"
+      },
+      "minimalist_2": {
+        "name": "بسيط 2",
+        "description": "نمط بسيط بديل"
+      },
+      "black_and_white_clean": {
+        "name": "أبيض وأسود",
+        "description": "أحادي اللون كلاسيكي"
+      },
+      "colorful": {
+        "name": "ملون",
+        "description": "نابض بالحياة وحيوي"
+      },
+      "startup": {
+        "name": "شركة ناشئة",
+        "description": "ديناميكي ومبتكر"
+      },
+      "elevator_pitch": {
+        "name": "عرض موجز",
+        "description": "سريع ومؤثر"
+      },
+      "portfolio": {
+        "name": "حقيبة أعمال",
+        "description": "عرض أعمالك"
+      },
+      "textbook": {
+        "name": "كتاب مدرسي",
+        "description": "تعليمي ومنظم"
+      },
+      "architect": {
+        "name": "معماري",
+        "description": "احترافي ودقيق"
+      },
+      "hipster": {
+        "name": "هيبستر",
+        "description": "حديث وعصري"
+      },
+      "green": {
+        "name": "أخضر",
+        "description": "تصميم مستوحى من الطبيعة"
+      },
+      "premium_black": {
+        "name": "أسود فاخر",
+        "description": "مظهر غامق فاخر"
+      },
+      "premium_green": {
+        "name": "أخضر فاخر",
+        "description": "أخضر راقٍ"
+      },
+      "professor_gray": {
+        "name": "رمادي البروفيسور",
+        "description": "أكاديمي وعلمي"
+      },
+      "gamer_gray": {
+        "name": "رمادي اللاعبين",
+        "description": "تصميم مستوحى من الألعاب"
+      },
+      "competitor_analysis_blue": {
+        "name": "أزرق التحليل",
+        "description": "مرکز على تحليل الأعمال"
+      },
+      "numbers_clean": {
+        "name": "أرقام نظيفة",
+        "description": "تصوير بيانات نظيف"
+      },
+      "numbers_colorful": {
+        "name": "أرقام ملونة",
+        "description": "عرض بيانات حيوي"
+      },
+      "prd": {
+        "name": "PRD",
+        "description": "وثيقة متطلبات المنتج"
+      },
+      "technical": {
+        "name": "تقني",
+        "description": "وثائق تقنية"
+      },
+      "proposal": {
+        "name": "مقترح",
+        "description": "مقترح عمل"
+      },
+      "report": {
+        "name": "تقرير",
+        "description": "تنسيق تقرير مفصل"
+      },
+      "guide": {
+        "name": "دليل",
+        "description": "دليل خطوة بخطوة"
+      },
+      "wiki": {
+        "name": "ويكي",
+        "description": "مقال في قاعدة المعرفة"
+      },
+      "policy": {
+        "name": "سياسة",
+        "description": "وثيقة سياسة"
+      },
+      "meeting-notes": {
+        "name": "ملاحظات الاجتماع",
+        "description": "محاضر الاجتماع"
+      }
+    },
+    "outputFormats": {
+      "spreadsheet": {
+        "name": "جدول بيانات",
+        "description": "جدول مع الصيغ"
+      },
+      "dashboard": {
+        "name": "لوحة قيادة",
+        "description": "رسوم بيانية تفاعلية"
+      },
+      "report": {
+        "name": "تقرير",
+        "description": "تحليل مع مرئيات"
+      },
+      "slides": {
+        "name": "شرائح",
+        "description": "تنسيق عرض تقديمي"
+      }
+    },
+    "charts": {
+      "bar": "شريطي",
+      "line": "خطي",
+      "pie": "دائري",
+      "scatter": "مبعثر",
+      "heatmap": "خريطة حرارية",
+      "bubble": "فقاعة",
+      "wordcloud": "سحابة كلمات",
+      "stacked": "شريطي مكدس",
+      "area": "مساحي"
+    },
+    "prompts": {
+      "image": {
+        "0": "عقاب ذهبي مهيب يحلق عبر قمم الجبال الضبابية عند شروق الشمس مع إضاءة دراماتيكية",
+        "1": "بورتريه قريب لعارضة أزياء مع مكياج طليعي، إضاءة استوديو، ظلال عالية التباين",
+        "2": "غرفة معيشة اسكندنافية مريحة مع أثاث خشبي طبيعي، نباتات داخلية، وضوء شمس صباحي ناعم",
+        "3": "سوق شارع سايبربانك مستقبلي ليلاً مع لافتات نيون، رصيف مبلل بالمطر، وشاشات هولوغرافية",
+        "4": "تصوير فوتوغرافي أنيق لزجاجة عطر فاخرة على سطح رخامي مع انعكاسات ناعمة",
+        "5": "جزر عائمة غريبة متصلة بجسور حبال في سماء باستيل مع غيوم حالمة",
+        "6": "لقطة ماكرو قريبة لقطرات ندى الصباح على بتلات زهور نابضة بالحياة مع خلفية بوكيه",
+        "7": "إعداد مكتب عمل حديث مع كمبيوتر محمول، قهوة، دفتر ملاحظات، ونباتات عصارية من الأعلى",
+        "8": "ممر غابة غامض مع أشجار قديمة، يراعات مضيئة، وأشعة ضوئية أثيرية عبر الضباب",
+        "9": "تفاصيل معمارية لواجهة مبنى زجاجي معاصر بأنماط هندسية وانعكاسات",
+        "10": "كشك بائع طعام في الشارع نابض بالحياة مع مكونات ملونة، بخار متصاعد، وإضاءة دافئة",
+        "11": "حديقة زن يابانية هادئة مع رمال مجروشة، أحجار مغطاة بالطحالب، وبتلات أزهار الكرز",
+        "12": "لقطة حركة ديناميكية لرياضي في منتصف القفزة مقابل سماء غروب شمس دراماتيكية، تأثير خيال",
+        "13": "مطبخ ريفي بمزرعة مع قدور نحاسية، أعشاب طازجة، ألواح تقطيع خشبية، وأنسجة طبيعية",
+        "14": "فن سائل تجريدي مع ذهب معدني دوار، أزرق عميق، وأنماط عضوية باللون الأخضر الزمردي"
+      },
+      "slides": {
+        "0": "إنشاء عرض تمويل للفئة (A) مع حجم السوق، الجذب، والتوقعات المالية",
+        "1": "بناء مراجعة أعمال للربع الرابع تعرض مؤشرات الأداء الرئيسية، والنجاحات، والمبادرات الاستراتيجية",
+        "2": "تصميم عرض تقديمي لإطلاق منتج مع فيديوهات تجريبية وشهادات العملاء",
+        "3": "تطوير مجموعة أدوات تمكين المبيعات التي تشرح عرض قيمتنا ومزايانا التنافسية",
+        "4": "إنشاء تحديث للمستثمرين يبرز المقاييس الرئيسية والمعالم القادمة",
+        "5": "بناء عرض تقديمي لدراسة حالة عميل يظهر عائد الاستثمار ومقاييس النجاح",
+        "6": "تصميم عرض تقديمي لجميع الموظفين يغطي تحديثات الشركة ورؤيتها",
+        "7": "تطوير مجموعة تدريبية لميزات المنتج الجديدة وسير العمل",
+        "8": "إنشاء حديث لمؤتمر حول توسيع فرق الهندسة",
+        "9": "بناء عرض تقديمي لاجتماع مجلس الإدارة مع توصيات استراتيجية"
+      },
+      "data": {
+        "0": "بناء نموذج مالي يتوقع نمو ARR مع سيناريوهات تسعير مختلفة",
+        "1": "إنشاء لوحة قيادة مبيعات تفاعلية تتتبع المقاييس حسب المنطقة والربع",
+        "2": "تحليل 50 ألف تقييم للعملاء وتصوير اتجاهات المشاعر بمرور الوقت",
+        "3": "تصميم تقويم محتوى يتتبع الحملات مع رسوم بيانية لعائد الاستثمار والتفاعل",
+        "4": "بناء تحليل الجماعات (Cohort analysis) يظهر أنماط الاحتفاظ بالمستخدمين والانصراف",
+        "5": "إنشاء نموذج إسناد تسويقي يقارن أداء القنوات",
+        "6": "تطوير متتبع توظيف مع مقاييس سير العمل وتحليل وقت الملء",
+        "7": "بناء جدول بيانات لتخطيط الميزانية مع نمذجة السيناريوهات",
+        "8": "تحليل بيانات حركة مرور موقع الويب وتصوير أقماع التحويل",
+        "9": "إنشاء نظام لإدارة المخزون مع تنبيهات إعادة الطلب الآلية"
+      },
+      "docs": {
+        "0": "كتابة PRD شامل لمحرك توصيات يعمل بالذكاء الاصطناعي",
+        "1": "صياغة وثيقة هندسة تقنية لمنصة خدمات مصغرة قابلة للتوسع",
+        "2": "إنشاء وثيقة استراتيجية دخول السوق لإطلاق منتجنا في الربع الثاني",
+        "3": "تطوير دليل 온보딩 لمدة 90 يوماً لمديري الهندسة",
+        "4": "كتابة دليل وثائق API مع أمثلة وأفضل الممارسات",
+        "5": "إنشاء كتيب للشركة يغطي الثقافة والسياسات والمزايا",
+        "6": "صياغة سياسة خصوصية بيانات متوافقة مع GDPR و CCPA",
+        "7": "تطوير دليل نجاح العملاء لحسابات المؤسسات SaaS",
+        "8": "كتابة خطة استجابة للحوادث الأمنية مع إجراءات التصعيد",
+        "9": "إنشاء دليل نمط شامل للعلامة التجارية والمحتوى"
+      },
+      "canvas": {
+        "0": "إضافة لافتة شركة تقنية ناشئة إلى اللوحة مع أفق مدينة مستقبلي",
+        "1": "إنشاء شعار لعلامة تجارية للقهوة على اللوحة باستخدام نمط بسيط ترابي",
+        "2": "إضافة صورة منتجي إلى اللوحة وإزالة خلفيتها",
+        "3": "تصميم إنفوجرافيك للطاقة المتجددة على اللوحة مع أيقونات مسطحة",
+        "4": "إنشاء غلاف كتاب خيال علمي على اللوحة بجماليات سايبربانك",
+        "5": "إضافة صورة مصغرة لـ YouTube إلى اللوحة لفيديو نصائح الإنتاجية",
+        "6": "بناء لوحة إلهام للأزياء الفاخرة على اللوحة لجيل الألفية",
+        "7": "تصميم دعوة زفاف أنيقة على اللوحة بأنماط زهور",
+        "8": "إضافة صورتي الشخصية إلى اللوحة وتطبيق تأثير فيلم عتيق",
+        "9": "إنشاء ملصق مهرجان موسيقي على اللوحة بأجواء نفسية (psychedelic)"
+      },
+      "video": {
+        "0": "تحريك صورة منتجي وهي تدور بسلاسة مع إضاءة استوديو",
+        "1": "تحويل صورتي الشخصية إلى مشهد سينمائي مع حركة كاميرا",
+        "2": "إنشاء فيديو طبيعي هادئ لأزهار الكرز وهي تسقط ببطء",
+        "3": "إنشاء جزيئات متوهجة تجريدية تدور معاً بالحركة البطيئة",
+        "4": "جعل منتجي يطفو ويدور مع ظلال وانعكاسات ناعمة",
+        "5": "إضافة إضاءة سينمائية دراماتيكية وتدرج ألوان لصورتي الشخصية",
+        "6": "إنشاء لقطة طائرة بدون طيار سلسة تطير عبر قمم الجبال الضبابية",
+        "7": "إنشاء فيديو حلقي لمعدن سائل يتدفق في أشكال عضوية",
+        "8": "تحويل خلفية صورتي إلى مشهد تحت الماء مع أشعة ضوئية",
+        "9": "إنشاء فيديو لمشهد مدينة مستقبلي مع أضواء نيون وانعكاسات"
+      },
+      "research": {
+        "0": "تحليل الاتجاهات الناشئة في الحوسبة الكمية وتطبيقات الأعمال المحتملة",
+        "1": "بحث أفضل 10 منافسين في مجال CRM المدعوم بالذكاء الاصطناعي مع مقارنة الميزات",
+        "2": "التحقيق في المتطلبات التنظيمية لإطلاق تطبيق تقنية مالية في الاتحاد الأوروبي",
+        "3": "تجميع تحليل السوق لمعدلات اعتماد المركبات الكهربائية عبر الأسواق الرئيسية",
+        "4": "دراسة تأثير العمل عن بعد على الطلب على العقارات التجارية في المدن الكبرى",
+        "5": "بحث أنماط اعتماد Web3 بين شركات Fortune 500",
+        "6": "تحليل مشاعر المستهلكين تجاه العلامات التجارية للأزياء المستدامة",
+        "7": "التحقيق في أحدث التطورات في العلاج الجيني للأمراض النادرة",
+        "8": "دراسة استراتيجيات التسعير لشركات صناديق الاشتراك D2C الناجحة",
+        "9": "بحث المشهد التنافسي لحلول الأمن السيبراني المدعومة بالذكاء الاصطناعي"
+      }
+    }
+  },
+  "announcements": {
+    "memories": {
+      "title": "تقديم الذكريات",
+      "description": "يتذكر SuperAgent الآن تفضيلاتك وسياقك عبر جميع المحادثات",
+      "features": {
+        "personalized": {
+          "title": "تجربة مخصصة",
+          "description": "يتكيف مع أسلوب عملك بمرور الوقت"
+        },
+        "retention": {
+          "title": "الاحتفاظ بالسياق",
+          "description": "يتم تذكر التفاصيل المهمة عبر الدردشات"
+        },
+        "control": {
+          "title": "أنت المتحكم",
+          "description": "أوقف التشغيل أو امسح الذكريات في أي وقت"
+        }
+      },
+      "manageButton": "إدارة الذكريات",
+      "dismissButton": "فهمت"
+    }
+  }
+}

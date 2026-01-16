@@ -1,0 +1,1609 @@
+{
+  "common": {
+    "cancel": "Avbryt",
+    "save": "Lagre",
+    "saving": "Lagrer...",
+    "success": "Suksess",
+    "done": "Ferdig",
+    "close": "Lukk",
+    "ok": "OK",
+    "yes": "Ja",
+    "no": "Nei",
+    "delete": "Slett",
+    "edit": "Rediger",
+    "search": "Søk",
+    "loading": "Laster...",
+    "error": "Feil",
+    "retry": "Prøv igjen",
+    "send": "Send",
+    "back": "Tilbake",
+    "new": "Ny",
+    "create": "Opprett",
+    "update": "Oppdater",
+    "remove": "Fjern",
+    "confirm": "Bekreft",
+    "processing": "Behandler...",
+    "keep": "Behold",
+    "active": "Aktiv",
+    "inactive": "Inaktiv",
+    "next": "Neste",
+    "upgrade": "Oppgrader",
+    "basic": "Basis",
+    "tryFree": "Kom i gang"
+  },
+  "settings": {
+    "title": "Innstillinger",
+    "tabs": {
+      "general": "Generelt",
+      "plan": "Abonnement",
+      "billing": "Fakturering",
+      "usage": "Forbruk",
+      "referrals": "Vervinger",
+      "knowledgeBase": "Kunnskapsbase",
+      "integrations": "Integrasjoner",
+      "envManager": "Miljøstyring"
+    },
+    "general": {
+      "title": "Generelle innstillinger",
+      "description": "Administrer kontoinformasjonen din",
+      "profilePicture": {
+        "title": "Profilbilde",
+        "upload": "Last opp bilde",
+        "hint": "JPG, PNG eller GIF. Maks 5 MB.",
+        "invalidType": "Vennligst velg en bildefil",
+        "tooLarge": "Bildet må være under 5 MB",
+        "uploadFailed": "Opplasting av profilbilde mislyktes"
+      },
+      "name": "Navn",
+      "email": "E-post",
+      "namePlaceholder": "Skriv inn navnet ditt",
+      "emailCannotChange": "E-post kan ikke endres herfra",
+      "saveChanges": "Lagre endringer",
+      "profileUpdated": "Profilen ble oppdatert",
+      "profileUpdateFailed": "Oppdatering av profil mislyktes",
+      "language": {
+        "title": "Språk",
+        "description": "Velg ditt foretrukne språk",
+        "current": "Gjeldende språk",
+        "select": "Velg språk"
+      },
+      "deleteAccount": {
+        "title": "Slett konto",
+        "description": "Slett kontoen din og alle tilknyttede data permanent",
+        "button": "Slett konto",
+        "scheduled": "Sletting planlagt",
+        "scheduledDescription": "Kontoen din vil bli slettet permanent den {date}.",
+        "canCancel": "Du kan avbryte denne forespørselen når som helst før slettedatoen.",
+        "cancelButton": "Avbryt sletteforespørsel",
+        "dialogTitle": "Slett konto",
+        "warning": "Denne handlingen kan ikke angres etter 30 dager",
+        "whenDelete": "Når du sletter kontoen din:",
+        "agentsDeleted": "Alle Workers og deres versjoner vil bli slettet",
+        "threadsDeleted": "Alle samtaler og økter vil bli slettet",
+        "credentialsRemoved": "Alle påloggingsdetaljer og integrasjoner vil bli fjernet",
+        "subscriptionCancelled": "Abonnementet ditt vil bli sagt opp",
+        "billingRemoved": "Alle faktureringsdata vil bli fjernet",
+        "scheduled30Days": "Kontoen din er planlagt for sletting om 30 dager",
+        "gracePeriod": "Du kan avbryte denne forespørselen når som helst i løpet av angreperioden på 30 dager. Etter 30 dager vil alle dataene dine bli slettet permanent og kan ikke gjenopprettes.",
+        "chooseDeletionType": "Velg slettingstype:",
+        "gracePeriodOption": "30 dagers angreperiode",
+        "gracePeriodDescription": "Kontoen din er planlagt for sletting om 30 dager. Du kan avbryte denne forespørselen når som helst i angreperioden.",
+        "immediateOption": "Øyeblikkelig sletting",
+        "immediateDescription": "Kontoen din og alle data vil bli slettet permanent umiddelbart. Denne handlingen kan ikke angres.",
+        "warningImmediate": "Denne handlingen kan ikke angres",
+        "warningGracePeriod": "Denne handlingen kan ikke angres etter 30 dager",
+        "confirmText": "Skriv delete for å bekrefte",
+        "confirmPlaceholder": "delete",
+        "keepAccount": "Behold konto",
+        "cancelDeletionTitle": "Avbryt sletting av konto",
+        "cancelDeletionDescription": "Er du sikker på at du vil avbryte slettingen av kontoen din? Kontoen din og alle data vil bli beholdt.",
+        "cancelDeletion": "Avbryt sletting"
+      }
+    },
+    "referrals": {
+      "title": "Verveprogram",
+      "description": "Del vervelenken din med venner og tjen kreditt når de registrerer seg.",
+      "creditsPerReferral": "100 kreditter",
+      "youEarn": "Du tjener",
+      "friendGets": "Vennen din får",
+      "maxEarnable": "Maksimalt beløp som kan tjenes gjennom vervinger:",
+      "maxCredits": "$100 i kreditter",
+      "yourReferralCode": "Din vervekode",
+      "referralLink": "Vervelenke",
+      "shareYourLink": "Del vervelenken din",
+      "yourStats": "Dine statistikker",
+      "enterCodeDescription": "Skriv inn en vervekode for å tjene kreditt",
+      "enterCode": "Skriv inn kode",
+      "refresh": "Oppdater",
+      "copyCode": "Kopier kode",
+      "copyLink": "Kopier lenke",
+      "share": "Del",
+      "stats": {
+        "totalReferrals": "Totalt antall vervinger",
+        "successful": "Vellykkede",
+        "creditsEarned": "Opptjente kreditter"
+      },
+      "recentReferrals": "Siste vervinger",
+      "signupComplete": "Registrering fullført",
+      "pending": "Venter",
+      "noReferrals": "Ingen vervinger ennå. Del lenken din for å komme i gang!",
+      "copied": "Kopiert!",
+      "codeCopied": "Vervekode kopiert til utklippstavlen",
+      "linkCopied": "Vervelenke kopiert til utklippstavlen",
+      "codeRefreshed": "Vervekode oppdatert",
+      "refreshFailed": "Oppdatering av vervekode mislyktes",
+      "inviteByEmail": "Inviter via e-post",
+      "inviteByEmailDescription": "Legg til opptil 3 e-postadresser (trykk Enter, mellomrom eller komma for å legge til)",
+      "emailAddress": "E-postadresse",
+      "emailPlaceholder": "Skriv inn e-postadresser (Enter, mellomrom eller komma)",
+      "emailsAdded": "E-poster lagt til",
+      "sent": "Sendt",
+      "send": "Send",
+      "sending": "Sender...",
+      "sendAllInvites": "Send alle invitasjoner",
+      "allSent": "Alle sendt",
+      "emailSent": "Verveinvitasjon ble sendt"
+    },
+    "billing": {
+      "title": "Fakturering og abonnement",
+      "description": "Administrer kreditt og abonnement",
+      "totalCredits": "Totalt tilgjengelig kreditt",
+      "allCredits": "Alle kreditter",
+      "monthlyCredits": "Månedlige kreditter",
+      "renewalIn": "Fornyelse om {days} {days, plural, one {dag} other {dager}}",
+      "noRenewal": "Ingen planlagt fornyelse",
+      "extraCredits": "Ekstra kreditter",
+      "nonExpiring": "Udløper ikke",
+      "renews": "Fornyes den {date}",
+      "manageSubscription": "Administrer abonnement",
+      "getAdditionalCredits": "Få ekstra kreditter",
+      "changePlan": "Bytt plan",
+      "annualCommitment": "Årlig forpliktelse",
+      "activeUntil": "Aktiv til {date}",
+      "subscriptionCancelled": "Abonnementet ditt sies opp den {date}",
+      "reactivate": "Reaktiver",
+      "creditsExplained": "Kreditter forklart",
+      "cancelPlan": "Avbryt plan",
+      "reactivateSubscription": "Reaktiver abonnement",
+      "reactivating": "Reaktiverer...",
+      "cancelDialogTitle": "Avbryt abonnement",
+      "cancelDialogDescription": "Er du sikker på at du vil avbryte abonnementet ditt? Du vil fortsatt ha tilgang til {date}.",
+      "keepSubscription": "Behold abonnement",
+      "cancelling": "Avbryter...",
+      "localMode": "Lokal modus aktiv",
+      "localModeDescription": "Alle premiumfunksjoner er tilgjengelige i dette miljøet",
+      "insufficientCredits": "Utilstrekkelig kreditt",
+      "insufficientCreditsMessage": "Faktureringskontroll mislyktes: Utilstrekkelig kreditt. Saldoen din er {balance}. Vennligst legg til kreditt for å fortsette.",
+      "creditsExhausted": "Du er tom for kreditter. Oppgrader nå.",
+      "billingCheckFailed": "Faktureringskontroll mislyktes. Vennligst oppgrader for å fortsette.",
+      "failedToStartAgent": "Kunne ikke starte Worker {agentName}: {message}"
+    },
+    "usage": {
+      "title": "Forbruk"
+    },
+    "knowledgeBase": {
+      "opening": "Åpner kunnskapsbasen",
+      "redirecting": "Videresender til kunnskapsbase-siden..."
+    },
+    "integrations": {
+      "opening": "Åpner integrasjoner",
+      "redirecting": "Videresender til integrasjons-siden..."
+    },
+    "memory": {
+      "title": "AI-minne",
+      "description": "Husk automatisk kontekst på tvers av samtaler",
+      "enabled": "Aktivert",
+      "disabled": "Deaktivert",
+      "notAvailable": "Minne er ikke tilgjengelig i din nåværende plan. Oppgrader til Plus eller høyere for å aktivere automatisk minne.",
+      "enableMemory": "Aktiver minne",
+      "enableMemoryDescription": "Tillat SuperAgent å huske informasjon fra samtalene dine",
+      "memoryDisabledByUser": "Minne er for øyeblikket deaktivert. Aktiver det ovenfor for å begynne å bygge minner fra samtalene dine.",
+      "upgradeRequired": "Oppgradering kreves for minne",
+      "clickToUpgrade": "Klikk for å se planer",
+      "memoryEnabledTooltip": "Minne aktivert",
+      "memoryDisabledTooltip": "Minne deaktivert",
+      "clickToToggle": "Klikk for å bytte",
+      "usage": "Minnebruk",
+      "available": "{count} minner tilgjengelige",
+      "noLimit": "Ingen grense",
+      "yourMemories": "Dine minner",
+      "yourMemoriesDescription": "Se og administrer hva AI-en husker om deg",
+      "clearAll": "Slett alt",
+      "deleteAllTitle": "Slette alle minner?",
+      "deleteAllDescription": "Dette vil slette alle dine {count} minner permanent. AI-en vil ikke lenger huske informasjon fra tidligere samtaler. Denne handlingen kan ikke angres.",
+      "deleteAllButton": "Slett alle minner",
+      "noMemoriesYet": "Ingen minner ennå",
+      "noMemoriesDescription": "Start en samtale, så vil AI-en automatisk huske viktig informasjon om deg",
+      "searchMemories": "Søk i minner...",
+      "filterByType": "Filtrer etter type",
+      "allTypes": "Alle typer",
+      "personalFacts": "Personlige fakta",
+      "preferences": "Preferanser",
+      "context": "Kontekst",
+      "conversations": "Samtaler",
+      "noMatchingMemories": "Ingen minner samsvarte med søket ditt",
+      "adjustFilters": "Prøv å justere filtrene eller søket",
+      "loadMore": "Last inn flere",
+      "loading": "Laster inn minner...",
+      "memoryTypes": {
+        "fact": "Fakta",
+        "preference": "Preferanse",
+        "context": "Kontekst",
+        "conversation_summary": "Samtale"
+      }
+    }
+  },
+  "triggers": {
+    "getStarted": "Kom i gang ved å legge til en trigger",
+    "getStartedDescription": "Planlegg en trigger for å automatisere handlinger og få påminnelser når de er ferdige.",
+    "search": "Søk",
+    "scheduledTrigger": "Planlagt trigger",
+    "eventBasedTrigger": "Hendelsesbasert trigger",
+    "chooseAgent": "Velg Worker",
+    "schedule": "Tidsplan",
+    "agentInstructions": "Worker-instruksjoner",
+    "agentInstructionsDescription": "Tilpasset prompt for Worker",
+    "assignedAgent": "Tildelt Worker",
+    "unknownAgent": "Ukjent Worker",
+    "technicalDetails": "Tekniske detaljer",
+    "type": "Type",
+    "provider": "Leverandør",
+    "created": "Opprettet",
+    "lastUpdated": "Sist oppdatert",
+    "enable": "Aktiver",
+    "disable": "Deaktiver",
+    "deleteTask": "Slett oppgave",
+    "deleteTaskDescription": "Er du sikker på at du vil slette \"{name}\"? Dette kan ikke angres og vil stoppe alle automatiserte kjøringer for denne oppgaven.",
+    "taskEnabled": "Oppgave aktivert",
+    "taskDisabled": "Oppgave deaktivert",
+    "toggleTaskFailed": "Kunne ikke bytte oppgavestatus",
+    "taskDeletedSuccess": "Oppgave slettet",
+    "deleteTaskFailed": "Kunne ikke slette oppgave",
+    "taskUpdatedSuccess": "Oppgave oppdatert",
+    "updateTaskFailed": "Kunne ikke oppdatere oppgave",
+    "pleaseSelectAgent": "Vennligst velg en Worker",
+    "defaultScheduledTriggerName": "Planlagt trigger",
+    "defaultScheduledTriggerDescription": "Automatisk planlagt trigger",
+    "scheduleTriggerUpdated": "Planlagt trigger ble oppdatert",
+    "scheduleTriggerCreated": "Planlagt trigger ble opprettet",
+    "upgradeForMoreScheduledTriggers": "Oppgrader for å opprette flere planlagte triggere",
+    "upgradeForMoreAppTriggers": "Oppgrader for å opprette flere app-baserte triggere",
+    "updateScheduleTriggerFailed": "Kunne ikke oppdatere planlagt trigger",
+    "createScheduleTriggerFailed": "Kunne ikke opprette planlagt trigger",
+    "editScheduledTask": "Rediger planlagt oppgave",
+    "createScheduledTask": "Opprett planlagt oppgave",
+    "editAppBasedTask": "Rediger app-basert oppgave",
+    "createAppBasedTask": "Opprett app-basert oppgave",
+    "updateAgentForTask": "Oppdater Worker for denne oppgaven",
+    "selectAgentForTask": "Velg først hvilken Worker som skal håndtere denne oppgaven",
+    "createNew": "Opprett ny",
+    "notConfigured": "Ikke konfigurert",
+    "every15Minutes": "Hvert 15. minutt",
+    "every30Minutes": "Hvert 30. minutt",
+    "everyHour": "Hver time",
+    "dailyAt9AM": "Daglig kl. 09:00",
+    "weekdaysAt9AM": "Ukedager kl. 09:00",
+    "weeklyOnMonday": "Ukentlig på mandag",
+    "monthlyOn1st": "Månedlig d. 1."
+  },
+  "sidebar": {
+    "referAndEarn": "Verv og tjen",
+    "referralShareTitle": "Verv venner",
+    "referralShareSubtitle": "Få 400 kreditter",
+    "new": "Ny",
+    "upgrade": "Oppgrader",
+    "chats": "Chatter",
+    "library": "Filer",
+    "triggers": "Triggere",
+    "newChat": "Ny chat",
+    "newAgent": "Ny Worker",
+    "settings": "Innstillinger",
+    "logout": "Logg ut",
+    "openMenu": "Åpne meny",
+    "expandSidebar": "Utvid sidefelt (CMD+B)",
+    "searchChats": "Søk i chatter",
+    "searchChatsPlaceholder": "Søk i chatter...",
+    "allTriggers": "Alle triggere",
+    "addWorkers": "Legg til Workers",
+    "addTrigger": "Legg til trigger",
+    "triggerConfig": "Trigger-konfigurasjon",
+    "scheduledTrigger": "Planlagt trigger",
+    "scheduledTriggerDescription": "Planlegg en trigger til å kjøre på et bestemt tidspunkt",
+    "eventBasedTrigger": "Hendelsesbasert trigger",
+    "eventBasedTriggerDescription": "Opprett en trigger til å kjøre når en hendelse inntreffer",
+    "noChatsFound": "Ingen chatter funnet",
+    "noConversations": "Ingen samtaler ennå",
+    "search": "Søk",
+    "searchPlaceholder": "Søk...",
+    "searchResults": "Søkeresultater",
+    "recent": "Siste",
+    "personalAccount": "Personlig konto",
+    "workspaces": "Arbeidsområder",
+    "theme": "Tema",
+    "integrations": "Integrasjoner",
+    "billing": "Fakturering",
+    "usage": "Forbruk",
+    "adminPanel": "Admin-panel",
+    "apiKeys": "API-nøkler",
+    "envManager": "Miljøstyring",
+    "advanced": "Avansert",
+    "plan": "Abonnement",
+    "knowledgeBase": "Kunnskapsbase",
+    "conversation": "Samtale",
+    "conversations": "Samtaler",
+    "startNewChat": "Start ny chat",
+    "openInNewTab": "Åpne i ny fane",
+    "delete": "Slett",
+    "deleting": "Sletter",
+    "allThreadsLoaded": "Alle samtaler lastet inn",
+    "myWorkforce": "Min arbeidsstyrke",
+    "addTeam": "Legg til team",
+    "selectAll": "Velg alle",
+    "deselectAll": "Fravælg alle",
+    "selectAllConversations": "Velg alle samtaler",
+    "deselectAllConversations": "Fravælg alle samtaler",
+    "loadMore": "Last inn flere",
+    "remaining": "Gjenværende"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Velkommen",
+    "whatWouldYouLike": "Hva vil du oppnå?",
+    "describeWhatYouNeed": "Beskriv hva du trenger hjelp med...",
+    "usageLimits": "Bruksgrenser",
+    "threads": "Samtaler",
+    "customWorkers": "Egendefinerte Workers",
+    "scheduledTriggers": "Planlagte triggere",
+    "appTriggers": "App-triggere",
+    "limitsExceeded": "Du har nådd samtalegrensen din. Oppgrader planen din for å opprette flere samtaler.",
+    "agentInitiatedSuccessfully": "Worker startet",
+    "aiAssistantReady": "AI-assistenten din er klar til å hjelpe",
+    "greetings": {
+      "morning": [
+        "God morgen! Hva er på agendaen i dag?",
+        "God morgen! Hva skal vi bygge i dag?",
+        "God morgen! Klar til å være produktiv?"
+      ],
+      "afternoon": [
+        "God dag! Hvordan kan jeg hjelpe?",
+        "Håper dagen din går bra! Hva er det neste?"
+      ],
+      "evening": [
+        "God kveld! Jobber du fortsatt hardt?",
+        "God kveld! Hva skal vi jobbe med i kveld?",
+        "God kveld! La oss få ting gjort."
+      ],
+      "random": [
+        "Gjett hvem som er tilbake!",
+        "Hei! Hva kan SuperAgent gjøre for deg?",
+        "Hva vil du ha gjort?",
+        "La oss bygge noe fantastisk!",
+        "Klar når du er!",
+        "Hva skjer?",
+        "Til tjeneste! Hva er oppgaven?",
+        "La oss skape magi!",
+        "Hvilken utfordring tar vi i dag?",
+        "Ditt ønske er min lov",
+        "Hva er planen?",
+        "Spenn deg fast! Hvor skal vi?",
+        "Ny dag, nytt prosjekt",
+        "Hva har du på hjertet?",
+        "La oss starte showet"
+      ]
+    },
+    "good_morning": "God morgen",
+    "good_afternoon": "God dag",
+    "good_evening": "God kveld",
+    "ready_to_accelerate_your_pipeline": "Klar for å akselerere pipelinen din? Velg en ferdighet for å komme i gang.",
+    "explore_agentic_ai_capabilities": "Utforsk agentiske AI-muligheter",
+    "marketing_assets": "Markedsføringsressurser",
+    "image": "Bilde",
+    "images": {
+      "label": "Bilde",
+      "bannerTitle": "Image Studio",
+      "bannerDescription": "Generer fotorealistiske markedsføringsressurser, komplekse infografikker og plakater fulle av tekst.",
+      "selectModelPlaceholder": "Velg modell",
+      "styleTitle": "Velg stil",
+      "samplePrompts": "Eksempel-prompts",
+      "generateWithStylePrompt": "Generer bilde med {style}-stil"
+    },
+    "videos": {
+      "label": "Video",
+      "bannerTitle": "Video Generator",
+      "bannerDescription": "Opprett filmiske videoer med ultrarealistisk belysning og konsekvent bevegelse.",
+      "selectModelPlaceholder": "Velg modell",
+      "styleTitle": "Velg videostil",
+      "samplePrompts": "Eksempel-prompts",
+      "generateWithStylePrompt": "Generer video med {style}-stil"
+    },
+    "tags": {
+      "sales": "Salg",
+      "cx": "Kundeopplevelse",
+      "mktg": "Markedsføring",
+      "ops": "Drift",
+      "hr": "HR",
+      "legal": "Juridisk"
+    },
+    "aePanel": {
+      "bannerTitle": "Account Executive Agent",
+      "bannerDescription": "Salgshjelper for hele syklusen fra discovery til demoer og overlevering.",
+      "cards": {
+        "discovery": {
+          "title": "Discovery-forberedelse",
+          "description": "Generer målrettede spørsmål og research.",
+          "prompt": "Forbered discovery-spørsmål til en salgssjef i et fintech-selskap..."
+        },
+        "handoff": {
+          "title": "Salg → CS-overlevering",
+          "description": "Strukturer deal-notater for en sømløs overgang.",
+          "prompt": "Opprett et overleveringsdokument til Customer Success-teamet..."
+        },
+        "leadFeedback": {
+          "title": "Lead-tilbakemeldingssløyfe",
+          "description": "Del innsikt om lead-kvalitet med markedsføring.",
+          "prompt": "Skriv tilbakemelding om lead-kvalitet til markedsføring..."
+        }
+      }
+    },
+    "dataPanel": {
+      "bannerTitle": "Data Analyst Agent",
+      "bannerDescription": "Rens lister, berik kontakter og analyser CSV-er for markedsindsikt.",
+      "cards": {
+        "leadCleaner": {
+          "title": "Lead-liste-renser",
+          "description": "Rett formatering, fjern duplikater og standardiser felt for CRM-import.",
+          "prompt": "Rens denne lead-listen og standardiser stillingstitler..."
+        },
+        "lookalikes": {
+          "title": "Lookalike-målgrupper",
+          "description": "Oppdag nye emner basert på dine beste kunder.",
+          "prompt": "Finn selskaper som ligner på mine topp 10 kunder..."
+        },
+        "ticketAnalysis": {
+          "title": "Ticket-analyse",
+          "description": "Identifiser gjentakende problemer og stemning fra support-eksporter.",
+          "prompt": "Analyser disse support-billettene for stemning og gjentakende problemer..."
+        }
+      }
+    },
+    "pipelinePanel": {
+      "bannerTitle": "Pipeline Manager",
+      "bannerDescription": "Prognoser, deal-QA og risikodeteksjon.",
+      "cards": {
+        "q4Forecast": {
+          "title": "Q4-prognose",
+          "description": "Forutse omsetning og identifiser deals som har stoppet opp.",
+          "prompt": "Forutsi omsetning for Q4 og identifiser risikoer for deals som har stoppet opp..."
+        },
+        "campaignRoi": {
+          "title": "Kampanje-ROI",
+          "description": "Attribusjonsanalyse for nylige suksesser.",
+          "prompt": "Analyser kampanjeattribusjon for vunnede deals..."
+        },
+        "churnForecast": {
+          "title": "Churn-prognose",
+          "description": "Forutse fornyelser og kontoer i faresonen.",
+          "prompt": "Forutsi churn-risikoer for den kommende fornyelsesgruppen..."
+        }
+      }
+    },
+    "researchPanel": {
+      "bannerTitle": "Deep Research",
+      "bannerDescription": "Bruk avansert resonnering for dyp markedsundersøkelse, analyse av konkurrentstrategier og generering av omfattende rapporter.",
+      "sectionTitle": "Start ny research",
+      "items": {
+        "competitorDeepDive": "Konkurrent-dypdykk",
+        "marketTrendAnalysis": "Markedstrend-analyse",
+        "accountIntelligenceReport": "Account Intelligence-rapport",
+        "regulatoryImpactStudy": "Regulatorisk konsekvensutredning"
+      },
+      "promptTemplate": "Utfør en {topic} om..."
+    },
+    "socialSellingPanel": {
+      "bannerTitle": "Social Selling Assistant",
+      "bannerDescription": "Bygg din personlige merkevare, skriv fengende hooks og gå i dialog med emner ved hjelp av AI.",
+      "cards": {
+        "viralHook": {
+          "title": "Viral hook generator",
+          "description": "Fang oppmerksomheten med AI-designede åpninger.",
+          "prompt": "Skriv en hook til et LinkedIn-innlegg om..."
+        },
+        "repurpose": {
+          "title": "Gjenbruk innhold",
+          "description": "Gjør blogger om til innlegg, tråder og karuseller.",
+          "prompt": "Gjør dette blogginnlegget om til en Twitter-tråd..."
+        },
+        "dmSequence": {
+          "title": "DM-sekvensforfatter",
+          "description": "Skriv ikke-salgsaktige outreach-meldinger.",
+          "prompt": "Skriv en DM-sekvens til et emne som har sett profilen min..."
+        }
+      }
+    },
+    "strategistPanel": {
+      "bannerTitle": "Deal Strategist",
+      "bannerDescription": "Akselerer deal-sykluser med forhandlingsplaner, kontraktgjennomgang og prisstrategi.",
+      "cards": {
+        "proposal": {
+          "title": "Smart tilbudsskriving",
+          "description": "Auto-drafting + prisutfylling.",
+          "cta": "Utkast nå",
+          "prompt": "Opprett et tilbud til [Kunde] med standardpriser..."
+        },
+        "redline": {
+          "title": "Review Assistant",
+          "description": "AI-kontraktgjennomgang og rettelser.",
+          "cta": "Last opp dokument",
+          "prompt": "Analyser denne kontrakten og foreslå rettelser..."
+        },
+        "followUp": {
+          "title": "Multi-thread oppfølging",
+          "description": "Personlig tilpassede e-poster til interessenter.",
+          "cta": "Generer sekvens",
+          "prompt": "Skriv multi-thread oppfølginger til VP-en og direktøren..."
+        },
+        "expansion": {
+          "title": "Expansion Scout",
+          "description": "Detekter upsell-signaler og kontosunnhet.",
+          "cta": "Finn muligheter",
+          "prompt": "Analyser kontobruk for ekspansjonssignaler..."
+        }
+      }
+    },
+    "icpPanel": {
+      "bannerTitle": "Territory & Awareness",
+      "bannerDescription": "Definer ICP, segmenter territorier og kartlegg beslutningstakere.",
+      "sectionTitle": "Dyp segmentering",
+      "cards": {
+        "repAssignment": {
+          "title": "Seljertildeling",
+          "description": "Anbefalt tildeling av selgere basert på styrker.",
+          "prompt": "Foreslå seljertildelinger for West Coast-territoriet basert på tidligere resultater..."
+        },
+        "quotaModeling": {
+          "title": "Quota-modellering",
+          "description": "Optimer mål og analyser kapasitetshull.",
+          "prompt": "Modeller quota-kapasitet for finansåret 24 gitt nåværende bemanning..."
+        },
+        "predictiveHiring": {
+          "title": "Prediktiv ansettelse",
+          "description": "Ansettelsesprognoser basert på vekst-pipeline.",
+          "prompt": "Opprett en ansettelsesplan basert på pipeline-hastighet og omsetningsmål..."
+        },
+        "marketSegmentation": {
+          "title": "Markedssegmentering",
+          "description": "Forfin ICP-er og buyer personas.",
+          "prompt": "Definer den psykografiske profilen for vårt enterprise-segment..."
+        },
+        "customerHealth": {
+          "title": "Kundesunnhetsprofil",
+          "description": "Identifiser egenskaper ved suksessfulle langsiktige kunder.",
+          "prompt": "Opprett en helsescore-profil for våre mest suksessfulle kunder..."
+        }
+      }
+    },
+    "websitePanel": {
+      "bannerTitle": "Nettsted",
+      "bannerDescription": "Generer landingssider med høy konvertering og funksjonelle webapper med AI.",
+      "sectionTitle": "Malbibliotek",
+      "promptTemplate": "Opprett en {template} for...",
+      "categories": {
+        "marketing": {
+          "title": "Markedsføring og kampanjer",
+          "items": {
+            "landingPage": "Landingsside med høy konvertering",
+            "webinarRegistration": "Webinar-registreringsside",
+            "productLaunchCountdown": "Nedtelling til produktlansering",
+            "eventMicrosite": "Event-mikronettsted",
+            "newsletterSignup": "Påmeldingsside for nyhetsbrev"
+          }
+        },
+        "corporate": {
+          "title": "Bedrift og merkevarebygging",
+          "items": {
+            "corporateHomepage": "Moderne bedriftshjemmeside",
+            "aboutLeadership": "Om oss og ledelse",
+            "careersCulture": "Karriere og kultur-hub",
+            "pressMediaKit": "Presse og media-kit"
+          }
+        },
+        "saas": {
+          "title": "SaaS og produkt",
+          "items": {
+            "saasHomepage": "SaaS-produkthjemmeside",
+            "pricingComparison": "Sammenligning av priser og planer",
+            "featureDeepDive": "Dypdykk i funksjoner",
+            "docsHelpCenter": "Dokumentasjon / hjelpesenter"
+          }
+        },
+        "content": {
+          "title": "Innhold og portefølje",
+          "items": {
+            "personalPortfolio": "Personal branding portefølje",
+            "agencyShowcase": "Showcase for kreativt byrå",
+            "consultantBooking": "Bestillingsside for konsulent",
+            "resourceLibraryBlog": "Ressursbibliotek / blogg"
+          }
+        }
+      }
+    },
+    "adsPanel": {
+      "bannerTitle": "Ad Studio",
+      "bannerDescription": "Generer annonser med høy konvertering, skarp målretning og kreativ retning.",
+      "none": "Ingen",
+      "steps": {
+        "strategyTargeting": "Strategi og målretting",
+        "adSpecifications": "Annonsespesifikasjoner",
+        "creativeDirection": "Kreativ retning"
+      },
+      "fields": {
+        "productUrl": "URL til landingsside for produkt",
+        "competitorUrl": "URL til konkurrent",
+        "targetAudience": "Målgruppe",
+        "platforms": "Plattformer",
+        "format": "Format",
+        "callToAction": "Call to Action",
+        "visualStyle": "Visuell stil",
+        "outputVolume": "Output-volum",
+        "massTranslation": "Massoversettelse"
+      },
+      "placeholders": {
+        "url": "https://...",
+        "age": "Alder (f.eks. 25-45)",
+        "location": "Sted (f.eks. USA, Europa)",
+        "interests": "Interesser (f.eks. SaaS, tech)",
+        "ctaText": "Knappetekst (f.eks. Registrer deg nå)",
+        "destinationLink": "Destinasjonslenke (f.eks. https://...)"
+      },
+      "platforms": {
+        "googleAds": "Google Ads",
+        "metaAds": "Meta Ads",
+        "linkedin": "LinkedIn",
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "youtube": "YouTube"
+      },
+      "formats": {
+        "singleImage": "Enkelt bilde",
+        "carousel": "Karusell",
+        "shortVideo": "Kort video",
+        "story": "Story"
+      },
+      "visualStyles": {
+        "minimalist": "Minimalistisk",
+        "boldVibrant": "Dristig og levende",
+        "professional": "Profesjonell",
+        "playful": "Leken",
+        "luxury": "Luksuriøs",
+        "futuristic": "Futuristisk",
+        "handDrawn": "Håndtegnet",
+        "corporate": "Bedrift"
+      },
+      "languages": {
+        "es": "Spansk",
+        "fr": "Fransk",
+        "de": "Tysk",
+        "ja": "Japansk",
+        "pt": "Portugisisk",
+        "it": "Italiensk",
+        "zh": "Kinesisk",
+        "ko": "Koreansk",
+        "ar": "Arabisk",
+        "nl": "Nederlandsk",
+        "sv": "Svensk",
+        "no": "Norsk",
+        "da": "Dansk",
+        "fi": "Finsk",
+        "hi": "Hindi",
+        "ru": "Russisk",
+        "tr": "Tyrkisk",
+        "pl": "Polsk",
+        "id": "Indonesisk",
+        "th": "Thai",
+        "vi": "Vietnamesisk",
+        "el": "Gresk"
+      },
+      "outputVolumeConcepts": "{count} konsepter",
+      "generateButton": "Generer konsepter ({count})",
+      "strategyAppliedTitle": "Strategi anvendt",
+      "strategyAppliedDescription": "For hvert genererte konsept produserer vi automatisk tre variasjoner.",
+      "variations": {
+        "1": {
+          "title": "1. Knapphet og hastverk",
+          "description": "FOMO, tidsbegrensede tilbud, eksklusive hooks"
+        },
+        "2": {
+          "title": "2. Fordelsdrevet",
+          "description": "Klart verdiforslag, problem-løsning rammeverk"
+        },
+        "3": {
+          "title": "3. Social Proof",
+          "description": "Uttalelser, brukertall, tillitsindikatorer"
+        }
+      },
+      "prompt": {
+        "notProvided": "Ikke oppgitt",
+        "general": "Generelt",
+        "global": "Globalt",
+        "learnMore": "Lær mer",
+        "na": "N/A",
+        "productUrl": "Produkt-URL: {value}",
+        "competitorUrl": "Konkurrent-URL: {value}",
+        "targetAudienceTitle": "Målgruppe:",
+        "targetAudienceAge": "- Alder: {value}",
+        "targetAudienceLocation": "- Sted: {value}",
+        "targetAudienceInterests": "- Interesser: {value}",
+        "campaignSpecsTitle": "Kampanjespesifikasjoner:",
+        "platforms": "- Plattformer: {value}",
+        "formats": "- Formater: {value}",
+        "callToAction": "- Call to Action: \"{text}\" (Lenke: {link})",
+        "visualStyle": "- Visuell stil: {value}",
+        "settingsTitle": "Innstillinger:",
+        "numberOfConcepts": "- Antall konsepter: {value}",
+        "translationLanguages": "- Oversettelsesspråk: {value}",
+        "instructions": "Generer annonsekonsepter med høy konvertering basert på disse inndataene.",
+        "variationsInstruction": "Sørg for å gi 3 forskjellige tekstvariasjoner (Knapphet, Fordel, Social Proof) per konsept."
+      }
+    },
+    "video_studio": "Video Studio",
+    "demos_outreach": "Demoer og outreach",
+    "pipeline_manager": "Pipeline Manager",
+    "forecasting_deal_qa": "Prognoser og deal-QA",
+    "account_executive": "Account Executive",
+    "full_cycle_sales_agent": "Full-cycle Sales Agent",
+    "deal_strategist": "Deal Strategist",
+    "negotiation_closers": "Forhandling og closers",
+    "data_analyst": "Data Analyst",
+    "cleaning_enrichment": "Rensing og berikelse",
+    "territory_persona": "Territory og persona",
+    "icp_market_planning": "ICP og markedsplanlegging",
+    "social_selling": "Social Selling",
+    "brand_content": "Merkevare og innhold",
+    "deep_research": "Deep Research",
+    "market_intel_reports": "Market Intel og rapportering",
+    "ad_studio": "Ad Studio",
+    "ads_creative_roi": "Annonser og kreativ ROI",
+    "gtm_decks": "GTM Decks",
+    "proposals_qbrs": "Tilbud, QBR-er",
+    "landing_pages_sites": "Landingssider, nettsteder",
+    "website": "Nettsted",
+    "video": "Video",
+    "pipeline": "Pipeline",
+    "account_exec": "Account Exec",
+    "data": "Data",
+    "territory_icp": "Territorium/ICP",
+    "research": "Research"
+  },
+  "thread": {
+    "integrations": "Integrasjoner",
+    "connect": "Koble til",
+    "seeAllIntegrations": "+ Se alle integrasjoner",
+    "connectIntegrations": "Koble til integrasjoner",
+    "adaptive": "Adaptiv",
+    "adaptiveDescription": "Raske svar med smart kontekstbytte",
+    "autonomous": "Autonom",
+    "autonomousDescription": "Deep-work-modus for problemløsning i flere trinn",
+    "chat": "Chat",
+    "chatDescription": "Enkel samtale frem og tilbake",
+    "sampleAnswers": "Eksempelsvar",
+    "samplePrompts": "Eksempel-prompts",
+    "waitingForUserResponse": "SuperAgent fortsetter autonomt etter svaret ditt.",
+    "taskCompleted": "Oppgave fullført",
+    "uploadingFiles": "Laster opp {count} {count, plural, one {fil} other {filer}}...",
+    "uploadingFilesOne": "Laster opp 1 fil...",
+    "uploadingFilesMany": "Laster opp {count} filer...",
+    "scrollToBottom": "Rull til bunnen",
+    "tools": "Verktøy",
+    "instructions": "Instruksjoner",
+    "knowledge": "Kunnskap",
+    "triggers": "Triggere",
+    "agents": "Workers",
+    "superWorker": "Super Worker",
+    "searchWorkers": "Søk etter Workers...",
+    "myWorkers": "Mine Workers",
+    "running": "Kjører",
+    "minimizeToFloatingPreview": "Minimer til flytende forhåndsvisning",
+    "close": "Lukk",
+    "noActionsYet": "SuperAgent-datamaskin",
+    "workerActionsDescription": "Oppstart",
+    "emptyActionsDescription": "Worker-handlinger vises her",
+    "toolIsRunning": "Verktøyet kjører",
+    "toolCurrentlyExecuting": "{toolName} utføres nå. Resultatene vises her når de er ferdige.",
+    "thinkingTitle": "Tenker",
+    "thinkingDescription": "Forbereder å utføre handlinger...",
+    "rateThisResult": "Vurder dette resultatet",
+    "feedbackHelpsImprove": "Din tilbakemelding hjelper oss å bli bedre",
+    "additionalFeedbackOptional": "Ytterligere tilbakemelding (valgfritt)",
+    "helpKortixImprove": "Hjelp SuperAgent å bli bedre gjennom tilbakemelding",
+    "submit": "Send inn",
+    "submitting": "Sender inn...",
+    "feedbackSubmittedSuccess": "Tilbakemelding sendt",
+    "feedbackSubmitFailed": "Kunne ikke sende tilbakemelding"
+  },
+  "agents": {
+    "title": "Workers",
+    "create": "Opprett Worker",
+    "createNewWorker": "Opprett ny Worker",
+    "edit": "Rediger Worker",
+    "delete": "Slett Worker",
+    "name": "Navn",
+    "description": "Beskrivelse",
+    "model": "Modell",
+    "systemPrompt": "System Prompt",
+    "systemPromptPlaceholder": "Definer hvordan Workeren din skal oppføre seg...",
+    "customizeIcon": "Klikk for å tilpasse Worker-ikon"
+  },
+  "home": {
+    "heroPlaceholder": "Beskriv oppgaven du vil at Workeren din skal løse..."
+  },
+  "showcase": {
+    "title": "SuperAgent: Din autonome AI-arbeidsstyrke",
+    "subtitle": "Bygget for kompleksitet, designet for alt. Den ultimate AI-assistenten som håndterer alt – fra enkle forespørsler til ultra-komplekse prosjekter.",
+    "tryItOut": "Prøv det nå",
+    "kortixComputer": "SuperAgent-datamaskin",
+    "running": "Kjører",
+    "workers": {
+      "images": {
+        "title": "Bilder",
+        "description": "Generer bilder on-demand. Fra produktbilder til grafikk for sosiale medier til komplette illustrasjoner. Juster stil, belysning, farger og komposisjon, eller forfin eksisterende bilder med raske redigeringer.",
+        "capabilities": {
+          "0": "Generer produktbilder",
+          "1": "Lag grafikk for sosiale medier",
+          "2": "Lag illustrasjoner",
+          "3": "Stil- og lysvariasjoner",
+          "4": "Logo / ressursgenerering",
+          "5": "+ Mye mer"
+        },
+        "imageAlt": "Eksempel på en ikke-lineær vekstgraf",
+        "fileType": "BILDE"
+      },
+      "slides": {
+        "title": "Slides",
+        "description": "Opprett fantastiske presentasjoner umiddelbart. Fra pitch decks til rapporter til treningsmateriell. Juster temaer, layouter og innholdsstruktur, eller forfin eksisterende decks med raske redigeringer.",
+        "capabilities": {
+          "0": "Pitch Decks",
+          "1": "Treningsmateriell",
+          "2": "Rapporterings-decks",
+          "3": "Tema- og layoutvariasjoner",
+          "4": "Omstrukturering av innhold",
+          "5": "+ Mye mer"
+        },
+        "imageAlt": "Eksempel på en slide fra Nexus Enterprise Automation-plattformen",
+        "fileType": "PPTX"
+      },
+      "data": {
+        "title": "Data",
+        "description": "Gjør rådata til innsikt. Fra regneark til dashboards til visualiseringer. Rens datasett, generer diagrammer, bygg rapporter eller forfin eksisterende analyser med raske oppdateringer.",
+        "capabilities": {
+          "0": "Dashboards",
+          "1": "Visualiseringer",
+          "2": "Datarapportering",
+          "3": "Rensing og organisering",
+          "4": "Generering av innsikt",
+          "5": "+ Mye mer"
+        },
+        "imageAlt": "Eksempel på et finansielt model-dashboard",
+        "fileType": "PREVIEW"
+      },
+      "docs": {
+        "title": "Dokumenter",
+        "description": "Skriv og rediger dokumenter uanstrengt. Fra tilbud til veiledninger til innholdsstykker. Juster tone, struktur og formatering, eller forfin eksisterende dokumenter med rask omskriving og finpussing.",
+        "capabilities": {
+          "0": "Tilbud",
+          "1": "Veiledninger og manualer",
+          "2": "Innholdsstykker",
+          "3": "Tone- og stilvariasjoner",
+          "4": "Formatering og omstrukturering",
+          "5": "+ Mye mer"
+        },
+        "imageAlt": "Eksempel på en Executive Summary-rapport for Q3 2025",
+        "fileType": "PDF"
+      },
+      "research": {
+        "title": "Research",
+        "description": "Undersøk emner grundig. Fra markedstrender til konkurrentanalyse til dypdykk. Samle kilder, utkast konklusjoner eller forfin eksisterende research med raske oppdateringer.",
+        "capabilities": {
+          "0": "Markedstrend-analyse",
+          "1": "Konkurrent-research",
+          "2": "Dypdykk i emner",
+          "3": "Kildeinnsamling",
+          "4": "Utkast til konklusjoner",
+          "5": "+ Mye mer"
+        },
+        "imageAlt": "Eksempel på research av detaljerte konkurrentprofiler",
+        "fileType": "PDF"
+      }
+    }
+  },
+  "threads": {
+    "title": "Samtaler",
+    "newThread": "Ny samtale",
+    "sendMessage": "Send melding",
+    "placeholder": "Skriv meldingen din..."
+  },
+  "billing": {
+    "title": "Fakturering og abonnement",
+    "subscription": "Abonnement",
+    "credits": "Kreditter",
+    "popular": "Populær",
+    "creditsExplained": "Kreditter forklart",
+    "creditsExhausted": "+100 kreditter om {time}. Oppgrader for å bruke nå.",
+    "creditsExhaustedRefreshIn": "Du er tom for kreditter. De fornyes om {time}",
+    "trialActive": "Prøveperiode aktiv",
+    "trialBadge": "7-dagers prøveperiode",
+    "currentPlan": "Nåværende plan",
+    "currentBadge": "Nåværende",
+    "scheduled": "Planlagt",
+    "scheduledBadge": "Planlagt",
+    "loading": "Laster inn...",
+    "subscriptionChangeScheduled": "Abonnementsendring planlagt",
+    "planWillChangeOn": "Planen din endres den {date}.",
+    "failedToInitiateSubscription": "Kunne ikke starte abonnement. Prøv igjen.",
+    "subscriptionUpgraded": "Abonnement oppgradert fra {currentPrice} til {newPrice}",
+    "subscriptionUpdated": "Abonnement ble oppdatert",
+    "cannotDowngradeDuringCommitment": "Kan ikke nedgradere i bindingsperioden",
+    "alreadyOnThisPlan": "Du er allerede på denne planen.",
+    "localModeMessage": "Kjører i lokal utviklingsmodus – faktureringsfunksjoner deaktivert",
+    "holidayPromo": {
+      "badge": "Julespesial",
+      "countdown": "Slutter om {time}",
+      "discount": "50% rabatt de første 3 månedene",
+      "window": "Gyldig 24.-25. des",
+      "headerLine": "Bruk koden {code} for {discount}",
+      "description": "Bruk koden {code} ved betaling for {discount}. {window}",
+      "copyCode": "Kopier kode",
+      "copied": "Kopiert",
+      "codeCopied": "Kopiert {code}",
+      "copyFailed": "Kunne ikke kopiere kampanjekode"
+    },
+    "creditsExplainedPage": {
+      "title": "Kreditter forklart",
+      "subtitle": "Alt du trenger å vite om hvordan kreditter fungerer i SuperAgent",
+      "understandingCredits": {
+        "title": "Forståelse av kreditter",
+        "description": "Kreditter fungerer som den universelle valutaen på SuperAgent-plattformen for plattformoperasjoner. Enhver handling AI-Workerene dine utfører – fra dataanalyse til kodegenerering – forbruker kreditter baseret på oppgavens kompleksitet og ressursene som kreves."
+      },
+      "howCreditsWork": {
+        "title": "Hvordan kreditter fungerer",
+        "description": "Kreditter forbrukes basert på ressursene AI-Workerene bruker:",
+        "aiModelUsage": {
+          "title": "AI-modellbruk",
+          "description": "Den primære driveren for kredittforbruk",
+          "content": "Ulike AI-modeller har ulike kostnader basert på deres evner og token-bruk. Kreditter forbrukes for inndata-tokens (dine prompts og kontekst), utdata-tokens (Workerens svar), og varierer etter modellklasse (Claude, GPT osv.)."
+        },
+        "pricingModel": {
+          "title": "Prismodell",
+          "description": "20% påslag på AI-modellkostnader",
+          "content": "Vi bruker et påslag på 20% på alle API- og modellkostnader for å dekke plattforminfrastruktur, sikkerhet og løpende utvikling. Denne gjennomsiktige prissettingen sikrer at du vet nøyaktig hva du betaler for."
+        }
+      },
+      "gettingMoreCredits": {
+        "title": "Slik får du flere kreditter",
+        "description": "Det er flere måter å få kreditter på i SuperAgent:",
+        "monthlySubscription": {
+          "title": "Månedlig abonnementskreditt",
+          "description": "Inkludert i din betalte plan og fornyes automatisk hver måned. Dette er kreditter som utløper."
+        },
+        "topUpCredits": {
+          "title": "Fyll på kreditter",
+          "description": "Kjøp ekstra kreditter når du trenger dem. Dette er kreditter som ikke utløper, og de er tilgjengelige for premium-medlemmer."
+        },
+        "promotionalGrants": {
+          "title": "Kampanjer og events",
+          "description": "Bonuskreditter fra spesielle begivenheter, kampanjer eller vervinger. Dette er kreditter som ikke utløper."
+        },
+        "refunds": {
+          "title": "Refusjoner",
+          "description": "Kreditter refundert på grunn av tekniske problemer eller mislykkede oppgaver. Dette er kreditter som ikke utløper."
+        }
+      },
+      "typesOfCredits": {
+        "title": "Typer kreditter",
+        "description": "SuperAgent bruker to typer kreditter for å gi deg fleksibilitet i hvordan du administrerer bruken din:",
+        "expiringCredits": {
+          "title": "Kreditter som utløper",
+          "description": "Månedlig abonnementskreditt",
+          "content": "Disse kredittene er inkludert i ditt betalte abonnement og fornyes automatisk hver måned på abonnementsdatoen din. De utløper ved slutten av hver faktureringssyklus og forbrukes alltid først før kreditter som ikke utløper tas i bruk."
+        },
+        "nonExpiringCredits": {
+          "title": "Kreditter som ikke utløper",
+          "description": "Permanent kreditt som aldri utløper",
+          "content": "Disse kredittene utløper aldri og overføres fra måned til måned. Dette inkluderer påfyllingskjøp, refusjoner og kampanjekreditter. Kreditter som ikke utløper brukes bare når kredittene som utløper er oppbrukt."
+        },
+        "creditPriority": {
+          "title": "Kredittprioritet:",
+          "description": "Når du bruker SuperAgent, forbrukes kreditter som utløper alltid først. Først når kredittene som utløper er borte, vil kredittene som ikke utløper bli brukt."
+        }
+      }
+    },
+    "close": "Lukk",
+    "cancelScheduledChange": "Avbryt planlagt endring",
+    "threadUsage": "Samtalebruk",
+    "error": "Feil",
+    "totalUsage": "Totalt forbruk",
+    "usage": "Forbruk",
+    "thread": "Samtale",
+    "lastUsed": "Sist brukt",
+    "creditsUsed": "Kreditter brukt",
+    "creditTransactions": "Kredittransaksjoner",
+    "loadingTransactionHistory": "Laster inn transaksjonshistorikk...",
+    "monthly": "Månedlig",
+    "yearly": "Årlig",
+    "discount": "15% rabatt",
+    "perMonth": "/mnd",
+    "billedYearly": "Faktureres årlig",
+    "downgradePending": "Nedgradering venter",
+    "downgrade": "Nedgrader",
+    "switchToLegacyYearly": "Bytt til Legacy Yearly",
+    "confirmDowngradeTitle": "Er du sikker på at du vil nedgradere?",
+    "confirmDowngradeDescription": "Du er i ferd med å nedgradere planen din til {planName}. Denne endringen trer i kraft ved slutten av din nåværende faktureringsperiode.",
+    "confirmDowngrade": "Ja, nedgrader plan",
+    "pickPlan": "Velg planen som passer deg.",
+    "reachedLimit": "Du har nådd grensene dine.",
+    "projectLimit": "Prosjektgrense ({current}/{limit})",
+    "threadLimit": "Samtalegrense ({current}/{limit})",
+    "workerLimit": "Worker-grense ({current}/{limit})",
+    "triggerLimit": "Trigger-grense ({current}/{limit})",
+    "getAdditionalCredits": "Få ekstra kreditter",
+    "selectPlan": "Velg plan",
+    "changeScheduled": "Endring planlagt",
+    "notAvailable": "Ikke tilgjengelig",
+    "features": {
+      "creditsPerMonth": "{count} kreditter/mnd",
+      "customWorker": "{count} egendefinert Worker",
+      "customWorkers": "{count} egendefinerte Workers",
+      "privateProject": "{count} privat prosjekt",
+      "privateProjects": "Private prosjekter",
+      "customTrigger": "{count} egendefinert trigger",
+      "integrations": "100+ integrasjoner",
+      "premiumAIModels": "Premium AI-modeller",
+      "prioritySupport": "Prioritert støtte"
+    },
+    "downgradeDialog": {
+      "confirmTitle": "Bekreft abonnementsendring",
+      "confirmSubtitle": "Vi er kede av at du går",
+      "confirmDescription": "Du er i ferd med å bytte til {planName}-planen. Denne endringen trer i kraft ved slutten av din nåværende faktureringssyklus. Inntil da beholder du dine nåværende fordeler.",
+      "continue": "Fortsett",
+      "keepCurrentPlan": "Behold min nåværende plan",
+      "feedbackTitle": "Hjelp oss å bli bedre",
+      "feedbackSubtitle": "Din tilbakemelding former fremtiden til SuperAgent",
+      "whatWouldMakeYouStay": "Hva ville få deg til å bli?",
+      "feedbackPlaceholder": "Hvis det var én ting vi kunne endre eller legge til for å gjøre SuperAgent verdt det for deg, hva ville det vært?",
+      "feedbackFooter": "Teamet vårt leser hvert svar. Dine ord påvirker direkte hva vi bygger neste gang.",
+      "confirmDowngrade": "Bekreft nedgradering",
+      "processing": "Behandler...",
+      "pleaseSelectReason": "Vennligst velg en årsak",
+      "reasons": {
+        "tooExpensive": "Det er for dyrt for mine behov",
+        "notUsingOften": "Jeg bruker ikke SuperAgent ofte nok",
+        "foundAlternative": "Jeg har funnet en annen løsning",
+        "technicalIssues": "Jeg har opplevd tekniske problemer",
+        "resultsNotGood": "Resultatene levde ikke opp til forventningene mine",
+        "other": "Annen årsak"
+      }
+    }
+  },
+  "auth": {
+    "haveReferralCode": "Har du en vervekode?",
+    "referralCode": "Vervekode",
+    "enterCode": "Skriv inn kode",
+    "logIntoAccount": "Logg inn på kontoen din",
+    "createAccount": "Opprett konto",
+    "signInOrCreateAccount": "Logg inn eller opprett SuperAgent-kontoen din",
+    "continueWithGoogle": "Fortsett med Google",
+    "continueWithGitHub": "Fortsett med GitHub",
+    "orEmail": "Eller e-post",
+    "emailAddress": "E-postadresse",
+    "password": "Passord",
+    "confirmPassword": "Bekreft passord",
+    "signIn": "Logg inn",
+    "signUp": "Registrer deg",
+    "signingIn": "Logger inn...",
+    "creatingAccount": "Oppretter konto...",
+    "forgotPassword": "Glemt passord?",
+    "dontHaveAccount": "Har du ikke konto?",
+    "alreadyHaveAccount": "Har du allerede konto?",
+    "acceptPrivacyTerms": "Jeg godtar <privacyPolicy>Personvernerklæring</privacyPolicy> og <termsOfService>Vilkår for bruk</termsOfService>",
+    "privacyPolicy": "Personvernerklæring",
+    "termsOfService": "Vilkår for bruk",
+    "checkYourEmail": "Sjekk e-posten din",
+    "confirmationLinkSent": "Vi har sendt en tilbakestillingslenke til",
+    "clickLinkToActivate": "Klikk på lenken i e-posten for å aktivere kontoen din. Hvis du ikke ser e-posten, sjekk søppelpostmappen.",
+    "returnToHome": "Gå tilbake til forsiden",
+    "backToSignIn": "Tilbake til logg inn",
+    "resetPassword": "Tilbakestill passord",
+    "resetPasswordDescription": "Skriv inn e-posten din, så sender vi deg en tilbakestillingslenke",
+    "sendResetLink": "Send lenke",
+    "cancel": "Avbryt",
+    "pleaseEnterValidEmail": "Vennligst skriv inn en gyldig e-postadresse",
+    "signInFailed": "Innlogging mislyktes. Sjekk legitimasjonen din.",
+    "signUpFailed": "Registrering mislyktes. Vennligst prøv igjen.",
+    "sendMagicLink": "Send Magic Link",
+    "sending": "Sender...",
+    "magicLinkSent": "Vi har sendt en Magic Link til",
+    "magicLinkDescription": "Klikk på lenken i e-posten din for å logge inn. Lenken utløper om 1 time.",
+    "magicLinkExplanation": "Vi sender deg en sikker lenke for å logge inn. Ingen passord nødvendig.",
+    "magicLinkExpired": "Denne lenken er utløpt",
+    "magicLinkExpiredDescription": "Magic Link-en du klikket på er utløpt. Magic Links utløper etter 1 time av sikkerhetsgrunner.",
+    "resendMagicLink": "Send Magic Link på nytt",
+    "resending": "Sender på nytt...",
+    "byContinuingYouAgree": "Ved å fortsette godtar du våre <privacyPolicy>Personvernerklæring</privacyPolicy> og <termsOfService>Vilkår for bruk</termsOfService>",
+    "openProvider": "Åpne {provider}",
+    "didntReceiveEmail": "Mottok du ikke e-posten?",
+    "resend": "Send på nytt",
+    "alreadySignedIn": "Du er allerede logget inn. Ingen handling kreves.",
+    "goToDashboard": "Gå til dashboard",
+    "signInToContinue": "Logg inn for å fortsette",
+    "signInOrCreateAccountToTalk": "Logg inn eller opprett en konto for å snakke med SuperAgent",
+    "orContinueWithEmail": "Eller fortsett med e-post",
+    "signInWithEmail": "Logg inn med e-post",
+    "createNewAccount": "Opprett ny konto",
+    "byContinuingYouAgreeSimple": "Ved å fortsette godtar du våre",
+    "phoneVerification": {
+      "title": "Verifiser telefonnummeret ditt",
+      "titleOtp": "Skriv inn verifiseringskode",
+      "description": "Sikre kontoen din med to-faktor autentisering",
+      "descriptionOtp": "Vi har sendt en kode til telefonnummeret ditt",
+      "phoneNumber": "Telefonnummer",
+      "verificationCode": "Verifiseringskode",
+      "enterSixDigitCode": "Skriv inn den 6-sifrede koden",
+      "phoneNumberPlaceholder": "Skriv inn telefonnummeret ditt",
+      "sendVerificationCode": "Send verifiseringskode",
+      "sendingCode": "Sender kode...",
+      "verifyCode": "Verifiser kode",
+      "verifying": "Verifiserer...",
+      "resendCode": "Send kode på nytt",
+      "resendInSeconds": "Send på nytt om {seconds}s",
+      "removePhoneNumber": "Fjern telefonnummer",
+      "codeSentTo": "Verifiseringskode sendt til",
+      "sixDigitCodeHint": "Vi sender deg en 6-sifret verifiseringskode via SMS",
+      "pleaseEnterPhoneNumber": "Vennligst skriv inn et telefonnummer",
+      "pleaseEnterValidPhoneNumber": "Vennligst skriv inn et gyldig telefonnummer",
+      "pleaseEnterSixDigitCode": "Vennligst skriv inn en 6-sifret kode",
+      "verificationCodeSent": "Verifiseringskode ble sendt til telefonen din",
+      "newVerificationCodeSent": "Ny verifiseringskode ble sendt",
+      "phoneNumberVerified": "Telefonnummeret er verifisert!",
+      "phoneNumberRemoved": "Telefonnummeret ble fjernet. Du kan nå legge til et nytt nummer.",
+      "signOut": "Logg ut",
+      "signingOut": "Logger ut...",
+      "sending": "Sender..."
+    }
+  },
+  "onboarding": {
+    "welcome": "Velkommen",
+    "next": "Neste",
+    "skip": "Hopp over"
+  },
+  "tools": {
+    "executeCommand": "Utfør kommando",
+    "checkCommandOutput": "Sjekk kommando-output",
+    "terminateCommand": "Avbryt kommando",
+    "listCommands": "Vis kommandoer",
+    "createFile": "Opprett fil",
+    "deleteFile": "Slett fil",
+    "fullFileRewrite": "Omskriv fil",
+    "strReplace": "Rediger tekst",
+    "editFile": "Rediger fil",
+    "uploadFile": "Last opp fil",
+    "createDocument": "Opprett dokument",
+    "updateDocument": "Oppdater dokument",
+    "readDocument": "Les dokument",
+    "listDocuments": "Vis dokumenter",
+    "deleteDocument": "Slett dokument",
+    "createTasks": "Opprett oppgaver",
+    "updateTasks": "Oppdater oppgaver",
+    "browserNavigateTo": "Naviger til side",
+    "browserAct": "Utfør handling",
+    "browserExtractContent": "Hent ut innhold",
+    "browserScreenshot": "Ta skjermbilde",
+    "executeDataProviderCall": "Kall dataleverandør",
+    "getDataProviderEndpoints": "Hent endepunkter",
+    "ask": "Spør",
+    "wait": "Vent",
+    "complete": "Fullfør oppgave",
+    "crawlWebpage": "Crawl nettside",
+    "exposePort": "Eksponer port",
+    "scrapeWebpage": "Scrape nettside",
+    "webSearch": "Web-søk",
+    "loadImage": "Last inn bilde",
+    "createPresentationOutline": "Opprett presentasjonsoversikt",
+    "createPresentation": "Opprett presentasjon",
+    "presentPresentation": "Presenter",
+    "clearImagesFromContext": "Tøm bilder fra kontekst",
+    "imageSearch": "Bildesøk",
+    "createSheet": "Opprett ark",
+    "updateSheet": "Oppdater ark",
+    "viewSheet": "Vis ark",
+    "analyzeSheet": "Analyser ark",
+    "visualizeSheet": "Visualiser ark",
+    "formatSheet": "Formater ark",
+    "updateAgent": "Oppdater Worker",
+    "getCurrentAgentConfig": "Hent gjeldende Worker-konfigurasjon",
+    "searchMcpServers": "Søk etter MCP-servere",
+    "getMcpServerTools": "Hent MCP-serververktøy",
+    "configureMcpServer": "Konfigurer MCP-server",
+    "getPopularMcpServers": "Hent populære MCP-servere",
+    "testMcpServerConnection": "Test MCP-servertilkobling",
+    "listAppEventTriggers": "Finn hendelsestriggere",
+    "createEventTrigger": "Opprett hendelsestrigger",
+    "getProjectStructure": "Hent prosjektstruktur",
+    "buildProject": "Bygg prosjekt",
+    "makePhoneCall": "Foreta anrop",
+    "endCall": "Avslutt anrop",
+    "getCallDetails": "Hent anropsdetaljer",
+    "listCalls": "Vis anrop",
+    "monitorCall": "Overvåk anrop",
+    "waitForCallCompletion": "Vent på ferdigstillelse",
+    "getPaperDetails": "Hent detaljer om artikkel",
+    "searchAuthors": "Søk etter forfattere",
+    "getAuthorDetails": "Hent detaljer om forfatter",
+    "getAuthorPapers": "Hent forfatterens artikler",
+    "getPaperCitations": "Hent artikkel-siteringer",
+    "getPaperReferences": "Hent artikkel-referanser",
+    "paperSearch": "Artikkelsøk",
+    "discoverUserMcpServers": "Oppdag verktøy",
+    "createCredentialProfile": "Opprett profil",
+    "getCredentialProfiles": "Hent profiler",
+    "configureProfileForAgent": "Legg til verktøy for Worker",
+    "createNewAgent": "Opprett ny Worker",
+    "searchMcpServersForAgent": "Søk etter MCP-servere",
+    "createCredentialProfileForAgent": "Opprett legitimasjonsprofil",
+    "discoverMcpToolsForAgent": "Oppdag MCP-verktøy",
+    "configureAgentIntegration": "Konfigurer Worker-integrasjon",
+    "createAgentScheduledTrigger": "Opprett planlagt trigger",
+    "listAgentScheduledTriggers": "Vis planlagte triggere for Worker",
+    "executingTool": "Utfører verktøy",
+    "toolExecutedSuccessfully": "Verktøy utført",
+    "toolExecutionFailed": "Verktøyutførelse mislyktes",
+    "input": "Inndata",
+    "output": "Utdata",
+    "copyFileContent": "Kopier filinnhold",
+    "fileContentCopied": "Filinnhold kopiert til utklippstavlen",
+    "failedToCopyFileContent": "Kunne ikke kopiere filinnhold",
+    "noContentAvailable": "Intet innhold tilgjengelig",
+    "noContentDescription": "Dette verktøyet genererte intet innhold for inndata eller utdata.",
+    "tool": "Verktøy"
+  },
+  "agentRunLimit": {
+    "gotIt": "Skjønner",
+    "parallelRunsLimitReached": "Grense for parallelle kjøringer er nådd",
+    "parallelRunsLimitDescription": "Du har nådd den maksimale grensen for parallelle Worker-kjøringer.",
+    "needMoreParallelRuns": "Trenger du flere parallelle kjøringer?",
+    "upgradeDescription": "Oppgrader planen din for å kjøre flere Workers samtidig og øke produktiviteten din.",
+    "upgradePlan": "Oppgrader plan",
+    "currentlyRunningAgents": "Workers som kjører nå",
+    "loadingThreads": "Laster inn samtaler...",
+    "foundRunningAgents": "Fant {count} kjørende Workers, men kunne ikke laste inn samtaledetaljer.",
+    "threadIds": "Samtale-ID-er: {ids}",
+    "moreRunning": "+{count} flere kjører",
+    "whatCanYouDo": "Hva kan du gjøre?",
+    "stopAgentsHint": "Klikk på stopp-knappen for å avbryte kjørende Workers",
+    "waitForCompletion": "Vent til Workeren blir ferdig automatisk",
+    "upgradeYourPlan": "Oppgrader planen din",
+    "forMoreParallelRuns": "for flere parallelle kjøringer",
+    "stopAgent": "Stopp Worker",
+    "stopThisAgent": "Stopp denne Workeren",
+    "openThread": "Åpne samtale",
+    "agentStoppedSuccessfully": "Worker stoppet",
+    "failedToStopAgent": "Kunne ikke stoppe Worker",
+    "upgradeToRunMore": "Oppgrader for å kjøre flere Workers parallelt"
+  },
+  "errors": {
+    "generic": "Noe gikk galt",
+    "network": "Nettverksfeil",
+    "unauthorized": "Uautorisert",
+    "notFound": "Ikke funnet"
+  },
+  "languages": {
+    "en": "Engelsk",
+    "de": "Tysk",
+    "it": "Italiensk",
+    "zh": "Kinesisk",
+    "ja": "Japansk",
+    "pt": "Portugisisk",
+    "fr": "Fransk",
+    "es": "Spansk"
+  },
+  "notifications": {
+    "title": "Varslinger",
+    "description": "Administrer hvordan du mottar varslinger",
+    "preferences": "Varslingsinnstillinger",
+    "channels": "Varslingskanaler",
+    "emailNotifications": "E-postvarsler",
+    "emailDescription": "Motta varslinger via e-post",
+    "pushNotifications": "Push-varsler",
+    "pushDescription": "Motta push-varsler på enheten din",
+    "inAppNotifications": "In-app varsler",
+    "inAppDescription": "Se varslinger inne i appen",
+    "deviceTokens": "Registrerte enheter",
+    "noDevices": "Ingen registrerte enheter",
+    "settingsUpdated": "Varslingsinnstillinger ble oppdatert",
+    "settingsFailed": "Oppdatering av varslingsinnstillinger mislyktes",
+    "enableAll": "Aktiver alle",
+    "disableAll": "Deaktiver alle",
+    "saveChanges": "Lagre endringer"
+  },
+  "suna": {
+    "samplePrompts": "Eksempel-prompts",
+    "chooseStyle": "Velg stil",
+    "chooseTemplate": "Velg mal",
+    "chooseOutputFormat": "Velg utdataformat",
+    "preferredCharts": "Foretrukne diagrammer",
+    "whatWouldYouLike": "Hva vil du oppnå?",
+    "describeTask": "Beskriv oppgaven du vil at Workeren din skal løse...",
+    "modes": {
+      "image": "Bilde",
+      "slides": "Slides",
+      "data": "Data",
+      "docs": "Dokumenter",
+      "canvas": "Canvas",
+      "video": "Video",
+      "research": "Research"
+    },
+    "styles": {
+      "photorealistic": "Fotorealistisk",
+      "watercolor": "Akvarell",
+      "digital-art": "Digital kunst",
+      "oil-painting": "Oljemaleri",
+      "minimalist": "Minimalistisk",
+      "isometric": "Isometrisk",
+      "vintage": "Vintage",
+      "comic": "Tegneserie",
+      "neon": "Neon",
+      "pastel": "Pastell",
+      "geometric": "Geometrisk",
+      "abstract": "Abstrakt",
+      "anime": "Anime",
+      "impressionist": "Impresjonistisk",
+      "surreal": "Surrealistisk"
+    },
+    "templates": {
+      "minimalist": {
+        "name": "Minimalistisk",
+        "description": "Rent og enkelt design"
+      },
+      "minimalist_2": {
+        "name": "Minimalistisk 2",
+        "description": "Alternativ enkel stil"
+      },
+      "black_and_white_clean": {
+        "name": "Svart-hvitt",
+        "description": "Klassisk monokrom"
+      },
+      "colorful": {
+        "name": "Fargerik",
+        "description": "Levende og energisk"
+      },
+      "startup": {
+        "name": "Startup",
+        "description": "Dynamisk og innovativt"
+      },
+      "elevator_pitch": {
+        "name": "Elevator Pitch",
+        "description": "Raskt og slagkraftig"
+      },
+      "portfolio": {
+        "name": "Portefølje",
+        "description": "Vis frem arbeidet ditt"
+      },
+      "textbook": {
+        "name": "Lærebok",
+        "description": "Pedagogisk og strukturert"
+      },
+      "architect": {
+        "name": "Arkitekt",
+        "description": "Profesjonelt og presist"
+      },
+      "hipster": {
+        "name": "Hipster",
+        "description": "Moderne og trendy"
+      },
+      "green": {
+        "name": "Grønn",
+        "description": "Naturinspirert design"
+      },
+      "premium_black": {
+        "name": "Premium svart",
+        "description": "Luksuriøst mørkt utseende"
+      },
+      "premium_green": {
+        "name": "Premium grønn",
+        "description": "Sofistikert grønn"
+      },
+      "professor_gray": {
+        "name": "Professor grå",
+        "description": "Akademisk og vitenskapelig"
+      },
+      "gamer_gray": {
+        "name": "Gamer grå",
+        "description": "Gaming-inspirert design"
+      },
+      "competitor_analysis_blue": {
+        "name": "Analyse-blå",
+        "description": "Fokus på forretningsanalyse"
+      },
+      "numbers_clean": {
+        "name": "Tall rent",
+        "description": "Ren datavisualisering"
+      },
+      "numbers_colorful": {
+        "name": "Tall fargerikt",
+        "description": "Levende datapresentasjon"
+      },
+      "prd": {
+        "name": "PRD",
+        "description": "Product Requirement Document"
+      },
+      "technical": {
+        "name": "Teknisk",
+        "description": "Teknisk dokumentasjon"
+      },
+      "proposal": {
+        "name": "Forslag",
+        "description": "Forretningsforslag"
+      },
+      "report": {
+        "name": "Rapport",
+        "description": "Detaljert rapportformat"
+      },
+      "guide": {
+        "name": "Veiledning",
+        "description": "Trinnvis instruksjon"
+      },
+      "wiki": {
+        "name": "Wiki",
+        "description": "Kunnskapsbase-artikkel"
+      },
+      "policy": {
+        "name": "Policy",
+        "description": "Policydokument"
+      },
+      "meeting-notes": {
+        "name": "Møtenotater",
+        "description": "Møtereferater"
+      }
+    },
+    "outputFormats": {
+      "spreadsheet": {
+        "name": "Regneark",
+        "description": "Tabell med formler"
+      },
+      "dashboard": {
+        "name": "Dashboard",
+        "description": "Interaktive diagrammer"
+      },
+      "report": {
+        "name": "Rapport",
+        "description": "Analyse med visualiseringer"
+      },
+      "slides": {
+        "name": "Slides",
+        "description": "Presentasjonsformat"
+      }
+    },
+    "charts": {
+      "bar": "Stolpe",
+      "line": "Linje",
+      "pie": "Kake",
+      "scatter": "Scatter",
+      "heatmap": "Heatmap",
+      "bubble": "Boble",
+      "wordcloud": "Word Cloud",
+      "stacked": "Stablet stolpe",
+      "area": "Areal"
+    },
+    "prompts": {
+      "image": {
+        "0": "En majestetisk kongeørn som svever gjennom tåkete fjelltopper ved soloppgang med dramatisk belysning",
+        "1": "Nærbilde av en modell med avantgarde-sminke, studiobelysning, høykontrast-skygger",
+        "2": "En koselig skandinavisk stue med naturlige tremøbler, inneplanter og mykt morgensollys",
+        "3": "Et futuristisk cyberpunk-gatemarked om natten med neonskilt, regnvåt asfalt og holografiske skjermer",
+        "4": "Elegant produktfotografering av en luksuriøs parfymeflaske på en marmoroverflate med myke refleksjoner",
+        "5": "Grasiøse svevende øyer forbundet med taubruer i en pastelhimmel med drømmende skyer",
+        "6": "Makro-nærbilde av morgenduggdråper på levende blomsterblader med bokeh-bakgrunn",
+        "7": "Et moderne skrivebord med bærbar PC, kaffe, notatbok og sukkulenter sett ovenfra",
+        "8": "En mystisk skogssti med gamle trær, glødende ildfluer og eteriske lysstråler gjennom tåken",
+        "9": "Arkitektonisk detalj av en moderne glassfasade med geometriske mønstre og refleksjoner",
+        "10": "En levende street food-bod med fargerike ingredienser, stigende damp og varm stemningsbelysning",
+        "11": "En fredelig japansk zen-hage med revet sand, mosedekkede steiner og kirsebærblomsterblader",
+        "12": "Dynamisk action-bilde av en idrettsutøver midt i et hopp mot en dramatisk solnedgang, silhuetteffekt",
+        "13": "Et rustikt gårdskjøkken med kobberpanner, friske urter, treskjærebrett og naturlige teksturer",
+        "14": "Abstrakt flytende kunst med virvlende metallisk gull, dyp blå og smaragdgrønne organiske mønstre"
+      },
+      "slides": {
+        "0": "Opprett et Series A pitch deck med markedsstørrelse, vekst og finansielle prognoser",
+        "1": "Bygg en Q4 business review med KPI-er, suksesser og strategiske initiativer",
+        "2": "Design en produktlanseringspresentasjon med demovideoer og kundeuttalelser",
+        "3": "Utvikle et sales enablement deck som forklarer vårt verdiforslag og konkurransefortrinn",
+        "4": "Opprett en investoroppdatering som fremhever viktige beregninger og kommende milepæler",
+        "5": "Bygg en kundecase-presentasjon som viser ROI og suksessfaktorer",
+        "6": "Design en All-Hands-presentasjon som dekker selskapsoppdateringer og visjon",
+        "7": "Utvikle et treningsmateriell for nye produktfunksjoner og arbeidsflyter",
+        "8": "Lag en konferansetale om skalering av ingeniørteam",
+        "9": "Bygg et styremøte-deck med strategiske anbefalinger"
+      },
+      "data": {
+        "0": "Bygg en finansiell modell som forutsier ARR-vekst med ulike prisscenarioer",
+        "1": "Opprett et interaktivt salgsdashboard som sporer beregninger etter region og kvartal",
+        "2": "Analyser 50 000 kundeanmeldelser og visualiser stemningstrender over tid",
+        "3": "Design en innholdskalender som sporer kampanjer med ROI- og engasjementsgrafer",
+        "4": "Bygg en kohortanalyse som viser brukerbeholdning og churn-mønstre",
+        "5": "Opprett en markedsføringsattribusjonsmodell som sammenligner kanalytelse",
+        "6": "Utvikle en rekrutteringstracker med pipeline-beregninger og time-to-fill analyse",
+        "7": "Bygg et regneark for budsjettplanlegging med scenariomodellering",
+        "8": "Analyser trafikkdata for nettsteder og visualiser konverteringstrakter",
+        "9": "Opprett et lagerstyringssystem med automatiske varsler om gjenbestilling"
+      },
+      "docs": {
+        "0": "Skriv en omfattende PRD for en AI-drevet anbefalingsmotor",
+        "1": "Utarbeid et teknisk arkitekturdokument for en skalerbar microservices-plattform",
+        "2": "Opprett et Go-To-Market strategidokument for vår produktlansering i Q2",
+        "3": "Utvikle en 90-dagers onboarding-guide for ingeniørledere",
+        "4": "Skriv en guide for API-dokumentasjon med eksempler og beste praksis",
+        "5": "Opprett en medarbeiderhåndbok som dekker kultur, policyer og fordeler",
+        "6": "Utarbeid en personvernpolicy som samsvarer med GDPR og CCPA",
+        "7": "Utvikle en kundesuksess-dreiebok for enterprise SaaS-kontoer",
+        "8": "Skriv en plan for hendelsesrespons for sikkerhet med eskaleringsprosedyrer",
+        "9": "Opprett en omfattende stilguide for merkevare og innhold"
+      },
+      "canvas": {
+        "0": "Legg til et teknisk startup-banner på lerretet med en futuristisk skyline",
+        "1": "Opprett en logo for et kaffemerke på lerretet med en minimalistisk, jordnær stil",
+        "2": "Legg til mitt produktbilde på lerretet og fjern bakgrunnen",
+        "3": "Design en infografikk om fornybar energi på lerretet med flate ikoner",
+        "4": "Opprett et sci-fi bokomslag på lerretet med cyberpunk-estetikk",
+        "5": "Legg til en YouTube-miniatyrbilde på lerretet for en video om produktivitetstips",
+        "6": "Bygg et moodboard for luksusmote på lerretet for millennials",
+        "7": "Design en elegant bryllupsinvitasjon på lerretet med blomstermønstre",
+        "8": "Legg til mitt portrettbilde på lerretet og bruk en vintage filmeffekt",
+        "9": "Opprett en musikkfestival-plakat på lerretet med en psykedelisk stemning"
+      },
+      "video": {
+        "0": "Animer mitt produktbilde som roterer jevnt med studiebelysning",
+        "1": "Gjør mitt portrettbilde om til en filmisk scene med kamerabevegelse",
+        "2": "Generer en rolig naturvideo av kirsebærblomster som faller sakte",
+        "3": "Opprett abstrakte glødende partikler som virvler sammen i sakte film",
+        "4": "Få produktet mitt til å sveve og rotere med myke skygger og refleksjoner",
+        "5": "Legg til dramatisk filmisk belysning og fargegradering på portrettet mitt",
+        "6": "Generer et jevnt drone-skudd som flyr gjennom tåkete fjelltopper",
+        "7": "Opprett en videoloop av flytende metall som flyter i organiske former",
+        "8": "Endre bakgrunnen på bildet mitt til en undervannsscene med lysstråler",
+        "9": "Generer en video av et futuristisk bybilde med neonlys og refleksjoner"
+      },
+      "research": {
+        "0": "Analyser nye trender innen kvantedatamaskiner og potensielle forretningsapplikasjoner",
+        "1": "Undersøk topp 10 konkurrenter innen AI-drevet CRM med funksjonssammenligning",
+        "2": "Undersøk de regulatoriske kravene for å lansere en fintech-app i EU",
+        "3": "Utarbeid en markedsanalyse av adopsjonsrater for elbiler i nøkkelmarkeder",
+        "4": "Studer effekten av fjernarbeid på etterspørselen etter næringseiendom i storbyer",
+        "5": "Undersøk Web3-adopsjonsmønstre blant Fortune 500-selskaper",
+        "6": "Analyser forbrukerstemning overfor bærekraftige motemerker",
+        "7": "Undersøk de siste gjennombruddene innen genterapi for sjeldne sykdommer",
+        "8": "Studer prisstrategier for vellykkede D2C-abonnementsboksselskaper",
+        "9": "Undersøk det konkurransemessige landskapet for AI-drevne cybersikkerhetsløsninger"
+      }
+    }
+  },
+  "announcements": {
+    "memories": {
+      "title": "Vi introduserer Memories",
+      "description": "SuperAgent husker nå preferansene dine og konteksten på tvers av alle samtaler",
+      "features": {
+        "personalized": {
+          "title": "Personlig opplevelse",
+          "description": "Tilpasser seg arbeidsstilen din over tid"
+        },
+        "retention": {
+          "title": "Kontekstbeholdning",
+          "description": "Viktige detaljer huskes på tvers av chatter"
+        },
+        "control": {
+          "title": "Du har kontrollen",
+          "description": "Slå av eller slett Memories når som helst"
+        }
+      },
+      "manageButton": "Administrer Memories",
+      "dismissButton": "Skjønner"
+    }
+  }
+}

@@ -1,0 +1,1609 @@
+{
+  "common": {
+    "cancel": "취소",
+    "save": "저장",
+    "saving": "저장 중...",
+    "success": "성공",
+    "done": "완료",
+    "close": "닫기",
+    "ok": "확인",
+    "yes": "예",
+    "no": "아니요",
+    "delete": "삭제",
+    "edit": "편집",
+    "search": "검색",
+    "loading": "로딩 중...",
+    "error": "오류",
+    "retry": "재시도",
+    "send": "보내기",
+    "back": "뒤로",
+    "new": "새로 만들기",
+    "create": "생성",
+    "update": "업데이트",
+    "remove": "제거",
+    "confirm": "확인",
+    "processing": "처리 중...",
+    "keep": "유지",
+    "active": "활성",
+    "inactive": "비활성",
+    "next": "다음",
+    "upgrade": "업그레이드",
+    "basic": "기본",
+    "tryFree": "시작하기"
+  },
+  "settings": {
+    "title": "설정",
+    "tabs": {
+      "general": "일반",
+      "plan": "플랜",
+      "billing": "결제",
+      "usage": "사용량",
+      "referrals": "추천",
+      "knowledgeBase": "지식 베이스",
+      "integrations": "연동",
+      "envManager": "환경 변수 관리"
+    },
+    "general": {
+      "title": "일반 설정",
+      "description": "계정 정보 관리",
+      "profilePicture": {
+        "title": "프로필 사진",
+        "upload": "아바타 업로드",
+        "hint": "JPG, PNG 또는 GIF. 최대 5MB.",
+        "invalidType": "이미지 파일을 선택해 주세요",
+        "tooLarge": "이미지 크기는 5MB 미만이어야 합니다",
+        "uploadFailed": "프로필 사진 업로드 실패"
+      },
+      "name": "이름",
+      "email": "이메일",
+      "namePlaceholder": "이름을 입력하세요",
+      "emailCannotChange": "이메일은 여기서 변경할 수 없습니다",
+      "saveChanges": "변경 사항 저장",
+      "profileUpdated": "프로필이 성공적으로 업데이트되었습니다",
+      "profileUpdateFailed": "프로필 업데이트 실패",
+      "language": {
+        "title": "언어",
+        "description": "선호하는 언어를 선택하세요",
+        "current": "현재 언어",
+        "select": "언어 선택"
+      },
+      "deleteAccount": {
+        "title": "계정 삭제",
+        "description": "계정 및 모든 관련 데이터를 영구적으로 삭제합니다",
+        "button": "계정 삭제",
+        "scheduled": "삭제 예약됨",
+        "scheduledDescription": "계정이 {date}에 영구적으로 삭제됩니다.",
+        "canCancel": "삭제 날짜 전까지 언제든지 요청을 취소할 수 있습니다.",
+        "cancelButton": "삭제 요청 취소",
+        "dialogTitle": "계정 삭제",
+        "warning": "이 작업은 30일 후에 되돌릴 수 없습니다",
+        "whenDelete": "계정을 삭제하면:",
+        "agentsDeleted": "모든 워커 및 워커 버전이 삭제됩니다",
+        "threadsDeleted": "모든 스레드 및 대화 내용이 삭제됩니다",
+        "credentialsRemoved": "모든 자격 증명 및 연동이 제거됩니다",
+        "subscriptionCancelled": "구독이 취소됩니다",
+        "billingRemoved": "모든 결제 데이터가 삭제됩니다",
+        "scheduled30Days": "계정이 30일 후에 삭제되도록 예약됩니다",
+        "gracePeriod": "30일의 유예 기간 동안 언제든지 요청을 취소할 수 있습니다. 30일 후에는 모든 데이터가 영구적으로 삭제되며 복구할 수 없습니다.",
+        "chooseDeletionType": "삭제 유형 선택:",
+        "gracePeriodOption": "30일 유예 기간",
+        "gracePeriodDescription": "계정이 30일 후에 삭제되도록 예약됩니다. 유예 기간 동안 언제든지 요청을 취소할 수 있습니다.",
+        "immediateOption": "즉시 삭제",
+        "immediateDescription": "계정과 모든 데이터가 즉시 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.",
+        "warningImmediate": "이 작업은 되돌릴 수 없습니다",
+        "warningGracePeriod": "이 작업은 30일 후에 되돌릴 수 없습니다",
+        "confirmText": "확인을 위해 delete를 입력하세요",
+        "confirmPlaceholder": "delete",
+        "keepAccount": "계정 유지",
+        "cancelDeletionTitle": "계정 삭제 취소",
+        "cancelDeletionDescription": "계정 삭제를 취소하시겠습니까? 계정과 모든 데이터가 보존됩니다.",
+        "cancelDeletion": "삭제 취소"
+      }
+    },
+    "referrals": {
+      "title": "추천 프로그램",
+      "description": "친구에게 추천 링크를 공유하고 친구가 가입하면 크레딧을 받으세요.",
+      "creditsPerReferral": "100 크레딧",
+      "youEarn": "귀하가 받는 혜택",
+      "friendGets": "친구가 받는 혜택",
+      "maxEarnable": "추천을 통해 획득 가능한 최대 금액:",
+      "maxCredits": "$100 크레딧",
+      "yourReferralCode": "추천 코드",
+      "referralLink": "추천 링크",
+      "shareYourLink": "추천 링크 공유",
+      "yourStats": "내 통계",
+      "enterCodeDescription": "크레딧을 받으려면 추천 코드를 입력하세요",
+      "enterCode": "코드 입력",
+      "refresh": "새로고침",
+      "copyCode": "코드 복사",
+      "copyLink": "링크 복사",
+      "share": "공유",
+      "stats": {
+        "totalReferrals": "총 추천 수",
+        "successful": "성공",
+        "creditsEarned": "획득한 크레딧"
+      },
+      "recentReferrals": "최근 추천",
+      "signupComplete": "가입 완료",
+      "pending": "대기 중",
+      "noReferrals": "아직 추천 내역이 없습니다. 추천 링크를 공유해 보세요!",
+      "copied": "복사되었습니다!",
+      "codeCopied": "추천 코드가 클립보드에 복사되었습니다",
+      "linkCopied": "추천 링크가 클립보드에 복사되었습니다",
+      "codeRefreshed": "추천 코드가 성공적으로 새로고침되었습니다",
+      "refreshFailed": "추천 코드 새로고침 실패",
+      "inviteByEmail": "이메일로 초대",
+      "inviteByEmailDescription": "최대 3개의 이메일 주소 추가 (엔터, 스페이스 또는 콤마로 구분)",
+      "emailAddress": "이메일 주소",
+      "emailPlaceholder": "이메일 주소 입력 (엔터, 스페이스 또는 콤마)",
+      "emailsAdded": "이메일 추가됨",
+      "sent": "전송됨",
+      "send": "보내기",
+      "sending": "전송 중...",
+      "sendAllInvites": "모든 초대장 보내기",
+      "allSent": "모두 전송됨",
+      "emailSent": "추천 초대장이 성공적으로 전송되었습니다"
+    },
+    "billing": {
+      "title": "결제 및 구독",
+      "description": "크레딧 및 구독 관리",
+      "totalCredits": "총 사용 가능한 크레딧",
+      "allCredits": "모든 크레딧",
+      "monthlyCredits": "월간 크레딧",
+      "renewalIn": "갱신까지 {days} {days, plural, one {일} other {일}} 남음",
+      "noRenewal": "예약된 갱신 없음",
+      "extraCredits": "추가 크레딧",
+      "nonExpiring": "만료되지 않음",
+      "renews": "{date}에 갱신",
+      "manageSubscription": "구독 관리",
+      "getAdditionalCredits": "추가 크레딧 구매",
+      "changePlan": "플랜 변경",
+      "annualCommitment": "연간 약정",
+      "activeUntil": "{date}까지 활성",
+      "subscriptionCancelled": "구독이 {date}에 취소됩니다",
+      "reactivate": "재활성화",
+      "creditsExplained": "크레딧 설명",
+      "cancelPlan": "플랜 취소",
+      "reactivateSubscription": "구독 재활성화",
+      "reactivating": "재활성화 중...",
+      "cancelDialogTitle": "구독 취소",
+      "cancelDialogDescription": "정말로 구독을 취소하시겠습니까? {date}까지는 계속 이용하실 수 있습니다.",
+      "keepSubscription": "구독 유지",
+      "cancelling": "취소 중...",
+      "localMode": "로컬 모드 활성",
+      "localModeDescription": "이 환경에서는 모든 프리미엄 기능을 사용할 수 있습니다",
+      "insufficientCredits": "크레딧 부족",
+      "insufficientCreditsMessage": "결제 확인 실패: 크레딧이 부족합니다. 현재 잔액은 {balance}입니다. 계속하려면 크레딧을 추가해 주세요.",
+      "creditsExhausted": "크레딧이 모두 소진되었습니다. 지금 업그레이드하세요.",
+      "billingCheckFailed": "결제 확인 실패. 계속하려면 업그레이드하세요.",
+      "failedToStartAgent": "워커 {agentName}를 시작하지 못했습니다: {message}"
+    },
+    "usage": {
+      "title": "사용량"
+    },
+    "knowledgeBase": {
+      "opening": "지식 베이스 여는 중",
+      "redirecting": "지식 베이스 페이지로 리다이렉트 중..."
+    },
+    "integrations": {
+      "opening": "연동 여는 중",
+      "redirecting": "연동 페이지로 리다이렉트 중..."
+    },
+    "memory": {
+      "title": "AI 메모리",
+      "description": "대화 전반에 걸쳐 문맥을 자동으로 기억합니다",
+      "enabled": "활성화됨",
+      "disabled": "비활성화됨",
+      "notAvailable": "현재 플랜에서는 메모리 기능을 사용할 수 없습니다. 자동 메모리를 활성화하려면 Plus 이상의 플랜으로 업그레이드하세요.",
+      "enableMemory": "메모리 활성화",
+      "enableMemoryDescription": "SuperAgent가 대화의 정보를 기억하도록 허용",
+      "memoryDisabledByUser": "메모리가 현재 비활성화되어 있습니다. 대화에서 기억을 쌓으려면 위에서 활성화하세요.",
+      "upgradeRequired": "메모리 사용을 위해 업그레이드 필요",
+      "clickToUpgrade": "플랜 확인하기",
+      "memoryEnabledTooltip": "메모리 활성화됨",
+      "memoryDisabledTooltip": "메모리 비활성화됨",
+      "clickToToggle": "전환하려면 클릭",
+      "usage": "메모리 사용량",
+      "available": "{count}개의 기억 사용 가능",
+      "noLimit": "무제한",
+      "yourMemories": "내 기억",
+      "yourMemoriesDescription": "AI가 나에 대해 기억하고 있는 내용 확인 및 관리",
+      "clearAll": "모두 지우기",
+      "deleteAllTitle": "모든 기억을 삭제하시겠습니까?",
+      "deleteAllDescription": "이 작업은 {count}개의 모든 기억을 영구적으로 삭제합니다. AI는 더 이상 과거 대화의 정보를 기억하지 못합니다. 이 작업은 되돌릴 수 없습니다.",
+      "deleteAllButton": "모든 기억 삭제",
+      "noMemoriesYet": "아직 기억이 없습니다",
+      "noMemoriesDescription": "대화를 시작하면 AI가 나에 대한 중요한 정보를 자동으로 기억합니다",
+      "searchMemories": "기억 검색...",
+      "filterByType": "유형별 필터",
+      "allTypes": "모든 유형",
+      "personalFacts": "개인적인 사실",
+      "preferences": "선호도",
+      "context": "문맥",
+      "conversations": "대화",
+      "noMatchingMemories": "일치하는 기억이 없습니다",
+      "adjustFilters": "필터나 검색어를 조정해 보세요",
+      "loadMore": "더 보기",
+      "loading": "기억 로딩 중...",
+      "memoryTypes": {
+        "fact": "사실",
+        "preference": "선호도",
+        "context": "문맥",
+        "conversation_summary": "대화"
+      }
+    }
+  },
+  "triggers": {
+    "getStarted": "트리거를 추가하여 시작하세요",
+    "getStartedDescription": "트리거를 예약하여 작업을 자동화하고 작업이 완료되면 알림을 받으세요.",
+    "search": "검색",
+    "scheduledTrigger": "예약된 트리거",
+    "eventBasedTrigger": "이벤트 기반 트리거",
+    "chooseAgent": "워커 선택",
+    "schedule": "일정",
+    "agentInstructions": "워커 지침",
+    "agentInstructionsDescription": "워커를 위한 맞춤형 프롬프트",
+    "assignedAgent": "할당된 워커",
+    "unknownAgent": "알 수 없는 워커",
+    "technicalDetails": "기술 세부 정보",
+    "type": "유형",
+    "provider": "공급자",
+    "created": "생성됨",
+    "lastUpdated": "마지막 업데이트",
+    "enable": "활성화",
+    "disable": "비활성화",
+    "deleteTask": "작업 삭제",
+    "deleteTaskDescription": "\"{name}\"을(를) 삭제하시겠습니까? 이 작업은 되돌릴 수 없으며 이 작업의 모든 자동 실행이 중지됩니다.",
+    "taskEnabled": "작업 활성화됨",
+    "taskDisabled": "작업 비활성화됨",
+    "toggleTaskFailed": "작업 전환 실패",
+    "taskDeletedSuccess": "작업이 성공적으로 삭제되었습니다",
+    "deleteTaskFailed": "작업 삭제 실패",
+    "taskUpdatedSuccess": "작업이 성공적으로 업데이트되었습니다",
+    "updateTaskFailed": "작업 업데이트 실패",
+    "pleaseSelectAgent": "워커를 선택해 주세요",
+    "defaultScheduledTriggerName": "예약된 트리거",
+    "defaultScheduledTriggerDescription": "자동 예약된 트리거",
+    "scheduleTriggerUpdated": "예약 트리거가 성공적으로 업데이트되었습니다",
+    "scheduleTriggerCreated": "예약 트리거가 성공적으로 생성되었습니다",
+    "upgradeForMoreScheduledTriggers": "더 많은 예약 트리거를 생성하려면 업그레이드하세요",
+    "upgradeForMoreAppTriggers": "더 많은 앱 기반 트리거를 생성하려면 업그레이드하세요",
+    "updateScheduleTriggerFailed": "예약 트리거 업데이트 실패",
+    "createScheduleTriggerFailed": "예약 트리거 생성 실패",
+    "editScheduledTask": "예약된 작업 편집",
+    "createScheduledTask": "예약된 작업 생성",
+    "editAppBasedTask": "앱 기반 작업 편집",
+    "createAppBasedTask": "앱 기반 작업 생성",
+    "updateAgentForTask": "이 작업의 워커 업데이트",
+    "selectAgentForTask": "먼저 이 작업을 처리할 워커를 선택하세요",
+    "createNew": "새로 만들기",
+    "notConfigured": "설정되지 않음",
+    "every15Minutes": "15분마다",
+    "every30Minutes": "30분마다",
+    "everyHour": "1시간마다",
+    "dailyAt9AM": "매일 오전 9시",
+    "weekdaysAt9AM": "평일 오전 9시",
+    "weeklyOnMonday": "매주 월요일",
+    "monthlyOn1st": "매월 1일"
+  },
+  "sidebar": {
+    "referAndEarn": "추천하고 혜택 받기",
+    "referralShareTitle": "친구 추천",
+    "referralShareSubtitle": "400 크레딧 증정",
+    "new": "새로 만들기",
+    "upgrade": "업그레이드",
+    "chats": "채팅",
+    "library": "파일",
+    "triggers": "트리거",
+    "newChat": "새 채팅",
+    "newAgent": "새 워커",
+    "settings": "설정",
+    "logout": "로그아웃",
+    "openMenu": "메뉴 열기",
+    "expandSidebar": "사이드바 확장 (CMD+B)",
+    "searchChats": "채팅 검색",
+    "searchChatsPlaceholder": "채팅 검색...",
+    "allTriggers": "모든 트리거",
+    "addWorkers": "워커 추가",
+    "addTrigger": "트리거 추가",
+    "triggerConfig": "트리거 설정",
+    "scheduledTrigger": "예약된 트리거",
+    "scheduledTriggerDescription": "특정 시간에 실행되도록 트리거 예약",
+    "eventBasedTrigger": "이벤트 기반 트리거",
+    "eventBasedTriggerDescription": "이벤트가 발생할 때 실행되도록 트리거 생성",
+    "noChatsFound": "채팅을 찾을 수 없습니다",
+    "noConversations": "아직 채팅이 없습니다",
+    "search": "검색",
+    "searchPlaceholder": "검색...",
+    "searchResults": "검색 결과",
+    "recent": "최근",
+    "personalAccount": "개인 계정",
+    "workspaces": "워크스페이스",
+    "theme": "테마",
+    "integrations": "연동",
+    "billing": "결제",
+    "usage": "사용량",
+    "adminPanel": "관리자 패널",
+    "apiKeys": "API 키",
+    "envManager": "환경 변수 관리",
+    "advanced": "고급",
+    "plan": "플랜",
+    "knowledgeBase": "지식 베이스",
+    "conversation": "대화",
+    "conversations": "대화",
+    "startNewChat": "새 채팅 시작",
+    "openInNewTab": "새 탭에서 열기",
+    "delete": "삭제",
+    "deleting": "삭제 중",
+    "allThreadsLoaded": "모든 스레드 로드됨",
+    "myWorkforce": "내 인력",
+    "addTeam": "팀 추가",
+    "selectAll": "전체 선택",
+    "deselectAll": "전체 해제",
+    "selectAllConversations": "모든 대화 선택",
+    "deselectAllConversations": "모든 대화 해제",
+    "loadMore": "더 보기",
+    "remaining": "남음"
+  },
+  "dashboard": {
+    "title": "대시보드",
+    "welcome": "환영합니다",
+    "whatWouldYouLike": "무엇을 도와드릴까요?",
+    "describeWhatYouNeed": "도움이 필요한 내용을 설명해 주세요...",
+    "usageLimits": "사용 제한",
+    "threads": "스레드",
+    "customWorkers": "맞춤형 워커",
+    "scheduledTriggers": "예약된 트리거",
+    "appTriggers": "앱 트리거",
+    "limitsExceeded": "채팅 제한에 도달했습니다. 더 많은 채팅을 생성하려면 플랜을 업그레이드하세요.",
+    "agentInitiatedSuccessfully": "워커가 성공적으로 시작되었습니다",
+    "aiAssistantReady": "AI 어시스턴트가 도와드릴 준비가 되었습니다",
+    "greetings": {
+      "morning": [
+        "좋은 아침입니다! 오늘의 계획은 무엇인가요?",
+        "일어날 시간입니다! 무엇을 만들어볼까요?",
+        "좋은 아침! 생산적인 하루를 보낼 준비 되셨나요?"
+      ],
+      "afternoon": [
+        "좋은 오후입니다! 무엇을 도와드릴까요?",
+        "오늘 하루 잘 보내고 계신가요! 다음은 무엇인가요?"
+      ],
+      "evening": [
+        "좋은 저녁입니다! 야근 중이신가요?",
+        "저녁입니다! 오늘 밤에는 무엇을 작업해볼까요?",
+        "좋은 저녁입니다! 일을 마무리해 봅시다."
+      ],
+      "random": [
+        "누가 돌아왔는지 보세요, 바로 저예요",
+        "반가워요! SuperAgent가 무엇을 도와드릴까요?",
+        "무엇을 완료하고 싶으신가요?",
+        "멋진 것을 함께 만들어 봐요",
+        "준비되었습니다!",
+        "무슨 일이신가요?",
+        "부르셨나요! 미션은 무엇인가요?",
+        "마법 같은 일을 만들어 봐요",
+        "어떤 도전에 맞서 볼까요?",
+        "말씀만 하세요",
+        "계획이 어떻게 되시나요?",
+        "꽉 잡으세요! 어디로 가볼까요?",
+        "새로운 날, 새로운 작업",
+        "무슨 생각을 하시나요?",
+        "자, 시작해 봅시다"
+      ]
+    },
+    "good_morning": "좋은 아침입니다",
+    "good_afternoon": "좋은 오후입니다",
+    "good_evening": "좋은 저녁입니다",
+    "ready_to_accelerate_your_pipeline": "파이프라인을 가속화할 준비가 되셨나요? 시작할 스킬을 선택하세요.",
+    "explore_agentic_ai_capabilities": "에이전틱 AI 기능 탐색",
+    "marketing_assets": "마케팅 자산",
+    "image": "이미지",
+    "images": {
+      "label": "이미지",
+      "bannerTitle": "이미지 스튜디오",
+      "bannerDescription": "실사 같은 마케팅 자산, 복잡한 다이어그램, 텍스트 위주의 포스터를 생성합니다.",
+      "selectModelPlaceholder": "모델 선택",
+      "styleTitle": "스타일 선택",
+      "samplePrompts": "샘플 프롬프트",
+      "generateWithStylePrompt": "{style} 스타일을 사용하여 이미지 생성"
+    },
+    "videos": {
+      "label": "비디오",
+      "bannerTitle": "비디오 생성기",
+      "bannerDescription": "초현실적인 조명과 일관된 모션으로 시네마틱 비디오를 만듭니다.",
+      "selectModelPlaceholder": "모델 선택",
+      "styleTitle": "비디오 스타일 선택",
+      "samplePrompts": "샘플 프롬프트",
+      "generateWithStylePrompt": "{style} 스타일 비디오 생성"
+    },
+    "tags": {
+      "sales": "영업",
+      "cx": "고객 경험",
+      "mktg": "마케팅",
+      "ops": "운영",
+      "hr": "인사",
+      "legal": "법무"
+    },
+    "aePanel": {
+      "bannerTitle": "어카운트 이그제큐티브 에이전트",
+      "bannerDescription": "발굴, 데모 및 인계를 위한 풀 사이클 영업 어시스턴트입니다.",
+      "cards": {
+        "discovery": {
+          "title": "발굴 준비",
+          "description": "타겟팅된 질문 및 조사를 생성합니다.",
+          "prompt": "핀테크 기업의 영업 부사장을 위한 발굴 질문 준비..."
+        },
+        "handoff": {
+          "title": "영업 → CS 인계",
+          "description": "원활한 온보딩을 위한 딜 노트를 구조화합니다.",
+          "prompt": "CSM 팀을 위한 인계 문서 생성..."
+        },
+        "leadFeedback": {
+          "title": "리드 피드백 루프",
+          "description": "마케팅 팀과 리드 품질에 대한 인사이트를 공유합니다.",
+          "prompt": "마케팅 팀을 위한 리드 품질 피드백 초안 작성..."
+        }
+      }
+    },
+    "dataPanel": {
+      "bannerTitle": "데이터 분석가 에이전트",
+      "bannerDescription": "목록 정리, 연락처 보강 및 GTM 인사이트를 위한 CSV 분석을 수행합니다.",
+      "cards": {
+        "leadCleaner": {
+          "title": "리드 목록 정리",
+          "description": "CRM 임포트를 위해 형식을 수정하고 중복을 제거하며 필드를 표준화합니다.",
+          "prompt": "이 리드 목록을 정리하고 직함 표준화..."
+        },
+        "lookalikes": {
+          "title": "유사 타겟",
+          "description": "최고의 고객을 기반으로 새로운 잠재 고객을 발굴합니다.",
+          "prompt": "상위 10개 고객과 유사한 회사 찾기..."
+        },
+        "ticketAnalysis": {
+          "title": "티켓 분석",
+          "description": "지원팀 내역에서 반복되는 문제와 감정을 파악합니다.",
+          "prompt": "감정 및 반복되는 문제에 대한 고객 지원 티켓 분석..."
+        }
+      }
+    },
+    "pipelinePanel": {
+      "bannerTitle": "파이프라인 관리자",
+      "bannerDescription": "예측, 딜 QA 및 리스크 감지를 수행합니다.",
+      "cards": {
+        "q4Forecast": {
+          "title": "4분기 예측",
+          "description": "수익을 예측하고 딜 지연을 포착합니다.",
+          "prompt": "내 4분기 수익을 예측하고 지연 리스크 파악..."
+        },
+        "campaignRoi": {
+          "title": "캠페인 ROI",
+          "description": "최근 수주 건에 대한 기여도 분석입니다.",
+          "prompt": "수주 완료된 딜에 대한 캠페인 기여도 분석..."
+        },
+        "churnForecast": {
+          "title": "이탈 예측",
+          "description": "갱신 및 위험 계정을 예측합니다.",
+          "prompt": "다가오는 갱신 코호트에 대한 이탈 리스크 예측..."
+        }
+      }
+    },
+    "researchPanel": {
+      "bannerTitle": "심층 조사",
+      "bannerDescription": "고급 추론을 사용하여 심층적인 시장 조사, 경쟁사 전략 분석 및 종합 보고서 생성을 수행합니다.",
+      "sectionTitle": "새로운 조사 시작",
+      "items": {
+        "competitorDeepDive": "경쟁사 심층 분석",
+        "marketTrendAnalysis": "시장 트렌드 분석",
+        "accountIntelligenceReport": "어카운트 인텔리전스 보고서",
+        "regulatoryImpactStudy": "규제 영향 연구"
+      },
+      "promptTemplate": "{topic}에 대한 조사 수행..."
+    },
+    "socialSellingPanel": {
+      "bannerTitle": "소셜 셀링 어시스턴트",
+      "bannerDescription": "퍼스널 브랜딩 구축, 바이럴 훅 초안 작성 및 AI를 통한 잠재 고객 참여를 유도합니다.",
+      "cards": {
+        "viralHook": {
+          "title": "바이럴 훅 생성기",
+          "description": "AI가 제작한 오프닝으로 스크롤을 멈추게 하세요.",
+          "prompt": "다음에 대한 반박 불가한 LinkedIn 포스트 훅 작성..."
+        },
+        "repurpose": {
+          "title": "콘텐츠 재구성",
+          "description": "블로그를 포스트, 스레드, 카드뉴스로 변환합니다.",
+          "prompt": "이 블로그 포스트를 Twitter 스레드로 재구성..."
+        },
+        "dmSequence": {
+          "title": "DM 시퀀스 작가",
+          "description": "부담스럽지 않은 아웃리치 메시지 초안을 작성합니다.",
+          "prompt": "내 프로필을 본 잠재 고객을 위한 DM 시퀀스 작성..."
+        }
+      }
+    },
+    "strategistPanel": {
+      "bannerTitle": "딜 전략가",
+      "bannerDescription": "협상 플레이, 계약 검토 및 가격 전략으로 딜 사이클을 가속화합니다.",
+      "cards": {
+        "proposal": {
+          "title": "스마트 제안서 생성",
+          "description": "초안 자동 작성 + 가격 자동 입력.",
+          "cta": "지금 작성",
+          "prompt": "[Client]를 위한 표준 가격이 포함된 제안서 생성..."
+        },
+        "redline": {
+          "title": "레드라인 어시스턴트",
+          "description": "AI 계약 검토 및 편집입니다.",
+          "cta": "문서 업로드",
+          "prompt": "이 계약을 분석하고 레드라인 제안..."
+        },
+        "followUp": {
+          "title": "멀티 스레드 팔로업",
+          "description": "개인화된 이해관계자 이메일입니다.",
+          "cta": "시퀀스 생성",
+          "prompt": "부사장 및 이사를 위한 멀티 스레드 팔로업 이메일 초안 작성..."
+        },
+        "expansion": {
+          "title": "확장 스카우트",
+          "description": "업셀 신호 감지 및 건강도 점수를 측정합니다.",
+          "cta": "기회 찾기",
+          "prompt": "확장 신호를 위한 어카운트 사용량 분석..."
+        }
+      }
+    },
+    "icpPanel": {
+      "bannerTitle": "지역 및 페르소나",
+      "bannerDescription": "ICP 정의, 지역 세분화 및 구매 위원회 맵핑을 수행합니다.",
+      "sectionTitle": "심층 세분화",
+      "cards": {
+        "repAssignment": {
+          "title": "담당자 배정",
+          "description": "강점을 기반으로 담당자 커버리지를 추천합니다.",
+          "prompt": "과거 성과를 기반으로 서부 지역 담당자 배정 제안..."
+        },
+        "quotaModeling": {
+          "title": "할당량 모델링",
+          "description": "목표를 최적화하고 역량 격차를 분석합니다.",
+          "prompt": "현재 인원수를 고려한 FY24 할당량 역량 모델링..."
+        },
+        "predictiveHiring": {
+          "title": "예측 채용",
+          "description": "성장 궤적을 기반으로 인력 배치를 예측합니다.",
+          "prompt": "파이프라인 속도 및 수익 목표를 기반으로 채용 계획 수립..."
+        },
+        "marketSegmentation": {
+          "title": "시장 세분화",
+          "description": "ICP 및 구매자 페르소나를 정교화합니다.",
+          "prompt": "엔터프라이즈 세그먼트에 대한 심리적 프로필 정의..."
+        },
+        "customerHealth": {
+          "title": "고객 건강도 프로필",
+          "description": "성공적인 장기 고객의 특징을 파악합니다.",
+          "prompt": "가장 성공적인 고객을 위한 건강도 점수 프로필 생성..."
+        }
+      }
+    },
+    "websitePanel": {
+      "bannerTitle": "웹사이트",
+      "bannerDescription": "AI로 전환율이 높은 랜딩 페이지와 기능적인 웹 앱을 생성합니다.",
+      "sectionTitle": "템플릿 라이브러리",
+      "promptTemplate": "다음을 위한 {template} 생성...",
+      "categories": {
+        "marketing": {
+          "title": "마케팅 및 캠페인",
+          "items": {
+            "landingPage": "고전환 랜딩 페이지",
+            "webinarRegistration": "웨비나 등록 사이트",
+            "productLaunchCountdown": "제품 출시 카운트다운",
+            "eventMicrosite": "이벤트 마이크로사이트",
+            "newsletterSignup": "뉴스레터 가입 페이지"
+          }
+        },
+        "corporate": {
+          "title": "기업 및 브랜드",
+          "items": {
+            "corporateHomepage": "현대적인 기업 홈페이지",
+            "aboutLeadership": "회사 소개 및 리더십",
+            "careersCulture": "채용 및 문화 허브",
+            "pressMediaKit": "프레스 및 미디어 키트"
+          }
+        },
+        "saas": {
+          "title": "SaaS 및 제품",
+          "items": {
+            "saasHomepage": "SaaS 제품 홈페이지",
+            "pricingComparison": "가격 및 플랜 비교",
+            "featureDeepDive": "기능 심층 분석 페이지",
+            "docsHelpCenter": "문서 / 고객 센터"
+          }
+        },
+        "content": {
+          "title": "콘텐츠 및 포트폴리오",
+          "items": {
+            "personalPortfolio": "퍼스널 브랜드 포트폴리오",
+            "agencyShowcase": "크리에이티브 에이전시 쇼케이스",
+            "consultantBooking": "컨설턴트 예약 페이지",
+            "resourceLibraryBlog": "리소스 라이브러리 / 블로그"
+          }
+        }
+      }
+    },
+    "adsPanel": {
+      "bannerTitle": "광고 스튜디오",
+      "bannerDescription": "명확한 타겟팅과 크리에이티브 방향으로 고전환 광고를 생성합니다.",
+      "none": "없음",
+      "steps": {
+        "strategyTargeting": "전략 및 타겟팅",
+        "adSpecifications": "광고 사양",
+        "creativeDirection": "크리에이티브 방향"
+      },
+      "fields": {
+        "productUrl": "제품 랜딩 페이지 URL",
+        "competitorUrl": "경쟁사 URL",
+        "targetAudience": "타겟 오디언스",
+        "platforms": "플랫폼",
+        "format": "형식",
+        "callToAction": "클릭 유도 문구(CTA)",
+        "visualStyle": "비주얼 스타일",
+        "outputVolume": "출력량",
+        "massTranslation": "대량 번역"
+      },
+      "placeholders": {
+        "url": "https://...",
+        "age": "연령 (예: 25-45)",
+        "location": "위치 (예: US, EMEA)",
+        "interests": "관심사 (예: SaaS, Tech)",
+        "ctaText": "버튼 텍스트 (예: 가입하기)",
+        "destinationLink": "이동 링크 (예: https://...)"
+      },
+      "platforms": {
+        "googleAds": "Google 광고",
+        "metaAds": "Meta 광고",
+        "linkedin": "LinkedIn",
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "youtube": "YouTube"
+      },
+      "formats": {
+        "singleImage": "단일 이미지",
+        "carousel": "캐러셀",
+        "shortVideo": "숏폼 비디오",
+        "story": "스토리"
+      },
+      "visualStyles": {
+        "minimalist": "미니멀리스트",
+        "boldVibrant": "대담하고 생동감 넘치는",
+        "professional": "프로페셔널",
+        "playful": "장난스러운",
+        "luxury": "럭셔리",
+        "futuristic": "미래지향적인",
+        "handDrawn": "손으로 그린 듯한",
+        "corporate": "기업형"
+      },
+      "languages": {
+        "es": "스페인어",
+        "fr": "프랑스어",
+        "de": "독일어",
+        "ja": "일본어",
+        "pt": "포르투갈어",
+        "it": "이탈리아어",
+        "zh": "중국어",
+        "ko": "한국어",
+        "ar": "아랍어",
+        "nl": "네덜란드어",
+        "sv": "스웨덴어",
+        "no": "노르웨이어",
+        "da": "덴마크어",
+        "fi": "핀란드어",
+        "hi": "힌디어",
+        "ru": "러시아어",
+        "tr": "터키어",
+        "pl": "폴란드어",
+        "id": "인도네시아어",
+        "th": "태국어",
+        "vi": "베트남어",
+        "el": "그리스어"
+      },
+      "outputVolumeConcepts": "{count}개 컨셉",
+      "generateButton": "컨셉 생성 ({count})",
+      "strategyAppliedTitle": "전략 적용됨",
+      "strategyAppliedDescription": "생성된 모든 컨셉에 대해 자동으로 세 가지 변형이 생성됩니다.",
+      "variations": {
+        "1": {
+          "title": "1. 희소성 및 긴급성",
+          "description": "FOMO, 기간 한정 혜택, 독점 액세스 훅"
+        },
+        "2": {
+          "title": "2. 혜택 중심",
+          "description": "명확한 가치 제안, 문제 해결 프레이밍"
+        },
+        "3": {
+          "title": "3. 사회적 증거",
+          "description": "후기, 사용자 수, 신뢰 지표"
+        }
+      },
+      "prompt": {
+        "notProvided": "제공되지 않음",
+        "general": "일반",
+        "global": "글로벌",
+        "learnMore": "더 알아보기",
+        "na": "해당 없음",
+        "productUrl": "제품 URL: {value}",
+        "competitorUrl": "경쟁사 URL: {value}",
+        "targetAudienceTitle": "타겟 오디언스:",
+        "targetAudienceAge": "- 연령: {value}",
+        "targetAudienceLocation": "- 위치: {value}",
+        "targetAudienceInterests": "- 관심사: {value}",
+        "campaignSpecsTitle": "캠페인 사양:",
+        "platforms": "- 플랫폼: {value}",
+        "formats": "- 형식: {value}",
+        "callToAction": "- 클릭 유도 문구(CTA): \"{text}\" (링크: {link})",
+        "visualStyle": "- 비주얼 스타일: {value}",
+        "settingsTitle": "설정:",
+        "numberOfConcepts": "- 컨셉 수: {value}",
+        "translationLanguages": "- 번역 언어: {value}",
+        "instructions": "이 입력값들을 바탕으로 전환율이 높은 광고 컨셉을 생성해 주세요.",
+        "variationsInstruction": "각 컨셉에 대해 3가지 뚜렷한 카피 변형(희소성, 혜택, 사회적 증거)을 제공해야 합니다."
+      }
+    },
+    "video_studio": "비디오 스튜디오",
+    "demos_outreach": "데모 및 아웃리치",
+    "pipeline_manager": "파이프라인 관리자",
+    "forecasting_deal_qa": "예측 및 딜 QA",
+    "account_executive": "어카운트 이그제큐티브",
+    "full_cycle_sales_agent": "풀 사이클 영업 에이전트",
+    "deal_strategist": "딜 전략가",
+    "negotiation_closers": "협상 및 클로징",
+    "data_analyst": "데이터 분석가",
+    "cleaning_enrichment": "정리 및 보강",
+    "territory_persona": "지역 및 페르소나",
+    "icp_market_planning": "ICP 및 시장 계획",
+    "social_selling": "소셜 셀링",
+    "brand_content": "브랜드 및 콘텐츠",
+    "deep_research": "심층 조사",
+    "market_intel_reports": "시장 정보 및 보고서",
+    "ad_studio": "광고 스튜디오",
+    "ads_creative_roi": "광고 및 크리에이티브 ROI",
+    "gtm_decks": "GTM 덱",
+    "proposals_qbrs": "제안서, QBR",
+    "landing_pages_sites": "랜딩 페이지, 사이트",
+    "website": "웹사이트",
+    "video": "비디오",
+    "pipeline": "파이프라인",
+    "account_exec": "영업 사원",
+    "data": "데이터",
+    "territory_icp": "지역/ICP",
+    "research": "조사"
+  },
+  "thread": {
+    "integrations": "연동",
+    "connect": "연결",
+    "seeAllIntegrations": "+ 모든 연동 보기",
+    "connectIntegrations": "연동 연결",
+    "adaptive": "적응형",
+    "adaptiveDescription": "스마트한 문맥 전환으로 빠른 응답",
+    "autonomous": "자율형",
+    "autonomousDescription": "다단계 문제 해결을 위한 딥 워크 모드",
+    "chat": "채팅",
+    "chatDescription": "간단한 대화 주고받기",
+    "sampleAnswers": "샘플 답변",
+    "samplePrompts": "샘플 프롬프트",
+    "waitingForUserResponse": "사용자가 답변하면 SuperAgent가 자율적으로 작업을 계속합니다.",
+    "taskCompleted": "작업 완료",
+    "uploadingFiles": "{count}개의 파일 업로드 중...",
+    "uploadingFilesOne": "{count}개의 파일 업로드 중...",
+    "uploadingFilesMany": "{count}개의 파일 업로드 중...",
+    "scrollToBottom": "맨 아래로 스크롤",
+    "tools": "도구",
+    "instructions": "지침",
+    "knowledge": "지식",
+    "triggers": "트리거",
+    "agents": "워커",
+    "superWorker": "슈퍼 워커",
+    "searchWorkers": "워커 검색...",
+    "myWorkers": "내 워커",
+    "running": "실행 중",
+    "minimizeToFloatingPreview": "플로팅 미리보기로 최소화",
+    "close": "닫기",
+    "noActionsYet": "SuperAgent 컴퓨터",
+    "workerActionsDescription": "시작 중",
+    "emptyActionsDescription": "워커 작업이 여기에 표시됩니다",
+    "toolIsRunning": "도구 실행 중",
+    "toolCurrentlyExecuting": "{toolName}이(가) 현재 실행 중입니다. 완료되면 결과가 여기에 표시됩니다.",
+    "thinkingTitle": "생각 중",
+    "thinkingDescription": "작업 실행 준비 중...",
+    "rateThisResult": "결과 평가하기",
+    "feedbackHelpsImprove": "여러분의 피드백은 서비스 개선에 도움이 됩니다",
+    "additionalFeedbackOptional": "추가 피드백 (선택 사항)",
+    "helpKortixImprove": "피드백으로 SuperAgent의 품질을 높여주세요",
+    "submit": "제출",
+    "submitting": "제출 중...",
+    "feedbackSubmittedSuccess": "피드백이 성공적으로 제출되었습니다",
+    "feedbackSubmitFailed": "피드백 제출 실패"
+  },
+  "agents": {
+    "title": "워커",
+    "create": "워커 생성",
+    "createNewWorker": "새 워커 생성",
+    "edit": "워커 편집",
+    "delete": "워커 삭제",
+    "name": "이름",
+    "description": "설명",
+    "model": "모델",
+    "systemPrompt": "시스템 프롬프트",
+    "systemPromptPlaceholder": "워커가 어떻게 행동해야 하는지 정의하세요...",
+    "customizeIcon": "워커 아이콘을 사용자 정의하려면 클릭하세요"
+  },
+  "home": {
+    "heroPlaceholder": "워커가 완료하기를 바라는 작업을 설명해 주세요..."
+  },
+  "showcase": {
+    "title": "SuperAgent: 자율형 AI 워커",
+    "subtitle": "복잡한 작업을 위해 제작되고 모든 것을 위해 설계되었습니다. 단순한 요청부터 매우 복잡한 프로젝트까지 모든 것을 처리하는 궁극의 AI 어시스턴트입니다.",
+    "tryItOut": "체험해 보기",
+    "kortixComputer": "SuperAgent 컴퓨터",
+    "running": "실행 중",
+    "workers": {
+      "images": {
+        "title": "이미지",
+        "description": "필요에 따라 이미지를 생성합니다. 제품 사진부터 소셜 그래픽, 전체 일러스트레이션까지. 스타일, 조명, 색상 및 레이아웃을 조정하거나 빠른 편집과 수정을 통해 기존 비주얼을 정교화합니다.",
+        "capabilities": {
+          "0": "제품 사진 생성",
+          "1": "소셜 그래픽 생성",
+          "2": "일러스트레이션 제작",
+          "3": "스타일 및 조명 변형",
+          "4": "로고 / 자산 생성",
+          "5": "+ 그 외 다수"
+        },
+        "imageAlt": "Growth Isn't Linear 그래픽 예시",
+        "fileType": "이미지"
+      },
+      "slides": {
+        "title": "슬라이드",
+        "description": "멋진 프레젠테이션을 즉시 만듭니다. 피치 덱부터 보고서, 교육 자료까지. 테마, 레이아웃, 콘텐츠 구조를 조정하거나 빠른 편집과 업데이트를 통해 기존 덱을 정교화합니다.",
+        "capabilities": {
+          "0": "피치 덱",
+          "1": "교육 자료",
+          "2": "보고서 프레젠테이션",
+          "3": "테마 및 레이아웃 변형",
+          "4": "콘텐츠 구조 재조정",
+          "5": "+ 그 외 다수"
+        },
+        "imageAlt": "Nexus Enterprise Automation Platform 슬라이드 예시",
+        "fileType": "PPTX"
+      },
+      "data": {
+        "title": "데이터",
+        "description": "원시 데이터를 인사이트로 변환합니다. 스프레드시트부터 대시보드, 시각화까지. 데이터셋을 정리하고, 차트를 만들고, 보고서를 작성하거나 빠른 업데이트를 통해 기존 분석을 정교화합니다.",
+        "capabilities": {
+          "0": "대시보드",
+          "1": "시각화",
+          "2": "데이터 보고서",
+          "3": "데이터 정리 및 구성",
+          "4": "인사이트 생성",
+          "5": "+ 그 외 다수"
+        },
+        "imageAlt": "Financial Model Dashboard 예시",
+        "fileType": "미리보기"
+      },
+      "docs": {
+        "title": "문서",
+        "description": "문서를 손쉽게 작성하고 편집합니다. 제안서부터 가이드, 콘텐츠까지. 어조, 구조, 형식을 조정하거나 빠른 재작성과 다듬기를 통해 기존 문서를 정교화합니다.",
+        "capabilities": {
+          "0": "제안서",
+          "1": "가이드 및 매뉴얼",
+          "2": "콘텐츠 제작",
+          "3": "어조 및 스타일 변형",
+          "4": "형식 및 구조 재조정",
+          "5": "+ 그 외 다수"
+        },
+        "imageAlt": "Q3 2025 Executive Summary Report 예시",
+        "fileType": "PDF"
+      },
+      "research": {
+        "title": "조사",
+        "description": "주제를 포괄적으로 조사합니다. 시장 트렌드부터 경쟁사 분석, 심층 분석까지. 소스를 수집하고, 결과를 종합하거나 빠른 업데이트를 통해 기존 조사를 정교화합니다.",
+        "capabilities": {
+          "0": "시장 트렌드 분석",
+          "1": "경쟁사 조사",
+          "2": "심층 주제 분석",
+          "3": "소스 수집",
+          "4": "결과 종합",
+          "5": "+ 그 외 다수"
+        },
+        "imageAlt": "Detailed Competitor Profiles 조사 예시",
+        "fileType": "PDF"
+      }
+    }
+  },
+  "threads": {
+    "title": "스레드",
+    "newThread": "새 스레드",
+    "sendMessage": "메시지 보내기",
+    "placeholder": "메시지를 입력하세요..."
+  },
+  "billing": {
+    "title": "결제 및 구독",
+    "subscription": "구독",
+    "credits": "크레딧",
+    "popular": "인기",
+    "creditsExplained": "크레딧 설명",
+    "creditsExhausted": "{time} 후 +100 크레딧. 지금 사용하려면 업그레이드하세요.",
+    "creditsExhaustedRefreshIn": "크레딧이 모두 소진되었습니다. {time} 후에 갱신됩니다.",
+    "trialActive": "체험판 활성",
+    "trialBadge": "7일 체험판",
+    "currentPlan": "현재 플랜",
+    "currentBadge": "현재",
+    "scheduled": "예약됨",
+    "scheduledBadge": "예약됨",
+    "loading": "로딩 중...",
+    "subscriptionChangeScheduled": "구독 변경 예약됨",
+    "planWillChangeOn": "플랜이 {date}에 변경됩니다.",
+    "failedToInitiateSubscription": "구독을 시작하지 못했습니다. 다시 시도해 주세요.",
+    "subscriptionUpgraded": "구독이 {currentPrice}에서 {newPrice}로 업그레이드되었습니다.",
+    "subscriptionUpdated": "구독이 성공적으로 업데이트되었습니다",
+    "cannotDowngradeDuringCommitment": "약정 기간 중에는 다운그레이드할 수 없습니다",
+    "alreadyOnThisPlan": "이미 이 플랜을 사용 중입니다.",
+    "localModeMessage": "로컬 개발 모드에서 실행 중 - 결제 기능이 비활성화되었습니다",
+    "holidayPromo": {
+      "badge": "홀리데이 스페셜",
+      "countdown": "{time} 후 종료",
+      "discount": "첫 3개월 50% 할인",
+      "window": "12월 24~25일 유효",
+      "headerLine": "{code} 코드를 사용하여 {discount} 받기",
+      "description": "결제 시 {code} 코드를 사용하여 {discount} 받으세요. {window}",
+      "copyCode": "코드 복사",
+      "copied": "복사됨",
+      "codeCopied": "{code} 복사됨",
+      "copyFailed": "프로모션 코드를 복사할 수 없습니다"
+    },
+    "creditsExplainedPage": {
+      "title": "크레딧 설명",
+      "subtitle": "SuperAgent의 크레딧 작동 방식에 대해 알아야 할 모든 것",
+      "understandingCredits": {
+        "title": "크레딧 이해하기",
+        "description": "크레딧은 SuperAgent 플랫폼 운영을 위한 범용 화폐 역할을 합니다. 데이터 분석부터 코드 생성까지 AI 워커가 수행하는 모든 작업은 작업의 복잡성과 필요한 리소스에 따라 크레딧을 소비합니다."
+      },
+      "howCreditsWork": {
+        "title": "크레딧 작동 방식",
+        "description": "크레딧은 AI 워커가 사용하는 리소스에 따라 소비됩니다:",
+        "aiModelUsage": {
+          "title": "AI 모델 사용",
+          "description": "크레딧 소비의 주요 요인",
+          "content": "AI 모델마다 기능과 토큰 사용량에 따라 비용이 다릅니다. 크레딧은 입력 토큰(프롬프트 및 문맥), 출력 토큰(워커 응답)에 대해 소비되며, 모델 등급(Claude, GPT 등)에 따라 달라집니다."
+        },
+        "pricingModel": {
+          "title": "가격 모델",
+          "description": "AI 모델 비용에 20% 마크업 적용",
+          "content": "플랫폼 인프라, 보안 및 지속적인 개발 비용을 충당하기 위해 모든 API 및 모델 비용에 20%의 마크업을 적용합니다. 이러한 투명한 가격 책정을 통해 귀하가 무엇에 비용을 지불하고 있는지 정확히 알 수 있습니다."
+        }
+      },
+      "gettingMoreCredits": {
+        "title": "크레딧 더 받기",
+        "description": "SuperAgent에서 크레딧을 얻는 방법은 여러 가지가 있습니다:",
+        "monthlySubscription": {
+          "title": "월간 구독 크레딧",
+          "description": "유료 플랜에 포함되어 있으며 매달 자동으로 갱신됩니다. 이 크레딧은 만료되는 크레딧입니다."
+        },
+        "topUpCredits": {
+          "title": "충전 크레딧",
+          "description": "필요할 때 추가 크레딧을 구매하세요. 만료되지 않으며 프리미엄 회원에게 제공됩니다."
+        },
+        "promotionalGrants": {
+          "title": "프로모션 및 이벤트 보너스",
+          "description": "특별 이벤트, 프로모션 또는 추천을 통한 보너스 크레딧입니다. 만료되지 않습니다."
+        },
+        "refunds": {
+          "title": "환불",
+          "description": "기술적 문제나 작업 실패로 인해 반환된 크레딧입니다. 만료되지 않습니다."
+        }
+      },
+      "typesOfCredits": {
+        "title": "크레딧 유형",
+        "description": "SuperAgent는 사용량을 유연하게 관리할 수 있도록 두 가지 유형의 크레딧을 사용합니다:",
+        "expiringCredits": {
+          "title": "만료되는 크레딧",
+          "description": "월간 구독 크레딧",
+          "content": "이 크레딧은 유료 구독에 포함되어 있으며 매달 구독일에 자동으로 갱신됩니다. 각 결제 주기가 끝나면 만료되며, 만료되지 않는 크레딧보다 항상 먼저 소비됩니다."
+        },
+        "nonExpiringCredits": {
+          "title": "만료되지 않는 크레딧",
+          "description": "영구적으로 사용 가능한 크레딧",
+          "content": "이 크레딧은 만료되지 않으며 매달 이월됩니다. 충전 구매, 환불 및 프로모션 보너스가 포함됩니다. 만료되지 않는 크레딧은 만료되는 크레딧이 모두 소진된 후에만 사용됩니다."
+        },
+        "creditPriority": {
+          "title": "크레딧 우선순위:",
+          "description": "SuperAgent를 사용할 때 만료되는 크레딧이 먼저 소비됩니다. 만료되는 크레딧이 모두 소진된 후에만 만료되지 않는 크레딧이 사용됩니다."
+        }
+      }
+    },
+    "close": "닫기",
+    "cancelScheduledChange": "예약된 변경 취소",
+    "threadUsage": "스레드 사용량",
+    "error": "오류",
+    "totalUsage": "총 사용량",
+    "usage": "사용량",
+    "thread": "스레드",
+    "lastUsed": "마지막 사용",
+    "creditsUsed": "사용된 크레딧",
+    "creditTransactions": "크레딧 거래 내역",
+    "loadingTransactionHistory": "거래 내역 로드 중...",
+    "monthly": "월간",
+    "yearly": "연간",
+    "discount": "15% 할인",
+    "perMonth": "/월",
+    "billedYearly": "연간 결제",
+    "downgradePending": "다운그레이드 대기 중",
+    "downgrade": "다운그레이드",
+    "switchToLegacyYearly": "기존 연간 플랜으로 전환",
+    "confirmDowngradeTitle": "정말로 다운그레이드하시겠습니까?",
+    "confirmDowngradeDescription": "{planName} 플랜으로 다운그레이드하려고 합니다. 이 변경 사항은 현재 결제 기간이 끝날 때 적용됩니다.",
+    "confirmDowngrade": "예, 다운그레이드합니다",
+    "pickPlan": "귀하에게 적합한 플랜을 선택하세요.",
+    "reachedLimit": "한도에 도달했습니다.",
+    "projectLimit": "프로젝트 한도 ({current}/{limit})",
+    "threadLimit": "스레드 한도 ({current}/{limit})",
+    "workerLimit": "워커 한도 ({current}/{limit})",
+    "triggerLimit": "트리거 한도 ({current}/{limit})",
+    "getAdditionalCredits": "추가 크레딧 구매",
+    "selectPlan": "플랜 선택",
+    "changeScheduled": "변경 예약됨",
+    "notAvailable": "사용 불가",
+    "features": {
+      "creditsPerMonth": "월 {count} 크레딧",
+      "customWorker": "{count}개의 맞춤형 워커",
+      "customWorkers": "{count}개의 맞춤형 워커",
+      "privateProject": "{count}개의 프라이빗 프로젝트",
+      "privateProjects": "프라이빗 프로젝트",
+      "customTrigger": "{count}개의 맞춤형 트리거",
+      "integrations": "100개 이상의 연동",
+      "premiumAIModels": "프리미엄 AI 모델",
+      "prioritySupport": "우선 지원"
+    },
+    "downgradeDialog": {
+      "confirmTitle": "플랜 변경 확인",
+      "confirmSubtitle": "떠나신다니 아쉽습니다",
+      "confirmDescription": "{planName} 플랜으로 변경하려고 합니다. 이 변경 사항은 현재 결제 기간이 끝날 때 적용됩니다. 그때까지는 현재 혜택을 계속 유지할 수 있습니다.",
+      "continue": "계속",
+      "keepCurrentPlan": "현재 플랜 유지",
+      "feedbackTitle": "개선에 도움을 주세요",
+      "feedbackSubtitle": "여러분의 피드백이 SuperAgent의 미래를 만듭니다",
+      "whatWouldMakeYouStay": "어떻게 하면 계속 이용하시겠어요?",
+      "feedbackPlaceholder": "SuperAgent가 귀하에게 더욱 가치 있는 서비스가 되기 위해 변경하거나 추가해야 할 한 가지가 있다면 무엇일까요?",
+      "feedbackFooter": "저희 팀은 모든 응답을 읽습니다. 여러분의 의견은 저희가 다음에 무엇을 만들지에 직접적인 영향을 미칩니다.",
+      "confirmDowngrade": "다운그레이드 확인",
+      "processing": "처리 중...",
+      "pleaseSelectReason": "이유를 선택해 주세요",
+      "reasons": {
+        "tooExpensive": "제 필요에 비해 너무 비쌉니다",
+        "notUsingOften": "SuperAgent를 충분히 자주 사용하지 않습니다",
+        "foundAlternative": "다른 대안을 찾았습니다",
+        "technicalIssues": "기술적인 문제를 경험했습니다",
+        "resultsNotGood": "결과가 제 기대에 미치지 못했습니다",
+        "other": "기타 이유"
+      }
+    }
+  },
+  "auth": {
+    "haveReferralCode": "추천 코드가 있으신가요?",
+    "referralCode": "추천 코드",
+    "enterCode": "코드 입력",
+    "logIntoAccount": "계정에 로그인",
+    "createAccount": "계정 생성",
+    "signInOrCreateAccount": "로그인 또는 SuperAgent 계정 생성",
+    "continueWithGoogle": "Google로 계속하기",
+    "continueWithGitHub": "GitHub로 계속하기",
+    "orEmail": "또는 이메일",
+    "emailAddress": "이메일 주소",
+    "password": "비밀번호",
+    "confirmPassword": "비밀번호 확인",
+    "signIn": "로그인",
+    "signUp": "가입하기",
+    "signingIn": "로그인 중...",
+    "creatingAccount": "계정 생성 중...",
+    "forgotPassword": "비밀번호를 잊으셨나요?",
+    "dontHaveAccount": "계정이 없으신가요?",
+    "alreadyHaveAccount": "이미 계정이 있으신가요?",
+    "acceptPrivacyTerms": "<privacyPolicy>개인정보 처리방침</privacyPolicy> 및 <termsOfService>서비스 이용약관</termsOfService>에 동의합니다",
+    "privacyPolicy": "개인정보 처리방침",
+    "termsOfService": "서비스 이용약관",
+    "checkYourEmail": "이메일을 확인하세요",
+    "confirmationLinkSent": "다음 주소로 재설정 링크를 보냈습니다",
+    "clickLinkToActivate": "이메일의 링크를 클릭하여 계정을 활성화하세요. 이메일이 보이지 않으면 스팸함을 확인해 주세요.",
+    "returnToHome": "홈으로 돌아가기",
+    "backToSignIn": "로그인으로 돌아가기",
+    "resetPassword": "비밀번호 재설정",
+    "resetPasswordDescription": "이메일 주소를 입력하시면 재설정 링크를 보내드립니다",
+    "sendResetLink": "링크 보내기",
+    "cancel": "취소",
+    "pleaseEnterValidEmail": "유효한 이메일 주소를 입력해 주세요",
+    "signInFailed": "로그인 실패. 자격 증명을 확인하세요.",
+    "signUpFailed": "가입 실패. 다시 시도해 주세요.",
+    "sendMagicLink": "매직 링크 보내기",
+    "sending": "보내는 중...",
+    "magicLinkSent": "다음 주소로 매직 링크를 보냈습니다",
+    "magicLinkDescription": "이메일의 링크를 클릭하여 로그인하세요. 링크는 1시간 후에 만료됩니다.",
+    "magicLinkExplanation": "로그인을 위한 보안 링크를 보내드립니다. 비밀번호는 필요하지 않습니다.",
+    "magicLinkExpired": "이 링크는 만료되었습니다",
+    "magicLinkExpiredDescription": "클릭하신 매직 링크가 만료되었습니다. 보안상의 이유로 매직 링크는 1시간 후에 만료됩니다.",
+    "resendMagicLink": "매직 링크 재전송",
+    "resending": "재전송 중...",
+    "byContinuingYouAgree": "계속 진행함으로써 <privacyPolicy>개인정보 처리방침</privacyPolicy> 및 <termsOfService>서비스 이용약관</termsOfService>에 동의하게 됩니다",
+    "openProvider": "{provider} 열기",
+    "didntReceiveEmail": "이메일을 받지 못하셨나요?",
+    "resend": "재전송",
+    "alreadySignedIn": "이미 로그인되어 있습니다. 추가 조치가 필요하지 않습니다.",
+    "goToDashboard": "대시보드로 이동",
+    "signInToContinue": "로그인하여 계속하기",
+    "signInOrCreateAccountToTalk": "SuperAgent와 대화하려면 로그인하거나 계정을 생성하세요",
+    "orContinueWithEmail": "또는 이메일로 계속하기",
+    "signInWithEmail": "이메일로 로그인",
+    "createNewAccount": "새 계정 생성",
+    "byContinuingYouAgreeSimple": "계속 진행함으로써 다음에 동의하게 됩니다",
+    "phoneVerification": {
+      "title": "전화번호 인증",
+      "titleOtp": "인증 코드 입력",
+      "description": "2단계 인증으로 계정을 안전하게 보호하세요",
+      "descriptionOtp": "전화번호로 코드를 보냈습니다",
+      "phoneNumber": "전화번호",
+      "verificationCode": "인증 코드",
+      "enterSixDigitCode": "6자리 코드 입력",
+      "phoneNumberPlaceholder": "전화번호 입력",
+      "sendVerificationCode": "인증 코드 보내기",
+      "sendingCode": "코드 보내는 중...",
+      "verifyCode": "코드 인증",
+      "verifying": "인증 중...",
+      "resendCode": "코드 재전송",
+      "resendInSeconds": "{seconds}초 후 재전송",
+      "removePhoneNumber": "전화번호 삭제",
+      "codeSentTo": "인증 코드가 다음 번호로 전송되었습니다",
+      "sixDigitCodeHint": "SMS를 통해 6자리 인증 코드를 보내드립니다",
+      "pleaseEnterPhoneNumber": "전화번호를 입력해 주세요",
+      "pleaseEnterValidPhoneNumber": "유효한 전화번호를 입력해 주세요",
+      "pleaseEnterSixDigitCode": "6자리 코드를 입력해 주세요",
+      "verificationCodeSent": "인증 코드가 휴대폰으로 전송되었습니다",
+      "newVerificationCodeSent": "새 인증 코드가 전송되었습니다",
+      "phoneNumberVerified": "전화번호 인증이 완료되었습니다!",
+      "phoneNumberRemoved": "전화번호가 삭제되었습니다. 이제 새 번호를 추가할 수 있습니다.",
+      "signOut": "로그아웃",
+      "signingOut": "로그아웃 중...",
+      "sending": "보내는 중..."
+    }
+  },
+  "onboarding": {
+    "welcome": "환영합니다",
+    "next": "다음",
+    "skip": "건너뛰기"
+  },
+  "tools": {
+    "executeCommand": "명령 실행 중",
+    "checkCommandOutput": "명령 출력 확인 중",
+    "terminateCommand": "명령 종료 중",
+    "listCommands": "명령 목록 표시 중",
+    "createFile": "파일 생성 중",
+    "deleteFile": "파일 삭제 중",
+    "fullFileRewrite": "파일 다시 쓰는 중",
+    "strReplace": "텍스트 편집 중",
+    "editFile": "파일 편집 중",
+    "uploadFile": "파일 업로드 중",
+    "createDocument": "문서 생성 중",
+    "updateDocument": "문서 업데이트 중",
+    "readDocument": "문서 읽는 중",
+    "listDocuments": "문서 목록 표시 중",
+    "deleteDocument": "문서 삭제 중",
+    "createTasks": "작업 생성 중",
+    "updateTasks": "작업 업데이트 중",
+    "browserNavigateTo": "페이지 이동 중",
+    "browserAct": "동작 수행 중",
+    "browserExtractContent": "콘텐츠 추출 중",
+    "browserScreenshot": "스크린샷 찍는 중",
+    "executeDataProviderCall": "데이터 제공자 호출 중",
+    "getDataProviderEndpoints": "엔드포인트 가져오는 중",
+    "ask": "질문",
+    "wait": "대기",
+    "complete": "작업 완료 중",
+    "crawlWebpage": "웹페이지 크롤링 중",
+    "exposePort": "포트 개방 중",
+    "scrapeWebpage": "웹페이지 스크래핑 중",
+    "webSearch": "웹 검색 중",
+    "loadImage": "이미지 로드 중",
+    "createPresentationOutline": "프레젠테이션 개요 생성 중",
+    "createPresentation": "프레젠테이션 생성 중",
+    "presentPresentation": "발표 중",
+    "clearImagesFromContext": "문맥에서 이미지 제거 중",
+    "imageSearch": "이미지 검색 중",
+    "createSheet": "시트 생성 중",
+    "updateSheet": "시트 업데이트 중",
+    "viewSheet": "시트 보기 중",
+    "analyzeSheet": "시트 분석 중",
+    "visualizeSheet": "시트 시각화 중",
+    "formatSheet": "시트 형식 지정 중",
+    "updateAgent": "워커 업데이트 중",
+    "getCurrentAgentConfig": "워커 설정 가져오는 중",
+    "searchMcpServers": "MCP 서버 검색 중",
+    "getMcpServerTools": "MCP 서버 도구 가져오는 중",
+    "configureMcpServer": "MCP 서버 설정 중",
+    "getPopularMcpServers": "인기 MCP 서버 가져오는 중",
+    "testMcpServerConnection": "MCP 서버 연결 테스트 중",
+    "listAppEventTriggers": "이벤트 트리거 찾는 중",
+    "createEventTrigger": "이벤트 트리거 생성 중",
+    "getProjectStructure": "프로젝트 구조 가져오는 중",
+    "buildProject": "프로젝트 빌드 중",
+    "makePhoneCall": "전화 거는 중",
+    "endCall": "전화 끊는 중",
+    "getCallDetails": "통화 세부 정보 가져오는 중",
+    "listCalls": "통화 목록 표시 중",
+    "monitorCall": "통화 모니터링 중",
+    "waitForCallCompletion": "완료 대기 중",
+    "getPaperDetails": "논문 세부 정보 가져오는 중",
+    "searchAuthors": "저자 검색 중",
+    "getAuthorDetails": "저자 세부 정보 가져오는 중",
+    "getAuthorPapers": "저자 논문 가져오는 중",
+    "getPaperCitations": "논문 인용 가져오는 중",
+    "getPaperReferences": "논문 참고 문헌 가져오는 중",
+    "paperSearch": "논문 검색 중",
+    "discoverUserMcpServers": "도구 찾는 중",
+    "createCredentialProfile": "프로필 생성 중",
+    "getCredentialProfiles": "프로필 가져오는 중",
+    "configureProfileForAgent": "워커에 도구 추가 중",
+    "createNewAgent": "새 워커 생성 중",
+    "searchMcpServersForAgent": "MCP 서버 검색 중",
+    "createCredentialProfileForAgent": "자격 증명 프로필 생성 중",
+    "discoverMcpToolsForAgent": "MCP 도구 찾는 중",
+    "configureAgentIntegration": "워커 연동 설정 중",
+    "createAgentScheduledTrigger": "예약된 트리거 생성 중",
+    "listAgentScheduledTriggers": "워커 예약 트리거 목록 표시 중",
+    "executingTool": "도구 실행 중",
+    "toolExecutedSuccessfully": "도구가 성공적으로 실행되었습니다",
+    "toolExecutionFailed": "도구 실행 실패",
+    "input": "입력",
+    "output": "출력",
+    "copyFileContent": "파일 내용 복사",
+    "fileContentCopied": "파일 내용이 클립보드에 복사되었습니다",
+    "failedToCopyFileContent": "파일 내용 복사 실패",
+    "noContentAvailable": "사용 가능한 콘텐츠 없음",
+    "noContentDescription": "이 도구 실행은 표시할 입력 또는 출력 콘텐츠를 생성하지 않았습니다.",
+    "tool": "도구"
+  },
+  "agentRunLimit": {
+    "gotIt": "알겠습니다",
+    "parallelRunsLimitReached": "병렬 실행 한도 도달",
+    "parallelRunsLimitDescription": "허용된 최대 워커 병렬 실행 수에 도달했습니다.",
+    "needMoreParallelRuns": "더 많은 병렬 실행이 필요하신가요?",
+    "upgradeDescription": "동시에 여러 워커를 실행하고 생산성을 높이려면 플랜을 업그레이드하세요.",
+    "upgradePlan": "플랜 업그레이드",
+    "currentlyRunningAgents": "현재 실행 중인 워커",
+    "loadingThreads": "스레드 로딩 중...",
+    "foundRunningAgents": "{count}개의 실행 중인 워커를 찾았으나 스레드 세부 정보를 로드할 수 없습니다.",
+    "threadIds": "스레드 ID: {ids}",
+    "moreRunning": "+{count}개 더 실행 중",
+    "whatCanYouDo": "무엇을 할 수 있나요?",
+    "stopAgentsHint": "정지 버튼을 클릭하여 실행 중인 워커를 중지하세요",
+    "waitForCompletion": "워커가 자동으로 완료될 때까지 기다리세요",
+    "upgradeYourPlan": "플랜을 업그레이드하세요",
+    "forMoreParallelRuns": "더 많은 병렬 실행을 위해",
+    "stopAgent": "워커 중지",
+    "stopThisAgent": "이 워커 중지",
+    "openThread": "스레드 열기",
+    "agentStoppedSuccessfully": "워커가 성공적으로 중지되었습니다",
+    "failedToStopAgent": "워커 중지 실패",
+    "upgradeToRunMore": "더 많은 워커를 병렬로 실행하려면 업그레이드하세요"
+  },
+  "errors": {
+    "generic": "오류가 발생했습니다",
+    "network": "네트워크 오류",
+    "unauthorized": "권한 없음",
+    "notFound": "찾을 수 없음"
+  },
+  "languages": {
+    "en": "영어",
+    "de": "독일어",
+    "it": "이탈리아어",
+    "zh": "중국어",
+    "ja": "일본어",
+    "pt": "포르투갈어",
+    "fr": "프랑스어",
+    "es": "스페인어"
+  },
+  "notifications": {
+    "title": "알림",
+    "description": "알림 수신 방식 관리",
+    "preferences": "알림 기본 설정",
+    "channels": "알림 채널",
+    "emailNotifications": "이메일 알림",
+    "emailDescription": "이메일로 알림 수신",
+    "pushNotifications": "푸시 알림",
+    "pushDescription": "장치에서 푸시 알림 수신",
+    "inAppNotifications": "앱 내 알림",
+    "inAppDescription": "앱 내에서 알림 보기",
+    "deviceTokens": "등록된 장치",
+    "noDevices": "등록된 장치 없음",
+    "settingsUpdated": "알림 기본 설정이 성공적으로 업데이트되었습니다",
+    "settingsFailed": "알림 기본 설정 업데이트 실패",
+    "enableAll": "모두 활성화",
+    "disableAll": "모두 비활성화",
+    "saveChanges": "변경 사항 저장"
+  },
+  "suna": {
+    "samplePrompts": "샘플 프롬프트",
+    "chooseStyle": "스타일 선택",
+    "chooseTemplate": "템플릿 선택",
+    "chooseOutputFormat": "출력 형식 선택",
+    "preferredCharts": "선호하는 차트",
+    "whatWouldYouLike": "무엇을 완료하고 싶으신가요?",
+    "describeTask": "워커가 완료하기를 바라는 작업을 설명해 주세요...",
+    "modes": {
+      "image": "이미지",
+      "slides": "슬라이드",
+      "data": "데이터",
+      "docs": "문서",
+      "canvas": "캔버스",
+      "video": "비디오",
+      "research": "조사"
+    },
+    "styles": {
+      "photorealistic": "실사",
+      "watercolor": "수채화",
+      "digital-art": "디지털 아트",
+      "oil-painting": "유화",
+      "minimalist": "미니멀리스트",
+      "isometric": "아이소메트릭",
+      "vintage": "빈티지",
+      "comic": "만화책",
+      "neon": "네온",
+      "pastel": "파스텔",
+      "geometric": "기하학",
+      "abstract": "추상",
+      "anime": "애니메이션",
+      "impressionist": "인상주의",
+      "surreal": "초현실주의"
+    },
+    "templates": {
+      "minimalist": {
+        "name": "미니멀리스트",
+        "description": "깔끔하고 단순한 디자인"
+      },
+      "minimalist_2": {
+        "name": "미니멀리스트 2",
+        "description": "대체 미니멀 스타일"
+      },
+      "black_and_white_clean": {
+        "name": "블랙 & 화이트",
+        "description": "클래식 모노크롬"
+      },
+      "colorful": {
+        "name": "컬러풀",
+        "description": "생동감 넘치고 활기찬"
+      },
+      "startup": {
+        "name": "스타트업",
+        "description": "동적이고 혁신적인"
+      },
+      "elevator_pitch": {
+        "name": "엘리베이터 피치",
+        "description": "빠르고 임팩트 있는"
+      },
+      "portfolio": {
+        "name": "포트폴리오",
+        "description": "성과물 전시"
+      },
+      "textbook": {
+        "name": "교과서",
+        "description": "교육적이고 구조화된"
+      },
+      "architect": {
+        "name": "건축가",
+        "description": "전문적이고 정밀한"
+      },
+      "hipster": {
+        "name": "힙스터",
+        "description": "현대적이고 트렌디한"
+      },
+      "green": {
+        "name": "그린",
+        "description": "자연에서 영감을 받은 디자인"
+      },
+      "premium_black": {
+        "name": "프리미엄 블랙",
+        "description": "럭셔리 다크 테마"
+      },
+      "premium_green": {
+        "name": "프리미엄 그린",
+        "description": "세련된 그린"
+      },
+      "professor_gray": {
+        "name": "교수 그레이",
+        "description": "학술적이고 학구적인"
+      },
+      "gamer_gray": {
+        "name": "게이머 그레이",
+        "description": "게이밍 영감 디자인"
+      },
+      "competitor_analysis_blue": {
+        "name": "분석 블루",
+        "description": "비즈니스 분석 중심"
+      },
+      "numbers_clean": {
+        "name": "넘버 클린",
+        "description": "깔끔한 데이터 시각화"
+      },
+      "numbers_colorful": {
+        "name": "넘버 컬러풀",
+        "description": "생동감 넘치는 데이터 프레젠테이션"
+      },
+      "prd": {
+        "name": "PRD",
+        "description": "제품 요구 사항 문서"
+      },
+      "technical": {
+        "name": "기술",
+        "description": "기술 문서"
+      },
+      "proposal": {
+        "name": "제안서",
+        "description": "비즈니스 제안서"
+      },
+      "report": {
+        "name": "보고서",
+        "description": "상세 보고서 형식"
+      },
+      "guide": {
+        "name": "가이드",
+        "description": "단계별 가이드"
+      },
+      "wiki": {
+        "name": "위키",
+        "description": "지식 베이스 문서"
+      },
+      "policy": {
+        "name": "정책",
+        "description": "정책 문서"
+      },
+      "meeting-notes": {
+        "name": "회의록",
+        "description": "회의 결과 요약"
+      }
+    },
+    "outputFormats": {
+      "spreadsheet": {
+        "name": "스프레드시트",
+        "description": "수식이 포함된 표"
+      },
+      "dashboard": {
+        "name": "대시보드",
+        "description": "대화형 차트"
+      },
+      "report": {
+        "name": "보고서",
+        "description": "비주얼 포함 분석"
+      },
+      "slides": {
+        "name": "슬라이드",
+        "description": "프레젠테이션 형식"
+      }
+    },
+    "charts": {
+      "bar": "막대형",
+      "line": "선형",
+      "pie": "원형",
+      "scatter": "분산형",
+      "heatmap": "히트맵",
+      "bubble": "버블",
+      "wordcloud": "워드 클라우드",
+      "stacked": "누적 막대형",
+      "area": "영역형"
+    },
+    "prompts": {
+      "image": {
+        "0": "일출 때 안개 낀 산봉우리를 날아오르는 위엄 있는 금독수리, 드라마틱한 조명",
+        "1": "아방가르드 메이크업을 한 패션 모델의 클로즈업 포트레이트, 스튜디오 조명, 고대비 그림자",
+        "2": "천연 목재 가구, 실내 식물, 부드러운 아침 햇살이 있는 아늑한 스칸디나비아풍 거실",
+        "3": "네온 사인, 비에 젖은 노면, 홀로그램 디스플레이가 있는 밤의 미래 지향적인 사이버펑크 노점 시장",
+        "4": "부드러운 반사가 있는 대리석 표면 위의 럭셔리 향수병 우아한 제품 사진",
+        "5": "몽환적인 구름이 있는 파스텔톤 하늘에 밧줄 다리로 연결된 기발한 부유 섬들",
+        "6": "보케 배경과 함께 생생한 꽃잎 위의 아침 이슬방울 매크로 클로즈업",
+        "7": "노트북, 커피, 수첩, 다육 식물이 있는 현대적인 작업 데스크 설정 부감샷",
+        "8": "고목, 빛나는 반딧불이, 안개 사이로 비치는 미묘한 빛줄기가 있는 신비로운 숲길",
+        "9": "기하학적 패턴과 반사가 있는 현대적인 유리 건물 외관의 건축적 세부 사항",
+        "10": "다채로운 식재료, 피어오르는 김, 따뜻한 조명이 있는 활기찬 길거리 음식 가판대",
+        "11": "고운 모래, 이끼 낀 돌, 벚꽃 잎이 있는 평온한 일본식 젠 가든",
+        "12": "드라마틱한 일몰 하늘을 배경으로 점프하는 운동선수의 역동적인 액션샷, 실루엣 효과",
+        "13": "구리 냄비, 신선한 허브, 나무 도마, 천연 질감이 있는 소박한 농가 주방",
+        "14": "금속성 골드, 딥 블루, 에메랄드 그린의 유기적 패턴이 소용돌이치는 추상 유체 예술"
+      },
+      "slides": {
+        "0": "시장 규모, 트랙션 및 재무 전망을 포함한 시리즈 A 피치 덱 생성",
+        "1": "KPI, 성과 및 전략적 이니셔티브를 보여주는 4분기 비즈니스 리뷰 작성",
+        "2": "데모 비디오와 고객 후기가 포함된 제품 출시 프레젠테이션 디자인",
+        "3": "우리의 가치 제안과 경쟁 우위를 설명하는 세일즈 인에이블먼트 덱 개발",
+        "4": "주요 지표와 향후 이정표를 강조하는 투자자 업데이트 보고서 작성",
+        "5": "ROI와 성공 지표를 보여주는 고객 사례 연구 프레젠테이션 작성",
+        "6": "회사 업데이트와 비전을 다루는 전사 회의 프레젠테이션 디자인",
+        "7": "신제품 기능 및 워크플로를 위한 교육용 덱 개발",
+        "8": "엔지니어링 팀 확장에 관한 컨퍼런스 발표 자료 생성",
+        "9": "전략적 권장 사항이 포함된 이사회 프레젠테이션 작성"
+      },
+      "data": {
+        "0": "다양한 가격 시나리오에 따른 ARR 성장을 예측하는 재무 모델 구축",
+        "1": "지역 및 분기별 지표를 추적하는 대화형 판매 대시보드 생성",
+        "2": "5만 개의 고객 리뷰 분석 및 시간에 따른 감정 트렌드 시각화",
+        "3": "ROI 및 참여도 차트가 포함된 캠페인 추적 콘텐츠 캘린더 디자인",
+        "4": "사용자 유지 및 이탈 패턴을 보여주는 코호트 분석 구축",
+        "5": "채널 성과를 비교하는 마케팅 기여도 모델 생성",
+        "6": "파이프라인 지표 및 채용 소요 시간 분석이 포함된 채용 추적기 개발",
+        "7": "시나리오 모델링이 포함된 예산 계획 스프레드시트 구축",
+        "8": "웹사이트 트래픽 데이터 분석 및 전환 퍼널 시각화",
+        "9": "자동 재주문 알림 기능이 있는 재고 관리 시스템 생성"
+      },
+      "docs": {
+        "0": "AI 기반 추천 엔진을 위한 종합 PRD 작성",
+        "1": "확장 가능한 마이크로서비스 플랫폼을 위한 기술 아키텍처 문서 초안 작성",
+        "2": "2분기 제품 출시를 위한 시장 진입 전략 문서 생성",
+        "3": "엔지니어링 매니저를 위한 90일 온보딩 플레이북 개발",
+        "4": "예시와 모범 사례가 포함된 API 문서 가이드 작성",
+        "5": "문화, 정책 및 복리후생을 다루는 회사 핸드북 생성",
+        "6": "GDPR 및 CCPA를 준수하는 데이터 개인정보 보호 정책 초안 작성",
+        "7": "SaaS 엔터프라이즈 계정을 위한 고객 성공 플레이북 개발",
+        "8": "에스컬레이션 절차가 포함된 보안 사고 대응 계획 작성",
+        "9": "브랜드 및 콘텐츠를 위한 종합 스타일 가이드 생성"
+      },
+      "canvas": {
+        "0": "미래 지향적인 도시 스카이라인이 있는 기술 스타트업 배너를 캔버스에 추가",
+        "1": "대지톤의 미니멀 스타일을 사용하여 캔버스에 커피 브랜드 로고 생성",
+        "2": "캔버스에 제품 사진을 추가하고 배경 제거",
+        "3": "플랫 아이콘을 사용하여 캔버스에 재생 에너지 인포그래픽 디자인",
+        "4": "사이버펑크 미학을 담은 SF 책 표지를 캔버스에 생성",
+        "5": "생산성 팁 비디오를 위한 YouTube 썸네일을 캔버스에 추가",
+        "6": "밀레니얼 세대를 위한 럭셔리 패션 무드 보드를 캔버스에 제작",
+        "7": "꽃무늬가 있는 우아한 웨딩 초대장을 캔버스에 디자인",
+        "8": "캔버스에 내 인물 사진을 추가하고 빈티지 필름 효과 적용",
+        "9": "사이키델릭한 분위기의 뮤직 페스티벌 포스터를 캔버스에 생성"
+      },
+      "video": {
+        "0": "스튜디오 조명 아래에서 제품 사진이 부드럽게 회전하도록 애니메이션화",
+        "1": "인물 사진을 카메라 움직임이 있는 시네마틱 장면으로 변환",
+        "2": "벚꽃이 천천히 떨어지는 평화로운 자연 비디오 생성",
+        "3": "빛나는 추상 입자들이 슬로우 모션으로 소용돌이치는 영상 생성",
+        "4": "부드러운 그림자와 반사와 함께 제품이 떠다니고 회전하도록 제작",
+        "5": "인물 사진에 드라마틱한 시네마틱 조명과 컬러 그레이딩 추가",
+        "6": "안개 낀 산봉우리를 비행하는 부드러운 드론 샷 생성",
+        "7": "액체 금속이 유기적인 형태로 흐르는 루핑 비디오 생성",
+        "8": "사진 배경을 빛줄기가 있는 수중 장면으로 변환",
+        "9": "네온 사인과 반사가 있는 미래 지향적인 도시 풍경 비디오 생성"
+      },
+      "research": {
+        "0": "양자 컴퓨팅의 신흥 트렌드 및 잠재적 비즈니스 애플리케이션 분석",
+        "1": "기능 비교를 포함한 AI 기반 CRM 분야 상위 10개 경쟁사 조사",
+        "2": "EU 내 핀테크 앱 출시를 위한 규제 요구 사항 조사",
+        "3": "주요 시장의 전기차 보급률에 대한 시장 분석 보고서 작성",
+        "4": "원격 근무가 주요 도시의 상업용 부동산 수요에 미치는 영향 연구",
+        "5": "포춘 500대 기업의 Web3 채택 패턴 조사",
+        "6": "지속 가능한 패션 브랜드에 대한 소비자 감정 분석",
+        "7": "희귀 질환을 위한 유전자 치료의 최신 개발 현황 조사",
+        "8": "성공적인 D2C 구독 박스 기업의 가격 전략 연구",
+        "9": "AI 기반 사이버 보안 솔루션의 경쟁 환경 조사"
+      }
+    }
+  },
+  "announcements": {
+    "memories": {
+      "title": "메모리 기능 도입",
+      "description": "이제 SuperAgent가 모든 대화에서 귀하의 선호도와 문맥을 기억합니다",
+      "features": {
+        "personalized": {
+          "title": "개인화된 경험",
+          "description": "시간이 지남에 따라 귀하의 업무 스타일에 맞게 적응합니다"
+        },
+        "retention": {
+          "title": "문맥 유지",
+          "description": "채팅 전반에 걸쳐 중요한 세부 정보를 기억합니다"
+        },
+        "control": {
+          "title": "사용자 제어",
+          "description": "언제든지 기억을 끄거나 지울 수 있습니다"
+        }
+      },
+      "manageButton": "메모리 관리",
+      "dismissButton": "확인"
+    }
+  }
+}
