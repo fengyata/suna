@@ -1605,5 +1605,18 @@
       "manageButton": "إدارة الذكريات",
       "dismissButton": "فهمت"
     }
+  },
+  "share": {
+    "Shared": "تمت المشاركة",
+    "copy_share_link": "نسخ رابط المشاركة",
+    "share": "مشاركة",
+    "copied": "تم النسخ!",
+    "copy_link": "نسخ الرابط",
+    "please_describe_your_targeting_audience_or_companies": "يرجى وصف جمهورك المستهدف أو شركاتك",
+    "you_are_about_to_watch_a_replay_of": "أنت على وشك مشاهدة إعادة عرض لـ",
+    "playback_will_begin_automatically_in": "سيبدأ التشغيل تلقائيًا خلال",
+    "seconds": "ثواني",
+    "play": "تشغيل",
+    "this_chat_is_publicly_accessible": "هذه الدردشة متاحة للجمهور. يمكن لأي شخص لديه الرابط عرض هذه المحادثة."
   }
 }

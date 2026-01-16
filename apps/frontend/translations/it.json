@@ -1510,6 +1510,19 @@
       "manageButton": "Gestisci Memorie",
       "dismissButton": "Capito"
     }
+  },
+  "share": {
+    "Shared": "Condiviso",
+    "copy_share_link": "Copia link di condivisione",
+    "share": "Condividi",
+    "copied": "Copiato!",
+    "copy_link": "Copia link",
+    "please_describe_your_targeting_audience_or_companies": "Descrivi il tuo pubblico o le tue aziende target",
+    "you_are_about_to_watch_a_replay_of": "Stai per guardare un replay di",
+    "playback_will_begin_automatically_in": "La riproduzione inizierà automaticamente tra",
+    "seconds": "secondi",
+    "play": "Riproduci",
+    "this_chat_is_publicly_accessible": "Questa chat è accessibile pubblicamente. Chiunque abbia il link può visualizzare questa conversazione."
   }
 }
 

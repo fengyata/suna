@@ -1605,5 +1605,18 @@
       "manageButton": "Zarządzaj Memories",
       "dismissButton": "Rozumiem"
     }
+  },
+  "share": {
+    "Shared": "Udostępniono",
+    "copy_share_link": "Kopiuj link do udostępnienia",
+    "share": "Udostępnij",
+    "copied": "Skopiowano!",
+    "copy_link": "Kopiuj link",
+    "please_describe_your_targeting_audience_or_companies": "Opisz swoją grupę docelową lub firmy",
+    "you_are_about_to_watch_a_replay_of": "Zaraz obejrzysz powtórkę",
+    "playback_will_begin_automatically_in": "Odtwarzanie rozpocznie się automatycznie za",
+    "seconds": "sekund",
+    "play": "Odtwórz",
+    "this_chat_is_publicly_accessible": "Ten czat jest publicznie dostępny. Każdy, kto ma link, może zobaczyć tę rozmowę."
   }
 }

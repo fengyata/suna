@@ -1605,5 +1605,18 @@
       "manageButton": "Administrer Memories",
       "dismissButton": "Forstået"
     }
+  },
+  "share": {
+    "Shared": "Delt",
+    "copy_share_link": "Kopier delingslink",
+    "share": "Del",
+    "copied": "Kopieret!",
+    "copy_link": "Kopier link",
+    "please_describe_your_targeting_audience_or_companies": "Beskriv venligst din målgruppe eller virksomheder",
+    "you_are_about_to_watch_a_replay_of": "Du er ved at se en genafspilning af",
+    "playback_will_begin_automatically_in": "Afspilning starter automatisk om",
+    "seconds": "sekunder",
+    "play": "Afspil",
+    "this_chat_is_publicly_accessible": "Denne chat er offentligt tilgængelig. Enhver med linket kan se denne samtale."
   }
 }

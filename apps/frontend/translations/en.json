@@ -1605,6 +1605,19 @@
       "manageButton": "Manage Memories",
       "dismissButton": "Got it"
     }
+  },
+  "share": {
+    "Shared": "Shared",
+    "copy_share_link": "Copy share link",
+    "share": "Share",
+    "copied": "Copied!",
+    "copy_link": "Copy link",
+    "please_describe_your_targeting_audience_or_companies": "Please describe your targeting audience or companies",
+    "you_are_about_to_watch_a_replay_of": "You are about to watch a replay of",
+    "playback_will_begin_automatically_in": "Playback will begin automatically in",
+    "seconds": "seconds",
+    "play": "Play",
+    "this_chat_is_publicly_accessible": "This chat is publicly accessible. Anyone with the link can view this conversation."
   }
 }
 

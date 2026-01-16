@@ -1605,5 +1605,18 @@
       "manageButton": "Memories beheren",
       "dismissButton": "Begrepen"
     }
+  },
+  "share": {
+    "Shared": "Gedeeld",
+    "copy_share_link": "Deelkoppeling kopiëren",
+    "share": "Delen",
+    "copied": "Gekopieerd!",
+    "copy_link": "Link kopiëren",
+    "please_describe_your_targeting_audience_or_companies": "Beschrijf uw doelgroep of bedrijven",
+    "you_are_about_to_watch_a_replay_of": "U staat op het punt een herhaling te bekijken van",
+    "playback_will_begin_automatically_in": "Het afspelen begint automatisch over",
+    "seconds": "seconden",
+    "play": "Afspelen",
+    "this_chat_is_publicly_accessible": "Deze chat is openbaar toegankelijk. Iedereen met de link kan dit gesprek bekijken."
   }
 }

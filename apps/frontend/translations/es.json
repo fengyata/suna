@@ -1597,5 +1597,18 @@
       "manageButton": "Administrar Memorias",
       "dismissButton": "Entendido"
     }
+  },
+  "share": {
+    "Shared": "Compartido",
+    "copy_share_link": "Copiar enlace de compartir",
+    "share": "Compartir",
+    "copied": "¡Copiado!",
+    "copy_link": "Copiar enlace",
+    "please_describe_your_targeting_audience_or_companies": "Por favor, describa su audiencia o empresas objetivo",
+    "you_are_about_to_watch_a_replay_of": "Está a punto de ver una repetición de",
+    "playback_will_begin_automatically_in": "La reproducción comenzará automáticamente en",
+    "seconds": "segundos",
+    "play": "Reproducir",
+    "this_chat_is_publicly_accessible": "Este chat es accesible públicamente. Cualquier persona con el enlace può ver esta conversación."
   }
 }

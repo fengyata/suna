@@ -8,6 +8,7 @@ import { Check, Copy, Globe, Link2, Loader2 } from "lucide-react"
 import { toast } from "sonner"
 import { useThreadQuery, useUpdateThreadMutation } from "@/hooks/threads/use-threads"
 import { cn } from "@/lib/utils"
+import { useTranslations } from 'next-intl';
 
 interface SharePopoverProps {
   threadId?: string
@@ -51,6 +52,7 @@ export function SharePopover({
   open: controlledOpen,
   onOpenChange: controlledOnOpenChange
 }: SharePopoverProps) {
+  const t = useTranslations("share")
   const [internalOpen, setInternalOpen] = useState(false)
   const [copied, setCopied] = useState(false)
   const copiedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -141,7 +143,7 @@ export function SharePopover({
         <div className="h-full p-5 flex flex-col">
           <DialogHeader className="space-y-0 shrink-0">
             <DialogTitle className="text-sm font-semibold text-slate-900 flex items-center gap-2">
-              <span>Share</span>
+              <span>{t("share")}</span>
               {!isPublic && isEnablingShare ? (
                 <Loader2 className="h-4 w-4 text-slate-500 animate-spin" />
               ) : null}
@@ -153,7 +155,7 @@ export function SharePopover({
             <div className="rounded-2xl p-4 flex items-start gap-3 shrink-0">
               <Globe className="h-4 w-4 text-slate-500 mt-0.5 shrink-0" />
               <p className="text-sm leading-5 text-slate-600 line-clamp-2">
-                This chat is publicly accessible. Anyone with the link can view this conversation.
+                {t("this_chat_is_publicly_accessible")}
               </p>
             </div>
 
@@ -188,7 +190,7 @@ export function SharePopover({
                 ) : (
                   <Link2 className="h-4 w-4" />
                 )}
-                <span>{copied ? 'Copied' : 'Copy link'}</span>
+                <span>{copied ? t("copied") : t("copy_link")}</span>
               </Button>
             </div>
           </div>

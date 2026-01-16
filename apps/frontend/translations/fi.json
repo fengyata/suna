@@ -1605,5 +1605,18 @@
       "manageButton": "Hallitse Memories-toimintoa",
       "dismissButton": "Selvä"
     }
+  },
+  "share": {
+    "Shared": "Jaettu",
+    "copy_share_link": "Kopioi jakolinkki",
+    "share": "Jaa",
+    "copied": "Kopioitu!",
+    "copy_link": "Kopioi linkki",
+    "please_describe_your_targeting_audience_or_companies": "Kuvaile kohdeyleisösi tai yrityksesi",
+    "you_are_about_to_watch_a_replay_of": "Olet katsomassa tallennetta kohteesta",
+    "playback_will_begin_automatically_in": "Toisto alkaa automaattisesti",
+    "seconds": "sekunnin kuluttua",
+    "play": "Toista",
+    "this_chat_is_publicly_accessible": "Tämä chat on julkisesti saatavilla. Kuka tahansa linkin omaava voi tarkastella tätä keskustelua."
   }
 }
