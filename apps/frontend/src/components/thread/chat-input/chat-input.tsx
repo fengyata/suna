@@ -152,7 +152,7 @@ const IsolatedTextarea = memo(forwardRef<HTMLTextAreaElement, IsolatedTextareaPr
       e.preventDefault();
       const hasContent = value.trim().length > 0;
       if (
-        (hasContent || hasFiles) &&
+        hasContent &&
         !loading &&
         (!disabled || isAgentRunning) &&
         !isUploading
@@ -160,7 +160,7 @@ const IsolatedTextarea = memo(forwardRef<HTMLTextAreaElement, IsolatedTextareaPr
         onSubmit();
       }
     }
-  }, [value, hasFiles, loading, disabled, isAgentRunning, isUploading, onSubmit, isMobile]);
+  }, [value, loading, disabled, isAgentRunning, isUploading, onSubmit, isMobile]);
 
   // Expose methods to clear/set value from parent
   useEffect(() => {
@@ -579,25 +579,78 @@ const SubmitButton = memo(function SubmitButton({
   buttonLoaderVariant,
   pendingFilesCount,
 }: SubmitButtonProps) {
+  const [isClickLocked, setIsClickLocked] = useState(false);
+  const debounceTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current) {
+        window.clearTimeout(debounceTimerRef.current);
+        debounceTimerRef.current = null;
+      }
+    };
+  }, []);
+
   const isDisabled = 
-    (!hasContent && !hasFiles && !isAgentRunning) ||
+    // When NOT running, require some input content (text or files) to submit
+    (!isAgentRunning && !hasContent) ||
     loading ||
     (disabled && !isAgentRunning) ||
-    isUploading;
+    isUploading ||
+    isClickLocked;
 
   // Message queue feature flag
   const ENABLE_MESSAGE_QUEUE = false;
   // When agent is running and user has typed something, show queue button
-  const showAddToQueue = ENABLE_MESSAGE_QUEUE && isAgentRunning && (hasContent || hasFiles);
-  const buttonAction = showAddToQueue ? onSubmit : (isAgentRunning && onStopAgent ? onStopAgent : onSubmit);
+  const showAddToQueue = ENABLE_MESSAGE_QUEUE && isAgentRunning && hasContent;
+
+  const isStopAction = !showAddToQueue && isAgentRunning && !!onStopAgent;
+  const buttonType: 'submit' | 'button' = isStopAction ? 'button' : 'submit';
+
+  const handleClick = useCallback(
+    (e: React.MouseEvent) => {
+      // If disabled, do nothing
+      if (isDisabled) {
+        e.preventDefault();
+        return;
+      }
+
+      // Stop action should not submit the form
+      if (isStopAction && onStopAgent) {
+        e.preventDefault();
+        // Prevent rapid double stop clicks as well
+        if (isClickLocked) return;
+        setIsClickLocked(true);
+        debounceTimerRef.current = window.setTimeout(() => setIsClickLocked(false), 600);
+        onStopAgent();
+        return;
+      }
+
+      // Debounce submit/queue to prevent double clicking
+      if (isClickLocked) {
+        e.preventDefault();
+        return;
+      }
+
+      // Always prevent native submit; we'll call the submit handler ourselves
+      // to avoid the click-lock turning the button disabled before browser submit runs.
+      e.preventDefault();
+      setIsClickLocked(true);
+      debounceTimerRef.current = window.setTimeout(() => setIsClickLocked(false), 600);
+
+      // Trigger submit handler directly (works for normal submit + future queue mode)
+      onSubmit({ preventDefault: () => {} } as any);
+    },
+    [isDisabled, isStopAction, onStopAgent, isClickLocked, onSubmit],
+  );
 
   return (
     <div className="relative">
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
-            type="submit"
-            onClick={buttonAction}
+            type={buttonType}
+            onClick={handleClick}
             size="sm"
             className={cn(
               "flex-shrink-0 self-end border-[1.5px] border-border rounded-2xl relative z-10 transition-all duration-200",
