@@ -31,6 +31,14 @@
     "basic": "Perus",
     "tryFree": "Aloita"
   },
+  "meetingAgent": {
+    "tooltip": "Hae kokousmerkintöjä",
+    "loginRequired": "Kirjaudu sisään nähdäksesi kokousmerkinnät",
+    "connectFailed": "Kokousmerkintöihin ei saada yhteyttä FlashRevissä, yritä myöhemmin uudelleen",
+    "disconnectFailed": "Kokousmerkintöjen katkaisu epäonnistui, yritä myöhemmin uudelleen",
+    "missingTool": "Kokoushakutyökalu ei ole käytettävissä, yritä myöhemmin uudelleen",
+    "missingConfig": "Meeting MCP ei ole määritetty"
+  },
   "settings": {
     "title": "Asetukset",
     "tabs": {

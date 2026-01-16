@@ -31,6 +31,14 @@
     "basic": "Basique",
     "tryFree": "Commencer"
   },
+  "meetingAgent": {
+    "tooltip": "Rechercher les comptes rendus de réunion",
+    "loginRequired": "Connectez-vous pour accéder aux comptes rendus de réunion",
+    "connectFailed": "Impossible d'accéder aux comptes rendus de réunion dans FlashRev, veuillez réessayer plus tard",
+    "disconnectFailed": "Échec de la déconnexion des comptes rendus de réunion, veuillez réessayer plus tard",
+    "missingTool": "L'outil de recherche de réunion est indisponible, veuillez réessayer plus tard",
+    "missingConfig": "Meeting MCP n'est pas configuré"
+  },
   "settings": {
     "title": "Paramètres",
     "tabs": {

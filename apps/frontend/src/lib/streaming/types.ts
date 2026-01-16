@@ -71,6 +71,8 @@ export interface AccumulatedToolCall {
     index?: number;
   };
   chunks: Array<{ sequence: number; delta: string }>;
+  fullArguments: string;
+  lastSequence: number;
 }
 
 export interface ReconstructedToolCall {

@@ -31,6 +31,14 @@
     "basic": "Bas",
     "tryFree": "Kom igång"
   },
+  "meetingAgent": {
+    "tooltip": "Sök mötesposter",
+    "loginRequired": "Logga in för att komma åt mötesposter",
+    "connectFailed": "Kan inte komma åt mötesposter i FlashRev, försök igen senare",
+    "disconnectFailed": "Misslyckades att koppla från mötesposter, försök igen senare",
+    "missingTool": "Mötesökverktyget är inte tillgängligt, försök igen senare",
+    "missingConfig": "Meeting MCP är inte konfigurerad"
+  },
   "settings": {
     "title": "Inställningar",
     "tabs": {

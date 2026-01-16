@@ -31,6 +31,14 @@
     "basic": "Podstawowy",
     "tryFree": "Rozpocznij"
   },
+  "meetingAgent": {
+    "tooltip": "Wyszukaj zapisy spotkań",
+    "loginRequired": "Zaloguj się, aby uzyskać dostęp do zapisów spotkań",
+    "connectFailed": "Nie można uzyskać dostępu do zapisów spotkań w FlashRev, spróbuj ponownie później",
+    "disconnectFailed": "Nie udało się rozłączyć zapisów spotkań, spróbuj ponownie później",
+    "missingTool": "Narzędzie wyszukiwania spotkań jest niedostępne, spróbuj ponownie później",
+    "missingConfig": "Meeting MCP nie jest skonfigurowany"
+  },
   "settings": {
     "title": "Ustawienia",
     "tabs": {

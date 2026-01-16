@@ -31,6 +31,14 @@
     "basic": "Basis",
     "tryFree": "Loslegen"
   },
+  "meetingAgent": {
+    "tooltip": "Meeting-Aufzeichnungen suchen",
+    "loginRequired": "Bitte anmelden, um auf Meeting-Aufzeichnungen zuzugreifen",
+    "connectFailed": "Zugriff auf Meeting-Aufzeichnungen in FlashRev nicht möglich, bitte später erneut versuchen",
+    "disconnectFailed": "Trennen der Meeting-Aufzeichnungen fehlgeschlagen, bitte später erneut versuchen",
+    "missingTool": "Das Meeting-Suchtool ist nicht verfügbar, bitte später erneut versuchen",
+    "missingConfig": "Meeting MCP ist nicht konfiguriert"
+  },
   "settings": {
     "title": "Einstellungen",
     "tabs": {

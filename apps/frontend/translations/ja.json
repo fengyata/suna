@@ -31,6 +31,14 @@
     "basic": "ベーシック",
     "tryFree": "始める"
   },
+  "meetingAgent": {
+    "tooltip": "会議記録を検索",
+    "loginRequired": "会議記録にアクセスするにはログインしてください",
+    "connectFailed": "FlashRev の会議記録にアクセスできません。しばらくしてから再試行してください",
+    "disconnectFailed": "会議記録の切断に失敗しました。しばらくしてから再試行してください",
+    "missingTool": "会議検索ツールが利用できません。しばらくしてから再試行してください",
+    "missingConfig": "会議 MCP が設定されていません"
+  },
   "settings": {
     "title": "設定",
     "tabs": {
